@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Welcome Toe ELF"
+        android:gravity="center"
+        android:id="@+id/registration_welcome_text"
+        android:layout_marginTop="12dp"
+
+        android:textSize="24sp"/>
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_below="@id/registration_welcome_text"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_margin="12dp"
+
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.elf.elfstudent.CustomUI.HelviticaMedium
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nregister_settext"
+                android:text="Enter your Details"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="16dp"
+                android:textSize="22sp"
+                android:textColor="@color/colorAccent" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:id="@+id/nregister_name"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:textColorHint="#3083c9"
+                android:layout_below="@+id/nregister_settext"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginRight="32dp">
+
+                <com.elf.elfstudent.CustomUI.IosLightEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:id="@+id/nregister_pass"
+                android:layout_below="@id/nregister_name"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:textColorHint="#3083c9"
+                android:layout_marginTop="35dp"
+                android:layout_marginRight="32dp"
+                android:layout_alignLeft="@+id/nregister_name"
+                android:layout_alignStart="@+id/nregister_name">
+
+                <com.elf.elfstudent.CustomUI.IosLightEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:id="@+id/nregister_phone"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:textColorHint="#3083c9"
+                android:layout_below="@+id/nregister_pass"
+                android:layout_marginTop="35dp"
+                android:layout_marginRight="32dp"
+                android:layout_alignLeft="@+id/nregister_pass"
+                android:layout_alignStart="@+id/nregister_pass">
+
+                <com.elf.elfstudent.CustomUI.IosLightEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.design.widget.TextInputLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_users"
+                android:id="@+id/imageView6"
+                android:layout_alignTop="@+id/nregister_name"
+
+                android:padding="10dp"
+                android:layout_alignBottom="@+id/nregister_name"
+                android:layout_alignLeft="@+id/nregister_settext"
+                android:layout_alignStart="@+id/nregister_settext" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_smartphone"
+                android:layout_alignTop="@+id/nregister_phone"
+                android:layout_alignRight="@+id/imageView9"
+                android:layout_alignEnd="@+id/imageView9"
+                android:id="@+id/imageView10"
+                android:layout_alignLeft="@+id/imageView9"
+                android:layout_alignStart="@+id/imageView9"
+                android:padding="10dp"
+                android:layout_alignBottom="@+id/nregister_phone" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_padlock"
+                android:id="@+id/imageView9"
+                android:padding="10dp"
+                android:layout_alignTop="@+id/nregister_pass"
+                android:layout_alignLeft="@+id/imageView6"
+                android:layout_alignStart="@+id/imageView6" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:text="Enter"
+                android:id="@+id/nregister_submit"
+                android:layout_alignParentBottom="true"
+                android:layout_alignLeft="@+id/nregister_settext"
+                android:layout_alignStart="@+id/nregister_settext"
+                android:layout_alignRight="@+id/nregister_phone"
+                android:layout_alignEnd="@+id/nregister_phone" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
