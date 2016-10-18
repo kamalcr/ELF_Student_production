@@ -100,6 +100,53 @@ public class DataStore {
 
     }
 
+    public  String getStateId() {
+        return mSharedPrefrences.getString(STATE_ID,null);
+    }
+
+    public  String getStudentId() {
+        return mSharedPrefrences.getString(STUDENT_ID,null);
+    }
+
+    public  String getStateName() {
+        return mSharedPrefrences.getString(STATE_NAME,null);
+    }
+
+    public  String getUserName() {
+        return mSharedPrefrences.getString(USER_NAME_TAG,null);
+    }
+
+    public  String getPhoneNumberTag() {
+        return mSharedPrefrences.getString(PHONE_NUMBER_TAG,null);
+    }
+
+    public  String getBoardId() {
+        return mSharedPrefrences.getString(BOARD_ID,null);
+    }
+
+    public  String getBoardName() {
+        return mSharedPrefrences.getString(BOARD_NAME,null);
+    }
+
+    public  String getEmailId() {
+        return mSharedPrefrences.getString(EMAIL_ID_TAG,null);
+    }
+
+    public  String getInstituionName() {
+        return mSharedPrefrences.getString(INSTITUION_NAME,null);
+    }
+    public  String getInstituionId() {
+        return mSharedPrefrences.getString(INSTITUTION_ID,null);
+
+
+    }
+
+
+    public  void setIsFirstTime(boolean value) {
+        editor.putBoolean(IS_FIRST_TIME,value);
+        editor.commit();
+    }
+
     public  boolean isFirstTime(){
         return mSharedPrefrences.getBoolean(IS_FIRST_TIME,true);
     }
