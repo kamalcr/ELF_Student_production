@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.elf.elfstudent.Adapters.ViewPagerAdapters.TestPagerAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
+import com.elf.elfstudent.Fragments.AllTestFragment10;
 import com.elf.elfstudent.R;
 
 import butterknife.BindView;
@@ -15,13 +16,19 @@ import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 18/10/16.
- * THe ACitivtity that is used to Browse Tests
- * IT has a view pager which has 3 fragments
+ * THe Activity that is used to Browse Tests
+ * It has a view pager which has 3 fragments
  *   {
+ *    {@link AllTestFragment10}
+ *    {@link com.elf.elfstudent.Fragments.PublicTestFragmet}
+ *    {@link com.elf.elfstudent.Fragments.RecommendedTestFragment}
  *
+ *    this is provided by {@link TestPagerAdapter}
  *
  *
  *   }
+ *
+ *   supply each Fragment with Student iD or Data Store
  */
 
 public class BrowseTestActivity extends AppCompatActivity {
@@ -50,6 +57,14 @@ public class BrowseTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.browse_test_activity);
         ButterKnife.bind(this);
+        mAdapter = new TestPagerAdapter(getSupportFragmentManager());
+
+        if (mAdapter != null) {
+
+            mPager.setAdapter(mAdapter);
+        }
+
+        mTab.setupWithViewPager(mPager);
     }
 
     @Override

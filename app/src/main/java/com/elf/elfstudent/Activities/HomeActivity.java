@@ -1,16 +1,38 @@
 package com.elf.elfstudent.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.elf.elfstudent.Adapters.SubjectHomeAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.CustomUI.RoundedImageView;
 import com.elf.elfstudent.CustomUI.SansRegularTextview;
 import com.elf.elfstudent.DataStorage.DataStore;
+import com.elf.elfstudent.Network.AppRequestQueue;
+import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.R;
+import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.ScreenUtil;
+import com.elf.elfstudent.model.SubjectModel;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +42,11 @@ import butterknife.ButterKnife;
  * The Home Acitivity
  *
  */
-public class HomeActivity extends AppCompatActivity{
+public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapter.onCardClick {
+
+
+    private static final String HOME_URL = "http://www.hijazboutique.com/elf_ws.svc/GetStudentDashboard";
+    private static final String TAG = "HOME_ACITIVYT";
 
 
     DataStore mStore;
@@ -60,11 +86,20 @@ public class HomeActivity extends AppCompatActivity{
     //The Subject List
 
     @BindView(R.id.home_list)
-    RecyclerView mSubjectList;
+    RecyclerView mList;
+
+
+    //The Adapter for The list
+    SubjectHomeAdapter mSubjectAdapter;
 
     //The Progress Bar
     @BindView(R.id.home_progress_bar)
     AVLoadingIndicatorView mProgressbar;
+
+    //The Request Queue
+    private AppRequestQueue mRequestQueue= null;
+    private List<SubjectModel> mSubjectList;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +109,10 @@ public class HomeActivity extends AppCompatActivity{
         //get The details for this User from Shared PRefs
         mStore  = DataStore.getStorageInstance(this.getApplicationContext());
 
+        //initialising Request Queue
+        mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
+
+        prepareDashBoardFor("1");
 
 
 
@@ -82,43 +121,167 @@ public class HomeActivity extends AppCompatActivity{
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    private void prepareDashBoardFor(String studentId) {
+        JSONObject mReqObjects = new JSONObject();
+        try {
+
+
+            //// TODO: 23/8/16 dynamic student id
+            mReqObjects.put("studentId", studentId);
+
+        }
+        catch (Exception e) {
+
+        }
+        JsonArrayRequest mReq = new JsonArrayRequest(Request.Method.POST, HOME_URL, mReqObjects, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                processResponse(response);
+            }
+        }, new ErrorHandler());
+        Log.d(TAG, "onCreate: making request");
+        mRequestQueue.addToRequestQue(mReq);
+
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+
+    /*
+    * Response is Obtained Stop SHoing Progress Bar
+    * and Update the View
+    * */
+    private void processResponse(JSONArray response) {
+        if (mSubjectList == null) {
+            mSubjectList = new ArrayList<>();
+        }
+        try {
+
+
+            //the full objet ,from object get array  -- rank + subject list
+            JSONObject mObject = response.getJSONObject(0);
+
+
+            Log.d(TAG, "Full Response "+mObject.toString());
+            // the rank array  has one array element(object) ,
+            // subject array has dynamic array elements (objects)
+            JSONArray mRankArray = mObject.getJSONArray("rank");
+
+
+            Log.d(TAG, "Rank Array: "+mRankArray.toString());
+
+
+            JSONArray mSubjectArray = mObject.getJSONArray("subjects");
+
+            //get the first rank object which has list of key value pairs
+            JSONObject mRankObject = mRankArray.getJSONObject(0);
+
+            Log.d(TAG, "Rank Objects "+mRankObject.toString());
+
+
+            // loop through subject list
+            for (int i = 0; i < mSubjectArray.length(); i++) {
+
+                // add to subject model
+                JSONObject mSubject = mSubjectArray.getJSONObject(i);
+                mSubjectList.add(new SubjectModel(mSubject.getString("SubjectName")
+                        , mSubject.getString("SubjectId")
+                        , mSubject.getString("Percentage")));
+
+
+            }
+            Log.d(TAG, "processResponse: ");
+
+            if (mProgressbar.isShown()) {
+                mProgressbar.setVisibility(View.INVISIBLE);
+            }
+            if (!mList.isShown()) {
+                mList.setVisibility(View.VISIBLE);
+            }
+            mSubjectAdapter = new SubjectHomeAdapter(getApplicationContext(), mSubjectList, this);
+
+
+//            mSubjectAdapterReady = true;
+            Log.d(TAG, "settting adpater");
+
+            mList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            mList.setAdapter(mSubjectAdapter);
+
+
+        } catch (Exception e) {
+            Log.d(TAG, "processResponse: ");
+        }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
+        @Override
+        protected void onDestroy () {
+            super.onDestroy();
+        }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
+        @Override
+        protected void onSaveInstanceState (Bundle outState){
+            super.onSaveInstanceState(outState);
+        }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
+        @Override
+        protected void onStart () {
+            super.onStart();
+        }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
+        @Override
+        protected void onStop () {
+            super.onStop();
+        }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+        @Override
+        public void onBackPressed () {
+            super.onBackPressed();
+        }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+        @Override
+        protected void onPause () {
+            super.onPause();
+        }
+
+        @Override
+        protected void onResume () {
+            super.onResume();
+        }
+
+        @Override
+        protected void onRestoreInstanceState (Bundle savedInstanceState){
+            super.onRestoreInstanceState(savedInstanceState);
+        }
+
+
+        @Override
+        public void InfoButtonClicked(int position, View itemView){
+
+            //get the view and transition Name of views
+          HelviticaLight subjectName = (HelviticaLight) itemView.findViewById(R.id.subject_title);
+            String subTransName = ViewCompat.getTransitionName(subjectName);
+            CardView viewRoot = (CardView) itemView;
+            String root_transName = ViewCompat.getTransitionName(viewRoot);
+            HelviticaLight percentText = (HelviticaLight) itemView.findViewById(R.id.percent);
+            String percentTransName = ViewCompat.getTransitionName(percentText);
+
+            //Intent for Next Activity
+            Intent i = new Intent(this,SubjectViewActivity.class);
+            i.putExtra(BundleKey.SUBJECT_NAME,subjectName.getText());
+            i.putExtra(BundleKey.PERCENTAGE,percentText.getText());
+            i.putExtra(BundleKey.ROOT_VIEW_TRANS_NAME,root_transName);
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(this, (View)viewRoot, root_transName);
+            if (ScreenUtil.isAndroid5()){
+
+                startActivity(i, options.toBundle());
+            }else{
+                startActivity(i);
+            }
+        }
+
+        @Override
+        public void DetailsButtonClicked(int position, View itemView){
+
+
+        }
     }
-}

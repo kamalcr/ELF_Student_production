@@ -16,4 +16,16 @@
     <color name="black_viewpager">#35363F</color>
     <color name="black_900">#424242</color>
 
+    <color name="phsycis_bg">#607D8B</color>
+    <color name="chem_bg">#1E88E5</color>
+    <color name="bio_bg">#66BB6A</color>
+    <color name="maths_bg">#EF5350</color>
+    <color name="white">#FFFFFF</color>
+    <color name="pie_hole">#302263</color>
+
+    <color name="blue400">#42A5F5</color>
+    <color name="indigo900">#1A237E</color>
+    <color name="pink900">#AA00FF</color>
+
+
 </resources>

@@ -72,7 +72,7 @@ public class InstitutePage extends AppCompatActivity {
 
     String boardId = null;
     String stateId= null;
-    SchoolListAdapter mSchoolAdapter= null;
+//    SchoolListAdapter mSchoolAdapter= null;
 
 
     @Override

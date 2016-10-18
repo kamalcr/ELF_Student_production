@@ -23,6 +23,24 @@
         <activity android:name=".Activities.RegisterActivity"
             android:exported="true"/>
 
+        <activity android:name=".Activities.TestPageActivity"
+            android:exported="true"/>
+        <activity android:name=".Activities.LoginActivity"
+            android:exported="true"/>
+        <activity android:name=".Activities.BrowseTestActivity"
+            android:exported="true"/>
+        <activity android:name=".Activities.ReportActivity"
+            android:exported="true"/>
+        <activity android:name=".Activities.TestCompletedActivity"
+            android:exported="true"/>
+        <activity android:name=".Activities.TestReportsActivity"
+            android:exported="true"/>
+        <activity android:name=".Activities.SingleTestReportActivity"
+            android:exported="true"/>
+
+        <activity android:name=".Activities.SubjectViewActivity"/>
+
+
 
     </application>
 

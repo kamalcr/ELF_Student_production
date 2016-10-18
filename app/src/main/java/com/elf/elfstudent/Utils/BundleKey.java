@@ -27,4 +27,8 @@ public class BundleKey {
 
 
     public static final String ARG_PASWORD = "PASSWORD";
+    public static final String SUBJECT_NAME = "SUBJECT_NAME";
+    public static final String TEST_DESC = "TEST_DESCRIPTION";
+    public static final String PERCENTAGE = "PERCENTAGE";
+    public static final String ROOT_VIEW_TRANS_NAME = "ROOT_TRANS_NAME";
 }

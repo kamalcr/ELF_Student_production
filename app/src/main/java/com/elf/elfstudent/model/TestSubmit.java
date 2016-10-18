@@ -39,6 +39,12 @@ public class TestSubmit {
 
         questionSet= new HashMap<>(qCount);
     }
+
+
+    public HashMap<String, String> getQuestionSet() {
+        return questionSet;
+    }
+
     public void setAnswerForQuestion(String questionId, String optionSelected){
         if (questionSet != null){
 
