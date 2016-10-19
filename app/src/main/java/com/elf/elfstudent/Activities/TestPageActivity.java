@@ -46,7 +46,7 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
  * {@param testiD from Intent and Displays Them in View pager}
  */
 
-public class TestPageActivity extends AppCompatActivity {
+public class TestPageActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks {
     private static final String TAG = "TestWritePage";
     private static final String TEST_SUBMIT = "";
     private static final String GET_QUESTIONS_URL = "http://www.hijazboutique.com/elf_ws.svc/GetTestQuestions";
@@ -96,6 +96,9 @@ public class TestPageActivity extends AppCompatActivity {
     private String mTestDesc = null;
 
 
+    //Error Handler for Volley
+    ErrorHandler errorHandler ;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,6 +121,8 @@ public class TestPageActivity extends AppCompatActivity {
 
         //get Question From webServices , until then
         //SHow progress Dialog or Some Animation
+
+        errorHandler = new ErrorHandler(this);
 
         prepareTestQuestionsFor(mTestId,mSubjectId);
 
@@ -249,7 +254,7 @@ public class TestPageActivity extends AppCompatActivity {
 
 
             }
-        }, new ErrorHandler());
+        }, errorHandler);
 
 
         mRequestQueue.addToRequestQue(mRequest);
@@ -375,5 +380,20 @@ public class TestPageActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void TimeoutError() {
+
+    }
+
+    @Override
+    public void NetworkError() {
+
+    }
+
+    @Override
+    public void ServerError() {
+
     }
 }

@@ -61,7 +61,8 @@ public void onBindViewHolder(HomeHolder holder, int position) {
         holder.mTitle.setText(mSubjectList.get(position).getmSubjectName());
         ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");
         ViewCompat.setTransitionName(holder.mPercent, String.valueOf(position) + "_sub");
-        ViewCompat.setTransitionName(holder.mRootView,String.valueOf(position)+ "_root");
+        ViewCompat.setTransitionName(holder.mRootView,String.valueOf(position) + "_root");
+        ViewCompat.setTransitionName(holder.mSubjectImage,String.valueOf(position) + "_img");
 
 
         }
@@ -109,6 +110,8 @@ public static class HomeHolder extends RecyclerView.ViewHolder implements View.O
 
     @BindView(R.id.imageView3)
     ImageView mInfoButton;
+
+    @BindView(R.id.home_card_sub_imageview) ImageView mSubjectImage;
 
 
     onCardClick mCall;

@@ -6,7 +6,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         
+    </style>
+
+    <style name="sub_view_list_text">
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black_900</item>
     </style>
 
 </resources>

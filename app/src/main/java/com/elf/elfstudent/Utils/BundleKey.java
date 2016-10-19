@@ -14,7 +14,7 @@ public class BundleKey {
     public static final String VIEW_ROOT  = "CARD_ROOT";
 
     //Bundle keywords for saving Resoring Instance states
-    public static final String ARG_USER_NAME_TAG = "USER_NAME";
+    public static final String ARG_USER_NAME_TAG = "LOGIN_USER_NAME";
     public static final String ARG_PHONE_NUMBER_TAG  = "PHONE_NUMBER";
     public static final String ARG_EMAIL_ID_TAG = "EMAIL_ID";
     public static final String ARG_STATE_ID = "STATE_ID";
@@ -27,8 +27,18 @@ public class BundleKey {
 
 
     public static final String ARG_PASWORD = "PASSWORD";
+    
+    
+    //Hom Activity Bundle Keys
     public static final String SUBJECT_NAME = "SUBJECT_NAME";
     public static final String TEST_DESC = "TEST_DESCRIPTION";
     public static final String PERCENTAGE = "PERCENTAGE";
     public static final String ROOT_VIEW_TRANS_NAME = "ROOT_TRANS_NAME";
+    public static final String HOME_SUBJECT_TRANS_NAME = "SUB_TRANS_NAME";
+    public static final String HOME_PERCENT_TRANS_NAME = "PERCENT_TRANS_NAME";
+
+    //Report Pages Bundle Keys
+    public static final String REPORT_OVERALL ="OVERALL" ;
+
+    public static String HOME_SUBJECT_IMAGE_TRANS_NAME = "SUBJECT_IMAGE_TRANS_NAME";
 }

@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
  * Created by nandhu on 18/10/16.
  * This Fragment gets called only for 10th Standard
  */
-public class AllTestFragment10 extends Fragment implements  TestLessonAdapter.OnTestViewClick {
+public class AllTestFragment10 extends Fragment implements  TestLessonAdapter.OnTestViewClick, ErrorHandler.ErrorHandlerCallbacks {
 
     @BindView(R.id.all_phy_text)
     HelviticaMedium mPhyText;
@@ -66,6 +66,9 @@ public class AllTestFragment10 extends Fragment implements  TestLessonAdapter.On
 
 
 
+    //Error handler
+    ErrorHandler errorHandler;
+
 
     private boolean adapterSet = false;
     LinearLayoutManager mLayoutManager = null;
@@ -87,8 +90,9 @@ public class AllTestFragment10 extends Fragment implements  TestLessonAdapter.On
         //get tests to write for that student .. it is overall
         mRequestQue = AppRequestQueue.getInstance(getContext());
         String mStdId = mStore.getStudentId();
-        prepareTests(mStdId);
 
+        errorHandler = new ErrorHandler(this);
+        prepareTests(mStdId);
 
 
 
@@ -121,7 +125,7 @@ public class AllTestFragment10 extends Fragment implements  TestLessonAdapter.On
                         //build objects show it
                         processResponse(response);
                     }
-                }, new ErrorHandler());
+                }, errorHandler);
 
 
         mRequestQue.addToRequestQue(mReq);
@@ -276,6 +280,21 @@ public class AllTestFragment10 extends Fragment implements  TestLessonAdapter.On
 */
 
 
+
+    }
+
+    @Override
+    public void TimeoutError() {
+
+    }
+
+    @Override
+    public void NetworkError() {
+
+    }
+
+    @Override
+    public void ServerError() {
 
     }
 }

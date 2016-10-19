@@ -4,13 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -37,12 +45,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAnimation;
+import static com.elf.elfstudent.R.layout.no_internet;
+
 /**
  * Created by nandhu on 17/10/16.
  * The Home Acitivity
  *
  */
-public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapter.onCardClick {
+public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapter.onCardClick, ErrorHandler.ErrorHandlerCallbacks {
 
 
     private static final String HOME_URL = "http://www.hijazboutique.com/elf_ws.svc/GetStudentDashboard";
@@ -96,9 +107,15 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     @BindView(R.id.home_progress_bar)
     AVLoadingIndicatorView mProgressbar;
 
+    //The Toolbar
+    @BindView(R.id.act_toolbar)
+    Toolbar mToolbar;
+
     //The Request Queue
     private AppRequestQueue mRequestQueue= null;
     private List<SubjectModel> mSubjectList;
+
+    ErrorHandler errorHandler ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,13 +123,21 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
         setContentView(R.layout.home_activity);
         ButterKnife.bind(this);
 
+
         //get The details for this User from Shared PRefs
         mStore  = DataStore.getStorageInstance(this.getApplicationContext());
 
         //initialising Request Queue
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
 
+
+        setSupportActionBar(mToolbar);
+
+        errorHandler = new ErrorHandler(this);
         prepareDashBoardFor("1");
+        setSupportActionBar(mToolbar);
+
+
 
 
 
@@ -139,7 +164,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
                 processResponse(response);
             }
-        }, new ErrorHandler());
+        }, errorHandler);
         Log.d(TAG, "onCreate: making request");
         mRequestQueue.addToRequestQue(mReq);
 
@@ -264,13 +289,30 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
             HelviticaLight percentText = (HelviticaLight) itemView.findViewById(R.id.percent);
             String percentTransName = ViewCompat.getTransitionName(percentText);
 
+
+            ImageView subjectImage = (ImageView)itemView.findViewById(R.id.home_card_sub_imageview);
+            String img_trans_name = ViewCompat.getTransitionName(subjectImage);
+
             //Intent for Next Activity
             Intent i = new Intent(this,SubjectViewActivity.class);
             i.putExtra(BundleKey.SUBJECT_NAME,subjectName.getText());
             i.putExtra(BundleKey.PERCENTAGE,percentText.getText());
-            i.putExtra(BundleKey.ROOT_VIEW_TRANS_NAME,root_transName);
-            ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(this, (View)viewRoot, root_transName);
+//            i.putExtra(BundleKey.ROOT_VIEW_TRANS_NAME,root_transName);
+            i.putExtra(BundleKey.HOME_SUBJECT_TRANS_NAME,subTransName);
+            i.putExtra(BundleKey.HOME_PERCENT_TRANS_NAME,percentTransName);
+            Log.d(TAG, "InfoButtonClicked: image transName "+img_trans_name);
+            i.putExtra(BundleKey.HOME_SUBJECT_IMAGE_TRANS_NAME,img_trans_name);
+
+            //send Subject iD to NExt Activity
+            i.putExtra(BundleKey.SUBJECT_ID,mSubjectList.get(position).getmSubjectId());
+
+            //MAking pairs for many Share elements
+            Pair<View, String> p1 = Pair.create((View)subjectImage, img_trans_name);
+            Pair<View, String> p2 = Pair.create((View) subjectName, subTransName);
+            Pair<View, String> p3 = Pair.create((View)percentText, percentTransName);
+
+
+            ActivityOptionsCompat options = makeSceneTransitionAnimation(this, p1, p2,p3);
             if (ScreenUtil.isAndroid5()){
 
                 startActivity(i, options.toBundle());
@@ -284,4 +326,29 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
 
         }
+
+    @Override
+    public void TimeoutError() {
+        Log.d(TAG, "TimeoutError: ");
+        prepareDashBoardFor(mStore.getStudentId());
     }
+
+    @Override
+    public void NetworkError() {
+        Log.d(TAG, "NetworkError: ");
+        FrameLayout mRoot = (FrameLayout) findViewById(R.id.home_frame);
+        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.no_internet,mRoot,false);
+        mRoot.removeAllViews();
+        mRoot.addView(view);
+
+
+
+    }
+
+    @Override
+    public void ServerError() {
+
+
+        Log.d(TAG, "ServerError: ");
+    }
+}

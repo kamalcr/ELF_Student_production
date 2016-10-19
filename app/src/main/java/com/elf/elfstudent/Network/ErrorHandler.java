@@ -2,9 +2,7 @@ package com.elf.elfstudent.Network;
 
 import android.util.Log;
 
-import com.android.volley.ClientError;
 import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
@@ -17,6 +15,13 @@ import com.android.volley.VolleyError;
 public class ErrorHandler implements Response.ErrorListener {
 
 
+
+    ErrorHandlerCallbacks mCallback;
+
+    public ErrorHandler(ErrorHandlerCallbacks mCallback) {
+        this.mCallback = mCallback;
+    }
+
     private static final String TAG = "Volley Error";
 
     @Override
@@ -24,14 +29,20 @@ public class ErrorHandler implements Response.ErrorListener {
 
         if (error instanceof NetworkError){
 
-            Log.d(TAG, "onErrorResponse: Network Error");
+           mCallback.NetworkError();
 
         }else if (error instanceof TimeoutError){
-            Log.d(TAG, "onErrorResponse: TimeOut Error");
+          mCallback.TimeoutError();
         }
         else if (error instanceof ServerError){
-            Log.d(TAG, "onErrorResponse: server Error");
+           mCallback.ServerError();
         }
 
+    }
+
+    public interface ErrorHandlerCallbacks{
+        void TimeoutError();
+        void NetworkError();
+        void ServerError();
     }
 }

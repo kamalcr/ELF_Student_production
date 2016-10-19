@@ -1,4 +1,5 @@
-package com.elfstudent.model;
+package com.elf.elfstudent.model;
+
 
 /**
  * Created by user on 07-08-2016.

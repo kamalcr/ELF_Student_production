@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
 
 public class DataStore {
     private static final String SHARED_PREFS_FILE  = "ELFSTUDENT";
-    private static final String USER_NAME_TAG = "USER_NAME";
+    private static final String USER_NAME_TAG = "LOGIN_USER_NAME";
     private static final String PHONE_NUMBER_TAG  = "PHONE_NUMBER";
     private static final String EMAIL_ID_TAG = "EMAIL_ID";
     private static final String STATE_ID = "STATE_ID";
