@@ -24,6 +24,8 @@ import java.util.List;
 
 /**
  * Created by nandhu on 17/10/16.
+ *
+ *
  */
 public class SchoolListAdapter extends BaseAdapter {
     private static final String TAG = "Adapter";

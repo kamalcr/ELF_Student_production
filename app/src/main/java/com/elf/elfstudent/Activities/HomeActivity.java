@@ -126,6 +126,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
         //get The details for this User from Shared PRefs
         mStore  = DataStore.getStorageInstance(this.getApplicationContext());
+        setViewValues();
 
         //initialising Request Queue
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
@@ -144,6 +145,12 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
 
 
+    }
+
+    private void setViewValues() {
+        mSchoolname.setText(mStore.getInstituionName());
+        mStandardName.setText(mStore.getStandard());
+        mStudentName.setText(mStore.getUserName());
     }
 
     private void prepareDashBoardFor(String studentId) {

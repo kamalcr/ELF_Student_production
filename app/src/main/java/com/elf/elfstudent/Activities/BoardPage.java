@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.elf.elfstudent.Adapters.CustomSpinnerBoardAdapter;
 import com.elf.elfstudent.Adapters.CustomSpinnerStateAdapter;
 import com.elf.elfstudent.Adapters.SchoolListAdapter;
 import com.elf.elfstudent.CustomUI.CustomAutcomplete;
+import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.model.BoardModel;
@@ -47,9 +49,6 @@ public class BoardPage extends AppCompatActivity {
     //The state Spinner
     @BindView(R.id.ins_state_actext) Spinner mStateSpinner;
 
-    //The school Autocomplete  , it is custom class refer to
-    @BindView(R.id.ins_school_ac_text)
-    CustomAutcomplete mSchoolBox;
 
 
 
@@ -63,8 +62,7 @@ public class BoardPage extends AppCompatActivity {
     List<StateModel> mStateList = new ArrayList<>(25);
     CustomSpinnerStateAdapter mStateAdapter = null;
 
-    //Institution Adapter
-    SchoolListAdapter mSchoolAdapter = null;
+
 
 
     @BindView(R.id.ins_finish_button)
@@ -73,6 +71,8 @@ public class BoardPage extends AppCompatActivity {
     String boardId = null;
     String stateId= null;
 //    SchoolListAdapter mSchoolAdapter= null;
+
+    DataStore mStore = null;
 
 
     @Override
@@ -85,16 +85,34 @@ public class BoardPage extends AppCompatActivity {
         getValuesFromIntent();
 
 
+        mStore = DataStore.getStorageInstance(getApplicationContext());
+
         //Prepare The Adapter for State and Board Spinner
         setUpSpinnerAdapters();
+
+
+        mFinishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NextButtonClicked();
+            }
+        });
 
 
 
 
     }
 
+    private void NextButtonClicked() {
+        final Intent   i = new Intent(this,InstitutePage.class);
+        i.putExtra(BundleKey.ARG_BOARD_ID,boardId);
+        i.putExtra(BundleKey.ARG_STATE_ID,stateId);
+        Log.d(TAG, "NextButtonClicked: Board ID "+boardId +" StateId "+stateId );
+        startActivity(i);
+    }
+
     /*This Method Prepares the populates the { @link StateModel } & { @link BoardModel }
-    * in Hardcoded Way , only School List is Dynamic */
+    * in Hardcoded Way , only School List is Dynamic and that too is next page {@link InstitutePage }*/
 
     private void setUpSpinnerAdapters() {
         //state Spinners Values
@@ -138,7 +156,7 @@ public class BoardPage extends AppCompatActivity {
     private void getValuesFromIntent() {
         if (getIntent() != null){
             studentName = getIntent().getStringExtra(BundleKey.ARG_USER_NAME_TAG);
-            studentEmail = getIntent().getStringExtra(BundleKey.ARG_EMAIL_ID_TAG);
+//            studentEmail = getIntent().getStringExtra(BundleKey.ARG_EMAIL_ID_TAG);
             studentPhoneNumber = getIntent().getStringExtra(BundleKey.ARG_PHONE_NUMBER_TAG);
             studentPassword = getIntent().getStringExtra(BundleKey.ARG_PASWORD);
         }
@@ -171,7 +189,7 @@ public class BoardPage extends AppCompatActivity {
                 StateModel selected = (StateModel) adapterView.getItemAtPosition(i);
                 Log.d(TAG, "State selected: "+selected.getStateName());
                 stateId = selected.getStateId();
-                mSchoolAdapter.setStateId(stateId);
+                mStore.setStateId(stateId);
 
             }
             @Override
@@ -188,7 +206,8 @@ public class BoardPage extends AppCompatActivity {
                 BoardModel model  = (BoardModel) adapterView.getItemAtPosition(i);
                 Log.d(TAG, "Board Selected "+model.getName() );
                 boardId = model.getBoardId();
-                mSchoolAdapter.setBoardId(boardId);
+                mStore.setBoardId(boardId);
+
             }
 
             @Override

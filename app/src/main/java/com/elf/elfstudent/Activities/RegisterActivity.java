@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.elf.elfstudent.CustomUI.HelviticaMedium;
+import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.StringValidator;
@@ -47,7 +50,13 @@ public class RegisterActivity  extends AppCompatActivity{
     HelviticaMedium mSetText;
 
 
+    //Toolbar
+    @BindView(R.id.register_toolbar)
+    Toolbar mToolbar;
 
+
+
+    DataStore mStore = null;
     String mEmail = null;
 
     @Override
@@ -55,6 +64,8 @@ public class RegisterActivity  extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_activity);
         ButterKnife.bind(this);
+
+        mStore = DataStore.getStorageInstance(getApplicationContext());
 
         if (getIntent()!= null){
             mEmail  = getIntent().getStringExtra(BundleKey.ARG_EMAIL_ID_TAG);
@@ -65,8 +76,16 @@ public class RegisterActivity  extends AppCompatActivity{
                 submitButtonClicked();
             }
         });
-
-
+        //set Toolbar
+        setSupportActionBar(mToolbar);
+        ActionBar ab = getSupportActionBar();
+        try {
+            ab.setDisplayShowHomeEnabled(true);
+            ab.setDisplayShowHomeEnabled(true);
+        }
+        catch (Exception e ){
+            Log.d(TAG, "onCreate: eXCeption");
+        }
     }
 
     private void submitButtonClicked() {
@@ -100,6 +119,12 @@ public class RegisterActivity  extends AppCompatActivity{
                      // pHone Number is Also Correct
                      // Show Institute Page
                     Log.d(TAG, "submitButtonClicked: ");
+                    //save Variables to storage(Shared prefs)
+                    if (mStore != null){
+                        mStore.setUserName(Name);
+                        mStore.setPhoneNumberTag(phone);
+                        mStore.setPassword(Password);
+                    }
                     Intent  i = new Intent(this,BoardPage.class);
                     i.putExtra(BundleKey.ARG_USER_NAME_TAG,Name);
                     i.putExtra(BundleKey.ARG_PHONE_NUMBER_TAG,phone);
@@ -134,7 +159,35 @@ public class RegisterActivity  extends AppCompatActivity{
     }
 
     @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
+    protected void onStart() {
+        super.onStart();
+
+        //IF came back from Previous Activity Store varaibles
+
+        //set name
+        try{
+
+            String name  = mStore.getUserName();
+            if (name != null){
+                //
+                mNameBox.getEditText().setText(name);
+            }
+
+            //set Phone Number
+            String phone  = mStore.getPhoneNumber();
+            if (phone != null){
+                mPhoneBox.getEditText().setText(phone);
+            }
+
+            //set Password
+            String pass = mStore.getPassWord();
+            if (pass != null){
+                mPassword.getEditText().setText(pass);
+            }
+        }
+        catch (Exception e){
+            Log.d(TAG, "onStart: Exception");
+        }
     }
+
 }

@@ -1,17 +1,21 @@
 package com.elf.elfstudent.Activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.elf.elfstudent.Adapters.SchoolListAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -34,6 +38,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 20/10/16.
+ * The Instituite and Standard Choosing Page
  */
 
 public class InstitutePage extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, InstituteRespHandler.InstituteHandler, RegisterListener.RegistrationCallback {
@@ -52,6 +57,17 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
     Button mRegisterButton;
 
 
+    @BindView(R.id.ins_autocomplete)
+    AutoCompleteTextView mInsTextView;
+
+    //standard Spinner can be 10th or 11th or 12th
+    @BindView(R.id.ins_std_spinner)
+    Spinner mSpinner;
+
+
+
+    //The Toolabar
+
 
     List<InstitutionModel> institutionList;
 
@@ -61,11 +77,15 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
     DataStore mStore = null;
     RegisterListener mRegisterListener = null;
+
+    SchoolListAdapter mAdapter = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.institute_page);
         ButterKnife.bind(this);
+
+        //get Board Id and State Id and Set it to Adapter
         if (getIntent() != null){
             boardId = getIntent().getStringExtra(BundleKey.ARG_BOARD_ID);
             stateId  = getIntent().getStringExtra(BundleKey.ARG_STATE_ID);
@@ -73,6 +93,8 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         }
         //get a Handle to Saved Values
         mStore  = DataStore.getStorageInstance(getApplicationContext());
+
+        //The Network Handler objects
         errorHandler = new ErrorHandler(this);
         instituteRespHandler = new InstituteRespHandler(this);
         mRegisterListener = new RegisterListener(this);
@@ -132,6 +154,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
         }
         JsonArrayRequest mRequest  = new JsonArrayRequest(Request.Method.POST,GET_INSTITUTE_URL,mObject,instituteRespHandler,errorHandler);
+        mRequestQueue.addToRequestQue(mRequest);
     }
 
     @Override
@@ -184,11 +207,25 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
     @Override
     public void setInstitutionList(List<InstitutionModel> list) {
+        mAdapter = new SchoolListAdapter(getApplicationContext());
     }
 
 
     @Override
     public void Registered(String studentId) {
+        if (mStore != null){
 
+            //set studentId
+            mStore.setStudentId(studentId);
+            mStore.setIsFirstTime(false);
+
+        }
+
+        //Finally Show home Page ,Before That Show Choose Subject Activity
+        final Intent  i = new Intent(this,ChooseSubjectActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
 }

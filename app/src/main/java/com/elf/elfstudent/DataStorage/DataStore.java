@@ -159,6 +159,11 @@ public class DataStore {
     public String getStandard() {
         return mSharedPrefrences.getString(STUDENT_STANDARD,null);
     }
+
+    public void setPassword(String password) {
+        editor.putString(PASSWORD,password);
+        editor.apply();
+    }
 }
 
 
