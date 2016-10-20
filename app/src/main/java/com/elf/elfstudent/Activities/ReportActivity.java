@@ -30,7 +30,7 @@ import butterknife.BindView;
 public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.ErrorHandlerCallbacks , Response.Listener<JSONArray> {
 
 
-    private static final String TAG = "REPORTS_PAGE";
+    private static final String TAG = "ELF";
     private static final String REPORT_URL = "";
     @BindView(R.id.report_tab)
     TabLayout mTab;

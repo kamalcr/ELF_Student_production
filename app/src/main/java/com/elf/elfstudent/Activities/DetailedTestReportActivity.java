@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
  */
 public class DetailedTestReportActivity  extends AppCompatActivity{
 
-    private static final String TAG = "DETAILSTEST";
+    private static final String TAG = "ELF";
     private static final String GET_TEST_DETAIL_REPORT = "";
     String testId = null;
     String studnetId  = null;

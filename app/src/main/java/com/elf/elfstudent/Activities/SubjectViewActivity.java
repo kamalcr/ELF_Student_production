@@ -159,10 +159,6 @@ public class SubjectViewActivity extends AppCompatActivity implements ErrorHandl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.background_image_view :
-                supportFinishAfterTransition();
-        }
 
         return true;
     }

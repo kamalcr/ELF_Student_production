@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 public class ChangeProfileActivity extends AppCompatActivity {
 
 
-
+    private static final String TAG = "ELF";
     //Elf id
     @BindView(R.id.elf_id)
     HelviticaLight mElfId;

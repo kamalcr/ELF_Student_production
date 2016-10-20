@@ -1,13 +1,16 @@
 package com.elf.elfstudent.Network;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  * Created by nandhu on 20/10/16.
  */
-public class EmailHandler implements Response.Listener<JSONObject> {
+public class EmailHandler implements Response.Listener<JSONArray> {
 
     private EmaiCallbacks mCallback=  null;
 
@@ -16,7 +19,24 @@ public class EmailHandler implements Response.Listener<JSONObject> {
     }
 
     @Override
-    public void onResponse(JSONObject response) {
+    public void onResponse(JSONArray response) {
+        try {
+
+            JSONObject object = response.getJSONObject(0);
+            if (object.getString("StatusCode").equals("1000")){
+                // new Email only Can Regsiter wit this email
+                if (mCallback != null){
+                    mCallback.ShowPersonalInfoPage();
+                }
+            }else {
+                if (mCallback != null){
+                    mCallback.emailAlreadyExists();
+                }
+            }
+        }
+        catch (Exception e ){
+            Log.d("EMAIL HADLER", "onResponse: Error");
+        }
 
     }
 

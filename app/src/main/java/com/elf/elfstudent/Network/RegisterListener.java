@@ -1,5 +1,7 @@
 package com.elf.elfstudent.Network;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 
 import org.json.JSONObject;
@@ -11,6 +13,7 @@ import org.json.JSONObject;
 
 public class RegisterListener implements Response.Listener<JSONObject> {
 
+    private static final String TAG = "ELF";
     RegistrationCallback mCallback = null;
 
     public RegisterListener(RegistrationCallback mCallback) {
@@ -20,7 +23,8 @@ public class RegisterListener implements Response.Listener<JSONObject> {
     @Override
     public void onResponse(JSONObject response) {
 
-
+        Log.d(TAG, "onResponse: from Registration "+response.toString());
+        mCallback.Registered("45");
         //String success = response.getJSONObject()
         //String studentId = response.getJSONObject("StudentId");
     }

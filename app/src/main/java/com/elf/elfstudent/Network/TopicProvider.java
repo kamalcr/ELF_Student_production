@@ -17,7 +17,7 @@ import java.util.List;
 
 public class TopicProvider implements Response.Listener<JSONArray> {
 
-    private static final String TAAG = "TOpICPROIVER";
+    private static final String TAG = "ELF";
     private List<Topic> mTopicList;
     private TopicProviderCallbacks mCallback = null;
 
@@ -48,7 +48,7 @@ public class TopicProvider implements Response.Listener<JSONArray> {
 
         }
         catch (Exception e){
-            Log.d(TAAG, "onResponse: ");
+            Log.d(TAG, "onResponse: ");
 
         }
 

@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
  */
 public class ChangePasswordActivity  extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, ChangePasswordHandler.Callbacks {
 
-    private static final String TAG = "CHNG_PASS";
+    private static final String TAG = "ELF";
     private static final String FORGOT_URL = "";
     @BindView(R.id.enter_password)
     TextInputEditText mPasswordBox;

@@ -3,7 +3,9 @@ package com.elf.elfstudent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.elf.elfstudent.Activities.EmailActivityPage;
 import com.elf.elfstudent.Activities.HomeActivity;
 import com.elf.elfstudent.Activities.RegisterActivity;
 import com.elf.elfstudent.DataStorage.DataStore;
@@ -16,6 +18,7 @@ import com.elf.elfstudent.DataStorage.DataStore;
 public class SplashActivity extends AppCompatActivity {
 
 
+    private static final String TAG = "ELF";
     private DataStore dataStore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +29,15 @@ public class SplashActivity extends AppCompatActivity {
         //Check whether user already logged in or not
 
          if (isFirstTime()){
-             Intent i = new Intent(this,RegisterActivity.class);
+             Log.d(TAG, "onCreate: going to Registration");
+             Intent i = new Intent(this,EmailActivityPage.class);
              i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
              i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
              i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
              startActivity(i);
          }
         else{
+             Log.d(TAG, "goint to Home Activity");
              Intent i = new Intent(this,HomeActivity.class);
              i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
              i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -45,6 +50,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private boolean isFirstTime() {
+
+        Log.d(TAG, "isFirstTime: "+dataStore.isFirstTime());
         return dataStore.isFirstTime();
     }
 }

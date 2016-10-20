@@ -38,6 +38,11 @@
         <activity android:name=".Activities.SingleTestReportActivity"
             android:exported="true"/>
 
+        <activity android:name=".Activities.InstitutePage"/>
+        <activity android:name=".Activities.EmailActivityPage"></activity>
+        <activity android:name=".Activities.ForgotPassword"/>
+        <activity android:name=".Activities.ChooseSubjectActivity"/>
+
         <activity android:name=".Activities.SubjectViewActivity"/><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data

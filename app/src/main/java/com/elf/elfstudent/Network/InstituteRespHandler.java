@@ -19,7 +19,7 @@ import java.util.List;
 public class InstituteRespHandler implements Response.Listener<JSONArray> {
 
 
-    private static final String TAGI = "InstTAG";
+    private static final String TAG = "ELF";
     List<InstitutionModel> institutionList = null;
     private InstituteHandler mCallback = null;
 
@@ -38,18 +38,21 @@ public class InstituteRespHandler implements Response.Listener<JSONArray> {
             for (int i = 0; i < count; i++) {
                 //single Institution
                 mObject = response.getJSONObject(i);
+                Log.d(TAG, "onResponse: for each institution "+mObject.toString());
                 //Add each single instituion
                 institutionList.add(new InstitutionModel(mObject.getString("InstitutionName"),
-                        mObject.getString("District"),
-                        mObject.getString("StateName"),
-                        mObject.getString("CityName")
+                        mObject.getString("DistrictName"),
+                        mObject.getString("CityName"),
+                        mObject.getString("InstitutionId")
                 ));
             }
-            mCallback.setInstitutionList(institutionList);
+
         }
         catch (Exception e ){
-            Log.d(TAGI, "onResponse: Exception");
+            Log.d(TAG, "onResponse: Exception InsHandler "+e.getLocalizedMessage());
+            Log.d(TAG, "ins Handler "+e.getMessage());
         }
+        mCallback.setInstitutionList(institutionList);
     }
 
     public interface InstituteHandler{

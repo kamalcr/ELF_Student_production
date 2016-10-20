@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
 
     private static final String HOME_URL = "http://www.hijazboutique.com/elf_ws.svc/GetStudentDashboard";
-    private static final String TAG = "HOME_ACITIVYT";
+    private static final String TAG = "ELF";
 
 
     DataStore mStore;

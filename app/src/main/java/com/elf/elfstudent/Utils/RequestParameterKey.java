@@ -9,17 +9,23 @@ public class RequestParameterKey {
     public static final String state_id = "StateId";
     public static final String STUDENT_ID = "StudentId";
     public static final String BOARD_ID = "BoardId";
+    public static final String LOGIN_LAS_NAME = "LastName";
 
-    public static String LOGIN_USER_NAME = "";
-    public static String LOGIN_PASSWORD  = "";
+    public static String LOGIN_USER_NAME = "FirstName";
+    public static String LOGIN_PASSWORD  = "Password";
     public static String STATE_ID = "StateId";
     public static String INSTITUION_ID = "InstitutionId";
 
+    //REgsiter PArameter Keys
+
     public static String STANDARD= "standard";
     public static String STUDENT_NAME = "StudentName";
-    public static String EMAIL_ID = "EmailId";
+    public static String EMAIL_ID = "EmailAddress";
     public static String PASSWORD = "Password";
     public static String PHONE = "PhoneNumber";
     public static String LESSON_ID = "LessonId";
     public static String TEST_ID = "TestId";
+    public static String CLASS_ID = "ClassId";
+    public static String CITY_ID = "CityId";
+    public static String DISTRICT_ID = "DistrictId";
 }

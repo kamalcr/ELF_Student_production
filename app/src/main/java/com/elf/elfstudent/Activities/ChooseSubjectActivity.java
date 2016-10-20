@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 
 public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, SubListProvider.SubListCallbacks {
 
-    private static final String TAG = "CHOOSE_SUBJECT";
+    private static final String TAG = "ELF";
     private static final String GET_SUBJECT_LIST = "";
     String studentId = null;
 

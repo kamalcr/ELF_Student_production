@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,7 +37,7 @@ import butterknife.ButterKnife;
 public class BoardPage extends AppCompatActivity {
 
 
-    private static final String TAG = "Institution";
+    private static final String TAG = "ELF";
     //The Varaibles which Hold vAlues from Previous Activity
     private String studentName;
     private String studentEmail;
@@ -49,7 +51,9 @@ public class BoardPage extends AppCompatActivity {
     //The state Spinner
     @BindView(R.id.ins_state_actext) Spinner mStateSpinner;
 
-
+    //Toolbar
+    @BindView(R.id.board_toolbar)
+    Toolbar mToolbar;
 
 
 
@@ -90,6 +94,16 @@ public class BoardPage extends AppCompatActivity {
         //Prepare The Adapter for State and Board Spinner
         setUpSpinnerAdapters();
 
+        setSupportActionBar(mToolbar);
+        ActionBar ab  = getSupportActionBar();
+        try{
+            ab.setDisplayShowHomeEnabled(true);
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+        catch (Exception e) {
+            Log.d(TAG, "onCreate: ");
+        }
+
 
         mFinishButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,10 +118,11 @@ public class BoardPage extends AppCompatActivity {
     }
 
     private void NextButtonClicked() {
+
         final Intent   i = new Intent(this,InstitutePage.class);
         i.putExtra(BundleKey.ARG_BOARD_ID,boardId);
         i.putExtra(BundleKey.ARG_STATE_ID,stateId);
-        Log.d(TAG, "NextButtonClicked: Board ID "+boardId +" StateId "+stateId );
+        Log.d(TAG, "Moving to Ins PAge: Board ID "+boardId +" StateId "+stateId );
         startActivity(i);
     }
 
@@ -155,6 +170,8 @@ public class BoardPage extends AppCompatActivity {
 
     private void getValuesFromIntent() {
         if (getIntent() != null){
+
+            Log.d(TAG, "getValuesFromIntent:");
             studentName = getIntent().getStringExtra(BundleKey.ARG_USER_NAME_TAG);
 //            studentEmail = getIntent().getStringExtra(BundleKey.ARG_EMAIL_ID_TAG);
             studentPhoneNumber = getIntent().getStringExtra(BundleKey.ARG_PHONE_NUMBER_TAG);
@@ -187,7 +204,7 @@ public class BoardPage extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 StateModel selected = (StateModel) adapterView.getItemAtPosition(i);
-                Log.d(TAG, "State selected: "+selected.getStateName());
+                Log.d(TAG, "State selected: saving to store "+selected.getStateName());
                 stateId = selected.getStateId();
                 mStore.setStateId(stateId);
 
@@ -204,7 +221,7 @@ public class BoardPage extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 BoardModel model  = (BoardModel) adapterView.getItemAtPosition(i);
-                Log.d(TAG, "Board Selected "+model.getName() );
+                Log.d(TAG, "Board Selected saving to store"+model.getName() );
                 boardId = model.getBoardId();
                 mStore.setBoardId(boardId);
 

@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 public class RegisterActivity  extends AppCompatActivity{
 
 
-    private static final String TAG = "PersonalPage";
+    private static final String TAG = "ELF";
     //password
     @BindView(R.id.nregister_pass)
     TextInputLayout mPassword;
@@ -68,6 +68,7 @@ public class RegisterActivity  extends AppCompatActivity{
         mStore = DataStore.getStorageInstance(getApplicationContext());
 
         if (getIntent()!= null){
+
             mEmail  = getIntent().getStringExtra(BundleKey.ARG_EMAIL_ID_TAG);
         }
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +126,8 @@ public class RegisterActivity  extends AppCompatActivity{
                         mStore.setPhoneNumberTag(phone);
                         mStore.setPassword(Password);
                     }
+
+                    Log.d(TAG, "sending Board Page");
                     Intent  i = new Intent(this,BoardPage.class);
                     i.putExtra(BundleKey.ARG_USER_NAME_TAG,Name);
                     i.putExtra(BundleKey.ARG_PHONE_NUMBER_TAG,phone);

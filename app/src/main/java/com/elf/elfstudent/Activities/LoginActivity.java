@@ -29,7 +29,7 @@ import butterknife.BindView;
 public class LoginActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject> {
 
 
-    private static final String TAG = "LOGIN_PAGE";
+    private static final String TAG = "ELF";
     private static final String LOGIN_URL = "";
 
     @BindView(R.id.login_button)

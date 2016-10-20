@@ -6,11 +6,11 @@ package com.elf.elfstudent.model;
 
 public class StandardModel {
     public String name ;
-    public String stdId ;
+    public String classID;
 
     public StandardModel(String name, String stdId) {
         this.name = name;
-        this.stdId = stdId;
+        this.classID = stdId;
     }
 
     public String getName() {
@@ -21,11 +21,11 @@ public class StandardModel {
         this.name = name;
     }
 
-    public String getStdId() {
-        return stdId;
+    public String getClassID() {
+        return classID;
     }
 
-    public void setStdId(String stdId) {
-        this.stdId = stdId;
+    public void setClassID(String classID) {
+        this.classID = classID;
     }
 }

@@ -7,27 +7,27 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.elf.elfstudent.Adapters.ClassSpinnerAdapter;
 import com.elf.elfstudent.Adapters.SchoolListAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.InstituteRespHandler;
-import com.elf.elfstudent.Network.NetworkUitls;
 import com.elf.elfstudent.Network.RegisterListener;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RequestParameterKey;
 import com.elf.elfstudent.model.InstitutionModel;
+import com.elf.elfstudent.model.StandardModel;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -44,9 +44,9 @@ import butterknife.ButterKnife;
 public class InstitutePage extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, InstituteRespHandler.InstituteHandler, RegisterListener.RegistrationCallback {
 
 
-    private static final String TAG = "Institute page";
-    private static final String GET_INSTITUTE_URL = "";
-    private static final String REGISTER_URL = "";
+    private static final String TAG = "ELF";
+    private static final String GET_INSTITUTE_URL = "http://www.hijazboutique.com/elf_ws.svc/GetInstitutionList";
+    private static final String REGISTER_URL = "http://www.hijazboutique.com/elf_ws.svc/StudentRegistration";
     String boardId  = null;
     String stateId = null;
 
@@ -78,7 +78,14 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
     DataStore mStore = null;
     RegisterListener mRegisterListener = null;
 
-    SchoolListAdapter mAdapter = null;
+    SchoolListAdapter mSchoolAdapter = null;
+    private String ins_id = null;
+    List<StandardModel> classList = null;
+
+    ClassSpinnerAdapter mClassAdapter = null;
+    String classid = null;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +110,29 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
         prepareAdapterForInstituion(boardId,stateId);
 
+        //Populate Class List
+        classList = new ArrayList<>(2);
+        classList.add(new StandardModel("10 Standard","10"));
+        classList.add(new StandardModel("12th Standard","12"));
+
+        //prepare Adapter for Class SPinner
+        mClassAdapter = new ClassSpinnerAdapter(getApplicationContext(),R.layout.custom_spinner,classList);
+
+        mSpinner.setAdapter(mClassAdapter);
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Log.d(TAG, "onItemSelected: standar "+classList.get(i).getClassID());
+                classid = classList.get(i).getClassID();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
 
 
@@ -113,6 +143,16 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
                 RegisterStudent();
             }
         });
+
+
+        //The autcomplete Textview
+        mInsTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d(TAG, "Institution Has been Clicked "+institutionList.get(i).getInsName());
+                ins_id = institutionList.get(i).getIns_id();
+            }
+        });
     }
 
     private void RegisterStudent() {
@@ -120,12 +160,18 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
         //Request Body Objects
         try{
-            mObject.put(RequestParameterKey.board_id,mStore.getBoardId());
-            mObject.put(RequestParameterKey.STUDENT_NAME,mStore.getUserName());
+
+            mObject.put(RequestParameterKey.LOGIN_USER_NAME,mStore.getStateName());
+            mObject.put(RequestParameterKey.LOGIN_LAS_NAME,"NO NAme");
             mObject.put(RequestParameterKey.EMAIL_ID,mStore.getEmailId());
             mObject.put(RequestParameterKey.PASSWORD,mStore.getPassWord());
-            mObject.put(RequestParameterKey.PHONE,mStore.getPhoneNumber());
+            mObject.put(RequestParameterKey.INSTITUION_ID,ins_id);
+            mObject.put(RequestParameterKey.board_id,boardId);
+            mObject.put(RequestParameterKey.CLASS_ID,classid);
+            mObject.put(RequestParameterKey.CITY_ID,"SOmeWHAT");
+            mObject.put(RequestParameterKey.DISTRICT_ID,"DISTCIT");
             mObject.put(RequestParameterKey.STATE_ID,mStore.getStateId());
+            mObject.put(RequestParameterKey.PHONE,mStore.getPhoneNumber());
             //get Instituion Id
 //            mObject.put(RequestParameterKey.INSTITUION_ID,mStore.)
 
@@ -133,7 +179,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 //            mObject.put(RequestParameterKey.STANDARD,)
         }
         catch (Exception e ){
-            Log.d(TAG, "RegisterStudent: ");
+            Log.d(TAG, "RegisterStudent: "+e.getLocalizedMessage());
         }
 
         //Request Body
@@ -207,7 +253,11 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
     @Override
     public void setInstitutionList(List<InstitutionModel> list) {
-        mAdapter = new SchoolListAdapter(getApplicationContext());
+        Log.d(TAG, "setInstitutionList: ");
+        mSchoolAdapter = new SchoolListAdapter(getApplicationContext(),R.layout.institution_item_row_new,list);
+        mInsTextView.setAdapter(mSchoolAdapter);
+        mInsTextView.showDropDown();
+
     }
 
 
