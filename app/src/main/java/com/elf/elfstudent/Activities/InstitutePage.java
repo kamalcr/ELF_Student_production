@@ -223,6 +223,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
         //Finally Show home Page ,Before That Show Choose Subject Activity
         final Intent  i = new Intent(this,ChooseSubjectActivity.class);
+
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
