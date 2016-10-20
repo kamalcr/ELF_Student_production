@@ -6,14 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Scene;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.elf.elfstudent.CustomUI.HelviticaMedium;
@@ -103,7 +100,7 @@ public class RegisterActivity  extends AppCompatActivity{
                      // pHone Number is Also Correct
                      // Show Institute Page
                     Log.d(TAG, "submitButtonClicked: ");
-                    Intent  i = new Intent(this,InstitutePage.class);
+                    Intent  i = new Intent(this,BoardPage.class);
                     i.putExtra(BundleKey.ARG_USER_NAME_TAG,Name);
                     i.putExtra(BundleKey.ARG_PHONE_NUMBER_TAG,phone);
                     i.putExtra(BundleKey.ARG_PASWORD,Password);

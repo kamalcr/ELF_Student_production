@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.elf.elfstudent.Adapters.ViewPagerAdapters.TestPagerAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
-import com.elf.elfstudent.Fragments.AllTestFragment10;
+import com.elf.elfstudent.Fragments.AllTestFragment;
 import com.elf.elfstudent.R;
 
 import butterknife.BindView;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
  * THe Activity that is used to Browse Tests
  * It has a view pager which has 3 fragments
  *   {
- *    {@link AllTestFragment10}
+ *    {@link AllTestFragment}
  *    {@link com.elf.elfstudent.Fragments.PublicTestFragmet}
  *    {@link com.elf.elfstudent.Fragments.RecommendedTestFragment}
  *

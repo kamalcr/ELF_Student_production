@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:id="@+id/change_profile_toolbar"
+            android:layout_height="?attr/actionBarSize">
+            <com.elf.elfstudent.CustomUI.HelviticaMedium
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="Change Profile"
+                android:textColor="@color/white"
+                android:layout_height="match_parent" />
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+          android:background="@color/black_900"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="100dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/chn_profile_image"
+                    android:src="@drawable/ic_users"
+                android:layout_height="100dp" />
+
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:text="112214"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/elf_id_text"
+                style="@style/change_profile_bottom_text"
+                android:layout_alignLeft="@+id/elf_id_text"
+                android:layout_alignStart="@+id/elf_id_text"
+                android:layout_marginTop="4dp"
+                android:id="@+id/elf_id" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:id="@+id/elf_id_view"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_below="@+id/personal_info_text"
+                android:background="@color/md_blue_100"/>
+
+            <TextView
+                android:text="Persona Info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/personal_info_text"
+                android:layout_marginTop="12dp"
+                android:textSize="18sp"
+                android:textColor="@color/md_blue_100"
+                android:layout_below="@+id/elf_id"
+                android:layout_alignLeft="@+id/elf_id"
+                android:layout_alignStart="@+id/elf_id" />
+
+
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:text="Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/elf_id_view"
+                style="@style/change_profile_top_text"
+                android:layout_alignLeft="@+id/personal_info_text"
+                android:layout_alignStart="@+id/personal_info_text"
+                android:layout_marginTop="16dp"
+                android:id="@+id/full_name_text" />
+
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:text="My Name is"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/change_profile_bottom_text"
+                android:layout_below="@+id/full_name_text"
+                android:layout_alignLeft="@+id/full_name_text"
+                android:layout_alignStart="@+id/full_name_text"
+                android:layout_marginTop="4dp"
+                android:id="@+id/change_profile_name_value" />
+
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:text="Standard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/change_profile_top_text"
+                android:layout_below="@+id/change_profile_name_value"
+                android:layout_alignLeft="@+id/change_profile_name_value"
+                android:layout_alignStart="@+id/change_profile_name_value"
+                android:layout_marginTop="16dp"
+                android:id="@+id/chn_profile_standard" />
+
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:text="10th Standard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                style="@style/change_profile_bottom_text"
+                android:id="@+id/chg_profile_std_value"
+                android:layout_below="@+id/chn_profile_standard"
+                android:layout_alignLeft="@+id/chn_profile_standard"
+                android:layout_alignStart="@+id/chn_profile_standard" />
+
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:text="School Name"
+                android:layout_width="wrap_content"
+                style="@style/change_profile_top_text"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chg_profile_std_value"
+                android:layout_alignLeft="@+id/chg_profile_std_value"
+                android:layout_alignStart="@+id/chg_profile_std_value"
+                android:layout_marginTop="16dp"
+                android:id="@+id/chg_profile_school_name" />
+
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:text="Sri Akilandeswari Vidhyalaya"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/change_profile_bottom_text"
+                android:layout_below="@+id/chg_profile_school_name"
+                android:layout_alignLeft="@+id/chg_profile_school_name"
+                android:layout_alignStart="@+id/chg_profile_school_name"
+                android:layout_marginTop="4dp"
+                android:id="@+id/chg_profile_school_value" />
+
+            <TextView
+                android:text="Contact Details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/chg_profile_contact"
+                android:layout_marginTop="12dp"
+                android:textSize="18sp"
+                android:textColor="@color/md_blue_100"
+                android:layout_below="@+id/chg_profile_school_value"
+                android:layout_alignLeft="@+id/elf_id"
+                android:layout_alignStart="@+id/elf_id" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:id="@+id/cont_view"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_below="@id/chg_profile_contact"
+                android:background="@color/md_blue_100"/>
+
+            <TextView
+                android:text="Email"
+                style="@style/change_profile_top_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cont_view"
+                android:layout_alignLeft="@+id/chg_profile_contact"
+                android:layout_alignStart="@+id/chg_profile_contact"
+                android:layout_marginTop="16dp"
+                android:id="@+id/textView12" />
+
+            <TextView
+                android:text="nandhu11@gmail.com"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/change_profile_bottom_text"
+                android:layout_below="@+id/textView12"
+                android:layout_alignLeft="@+id/textView12"
+                android:layout_alignStart="@+id/textView12"
+                android:layout_marginTop="4dp"
+                android:id="@+id/chg_profile_email_value" />
+
+            <TextView
+                android:text="Phone Number"
+                android:layout_width="wrap_content"
+                style="@style/change_profile_top_text"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chg_profile_email_value"
+                android:layout_alignLeft="@+id/cont_view"
+                android:layout_alignStart="@+id/cont_view"
+                android:layout_marginTop="16dp"
+                android:id="@+id/textView14" />
+
+            <TextView
+                android:text="9688612122"
+                style="@style/change_profile_bottom_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView14"
+                android:layout_alignLeft="@+id/chg_profile_email_value"
+                android:layout_alignStart="@+id/chg_profile_email_value"
+                android:layout_marginTop="4dp"
+                android:id="@+id/chg_profile_phone_value" />
+
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:text="Elf ID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                style="@style/change_profile_top_text"
+                android:layout_marginStart="12dp"
+                android:id="@+id/elf_id_text"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/chn_profile_image"
+                android:layout_alignLeft="@+id/elf_id_view"
+                android:layout_alignStart="@+id/elf_id_view" />
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -17,9 +17,11 @@ import java.io.PrintWriter;
 import butterknife.ButterKnife;
 
 /**
- * Created by nandhu on 18/10/16.
+ * Created by nandhu on 20/10/16.
+ * * the Fragment used in {@link com.elf.elfstudent.Activities.DetailedTestReportActivity}
  */
-public class PublicTestFragmet extends Fragment {
+public class IndepthFragment extends Fragment {
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,12 +71,9 @@ public class PublicTestFragmet extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      View mView = inflater.inflate(R.layout.public_fragment,container,false);
-        ButterKnife.bind(this,mView);
-
-
-
-        return mView;
+        View view = inflater.inflate(R.layout.indepth_fragment,container,false);
+        ButterKnife.bind(this,view);
+        return view;
     }
 
     @Override

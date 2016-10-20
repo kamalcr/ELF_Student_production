@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.elf.elfstudent.Fragments.AllTestFragment10;
+import com.elf.elfstudent.Fragments.AllTestFragment;
 import com.elf.elfstudent.Fragments.PublicTestFragmet;
 import com.elf.elfstudent.Fragments.RecommendedTestFragment;
 
@@ -41,7 +41,7 @@ public class TestPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new AllTestFragment10();
+                return new AllTestFragment();
             case 1:
                 return new RecommendedTestFragment();
             case 2:

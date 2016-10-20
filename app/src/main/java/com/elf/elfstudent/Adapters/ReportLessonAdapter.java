@@ -20,10 +20,10 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
 
 
     private Context mContext;
-    private List<> mList;
+    private List<Lesson> mList;
     LayoutInflater inflater = null;
     private LessonClickCallbacks mCallback;
-    public ReportLessonAdapter(Context context,List<> mLessonList,LessonClickCallbacks mCallback) {
+    public ReportLessonAdapter(Context context,List<Lesson> mLessonList,LessonClickCallbacks mCallback) {
         this.mList  = mLessonList;
         this.mContext = context;
         this.mCallback = mCallback;

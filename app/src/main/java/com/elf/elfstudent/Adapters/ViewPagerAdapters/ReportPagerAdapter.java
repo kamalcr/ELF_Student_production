@@ -16,6 +16,7 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by nandhu on 20/10/16.
+ * Construction of Top Report Pager Adapter
  */
 public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
 
@@ -23,7 +24,7 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
 
     String overall;
     String SubjectName = "";
-    List<T> LessoList  =
+//    List<T> LessoList  =
 
     public ReportPagerAdapter(FragmentManager fm) {
         super(fm);

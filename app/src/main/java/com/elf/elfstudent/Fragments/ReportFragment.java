@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.elf.elfstudent.Activities.SingleSubjectReportActivity;
 import com.elf.elfstudent.Adapters.ReportLessonAdapter;
 import com.elf.elfstudent.R;
+import com.elf.elfstudent.Utils.BundleKey;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -42,6 +43,8 @@ public class ReportFragment extends Fragment implements ReportLessonAdapter.Less
 //    List<T> mLessonNames;
 
     ReportLessonAdapter mAdapter = null;
+
+    String subjecId = null;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,11 +52,14 @@ public class ReportFragment extends Fragment implements ReportLessonAdapter.Less
 
         if (getArguments()!= null){
             //overall = getArguments().get
-            //Lesson Name  = getArguments.getP
+            //Lesson Names  = getArguments.getP
+            //subjecId =
 
         }
 
 
+
+        return mView;
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -139,6 +145,9 @@ public class ReportFragment extends Fragment implements ReportLessonAdapter.Less
 
 
 
-        final Intent i = new Intent(this, SingleSubjectReportActivity.class);
+        final Intent i = new Intent(getActivity(), SingleSubjectReportActivity.class);
+        //i.putExtra(BundleKey.LESSON_ID,mLessonList.get(position).getLessonId());
+        i.putExtra(BundleKey.SUBJECT_ID,subjecId);
+        startActivity(i);
     }
 }

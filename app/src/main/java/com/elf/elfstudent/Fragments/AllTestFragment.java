@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
  * Created by nandhu on 18/10/16.
  * This Fragment gets called only for 10th Standard
  */
-public class AllTestFragment10 extends Fragment implements  TestLessonAdapter.OnTestViewClick, ErrorHandler.ErrorHandlerCallbacks {
+public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTestViewClick, ErrorHandler.ErrorHandlerCallbacks {
 
     @BindView(R.id.all_phy_text)
     HelviticaMedium mPhyText;

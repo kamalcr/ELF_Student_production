@@ -21,7 +21,8 @@ public class DataStore {
     private static final String BOARD_NAME  = "BOARD_NAME";
 
     private static final String IS_FIRST_TIME = "IS_FIRST_TIME";
-
+    private static final String PASSWORD = "PASSWORD";
+    private static final String STUDENT_STANDARD = "STANDARD";
 
 
     private static DataStore mStore = null;
@@ -116,7 +117,7 @@ public class DataStore {
         return mSharedPrefrences.getString(USER_NAME_TAG,null);
     }
 
-    public  String getPhoneNumberTag() {
+    public  String getPhoneNumber() {
         return mSharedPrefrences.getString(PHONE_NUMBER_TAG,null);
     }
 
@@ -149,6 +150,14 @@ public class DataStore {
 
     public  boolean isFirstTime(){
         return mSharedPrefrences.getBoolean(IS_FIRST_TIME,true);
+    }
+
+    public String getPassWord() {
+        return mSharedPrefrences.getString(PASSWORD,null);
+    }
+
+    public String getStandard() {
+        return mSharedPrefrences.getString(STUDENT_STANDARD,null);
     }
 }
 

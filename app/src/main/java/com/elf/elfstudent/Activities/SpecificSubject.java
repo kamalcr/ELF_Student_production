@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Activities;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +10,13 @@ import com.elf.elfstudent.R;
 import butterknife.ButterKnife;
 
 /**
- * Created by nandhu on 18/10/16.
+ * Created by nandhu on 20/10/16.
  */
-
-public class AboutUsActivity extends AppCompatActivity {
-
+public class SpecificSubject extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.about_us_activity);
+        setContentView(R.layout.specific_activity);
         ButterKnife.bind(this);
     }
 
@@ -42,22 +41,7 @@ public class AboutUsActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }
