@@ -130,7 +130,7 @@ public class TestPageActivity extends AppCompatActivity implements ErrorHandler.
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
-                alertDialog.setTitle("Finish Test");
+                alertDialog.setTitle("Finish Test?");
                 alertDialog.setMessage("Are you sure  you want to finish the test");
                 alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override

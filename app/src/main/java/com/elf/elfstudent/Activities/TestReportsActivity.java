@@ -6,7 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Adapters.TestReportsAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
@@ -14,7 +17,10 @@ import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.TestReportProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.RequestParameterKey;
 import com.elf.elfstudent.model.TestReportModel;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -29,6 +35,8 @@ import butterknife.ButterKnife;
 public class TestReportsActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, TestReportProvider.TestListCallback, TestReportsAdapter.TestReportCallbacks {
 
 
+    private static final String TAG = "TEST_REPORT";
+    private static final String GET_TEST_REPORT_URL = "";
     @BindView(R.id.test_report_list)
     RecyclerView mList;
 
@@ -58,6 +66,24 @@ public class TestReportsActivity extends AppCompatActivity implements ErrorHandl
         errorHandler = new ErrorHandler(this);
         mListDataProvider = new TestReportProvider(this);
 
+        String studentId=  mStore.getStudentId();
+        if (studentId != null){
+
+            getWriitetenTestFor(studentId);
+        }
+
+    }
+
+    private void getWriitetenTestFor(String studentId) {
+        JSONObject mObject  = new JSONObject();
+        try{
+            mObject.put(RequestParameterKey.STUDENT_ID,studentId);
+
+        }
+        catch (Exception e ){
+            Log.d(TAG, "getWriitetenTestFor: ");
+        }
+        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST,GET_TEST_REPORT_URL,mObject,mListDataProvider,errorHandler);
     }
 
     @Override

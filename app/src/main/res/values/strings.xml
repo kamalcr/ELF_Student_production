@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ELF Student</string>
+    <string name="forgot_title">Please Enter Your Crendentials to change Password</string>
 </resources>

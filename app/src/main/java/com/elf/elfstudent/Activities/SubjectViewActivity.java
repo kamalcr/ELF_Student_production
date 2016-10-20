@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -31,7 +32,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ *
  * Created by nandhu on 19/10/16.
+ *
+ * Called from {@link HomeActivity}
+ * displays individual Subject List
  *
  */
 
@@ -149,6 +154,17 @@ public class SubjectViewActivity extends AppCompatActivity implements ErrorHandl
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.background_image_view :
+                supportFinishAfterTransition();
+        }
+
+        return true;
     }
 
     @Override
