@@ -35,6 +35,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 
     private static final String TAG = "ELF";
     private static final String REPORT_URL = "";
+
     @BindView(R.id.report_tab)
     TabLayout mTab;
     @BindView(R.id.report_pager)
