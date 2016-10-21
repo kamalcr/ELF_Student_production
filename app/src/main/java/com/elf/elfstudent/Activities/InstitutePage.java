@@ -5,6 +5,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -108,7 +110,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
         mRequestQueue  = AppRequestQueue.getInstance(getApplicationContext());
 
-        prepareAdapterForInstituion(boardId,stateId);
+        prepareAdapterForInstituion("1","1");
 
         //Populate Class List
         classList = new ArrayList<>(2);
@@ -140,19 +142,14 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegisterStudent();
+                Log.d(TAG, "Register button");
+//                RegisterStudent();
             }
         });
 
 
         //The autcomplete Textview
-        mInsTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d(TAG, "Institution Has been Clicked "+institutionList.get(i).getInsName());
-                ins_id = institutionList.get(i).getIns_id();
-            }
-        });
+
     }
 
     private void RegisterStudent() {
@@ -190,16 +187,19 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
     }
 
     private void prepareAdapterForInstituion(String boardId, String stateId) {
+
         JSONObject mObject = new JSONObject();
         try{
-            mObject.put(RequestParameterKey.BOARD_ID,boardId);
-            mObject.put(RequestParameterKey.STATE_ID,stateId);
+            mObject.put(RequestParameterKey.BOARD_ID,"1");
+            mObject.put(RequestParameterKey.STATE_ID,"1");
         }
         catch (Exception e ){
             Log.d(TAG, "prepareAdapterForInstituion: ");
 
         }
-        JsonArrayRequest mRequest  = new JsonArrayRequest(Request.Method.POST,GET_INSTITUTE_URL,mObject,instituteRespHandler,errorHandler);
+        JsonArrayRequest mRequest  = new JsonArrayRequest(Request.Method.POST
+                ,GET_INSTITUTE_URL,mObject
+                ,instituteRespHandler,errorHandler);
         mRequestQueue.addToRequestQue(mRequest);
     }
 
@@ -256,7 +256,9 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         Log.d(TAG, "setInstitutionList: ");
         mSchoolAdapter = new SchoolListAdapter(getApplicationContext(),R.layout.institution_item_row_new,list);
         mInsTextView.setAdapter(mSchoolAdapter);
-        mInsTextView.showDropDown();
+        mInsTextView.setThreshold(2);
+
+
 
     }
 

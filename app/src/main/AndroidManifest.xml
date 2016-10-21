@@ -38,7 +38,8 @@
         <activity android:name=".Activities.SingleTestReportActivity"
             android:exported="true"/>
 
-        <activity android:name=".Activities.InstitutePage"/>
+        <activity android:name=".Activities.InstitutePage"
+            android:exported="true"/>
         <activity android:name=".Activities.EmailActivityPage"></activity>
         <activity android:name=".Activities.ForgotPassword"/>
         <activity android:name=".Activities.ChooseSubjectActivity"/>

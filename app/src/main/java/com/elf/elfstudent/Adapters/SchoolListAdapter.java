@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
+import android.widget.TextView;
 
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.R;
@@ -46,7 +47,7 @@ public class SchoolListAdapter extends ArrayAdapter<InstitutionModel> {
 
             //T
         }
-        HelviticaLight mInsName = (HelviticaLight)convertView.findViewById(R.id.ins_name);
+        TextView mInsName = (TextView)convertView.findViewById(R.id.ins_name_new);
         mInsName.setText(mList.get(position).getInsName());
         return convertView;
 /*
@@ -115,7 +116,11 @@ public class SchoolListAdapter extends ArrayAdapter<InstitutionModel> {
     //The Class Responsible for Filtering Objects
 
 
-
+    @NonNull
+    @Override
+    public Filter getFilter() {
+        return institutionFilter;
+    }
 
     Filter institutionFilter = new Filter() {
 

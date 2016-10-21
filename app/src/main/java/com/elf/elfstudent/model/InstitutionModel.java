@@ -60,8 +60,5 @@ public class InstitutionModel {
         this.cityName = cityName;
     }
 
-    @Override
-    public String toString() {
-        return this.insName;
-    }
+
 }
