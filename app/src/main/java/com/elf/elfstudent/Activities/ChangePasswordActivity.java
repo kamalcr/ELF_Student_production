@@ -8,7 +8,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -16,7 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
-import com.elf.elfstudent.Network.ChangePasswordHandler;
+import com.elf.elfstudent.Network.JsonProcessors.ChangePasswordHandler;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.RequestParameterKey;

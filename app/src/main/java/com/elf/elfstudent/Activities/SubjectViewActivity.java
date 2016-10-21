@@ -1,32 +1,36 @@
 package com.elf.elfstudent.Activities;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.elf.elfstudent.Adapters.SubjectListAdapter;
+import com.elf.elfstudent.Adapters.LessonListAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
+import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
+import com.elf.elfstudent.Network.JsonProcessors.TopicProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.model.Lesson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,18 +40,20 @@ import butterknife.ButterKnife;
  * Created by nandhu on 19/10/16.
  *
  * Called from {@link HomeActivity}
- * displays individual Subject List
+ * displays individual Subject and its lesson and covererage by the student
  *
  */
 
-public class SubjectViewActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks {
+public class SubjectViewActivity extends AppCompatActivity implements
+        ErrorHandler.ErrorHandlerCallbacks,
+         LessonProvider.SubjectLoaderCallback {
 
 
     private static final String TAG = "SUBJECT_VIEW";
     private static final String GET_LESSON_URL = "";
 
     //The VIews of this Activity
-    @BindView(R.id.subject_view_root) CardView mRoot;
+
 
     //The Subject Name text View
     @BindView(R.id.sub_view_sub_name)
@@ -79,9 +85,14 @@ public class SubjectViewActivity extends AppCompatActivity implements ErrorHandl
 
     private AppRequestQueue mRequestQueue = null;
 
-    SubjectListAdapter mAdapter = null;
+    LessonListAdapter mAdapter = null;
 
     ErrorHandler errorHandler ;
+    LessonProvider mLessonProvider = null;
+
+    List<Lesson> mLessonList = null;
+    JsonArrayRequest mLessonListRequestor = null;
+
 
 
     @Override
@@ -104,6 +115,7 @@ public class SubjectViewActivity extends AppCompatActivity implements ErrorHandl
             mSubjectName.setText(subjectName);
             mPercentage.setText(percent);
 
+            mSubjectViewImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_lightbulb));
 
             //setting Transition Name
             ViewCompat.setTransitionName(mSubjectName,subject_trans_name);
@@ -111,6 +123,7 @@ public class SubjectViewActivity extends AppCompatActivity implements ErrorHandl
 //            ViewCompat.setTransitionName(mRoot,transName);
             ViewCompat.setTransitionName(mSubjectViewImage,img_transName);
 
+            mLessonProvider = new LessonProvider(this);
 
             //getSubject ID
             mSubjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
@@ -125,30 +138,30 @@ public class SubjectViewActivity extends AppCompatActivity implements ErrorHandl
         //inititlize Request Quw
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
         errorHandler = new ErrorHandler(this);
-        initSubjectList();
+
+        setLessonList(getLessonList());
+
+//        getLessonListFromServer();
     }
 
 
 
-    private void initSubjectList(){
-        mSubList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+    private void getLessonListFromServer(){
+
 
         //Networks Related Code
         try {
             JSONObject mObject = new JSONObject();
             mObject.put("SubjectId",mSubjectId);
-            JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST, GET_LESSON_URL, mObject, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray response) {
-                    Log.d(TAG, "onResponse:Lesson List");
-                }
-            },errorHandler);
+           mLessonListRequestor = new JsonArrayRequest(Request.Method.POST,
+                    GET_LESSON_URL, mObject,mLessonProvider,errorHandler);
         }
         catch (Exception e ){
-            Log.d(TAG, "initSubjectList: exception "+e.getLocalizedMessage());
+            Log.d(TAG, "getLessonListFromServer: exception "+e.getLocalizedMessage());
         }
 
         //Add to Request Que
+        mRequestQueue.addToRequestQue(mLessonListRequestor);
 
     }
     @Override
@@ -205,6 +218,37 @@ public class SubjectViewActivity extends AppCompatActivity implements ErrorHandl
 
     @Override
     public void ServerError() {
+
+    }
+
+
+    @Override
+    public void setLessonList(List<Lesson> mLessons) {
+//        mLessonList = mLessons;
+        mAdapter = new LessonListAdapter(getApplicationContext(),getLessonList());
+        mSubList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mSubList.setAdapter(mAdapter);
+    }
+
+    private List<Lesson> getLessonList() {
+        if (mLessonList == null){
+            mLessonList = new ArrayList<>(5);
+
+        }
+        mLessonList.add(new Lesson("Matrix Multiplication","53"));
+        mLessonList.add(new Lesson("Elctrolysis","53"));
+        mLessonList.add(new Lesson("Gravity","53"));
+        mLessonList.add(new Lesson("Linear Algebra in Two dimnesional Analysis","53"));
+        mLessonList.add(new Lesson("Matrix Addition","53"));
+
+        return mLessonList;
+
+
+
+    }
+
+    @Override
+    public void noLesson() {
 
     }
 }

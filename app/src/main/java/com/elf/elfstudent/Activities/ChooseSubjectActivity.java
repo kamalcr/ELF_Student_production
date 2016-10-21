@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.elf.elfstudent.CustomUI.HelviticaMedium;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -44,6 +45,9 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
     //NExt Button
     @BindView(R.id.nextbutton) Button mNextbutton;
 
+    @BindView(R.id.skip_text)
+    HelviticaMedium mSkipText;
+
     private SubListProvider mSubListHandler = null;
     ErrorHandler errorHandler  = null;
 
@@ -67,12 +71,27 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
         mSubListHandler = new SubListProvider(this);
         getSubjectListFor(studentId);
 
+        mSkipText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SkipButtonClicked();
+            }
+        });
+
         mNextbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NextButtonClicked();
             }
         });
+    }
+
+    private void SkipButtonClicked() {
+        final  Intent  i = new Intent(this,HomeActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+
     }
 
 
@@ -120,7 +139,7 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
         }
 
         JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST,GET_SUBJECT_LIST,mObject,mSubListHandler,errorHandler);
-        mRequestQueue.addToRequestQue(mRequest);
+//        mRequestQueue.addToRequestQue(mRequest);
     }
 
     @Override

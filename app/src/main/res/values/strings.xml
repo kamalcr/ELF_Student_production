@@ -2,4 +2,6 @@
     <string name="app_name">ELF Student</string>
     <string name="forgot_title">Please Enter Your Crendentials to change Password</string>
     <string name="email_text">Enter your e-mail here</string>
+    <string name="oops">Oops!</string>
+    <string name="nright">Something\'s Not Right</string>
 </resources>

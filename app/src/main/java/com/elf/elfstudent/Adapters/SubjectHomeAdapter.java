@@ -92,7 +92,12 @@ public int getItemCount() {
         return mSubjectList.size();
         }
 
-public static class HomeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public void setNewSubjectList(List<SubjectModel> newSubjectList) {
+        this.mSubjectList = newSubjectList;
+        notifyDataSetChanged();
+    }
+
+    public static class HomeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
 
     private static final String TAG = "HOME HOLDER";

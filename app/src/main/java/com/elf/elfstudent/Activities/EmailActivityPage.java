@@ -13,10 +13,9 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
-import com.elf.elfstudent.Network.EmailHandler;
+import com.elf.elfstudent.Network.JsonProcessors.EmailHandler;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.RequestParameterKey;

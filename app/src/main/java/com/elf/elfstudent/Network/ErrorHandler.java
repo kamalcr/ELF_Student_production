@@ -37,7 +37,9 @@ public class ErrorHandler implements Response.ErrorListener {
         else if (error instanceof ServerError){
            mCallback.ServerError();
         }
-
+        else{
+            Log.d(TAG, "onErrorResponse: "+error.getLocalizedMessage());
+        }
     }
 
     public interface ErrorHandlerCallbacks{

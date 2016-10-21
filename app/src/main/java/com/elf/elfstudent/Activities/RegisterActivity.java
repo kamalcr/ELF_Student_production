@@ -122,6 +122,7 @@ public class RegisterActivity  extends AppCompatActivity{
                     Log.d(TAG, "submitButtonClicked: ");
                     //save Variables to storage(Shared prefs)
                     if (mStore != null){
+
                         mStore.setUserName(Name);
                         mStore.setPhoneNumberTag(phone);
                         mStore.setPassword(Password);

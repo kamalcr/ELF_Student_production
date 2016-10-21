@@ -15,11 +15,12 @@ import java.util.List;
 
 /**
  * Created by nandhu on 21/10/16.
+ *
  */
 public class ClassSpinnerAdapter extends ArrayAdapter<StandardModel>{
 
     private Context mContext = null;
-    private LayoutInflater inflater  = null;
+
     private List<StandardModel> mList = null;
 
     public ClassSpinnerAdapter(Context context, int resource, List<StandardModel> objects) {
@@ -33,21 +34,25 @@ public class ClassSpinnerAdapter extends ArrayAdapter<StandardModel>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        return super.getView(position, convertView, parent);
+     return super.getView(position,convertView,parent);
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-
-        if (inflater == null) {
-            inflater = LayoutInflater.from(mContext);
-        }
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.simple_spinner, parent, false);
+        View row = convertView;
+        if (row == null){
+            LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(R.layout.simple_spinner,parent,false);
         }
         StandardModel current = mList.get(position);
-        HelviticaLight mStandarNAme = (HelviticaLight) convertView.findViewById(R.id.class_name_spinner);
-        mStandarNAme.setText(current.getName());
-        return convertView;
+        if (current != null){
+            HelviticaLight mStandarNAme = (HelviticaLight) row.findViewById(R.id.class_name_spinner);
+            if (mStandarNAme != null){
+                mStandarNAme.setText(current.getName());
+
+            }
+        }
+
+        return row;
     }
 }

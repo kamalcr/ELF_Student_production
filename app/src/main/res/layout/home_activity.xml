@@ -261,8 +261,9 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
+            android:id="@+id/home_root"
             android:layout_height="match_parent"
             android:background="@color/black_viewpager">
 
@@ -277,15 +278,9 @@
                 app:indicatorName="BallClipRotatePulseIndicator"
                 />
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/home_list"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/textView31">
 
-            </android.support.v7.widget.RecyclerView>
+
+
 
             <com.elf.elfstudent.CustomUI.SansRegularTextview
                 android:layout_width="wrap_content"
@@ -298,7 +293,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 
-        </RelativeLayout>
+        </FrameLayout>
 
 
     </FrameLayout>

@@ -1,4 +1,4 @@
-package com.elf.elfstudent.Network;
+package com.elf.elfstudent.Network.JsonProcessors;
 
 import android.util.Log;
 
@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by nandhu on 20/10/16.
+ *  used in {@link com.elf.elfstudent.Activities.SubjectViewActivity}
  */
 
 public class TopicProvider implements Response.Listener<JSONArray> {

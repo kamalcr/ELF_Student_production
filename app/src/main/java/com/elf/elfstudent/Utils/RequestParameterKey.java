@@ -28,4 +28,5 @@ public class RequestParameterKey {
     public static String CLASS_ID = "ClassId";
     public static String CITY_ID = "CityId";
     public static String DISTRICT_ID = "DistrictId";
+    public static String FIRST_NAME= "FirstName";
 }

@@ -11,11 +11,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.android.volley.Request;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
-import com.elf.elfstudent.Network.ForgotPasswordHandler;
+import com.elf.elfstudent.Network.JsonProcessors.ForgotPasswordHandler;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RequestParameterKey;

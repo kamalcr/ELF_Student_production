@@ -14,7 +14,7 @@ import com.elf.elfstudent.Adapters.TestReportsAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
-import com.elf.elfstudent.Network.TestReportProvider;
+import com.elf.elfstudent.Network.JsonProcessors.TestReportProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RequestParameterKey;

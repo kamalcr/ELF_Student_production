@@ -5,8 +5,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,14 +14,13 @@ import android.widget.Spinner;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.elf.elfstudent.Adapters.ClassSpinnerAdapter;
 import com.elf.elfstudent.Adapters.SchoolListAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
-import com.elf.elfstudent.Network.InstituteRespHandler;
-import com.elf.elfstudent.Network.RegisterListener;
+import com.elf.elfstudent.Network.JsonProcessors.InstituteRespHandler;
+import com.elf.elfstudent.Network.JsonProcessors.RegisterListener;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RequestParameterKey;
@@ -143,7 +140,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Register button");
-//                RegisterStudent();
+                RegisterStudent();
             }
         });
 
@@ -158,17 +155,19 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         //Request Body Objects
         try{
 
-            mObject.put(RequestParameterKey.LOGIN_USER_NAME,mStore.getStateName());
+           mObject.put(RequestParameterKey.FIRST_NAME,mStore.getUserName());
             mObject.put(RequestParameterKey.LOGIN_LAS_NAME,"NO NAme");
             mObject.put(RequestParameterKey.EMAIL_ID,mStore.getEmailId());
             mObject.put(RequestParameterKey.PASSWORD,mStore.getPassWord());
-            mObject.put(RequestParameterKey.INSTITUION_ID,ins_id);
-            mObject.put(RequestParameterKey.board_id,boardId);
-            mObject.put(RequestParameterKey.CLASS_ID,classid);
-            mObject.put(RequestParameterKey.CITY_ID,"SOmeWHAT");
-            mObject.put(RequestParameterKey.DISTRICT_ID,"DISTCIT");
+            mObject.put(RequestParameterKey.INSTITUION_ID,"12");
+            mObject.put(RequestParameterKey.board_id,"0");
+            mObject.put(RequestParameterKey.CLASS_ID,"10");
+            mObject.put(RequestParameterKey.CITY_ID,"12");
+            mObject.put(RequestParameterKey.DISTRICT_ID,"4");
             mObject.put(RequestParameterKey.STATE_ID,mStore.getStateId());
             mObject.put(RequestParameterKey.PHONE,mStore.getPhoneNumber());
+
+            Log.d(TAG, "Registering Student "+mObject.toString());
             //get Instituion Id
 //            mObject.put(RequestParameterKey.INSTITUION_ID,mStore.)
 
@@ -180,7 +179,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         }
 
         //Request Body
-        JsonObjectRequest mRequest = new JsonObjectRequest(Request.Method.POST,REGISTER_URL,mObject,mRegisterListener,errorHandler);
+        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST,REGISTER_URL,mObject,mRegisterListener,errorHandler);
 
         //add to request Queue
         mRequestQueue.addToRequestQue(mRequest);
@@ -230,17 +229,19 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
     @Override
     public void TimeoutError() {
+        Log.d(TAG, "TimeoutError: ");
+        
 
     }
 
     @Override
     public void NetworkError() {
-
+        Log.d(TAG, "NetworkError: ");
     }
 
     @Override
     public void ServerError() {
-
+        Log.d(TAG, "ServerError: ");
     }
 
     /*This Method gives us the list of institution from { @link InstituteRespHandler }
@@ -256,7 +257,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         Log.d(TAG, "setInstitutionList: ");
         mSchoolAdapter = new SchoolListAdapter(getApplicationContext(),R.layout.institution_item_row_new,list);
         mInsTextView.setAdapter(mSchoolAdapter);
-        mInsTextView.setThreshold(2);
+        mInsTextView.setThreshold(1);
 
 
 
@@ -281,4 +282,11 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }
+
+    @Override
+    public void NotRegistered() {
+        Log.d(TAG, "NotRegistered: ");
+    }
+
+
 }

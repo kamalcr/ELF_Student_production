@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/black_900"
+    android:layout_height="match_parent">
+
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="@string/oops"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white_light"
+        android:textSize="@dimen/try_again_text_size"
+        android:layout_marginTop="@dimen/try_again_text_margin_top"
+        android:id="@+id/oops_text" />
+
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="@string/nright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/white_light"
+        android:textSize="@dimen/try_again_text_size"
+        android:id="@+id/wrong_text"
+        android:layout_below="@+id/oops_text"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TRY AGAIN"
+        android:layout_width="wrap_content"
+        android:background="?selectableItemBackground"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_marginTop="93dp"
+        android:textColor="@color/md_white_1000"
+        android:id="@+id/try_again_text"
+        android:layout_below="@+id/wrong_text"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
