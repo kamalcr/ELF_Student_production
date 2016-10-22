@@ -16,6 +16,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -61,7 +63,8 @@ import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAn
  * The Home Acitivity
  *
  */
-public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapter.onCardClick, ErrorHandler.ErrorHandlerCallbacks, HomePageDataProvider.HomeDataProvider, Drawer.OnDrawerItemClickListener {
+public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapter.onCardClick, ErrorHandler.ErrorHandlerCallbacks, HomePageDataProvider.HomeDataProvider,
+        Drawer.OnDrawerItemClickListener {
 
 
     private static final String HOME_URL = "http://www.hijazboutique.com/elf_ws.svc/GetStudentDashboard";
@@ -265,7 +268,25 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
             super.onStart();
         }
 
-        @Override
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_activity_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       switch (item.getItemId()){
+           case R.id.profile_menu:
+               final  Intent i = new Intent(this,ChangeProfileActivity.class);
+               startActivity(i);
+               break;
+       }
+        return true;
+    }
+
+    @Override
         protected void onStop () {
             super.onStop();
             errorHandler = null;
@@ -366,7 +387,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
     @Override
     public void TimeoutError() {
-        mRoot.removeAllViews();
+       /* mRoot.removeAllViews();
         View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.try_again_layout,mRoot,true);
 
 
@@ -392,6 +413,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
             Log.d(TAG, "TimeoutError: ");
         }
 
+*/
 
     }
 
@@ -459,10 +481,10 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     }
 
 
-    /*This method Returns NEw Adapter from the data or calls notifydatasetChanged
-    *
-    *
-    *
+    /**
+     *This method Returns NEw Adapter from the data or calls notifydatasetChanged
+     * {@param List<SubjectModel> subjectList}
+     * {@return SubjectHomeAdapter mAdapter }
     * */
 
     private SubjectHomeAdapter getNewOrModifiedAdapter(List<SubjectModel> mSubjectList) {

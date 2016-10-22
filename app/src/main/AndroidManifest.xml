@@ -44,6 +44,8 @@
         <activity android:name=".Activities.ForgotPassword"/>
         <activity android:name=".Activities.ChooseSubjectActivity"/>
 
+        <activity android:name=".Activities.ChangeProfileActivity"/>
+
         <activity android:name=".Activities.SubjectViewActivity"/><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data

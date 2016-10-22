@@ -2,6 +2,7 @@ package com.elf.elfstudent.model;
 
 /**
  * Created by nandhu on 17/8/16.
+ * The Subject Model
  */
 public class SubjectModel {
     private String mSubjectName;

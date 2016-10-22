@@ -23,7 +23,8 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
 
 
     String overall;
-    String SubjectName = "";
+    String mSubjectName  = "";
+    String mSubjectId = "";
 //    List<T> LessoList  =
 
     public ReportPagerAdapter(FragmentManager fm) {
@@ -31,18 +32,40 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
     }
 
     @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position){
+            case 0 :
+                return "MATHS";
+            case 1:
+                return "SCIENCE";
+            case 2:
+                return "SOCIAL";
+
+
+
+        }
+        return null;
+    }
+
+    @Override
     public Fragment getItem(int position) {
 
-        ReportFragment fragment = null;
+        ReportFragment fragment = new ReportFragment();
 
         switch (position){
           //based on subjects , set Arguments to Fragemnt such as
             //overall percentage , List of Lessons etc
-            case 0:
-                overall = "";
+            case 0: mSubjectId = "1";
+                mSubjectName = "SCIENCE";
+                break;
+            case 1 :
+
 
 
         }
+
+
+
 
 
         Bundle b  = new Bundle();
