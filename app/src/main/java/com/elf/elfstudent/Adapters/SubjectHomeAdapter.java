@@ -111,7 +111,7 @@ public int getItemCount() {
 
     @BindView(R.id.percent) HelviticaLight mPercent;
     @BindView(R.id.button4)
-    Button mDetailsButton;
+    ImageView mDetailsButton;
 
     @BindView(R.id.imageView3)
     ImageView mInfoButton;

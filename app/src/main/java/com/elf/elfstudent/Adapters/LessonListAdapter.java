@@ -51,6 +51,7 @@ public class LessonListAdapter  extends RecyclerView.Adapter<LessonListAdapter.L
     public void onBindViewHolder(LessonHolder holder, int position) {
             holder.mLessonName.setText(lessonList.get(position).getmLessonName());
            holder.mGrowthPercentage.setText(lessonList.get(position).getmGrowthPercentage());
+
     }
 
     @Override

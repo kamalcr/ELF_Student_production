@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.R;
@@ -61,7 +62,8 @@ public class  TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Top
         @BindView(R.id.topic_name_item)
         HelviticaLight TopicName;
         //Points in Topic
-        @BindView(R.id.points_topic_item) HelviticaLight mPoints;
+        @BindView(R.id.points_topic_item)
+        TextView mPoints;
         public TopicViewer(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);

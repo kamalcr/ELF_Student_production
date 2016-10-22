@@ -4,22 +4,37 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.elf.elfstudent.Activities.SingleSubjectReportActivity;
+import com.elf.elfstudent.Adapters.LessonListAdapter;
 import com.elf.elfstudent.Adapters.ReportLessonAdapter;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.ScreenUtil;
+import com.elf.elfstudent.model.Lesson;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static android.support.v4.app.ActivityOptionsCompat.*;
+import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAnimation;
+import static com.elf.elfstudent.Adapters.ReportLessonAdapter.*;
 
 /**
  * Created by nandhu on 20/10/16.
@@ -28,7 +43,7 @@ import butterknife.BindView;
  * Gets The OVerall Percentage , lesson List and shows them in lIst
  * clicking on List , will show them topic wise
  */
-public class ReportFragment extends Fragment implements ReportLessonAdapter.LessonClickCallbacks{
+public class ReportFragment extends Fragment implements LessonClickCallbacks{
 
 
 
@@ -44,12 +59,17 @@ public class ReportFragment extends Fragment implements ReportLessonAdapter.Less
 
     ReportLessonAdapter mAdapter = null;
 
+    List<Lesson> mLessonList = null;
+
     String subjecId = null;
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.report_fragment,container,false);
-
+        ButterKnife.bind(this,mView);
         if (getArguments()!= null){
             //overall = getArguments().get
             //Lesson Names  = getArguments.getP
@@ -58,9 +78,25 @@ public class ReportFragment extends Fragment implements ReportLessonAdapter.Less
         }
 
 
+        mAdapter = new ReportLessonAdapter(getContext(),getLessonList(),this);
+        mList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mList.setAdapter(mAdapter);
+
+
 
         return mView;
     }
+
+    private List<Lesson> getLessonList() {
+        mLessonList = new ArrayList<>(5);
+        mLessonList.add(new Lesson("Electricity","92"));
+        mLessonList.add(new Lesson("Matrix Addition","75"));
+        mLessonList.add(new Lesson("Magnetism","85"));
+        mLessonList.add(new Lesson("Kinematics","44"));
+        mLessonList.add(new Lesson("Linear Algebra","88"));
+        return mLessonList;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,15 +175,32 @@ public class ReportFragment extends Fragment implements ReportLessonAdapter.Less
     }
 
     @Override
-    public void ShowLessonReportFor(int position, ReportLessonAdapter.LessonView itemView) {
+    public void ShowLessonReportFor(int position, LessonView itemView) {
 
 
-
-
-
+        Log.d("REport", "ShowLessonReportFor: ");
         final Intent i = new Intent(getActivity(), SingleSubjectReportActivity.class);
         //i.putExtra(BundleKey.LESSON_ID,mLessonList.get(position).getLessonId());
+
+        String LessonTransName = ViewCompat.getTransitionName(itemView.mLessonName);
+        String percentTransName = ViewCompat.getTransitionName(itemView.mGrowth);
         i.putExtra(BundleKey.SUBJECT_ID,subjecId);
-        startActivity(i);
+        i.putExtra(BundleKey.LESSON_NAME,mLessonList.get(position).getmLessonName());
+        i.putExtra(BundleKey.PERCENTAGE,mLessonList.get(position).getmGrowthPercentage());
+        i.putExtra(BundleKey.LESSON_NAME_TRANS,LessonTransName);
+        i.putExtra(BundleKey.PERCENT_TRANS,percentTransName);
+        //MAking pairs for many Share elements
+
+        Pair<View, String> p2 = Pair.create((View) itemView.mLessonName, LessonTransName);
+        Pair<View, String> p3 = Pair.create((View)itemView.mGrowth, percentTransName);
+
+
+        ActivityOptionsCompat options = makeSceneTransitionAnimation(getActivity(), p2,p3);
+        if (ScreenUtil.isAndroid5()){
+
+            startActivity(i, options.toBundle());
+        }else{
+            startActivity(i);
+        }
     }
 }

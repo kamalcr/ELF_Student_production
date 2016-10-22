@@ -1,28 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:id="@+id/sing_report_toolbar"
+            android:layout_height="?attr/actionBarSize">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_height="match_parent">
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/topic_list"
+        android:layout_below="@+id/lesson_name_single"
+
+        android:layout_marginTop="12dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <com.elf.elfstudent.CustomUI.HelviticaMedium
+        android:text="Percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:id="@+id/percent_single"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="40dp" />
 
     <com.elf.elfstudent.CustomUI.HelviticaMedium
         android:text="Lesson Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="22sp"
-        android:layout_alignParentTop="true"
+        android:id="@+id/lesson_name_single"
+        android:layout_marginLeft="44dp"
+        android:layout_marginStart="44dp"
+        android:layout_alignBaseline="@+id/percent_single"
+        android:layout_alignBottom="@+id/percent_single"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="62dp"
-        android:id="@+id/lesson_name_single" />
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:id="@+id/topic_list"
-        android:layout_below="@id/lesson_name_single"
-
-        android:layout_height="match_parent"
-        android:layout_alignLeft="@+id/lesson_name_single"
-        android:layout_alignStart="@+id/lesson_name_single">
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

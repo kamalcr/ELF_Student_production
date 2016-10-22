@@ -3,14 +3,19 @@ package com.elf.elfstudent.Activities;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Adapters.TopicListAdapter;
+import com.elf.elfstudent.CustomUI.HelviticaLight;
+import com.elf.elfstudent.CustomUI.HelviticaMedium;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -22,6 +27,7 @@ import com.elf.elfstudent.model.Topic;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,6 +62,22 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
     @BindView(R.id.topic_list)
     RecyclerView mTopicListView;
 
+
+
+    //TOolbar
+
+    @BindView(R.id.sing_report_toolbar)
+    Toolbar mToolbar;
+
+    @BindView(R.id.lesson_name_single)
+    HelviticaMedium mLessonName;
+    @BindView(R.id.percent_single) HelviticaMedium mPercentName;
+
+    String lessonnametrans = null;
+    String percenttransName  = null;
+
+    String lessonName = null;
+    String percentage = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,17 +87,73 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
         if (getIntent()!= null){
             lessonId  = getIntent().getStringExtra(BundleKey.LESSON_ID);
             subjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
+
+            lessonnametrans = getIntent().getStringExtra(BundleKey.LESSON_NAME_TRANS);
+            percenttransName = getIntent().getStringExtra(BundleKey.PERCENT_TRANS);
+            lessonName  = getIntent().getStringExtra(BundleKey.LESSON_NAME);
+            percentage = getIntent().getStringExtra(BundleKey.PERCENTAGE);
+
+
+        }
+
+
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle("Topic Wise Report");
+        
+        ActionBar ab  = getSupportActionBar();
+        try {
+            ab.setDisplayShowHomeEnabled(true);
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+        catch (Exception e ){
+            Log.d(TAG, "Exception in Toolbar");
+        }
+        mLessonName.setText(lessonName);
+        mPercentName.setText(percentage);
+
+        if (lessonnametrans != null && percenttransName != null){
+            ViewCompat.setTransitionName(mLessonName,lessonnametrans);
+            ViewCompat.setTransitionName(mPercentName,percenttransName);
         }
         mStore = DataStore.getStorageInstance(getApplicationContext());
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
         errorHandler = new ErrorHandler(this);
 
-        topicProvider = new TopicProvider(this);
+
+        mAdapter = new TopicListAdapter(getApplicationContext(),getTopciList());
+       /* topicProvider = new TopicProvider(this);
         studentId = mStore.getStudentId();
         if (lessonId != null && studentId != null){
 
             getTopicForlesson(lessonId,studentId);
         }
+        */
+        mTopicListView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mTopicListView.setAdapter(mAdapter);
+    }
+
+    private List<Topic> getTopciList() {
+        List<Topic> mTopicList = new ArrayList<>(12);
+        mTopicList.add(new Topic("Addition of Matrix","458"));
+        mTopicList.add(new Topic("Subtraction of Matrix","789"));
+        mTopicList.add(new Topic("Determinants","789"));
+
+        mTopicList.add(new Topic("Adjoints","789"));
+        mTopicList.add(new Topic("Inverse","789"));
+        mTopicList.add(new Topic("Cosine Transformations","789"));
+
+        mTopicList.add(new Topic("Wave Theory","789"));
+        mTopicList.add(new Topic("Boolean Algebra","789"));
+        mTopicList.add(new Topic("Gravity pull of Earth","789"));
+
+        mTopicList.add(new Topic("Carbon - Carbon Bonding","789"));
+        mTopicList.add(new Topic("Electrical Conductance","789"));
+        mTopicList.add(new Topic("Two Variables","789"));
+
+
+        return mTopicList;
+
+
     }
 
     private void getTopicForlesson(String lessonId, String studentId) {

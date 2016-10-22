@@ -43,4 +43,7 @@ public class BundleKey {
     public static String HOME_SUBJECT_IMAGE_TRANS_NAME = "SUBJECT_IMAGE_TRANS_NAME";
     public static String ALL_PRICE = "ALL_PRICE";
     public static String LESSON_ID = "LESSON_ID";
+    public static String LESSON_NAME_TRANS = "LESSON_TRANS";
+    public static String PERCENT_TRANS = "percent";
+    public static String LESSON_NAME = "LESSON_NAME";
 }

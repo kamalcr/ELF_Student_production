@@ -222,8 +222,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
     }
     private void setViewValues() {
-        mSchoolname.setText(mStore.getInstituionName());
-        mStandardName.setText(mStore.getStandard());
+        mSchoolname.setText("Sri Akilandeswari Vidhyala");
+        mStandardName.setText("10th Standard");
         mStudentName.setText(mStore.getUserName());
     }
 

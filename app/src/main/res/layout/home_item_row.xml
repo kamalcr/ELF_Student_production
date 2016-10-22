@@ -104,11 +104,11 @@
                 android:layout_marginTop="8dp"
                 android:padding="4dp" />
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
+            <ImageView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Details"
+                android:src="@drawable/ic_lock_outline_black_24px"
                 android:id="@+id/button4"
                 android:layout_below="@+id/textView26"
                 android:layout_alignRight="@+id/imageView3"

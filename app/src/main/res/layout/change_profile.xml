@@ -19,7 +19,7 @@
     <RelativeLayout
             android:layout_width="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-          android:background="@color/black_900"
+            android:background="@color/black_900"
             android:layout_height="match_parent">
 
             <android.support.v7.widget.AppCompatImageView
@@ -174,18 +174,7 @@
                 android:layout_marginTop="4dp"
                 android:id="@+id/chg_profile_email_value" />
 
-            <TextView
-                android:text="Phone Number"
-                android:layout_width="wrap_content"
-                style="@style/change_profile_top_text"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/chg_profile_email_value"
-                android:layout_alignLeft="@+id/cont_view"
-                android:layout_alignStart="@+id/cont_view"
-                android:layout_marginTop="16dp"
-                android:id="@+id/textView14" />
-
-            <TextView
+        <TextView
                 android:text="9688612122"
                 style="@style/change_profile_bottom_text"
                 android:layout_width="wrap_content"
@@ -209,8 +198,19 @@
                 android:layout_alignLeft="@+id/elf_id_view"
                 android:layout_alignStart="@+id/elf_id_view" />
 
+        <TextView
+            android:text="Phone Number"
+            android:layout_width="wrap_content"
+            style="@style/change_profile_top_text"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:id="@+id/textView14"
+            android:layout_below="@+id/chg_profile_email_value"
+            android:layout_alignLeft="@+id/chg_profile_phone_value"
+            android:layout_alignStart="@+id/chg_profile_phone_value" />
 
-        </RelativeLayout>
+
+    </RelativeLayout>
 
 
 

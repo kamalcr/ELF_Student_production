@@ -33,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 18/10/16.
@@ -74,6 +75,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_activity);
+        ButterKnife.bind(this);
 
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
         mStore = DataStore.getStorageInstance(getApplicationContext());
@@ -86,8 +88,8 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 
 
 
-
-        mPager.setAdapter(new ReportPagerAdapter(getSupportFragmentManager()));
+        mAdapter = new ReportPagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mAdapter);
         mTab.setupWithViewPager(mPager);
         initDrawer();
 
@@ -213,7 +215,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         if (drawerItem != null) {
             if (drawerItem.getIdentifier() == 0) {
                 //Current Activity do Nothing
-                return true;
+                i = new Intent(this,HomeActivity.class);
             }
             if (drawerItem.getIdentifier() == 1) {
                 i = new Intent(this,ReportActivity.class);
