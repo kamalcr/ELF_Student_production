@@ -16,47 +16,63 @@
             </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
-
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
 
-        <com.elf.elfstudent.CustomUI.HelviticaLight
-            android:layout_width="match_parent"
-            android:id="@+id/written_text_title"
-            android:text="Test Written"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="4dp"
-            android:textSize="22sp"
-            android:layout_height="wrap_content" />
-        <com.elf.elfstudent.CustomUI.HelviticaLight
-            android:layout_width="match_parent"
-            android:textColor="@color/white_light"
-            android:id="@+id/written_text_titlle_sub"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="These are the tests Written by you so far"
-            android:layout_below="@id/written_text_title"
-            android:layout_height="wrap_content" />
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:id="@+id/test_report_list"
-            android:paddingLeft="16dp"
-            android:layout_marginTop="12dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/written_text_titlle_sub"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="8dp">
+            android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:layout_width="match_parent"
+                android:id="@+id/written_text_title"
+                android:text="Test Written"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="4dp"
+                android:textSize="22sp"
+                android:layout_height="wrap_content" />
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:layout_width="match_parent"
+                android:textColor="@color/white_light"
+                android:id="@+id/written_text_titlle_sub"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="These are the tests Written by you so far"
+                android:layout_below="@id/written_text_title"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/test_report_list"
+                android:paddingLeft="16dp"
+                android:layout_marginTop="12dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/written_text_titlle_sub"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="8dp">
 
-    </RelativeLayout>
+            </android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+        <FrameLayout
+            android:layout_width="60dp"
+            android:id="@+id/test_report_drawer_frame"
+
+            android:visibility="invisible"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/drawer_new"
+                />
+        </FrameLayout>
+    </FrameLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

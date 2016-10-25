@@ -273,14 +273,17 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
             mStore.setIsFirstTime(false);
 
         }
-
-        //Finally Show home Page ,Before That Show Choose Subject Activity
-        final Intent  i = new Intent(this,ChooseSubjectActivity.class);
-
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
+        //The User Has been Registered show Choose subject page if he is 12th
+        //show Direct home Page
+        if (mStore.getStandard().equals("10")){
+            //The Student is 10th, show MainActivity Directecly
+            final  Intent i = new Intent(this,HomeActivity.class);
+            startActivity(i);
+        }
+        else{
+            final Intent  i  = new Intent(this,ChooseSubjectActivity.class);
+            startActivity(i);
+        }
     }
 
     @Override

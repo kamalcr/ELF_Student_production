@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -33,11 +35,14 @@ import butterknife.ButterKnife;
  * Created by nandhu on 20/10/16.
  */
 
-public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, SubListProvider.SubListCallbacks {
+public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, SubListProvider.SubListCallbacks, RadioGroup.OnCheckedChangeListener {
 
     private static final String TAG = "ELF";
     private static final String GET_SUBJECT_LIST = "";
     String studentId = null;
+
+
+    int  SUBJECT;
 
 
 
@@ -45,8 +50,14 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
     //NExt Button
     @BindView(R.id.nextbutton) Button mNextbutton;
 
-    @BindView(R.id.skip_text)
-    HelviticaMedium mSkipText;
+
+
+    @BindView(R.id.radio_group_select_subject)
+    RadioGroup mGroup;
+
+    @BindView(R.id.cs_group)
+    RadioButton mComputerButton;
+    @BindView(R.id.bio_group) RadioButton mBioGroup;
 
     private SubListProvider mSubListHandler = null;
     ErrorHandler errorHandler  = null;
@@ -63,6 +74,8 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
             studentId = getIntent().getStringExtra(BundleKey.ARG_STUDENT_ID);
         }
 
+        mGroup.setOnCheckedChangeListener(this);
+
 
 
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
@@ -71,12 +84,12 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
         mSubListHandler = new SubListProvider(this);
         getSubjectListFor(studentId);
 
-        mSkipText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SkipButtonClicked();
-            }
-        });
+//        mSkipText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                SkipButtonClicked();
+//            }
+//        });
 
         mNextbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,24 +115,8 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
     * */
     private void NextButtonClicked() {
 
-       if (allSubjects()){
-           //All Subjects
-           String allprice = "";
-           final  Intent i = new Intent(this,PaymentActivity.class);
-           i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-           i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-           i.putExtra(BundleKey.ALL_PRICE,allprice);
-           startActivity(i);
-       }
-        else{
-           //specific subject have been Chosen
-           int subjectChosenCOunt = 4;
-           String total_price = "";
-           //find subject chosen and individual prices
-           final  Intent  i = new Intent(this,SpecificSubject.class);
-           //i.putExtra()
-           startActivity(i);
-       }
+      final  Intent i = new Intent(this,PaymentActivity.class);
+        startActivity(i);
 
 
     }
@@ -185,5 +182,21 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
     @Override
     public void SubList(List<SubjectModelPrice> mList) {
 
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        switch (radioGroup.getCheckedRadioButtonId()){
+            case R.id.bio_group:
+                Log.d(TAG, "Biology Clicked");
+                SUBJECT = 1;
+                mStore.setStudentPrefrerredSubject(SUBJECT);
+                break;
+            case R.id.cs_group:
+                Log.d(TAG, "onCheckedChanged: ");
+                SUBJECT = 0;
+                mStore.setStudentPrefrerredSubject(SUBJECT);
+                break;
+        }
     }
 }

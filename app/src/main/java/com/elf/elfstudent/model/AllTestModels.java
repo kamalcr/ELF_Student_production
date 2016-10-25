@@ -9,7 +9,13 @@ public class AllTestModels {
     public String mSubjectName;
     public String mSubjectId;
 
-
+//ParticularTestDetails
+//{
+// Subject Name
+// TestID
+// Time
+ //Nos of Questions
+// }
     public AllTestModels(String mTestId, String mTestDetail, String mSubjectName, String subId) {
         this.mTestId = mTestId;
         this.mTestDetail = mTestDetail;

@@ -24,6 +24,10 @@ public class DataStore {
     private static final String PASSWORD = "PASSWORD";
     private static final String STUDENT_STANDARD = "STANDARD";
 
+    private static final String COMPUTER = "COMPUTER";
+    private static final String BIOLOGY = "BIOLOGY";
+    private static final String SUBJECT_SELECTED = "SUBJECT_SELECTED";
+
 
     private static DataStore mStore = null;
 
@@ -163,6 +167,21 @@ public class DataStore {
     public void setPassword(String password) {
         editor.putString(PASSWORD,password);
         editor.apply();
+    }
+
+    public void setStudentPrefrerredSubject(int i){
+        //Zero for Computer
+        if (i == 0){
+
+            editor.putString(SUBJECT_SELECTED,COMPUTER);
+            editor.apply();
+        }
+
+        //one for bio
+        else{
+            editor.putString(SUBJECT_SELECTED,BIOLOGY);
+            editor.apply();
+        }
     }
 }
 

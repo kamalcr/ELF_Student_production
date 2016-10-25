@@ -15,30 +15,45 @@
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-
-    <android.support.design.widget.TabLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:id="@+id/test_tab"
-        app:tabBackground="@color/black_900"
-        app:tabTextColor="@color/white_light"
-        app:tabIndicatorColor="@color/white"
-        app:tabSelectedTextColor="@color/white"
-        android:layout_height="wrap_content">
-
-    </android.support.design.widget.TabLayout>
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:id="@+id/test_pager"
-        android:background="@color/black_900"
         android:layout_height="match_parent">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
 
-    </android.support.v4.view.ViewPager>
-</LinearLayout>
+            <android.support.design.widget.TabLayout
+                android:layout_width="match_parent"
+                android:id="@+id/test_tab"
+                app:tabBackground="@color/black_900"
+                app:tabTextColor="@color/white_light"
+                app:tabIndicatorColor="@color/white"
+                app:tabSelectedTextColor="@color/white"
+                android:layout_height="wrap_content">
+
+            </android.support.design.widget.TabLayout>
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:id="@+id/test_pager"
+                android:background="@color/black_900"
+                android:layout_height="match_parent">
+
+            </android.support.v4.view.ViewPager>
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="60dp"
+            android:id="@+id/browse_drawer_frame"
+
+            android:visibility="invisible"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/drawer_new"
+                />
+        </FrameLayout>
+    </FrameLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
-        android:text="Subscribe Subjects"
+        android:text="Choose Group"
         android:layout_width="wrap_content"
         android:textSize="22sp"
 
@@ -18,30 +18,44 @@
         android:layout_marginLeft="36dp"
         android:layout_marginStart="36dp" />
 
-    <com.elf.elfstudent.CustomUI.HelviticaMedium
-        android:text="SKIP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/cardview_light_background"
-
-        android:layout_marginRight="27dp"
-        android:layout_marginEnd="27dp"
-        android:id="@+id/skip_text"
-        android:layout_marginTop="9dp"
-        android:layout_alignTop="@+id/subscribe_text"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <Button
         android:text="NEXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/subscribe_text"
-        android:layout_alignStart="@+id/subscribe_text"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="12dp"
         android:id="@+id/nextbutton"
-        android:layout_alignRight="@+id/skip_text"
-        android:layout_alignEnd="@+id/skip_text" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="9dp"
+        android:layout_marginStart="9dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:id="@+id/radio_group_select_subject"
+        android:layout_below="@+id/subscribe_text"
+        android:layout_alignLeft="@+id/nextbutton"
+        android:layout_alignStart="@+id/nextbutton"
+        android:layout_marginTop="44dp">
+        <RadioButton
+            android:layout_width="0dp"
+            android:id="@+id/cs_group"
+            android:layout_weight="1"
+            android:text="Computer Science Group"
+            android:layout_height="wrap_content">
+
+        </RadioButton>
+        <RadioButton
+            android:layout_width="0dp"
+            android:id="@+id/bio_group"
+            android:layout_weight="1"
+            android:text="Biology"
+            android:layout_height="wrap_content" />
+
+    </RadioGroup>
 </RelativeLayout>

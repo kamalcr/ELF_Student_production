@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +15,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginLeft="16dp"
             android:id="@+id/all_science_text"
-            android:text="SCIENCE"
+            android:text="PHYSICS"
             android:textColor="@color/black_viewpager" />
 
 
@@ -29,7 +27,7 @@
             android:textColor="@color/black_viewpager"
             android:layout_marginLeft="16dp"
             android:id="@+id/all_social_text"
-            android:text="SOCIAL" />
+            android:text="CHEMISTRY" />
 
         <com.elf.elfstudent.CustomUI.HelviticaMedium
             android:layout_width="match_parent"
@@ -80,6 +78,29 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginTop="12dp"
             android:id="@+id/all_math_list"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:layout_alignStart="@+id/all_social_list"
+            android:layout_alignLeft="@+id/all_social_list"
+            android:layout_marginBottom="40dp" />
+
+        <com.elf.elfstudent.CustomUI.HelviticaLight
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:id="@+id/opt_subject"
+            android:layout_below="@id/all_math_list"
+            android:layout_alignLeft="@+id/all_maths_tex"
+            android:layout_alignStart="@+id/all_maths_tex" />
+        <android.support.v7.widget.RecyclerView
+
+            android:layout_width="wrap_content"
+
+            android:layout_below="@+id/opt_subject"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginTop="12dp"
+            android:id="@+id/all_opt_list"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:clipChildren="false"

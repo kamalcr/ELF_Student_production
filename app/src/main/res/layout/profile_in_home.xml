@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_collapseMode="pin"
+
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        app:layout_collapseMode="parallax"
+        android:layout_below="@+id/elf_toolbar"
+        android:id="@+id/home_profile_container"
+        android:background="@color/black_viewpager"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/ic_write_board"
+            android:id="@+id/imageView2"
+            android:layout_below="@+id/home_student_name"
+            android:layout_alignLeft="@+id/home_student_name"
+            android:layout_alignStart="@+id/home_student_name"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="2dp" />
+
+        <com.elf.elfstudent.CustomUI.HelviticaLight
+            android:text="Student Name"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_student_name"
+            android:layout_alignTop="@+id/home_profile_imageview"
+            android:layout_toRightOf="@+id/home_profile_imageview"
+            android:layout_toEndOf="@+id/home_profile_imageview" />
+
+        <com.elf.elfstudent.CustomUI.HelviticaLight
+            android:text="Section Name"
+            android:textSize="16sp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_section_name"
+            android:layout_alignBottom="@+id/imageView2"
+            android:layout_toRightOf="@+id/imageView2"
+            android:layout_toEndOf="@+id/imageView2"
+            android:layout_below="@+id/home_student_name"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="4dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_kindergarten"
+            android:layout_below="@+id/imageView2"
+            android:layout_toRightOf="@+id/home_profile_imageview"
+            android:id="@+id/imageView8"
+            android:layout_alignRight="@+id/imageView2"
+            android:layout_alignEnd="@+id/imageView2"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="2dp" />
+
+        <com.elf.elfstudent.CustomUI.RoundedImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/pro_pic"
+            android:id="@+id/home_profile_imageview"
+            android:layout_marginTop="14dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_profile_imageview"
+            android:background="@color/black_viewpager"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ring_green"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/home_o_img"
+                android:layout_marginStart="30dp"
+                android:layout_alignTop="@+id/home_state_img"
+                android:layout_alignLeft="@+id/home_overall_rank_text"
+                android:layout_alignStart="@+id/home_overall_rank_text" />
+
+            <com.elf.elfstudent.CustomUI.SansRegularTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Overall rank"
+                android:textColor="@color/white_light"
+                android:id="@+id/home_overall_rank_text"
+                android:layout_marginLeft="18dp"
+                android:layout_alignTop="@+id/home_state_text"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="18dp" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ring_blue"
+                android:id="@+id/home_state_img"
+
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp" />
+
+            <com.elf.elfstudent.CustomUI.SansRegularTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text=" State Rank"
+                android:textColor="@color/white_light"
+                android:id="@+id/home_state_text"
+                android:layout_below="@+id/home_o_img"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ring"
+                android:id="@+id/home_dist_img"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="42dp"
+                android:layout_alignTop="@+id/home_state_img"
+                android:layout_alignRight="@+id/home_district_text"
+                android:layout_alignEnd="@+id/home_district_text" />
+
+            <com.elf.elfstudent.CustomUI.HelviticaMedium
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="District Rank"
+                android:textColor="@color/white_light"
+                android:id="@+id/home_district_text"
+                android:layout_alignTop="@+id/home_state_text"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="12dp" />
+
+            <com.elf.elfstudent.CustomUI.SansRegularTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="72"
+                android:id="@+id/home_overall_rank_value"
+                android:gravity="center"
+                android:layout_alignTop="@+id/home_dist_rank_value"
+                android:layout_alignRight="@+id/home_state_text"
+                android:layout_alignEnd="@+id/home_state_text"
+                android:layout_alignLeft="@+id/home_state_text"
+                android:layout_alignStart="@+id/home_state_text" />
+
+            <com.elf.elfstudent.CustomUI.SansRegularTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="1550"
+                android:id="@+id/home_state_value"
+                android:layout_below="@+id/home_state_text"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_alignRight="@+id/home_overall_rank_text"
+                android:layout_alignEnd="@+id/home_overall_rank_text"
+                android:layout_marginBottom="10dp"
+                android:layout_alignLeft="@+id/home_overall_rank_text"
+                android:layout_alignStart="@+id/home_overall_rank_text" />
+
+            <com.elf.elfstudent.CustomUI.SansRegularTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="502"
+                android:id="@+id/home_dist_rank_value"
+                android:layout_alignTop="@+id/home_state_value"
+                android:layout_alignRight="@+id/home_district_text"
+                android:layout_alignEnd="@+id/home_district_text"
+                android:layout_alignLeft="@+id/home_district_text"
+                android:layout_alignStart="@+id/home_district_text"
+                android:gravity="center" />
+
+
+        </RelativeLayout>
+
+        <com.elf.elfstudent.CustomUI.HelviticaLight
+            android:text="Sri Akilandeswari Vidhyala"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="4dp"
+            android:textSize="14sp"
+            android:id="@+id/home_school_name"
+            android:layout_alignTop="@+id/imageView8"
+            android:layout_alignLeft="@+id/home_section_name"
+            android:layout_alignStart="@+id/home_section_name" />
+
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

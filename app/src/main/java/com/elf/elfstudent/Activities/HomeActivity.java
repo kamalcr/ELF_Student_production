@@ -1,14 +1,15 @@
 package com.elf.elfstudent.Activities;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.InterpolatorRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,10 +20,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -44,10 +47,8 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONObject;
 
@@ -111,20 +112,36 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     RecyclerView mList=null;
 
 
-    //The Adapter for The list
-    SubjectHomeAdapter mSubjectAdapter;
 
-    //The Progress Bar
-    @BindView(R.id.home_progress_bar)
-    AVLoadingIndicatorView mProgressbar;
+
+    //The Adapter for The list
+    SubjectHomeAdapter mSubjectAdapter = null;
+
 
     //The Toolbar
-    @BindView(R.id.act_toolbar)
+    @BindView(R.id.elf_toolbar)
     Toolbar mToolbar;
 
+    //The App bar layout
 
-    //The Root Content Layout
+    @BindView(R.id.home_app_bar)
+    AppBarLayout mAppbar;
+
+
+    /*THe Drawer Related Atrributes*/
+    //The Drop Down Icon
+    @BindView(R.id.tool_bar_drop) ImageView mDropIcon;
+    @BindView(R.id.home_drawer_frame) FrameLayout mdrawerLayout;
+    @BindView(R.id.home_menu) RelativeLayout mHomeButton;
+    @BindView(R.id.test_menu) RelativeLayout mTestButton;
+    @BindView(R.id.report_menu ) RelativeLayout mReportButton;
+    @BindView(R.id.test_report_menu) RelativeLayout mTestReportButton;
+    @BindView(R.id.payments_menu) RelativeLayout mPaymentsButton;
+
+    //The Root Content Layyout
     @BindView(R.id.home_root) FrameLayout mRoot;
+
+
 
     //The Request Queue
     private AppRequestQueue mRequestQueue= null;
@@ -140,6 +157,11 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     //The Drawer
     Drawer result = null;
 
+
+    @BindView(R.id.home_frame) FrameLayout mContentRoot;
+
+
+    boolean isDrawerShowing = false;
 
 
 
@@ -162,16 +184,127 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
         setSupportActionBar(mToolbar);
 
+        ActionBar ab  = getSupportActionBar();
+        try {
+            ab.setDisplayShowHomeEnabled(true); // show or hide the default home button
+
+            ab.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
+            ab.setDisplayShowTitleEnabled(false);
+        }
+        catch (Exception e ){
+            Log.d(TAG, "onCreate:  exception in toolbar");
+        }
+
         errorHandler = new ErrorHandler(this);
         mDataProvider = new HomePageDataProvider(this);
+
+        mDropIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DropButtonClicked();
+            }
+        });
+
+//        // TODO: 25/10/16 save student Dash board
         prepareDashBoardFor("1");
         setSupportActionBar(mToolbar);
 
 
 
 
-        initDrawer();
+    setUpCustomDrawer();
 
+
+
+
+
+    }
+
+    private void setUpCustomDrawer() {
+
+        //Report
+        mReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final  Intent i = new Intent(getApplicationContext(),ReportActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //Browse test Page
+        mTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final  Intent i = new Intent(getApplicationContext(),BrowseTestActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //Test Reports
+
+        mTestReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent i = new Intent(getApplicationContext(),TestReportsActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //Payments
+        mPaymentsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent i  = new Intent(getApplicationContext(),PaymentActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void DropButtonClicked() {
+//
+
+        Log.d(TAG, "is Drawer SHowing "+isDrawerShowing);
+        if (!isDrawerShowing){
+            mdrawerLayout.setTranslationX(-ScreenUtil.getScreenWidth(this));
+
+            mdrawerLayout.animate().translationX(0).setInterpolator(new DecelerateInterpolator(1.5f)).setDuration(600).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+                    mdrawerLayout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            }).setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    float value = valueAnimator.getAnimatedFraction();
+                    mContentRoot.setTranslationX(value);
+
+                }
+            }).start();
+        }
+        else{
+            mdrawerLayout.animate().setDuration(500)
+                    .setInterpolator(new AccelerateDecelerateInterpolator())
+                    .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
+        }
+
+        Log.d(TAG, "DropButtonClicked: ");
+
+        isDrawerShowing = !isDrawerShowing;
 
 
 
@@ -222,6 +355,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
     }
     private void setViewValues() {
+
+//        // TODO: 25/10/16 institiution values
         mSchoolname.setText("Sri Akilandeswari Vidhyala");
         mStandardName.setText("10th Standard");
         mStudentName.setText(mStore.getUserName());
@@ -271,7 +406,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home_activity_menu,menu);
+//        getMenuInflater().inflate(R.menu.home_activity_menu,menu);
         return true;
     }
 
@@ -415,6 +550,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
 */
 
+        Log.d(TAG, "TimeoutError: ");
+
     }
 
     @Override
@@ -439,6 +576,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     @Override
     public void ServerError() {
 
+
+        Log.d(TAG, "ServerError: ");
 
         Log.d(TAG, "ServerError: ");
     }

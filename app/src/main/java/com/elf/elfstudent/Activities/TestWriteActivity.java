@@ -19,6 +19,8 @@ import com.elf.elfstudent.Adapters.QuestionPagerAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
+import com.elf.elfstudent.Network.JsonProcessors.QuestionProvider;
+import com.elf.elfstudent.Network.JsonProcessors.TestSubitter;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.model.Answers;
@@ -46,7 +48,7 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
  * {@param testiD from Intent and Displays Them in View pager}
  */
 
-public class TestPageActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks {
+public class TestWriteActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, QuestionProvider.QuestionCallback, TestSubitter.SubmittedTestCallback {
     private static final String TAG = "TestWritePage";
     private static final String TEST_SUBMIT = "";
     private static final String GET_QUESTIONS_URL = "http://www.hijazboutique.com/elf_ws.svc/GetTestQuestions";
@@ -88,6 +90,8 @@ public class TestPageActivity extends AppCompatActivity implements ErrorHandler.
 
     AVLoadingIndicatorView mBar;
 
+    QuestionProvider mQuestionProvider = null;
+
 
     //Single Test Id for WHich Question Are Pulled and SHowed
     private String mTestId = null;
@@ -99,6 +103,12 @@ public class TestPageActivity extends AppCompatActivity implements ErrorHandler.
     //Error Handler for Volley
     ErrorHandler errorHandler ;
 
+    TestSubitter mTestSubmiter = null;
+
+    //The Request Objects
+    private JsonArrayRequest getQuestionRequest = null;
+    private JsonArrayRequest submitTestRequest = null;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,6 +118,7 @@ public class TestPageActivity extends AppCompatActivity implements ErrorHandler.
 
         //initialise Request Que
         mRequestQueue = AppRequestQueue.getInstance(this);
+
 
         //get Test Details From Intent From Intent
         if (getIntent() != null){
@@ -121,24 +132,29 @@ public class TestPageActivity extends AppCompatActivity implements ErrorHandler.
 
         //get Question From webServices , until then
         //SHow progress Dialog or Some Animation
-
+        mQuestionProvider = new QuestionProvider(this);
         errorHandler = new ErrorHandler(this);
+        mTestSubmiter  = new TestSubitter(this);
 
         prepareTestQuestionsFor(mTestId,mSubjectId);
 
+        //The Button which Completed the Test
         testWriteFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //Shows an Alert dialog for asking confirmation
+//                // TODO: 25/10/16 Custom Alert dialog
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
                 alertDialog.setTitle("Finish Test?");
                 alertDialog.setMessage("Are you sure  you want to finish the test");
-                alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                alertDialog.setPositiveButton("COMPLETE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finishTest();
                     }
                 });
-                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                alertDialog.setNegativeButton("STAY", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //No Has Been Clicked, Dismiss Dialog
@@ -198,24 +214,9 @@ public class TestPageActivity extends AppCompatActivity implements ErrorHandler.
             testObject.put("AnswersList",testArray);
 
             //send Request
-            JsonObjectRequest mRequest  = new JsonObjectRequest(Request.Method.POST, TEST_SUBMIT, testObject, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    //Response is obtained
-                    //todo :, change Fragment Now , using Activity
+            submitTestRequest = new JsonArrayRequest(Request.Method.POST, TEST_SUBMIT, testObject, mTestSubmiter,errorHandler);
 
-                    Log.d(TAG, "onResponse: "+response.toString());
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d(TAG, "onErrorResponse: ");
-                }
-            });
-
-
-            mRequestQueue.addToRequestQue(mRequest);
+            mRequestQueue.addToRequestQue(submitTestRequest);
         }
 
 
@@ -245,19 +246,10 @@ public class TestPageActivity extends AppCompatActivity implements ErrorHandler.
         }
 
         //Request Object
-        final JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST, URL, mObject, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
+          getQuestionRequest = new JsonArrayRequest(Request.Method.POST, URL, mObject, mQuestionProvider, errorHandler);
 
-                Log.d(TAG, "onResponse: Obtained for " + mTestId);
-                processQuestionList(response);
-
-
-            }
-        }, errorHandler);
-
-
-        mRequestQueue.addToRequestQue(mRequest);
+        getQuestionRequest.setTag("QUESTION");
+        mRequestQueue.addToRequestQue(getQuestionRequest);
 
 
     }
@@ -394,6 +386,28 @@ public class TestPageActivity extends AppCompatActivity implements ErrorHandler.
 
     @Override
     public void ServerError() {
+
+    }
+
+    @Override
+    public void setQuestionList(List<Question> mQuestionList,String[] mTitles) {
+
+    //set Adapter and page titles
+        setAdapter(mTitles,mQuestionList);
+    }
+
+    @Override
+    public void NoQuestionObtained() {
+
+    }
+
+    @Override
+    public void testSubmitted() {
+
+    }
+
+    @Override
+    public void testNotSubmitted() {
 
     }
 }

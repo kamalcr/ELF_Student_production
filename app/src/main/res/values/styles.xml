@@ -19,6 +19,13 @@
 
     <style name="change_profile_top_text"></style>
 
+
     <style name="change_profile_bottom_text"></style>
+
+    <style name="drawer_text_view">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/black_viewpager</item>
+    </style>
 
 </resources>
