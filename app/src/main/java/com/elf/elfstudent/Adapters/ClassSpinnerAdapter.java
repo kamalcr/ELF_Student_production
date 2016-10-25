@@ -21,7 +21,7 @@ public class ClassSpinnerAdapter extends ArrayAdapter<StandardModel>{
 
     private Context mContext = null;
 
-    private List<StandardModel> mList = null;
+    private List<StandardModel> mList ;
 
     public ClassSpinnerAdapter(Context context, int resource, List<StandardModel> objects) {
         super(context, resource, objects);

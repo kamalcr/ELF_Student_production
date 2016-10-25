@@ -10,15 +10,43 @@ package com.elf.elfstudent.model;
 public class Lesson {
 
     public String mLessonName;
-    public String mGrowthPercentage;
-    public boolean isHeader;
+    public String lessonId;
 
-
-    public Lesson(String mLessonName, String mGrowthPercentage) {
+    public Lesson(String mLessonName, String lessonId, String mGrowthPercentage, String questionAsked, String correctanswer) {
         this.mLessonName = mLessonName;
+        this.lessonId = lessonId;
         this.mGrowthPercentage = mGrowthPercentage;
+        this.questionAsked = questionAsked;
+        this.correctanswer = correctanswer;
     }
 
+    public String mGrowthPercentage;
+    public String questionAsked ;
+    public String correctanswer;
+
+    public String getLessonId() {
+        return lessonId;
+    }
+
+    public void setLessonId(String lessonId) {
+        this.lessonId = lessonId;
+    }
+
+    public String getQuestionAsked() {
+        return questionAsked;
+    }
+
+    public void setQuestionAsked(String questionAsked) {
+        this.questionAsked = questionAsked;
+    }
+
+    public String getCorrectanswer() {
+        return correctanswer;
+    }
+
+    public void setCorrectanswer(String correctanswer) {
+        this.correctanswer = correctanswer;
+    }
 
     public String getmLessonName() {
         return mLessonName;

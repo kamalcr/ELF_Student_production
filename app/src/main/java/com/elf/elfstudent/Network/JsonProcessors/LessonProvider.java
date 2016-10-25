@@ -4,7 +4,10 @@ import com.android.volley.Response;
 import com.elf.elfstudent.model.Lesson;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +26,33 @@ public class LessonProvider implements Response.Listener<JSONArray> {
 
     @Override
     public void onResponse(JSONArray response) {
+
+        int count = response.length();
+        mlist=new ArrayList<>(count);
+        JSONObject mObject;
+        for (int i=0;i<response.length();i++){
+
+//                    getting individual objects by index
+            try {
+                mObject=(JSONObject) response.getJSONObject(i);
+
+                mlist.add(new Lesson(mObject.getString("LessionName"),
+                        mObject.getString("LessionId"),
+                        mObject.getString("Percentage"),
+                        mObject.getString("QustionAsked"),
+                        mObject.getString("CorrectAnswer")));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (mlist!=null){
+            mCallback.setLessonList(mlist);
+        }
+        else{
+            mCallback.noLesson();
+        }
 
     }
 

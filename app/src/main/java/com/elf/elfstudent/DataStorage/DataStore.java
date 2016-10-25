@@ -2,6 +2,7 @@ package com.elf.elfstudent.DataStorage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 /**
  * Created by nandhu on 17/10/16.
@@ -164,6 +165,13 @@ public class DataStore {
         return mSharedPrefrences.getString(STUDENT_STANDARD,null);
     }
 
+    public  void setStudentStandard(String studentStandard) {
+
+        Log.d("PREFS", "setStudentStandard:  "+studentStandard);
+         editor.putString(STUDENT_STANDARD,studentStandard);
+        editor.apply();
+    }
+
     public void setPassword(String password) {
         editor.putString(PASSWORD,password);
         editor.apply();
@@ -172,16 +180,21 @@ public class DataStore {
     public void setStudentPrefrerredSubject(int i){
         //Zero for Computer
         if (i == 0){
-
+            Log.d("PREFS", "Saving group computer:");
             editor.putString(SUBJECT_SELECTED,COMPUTER);
             editor.apply();
         }
 
         //one for bio
         else{
+            Log.d("PREFS", "Saving group Bio:");
             editor.putString(SUBJECT_SELECTED,BIOLOGY);
             editor.apply();
         }
+    }
+
+    public String getStudentGroup(){
+        return mSharedPrefrences.getString(SUBJECT_SELECTED,null);
     }
 }
 

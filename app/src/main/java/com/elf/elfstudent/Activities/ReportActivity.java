@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,7 +13,10 @@ import android.view.View;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.elf.elfstudent.Adapters.ViewPagerAdapters.BiologyReportPagerAdapter;
+import com.elf.elfstudent.Adapters.ViewPagerAdapters.ComputerReportPagerAdapter;
 import com.elf.elfstudent.Adapters.ViewPagerAdapters.ReportPagerAdapter;
+import com.elf.elfstudent.Adapters.ViewPagerAdapters.TenthReportPagerAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -48,7 +50,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 
 
     private static final String TAG = "ELF";
-    private static final String REPORT_URL = "";
+    private static final String REPORT_URL = "http://www.hijazboutique.com/elf_ws.svc/GetLessionWiseReport";
 
     @BindView(R.id.report_tab)
     TabLayout mTab;
@@ -62,7 +64,9 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 
     Drawer result = null;
 
-    ReportPagerAdapter mAdapter = null;
+    TenthReportPagerAdapter tenthAdapter = null;
+    BiologyReportPagerAdapter bioAdapter = null;
+    ComputerReportPagerAdapter compAdapter = null;
 
 
     //Request Queu
@@ -71,6 +75,10 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
     private ErrorHandler errorHandler = null;
 
     private DataStore mStore = null;
+
+
+    String classId = null;
+    int group;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +88,12 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
         mStore = DataStore.getStorageInstance(getApplicationContext());
 
-//        PrepareSubjectReportsFor(mStore.getStudentId());
+
+        //First Find Which Standard
+
+       setPagerAdapter();
+       PrepareSubjectReportsFor(mStore.getStudentId());
+
 
         errorHandler = new ErrorHandler(this);
 
@@ -88,11 +101,47 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 
 
 
-        mAdapter = new ReportPagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mAdapter);
-        mTab.setupWithViewPager(mPager);
-        initDrawer();
 
+
+
+    }
+
+    private void setPagerAdapter() {
+
+        if (mStore != null){
+            classId = mStore.getStandard();
+            Log.d(TAG, "student class "+classId);
+            if (classId != null){
+
+
+                if (classId.equals("10")){
+
+                    //user is 10
+                    Log.d(TAG, "user is 10");
+                    tenthAdapter = new TenthReportPagerAdapter(getSupportFragmentManager());
+                    mPager.setAdapter(tenthAdapter);
+                }
+                else{
+                    //he is 12 , get the group
+                    String group = mStore.getStudentGroup();
+                    Log.d(TAG, "student group "+group);
+                    if (group.equals("COMPUTER")){
+                        //COmputer Group
+                        Log.d(TAG, "Computer Group ");
+                        compAdapter = new ComputerReportPagerAdapter(getSupportFragmentManager());
+                        mPager.setAdapter(compAdapter);
+                    }
+                    else if (group.equals("BIOLOGY")){
+                        Log.d(TAG, "Biology group");
+                        bioAdapter = new BiologyReportPagerAdapter(getSupportFragmentManager());
+                        mPager.setAdapter(bioAdapter);
+
+                    }
+                }
+            }
+        }
+
+        mTab.setupWithViewPager(mPager);
     }
 
     private void PrepareSubjectReportsFor(String studentId) {

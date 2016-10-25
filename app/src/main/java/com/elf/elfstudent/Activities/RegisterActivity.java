@@ -45,9 +45,6 @@ public class RegisterActivity  extends AppCompatActivity{
     @BindView(R.id.nregister_submit)
     Button mSubmitButton;
 
-    //Set Text
-    @BindView(R.id.nregister_settext)
-    HelviticaMedium mSetText;
 
 
     //Toolbar
@@ -129,7 +126,7 @@ public class RegisterActivity  extends AppCompatActivity{
                     }
 
                     Log.d(TAG, "sending Board Page");
-                    Intent  i = new Intent(this,BoardPage.class);
+                    Intent  i = new Intent(this,InstitutePage.class);
                     i.putExtra(BundleKey.ARG_USER_NAME_TAG,Name);
                     i.putExtra(BundleKey.ARG_PHONE_NUMBER_TAG,phone);
                     i.putExtra(BundleKey.ARG_PASWORD,Password);

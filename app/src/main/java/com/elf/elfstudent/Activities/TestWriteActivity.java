@@ -1,6 +1,7 @@
 package com.elf.elfstudent.Activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -403,7 +404,14 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     @Override
     public void testSubmitted() {
+        final Intent i = new Intent(this,TestCompletedActivity.class);
+        if (mTestId!= null){
 
+            i.putExtra(BundleKey.TEST_ID,mTestId);
+            i.putExtra(BundleKey.TEST_DESC,mTestDesc);
+            i.putExtra(BundleKey.SUBJECT_ID,mSubjectId);
+        }
+        startActivity(i);
     }
 
     @Override

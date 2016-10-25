@@ -17,123 +17,90 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+      <FrameLayout
+          android:layout_width="wrap_content"
+          android:background="@color/black_viewpager"
+          android:layout_height="match_parent">
+          <android.support.v7.widget.CardView
+              android:layout_width="match_parent"
+              app:cardBackgroundColor="@color/report_black"
+              android:layout_margin = "32dp"
+              app:cardCornerRadius="16dp"
+              android:layout_height="match_parent">
+
+              <RelativeLayout
+                  app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+                  android:layout_width="match_parent" android:layout_height="match_parent">
 
 
-    <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:id="@+id/nregister_name"
-                android:layout_height="wrap_content"
-                android:hint="Name"
-                android:textColorHint="#3083c9"
-                android:layout_below="@+id/nregister_settext"
-                android:layout_marginTop="40dp"
-                android:layout_marginLeft="64dp"
-                android:layout_marginRight="32dp">
+                  <android.support.design.widget.TextInputLayout
+                      android:layout_width="match_parent"
+                      android:id="@+id/nregister_name"
+                      android:layout_height="wrap_content"
+                      android:hint="Name"
+                      android:textColorHint="#3083c9"
+                     android:background="@drawable/personal_info_editext"
+                      android:layout_marginTop="60dp"
+                    >
 
-                <com.elf.elfstudent.CustomUI.IosLightEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:id="@+id/nregister_pass"
-                android:layout_below="@id/nregister_name"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                android:textColorHint="#3083c9"
-                android:layout_marginTop="35dp"
-                android:layout_marginRight="32dp"
-                android:layout_alignLeft="@+id/nregister_name"
-                android:layout_alignStart="@+id/nregister_name">
-
-                <com.elf.elfstudent.CustomUI.IosLightEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:id="@+id/nregister_phone"
-                android:layout_height="wrap_content"
-                android:hint="Phone Number"
-                android:textColorHint="#3083c9"
-                android:layout_below="@+id/nregister_pass"
-                android:layout_marginTop="35dp"
-                android:layout_marginRight="32dp"
-                android:layout_alignLeft="@+id/nregister_pass"
-                android:layout_alignStart="@+id/nregister_pass">
-
-                <com.elf.elfstudent.CustomUI.IosLightEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_users"
-                android:id="@+id/imageView6"
-                android:layout_alignTop="@+id/nregister_name"
-
-                android:padding="10dp"
-                android:layout_alignBottom="@+id/nregister_name"
-                android:layout_alignLeft="@+id/nregister_settext"
-                android:layout_alignStart="@+id/nregister_settext" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_smartphone"
-                android:layout_alignTop="@+id/nregister_phone"
-                android:layout_alignRight="@+id/imageView9"
-                android:layout_alignEnd="@+id/imageView9"
-                android:id="@+id/imageView10"
-                android:layout_alignLeft="@+id/imageView9"
-                android:layout_alignStart="@+id/imageView9"
-                android:padding="10dp"
-                android:layout_alignBottom="@+id/nregister_phone" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_padlock"
-                android:id="@+id/imageView9"
-                android:padding="10dp"
-                android:layout_alignTop="@+id/nregister_pass"
-                android:layout_alignLeft="@+id/imageView6"
-                android:layout_alignStart="@+id/imageView6" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:text="Enter"
-                android:id="@+id/nregister_submit"
-                android:layout_alignParentBottom="true"
-                android:layout_alignLeft="@+id/nregister_settext"
-                android:layout_alignStart="@+id/nregister_settext"
-                android:layout_alignRight="@+id/nregister_phone"
-                android:layout_alignEnd="@+id/nregister_phone" />
-
-    <com.elf.elfstudent.CustomUI.HelviticaMedium
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nregister_settext"
-                android:text="Enter your Details"
-                android:layout_marginTop="68dp"
-                android:layout_marginLeft="29dp"
-                android:textSize="22sp"
-                android:textColor="@color/colorAccent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="29dp" />
+                      <com.elf.elfstudent.CustomUI.IosLightEditText
+                          android:layout_width="match_parent"
+                          android:background="@null"
+                          android:layout_height="match_parent" />
+                  </android.support.design.widget.TextInputLayout>
 
 
-</RelativeLayout>
+                  <android.support.design.widget.TextInputLayout
+                      android:layout_width="match_parent"
+                      android:id="@+id/nregister_pass"
+                      android:layout_below="@id/nregister_name"
+                      android:layout_height="wrap_content"
+                      android:hint="Password"
+                      android:background="@drawable/personal_info_editext"
+                      android:textColorHint="#3083c9"
+                      android:layout_marginTop="35dp"
+
+                      android:layout_alignLeft="@+id/nregister_name"
+                      android:layout_alignStart="@+id/nregister_name">
+
+                      <com.elf.elfstudent.CustomUI.IosLightEditText
+                          android:layout_width="match_parent"
+                          android:background="@null"
+                          android:layout_height="match_parent" />
+                  </android.support.design.widget.TextInputLayout>
+                  <android.support.design.widget.TextInputLayout
+                      android:layout_width="match_parent"
+                      android:id="@+id/nregister_phone"
+                      android:layout_height="wrap_content"
+                      android:hint="Phone Number"
+                      android:background="@drawable/personal_info_editext"
+                      android:textColorHint="#3083c9"
+                      android:layout_below="@+id/nregister_pass"
+                      android:layout_marginTop="35dp"
+                      android:layout_marginRight="32dp"
+                      android:layout_alignLeft="@+id/nregister_pass"
+                      android:layout_alignStart="@+id/nregister_pass">
+
+                      <com.elf.elfstudent.CustomUI.IosLightEditText
+                          android:layout_width="match_parent"
+                          android:background="@null"
+                          android:layout_height="match_parent" />
+                  </android.support.design.widget.TextInputLayout>
+
+                  <Button
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="25dp"
+                      android:text="Enter"
+                      android:id="@+id/nregister_submit"
+                      android:layout_alignParentBottom="true"
+                      android:layout_alignRight="@+id/nregister_phone"
+                      android:layout_alignEnd="@+id/nregister_phone" />
+
+
+              </RelativeLayout>
+          </android.support.v7.widget.CardView>
+      </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -48,7 +49,13 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
     ErrorHandler errorHandler = null;
     AppRequestQueue mRequestQueue = null;
 
+
     String email = null;
+
+    ProgressDialog mDialog = null;
+    JsonArrayRequest mRequest = null;
+    int count =0;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +71,10 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
         mStore = DataStore.getStorageInstance(getApplicationContext());
 
         errorHandler = new ErrorHandler(this);
-
+        mDialog = new ProgressDialog(this);
+        mDialog.setIndeterminate(true);
+        mDialog.setContentView(R.layout.progress_view);
+        mDialog.setCanceledOnTouchOutside(false);
         emailHandler = new EmailHandler(this);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +98,7 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
     }
 
     private void checkifEmailExists(String email) {
-
+//        mDialog.show();
         email = email.trim();
         JSONObject mObj = new JSONObject();
         try {
@@ -99,7 +109,7 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
             Log.d(TAG, "checkifEmailExists: ");
         }
 
-        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST,EMAIL_URL,mObj,emailHandler,errorHandler);
+        mRequest = new JsonArrayRequest(Request.Method.POST,EMAIL_URL,mObj,emailHandler,errorHandler);
         mRequestQueue.addToRequestQue(mRequest);
 
     }
@@ -133,22 +143,41 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
     public void TimeoutError() {
 
 
-        Toast.makeText(getApplicationContext(),"Time Out Error",Toast.LENGTH_SHORT).show();
+       if (mRequestQueue !=null){
+           if (!(count>2)){
+               mRequestQueue.addToRequestQue(mRequest);
+           }
+           else{
+               stopDialog();
+               Toast.makeText(this,"Please Make sure You Have Connection",Toast.LENGTH_SHORT).show();
+           }
+       }
+    }
+
+    private void stopDialog() {
+        if (mDialog != null){
+            if (mDialog.isShowing()){
+                mDialog.dismiss();
+            }
+        }
     }
 
     @Override
     public void NetworkError() {
+
         Toast.makeText(getApplicationContext(),"Network Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void ServerError() {
+
         Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void ShowPersonalInfoPage() {
 
+        stopDialog();
         Log.d(TAG, "going to register page");
         mStore.setEmailId(email);
         final Intent i = new Intent(this,RegisterActivity.class);
@@ -159,6 +188,7 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
     @Override
     public void emailAlreadyExists() {
         //// TODO: 20/10/16 email Already Existe show toast
+        stopDialog();
 
         Toast.makeText(getApplicationContext(),"Email Already Exists",Toast.LENGTH_SHORT).show();
     }

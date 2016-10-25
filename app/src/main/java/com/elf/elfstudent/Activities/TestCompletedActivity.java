@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -74,6 +75,7 @@ public class TestCompletedActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        final Intent i  = new Intent(this,HomeActivity.class);
     }
 
     @Override

@@ -139,9 +139,9 @@ public class SubjectViewActivity extends AppCompatActivity implements
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
         errorHandler = new ErrorHandler(this);
 
-        setLessonList(getLessonList());
+//        setLessonList(getLessonList());
 
-//        getLessonListFromServer();
+        getLessonListFromServer();
     }
 
 
@@ -225,27 +225,11 @@ public class SubjectViewActivity extends AppCompatActivity implements
     @Override
     public void setLessonList(List<Lesson> mLessons) {
 //        mLessonList = mLessons;
-        mAdapter = new LessonListAdapter(getApplicationContext(),getLessonList());
+        mAdapter = new LessonListAdapter(getApplicationContext(),mLessons);
         mSubList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mSubList.setAdapter(mAdapter);
     }
 
-    private List<Lesson> getLessonList() {
-        if (mLessonList == null){
-            mLessonList = new ArrayList<>(5);
-
-        }
-        mLessonList.add(new Lesson("Matrix Multiplication","53"));
-        mLessonList.add(new Lesson("Elctrolysis","53"));
-        mLessonList.add(new Lesson("Gravity","53"));
-        mLessonList.add(new Lesson("Linear Algebra in Two dimnesional Analysis","53"));
-        mLessonList.add(new Lesson("Matrix Addition","53"));
-
-        return mLessonList;
-
-
-
-    }
 
     @Override
     public void noLesson() {

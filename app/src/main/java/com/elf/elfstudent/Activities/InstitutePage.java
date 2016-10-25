@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -84,6 +85,11 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
     ClassSpinnerAdapter mClassAdapter = null;
     String classid = null;
 
+    JsonArrayRequest mInsRequest = null;
+    JsonArrayRequest mRegisterRequest = null;
+
+
+    boolean isButtonPressed = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,6 +130,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
                 Log.d(TAG, "onItemSelected: standar "+classList.get(i).getClassID());
                 classid = classList.get(i).getClassID();
+                mStore.setStudentStandard(classid);
             }
 
             @Override
@@ -161,7 +168,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
             mObject.put(RequestParameterKey.PASSWORD,mStore.getPassWord());
             mObject.put(RequestParameterKey.INSTITUION_ID,"12");
             mObject.put(RequestParameterKey.board_id,"0");
-            mObject.put(RequestParameterKey.CLASS_ID,"10");
+            mObject.put(RequestParameterKey.CLASS_ID,classid);
             mObject.put(RequestParameterKey.CITY_ID,"12");
             mObject.put(RequestParameterKey.DISTRICT_ID,"4");
             mObject.put(RequestParameterKey.STATE_ID,mStore.getStateId());
@@ -180,6 +187,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
         //Request Body
         JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST,REGISTER_URL,mObject,mRegisterListener,errorHandler);
+        isButtonPressed = true;
 
         //add to request Queue
         mRequestQueue.addToRequestQue(mRequest);
@@ -196,10 +204,10 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
             Log.d(TAG, "prepareAdapterForInstituion: ");
 
         }
-        JsonArrayRequest mRequest  = new JsonArrayRequest(Request.Method.POST
+       mInsRequest  = new JsonArrayRequest(Request.Method.POST
                 ,GET_INSTITUTE_URL,mObject
                 ,instituteRespHandler,errorHandler);
-        mRequestQueue.addToRequestQue(mRequest);
+        mRequestQueue.addToRequestQue(mInsRequest);
     }
 
     @Override
@@ -229,7 +237,9 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
     @Override
     public void TimeoutError() {
-        Log.d(TAG, "TimeoutError: ");
+
+
+       Toast.makeText(getApplicationContext(),"Try again or Make sure You have Internet",Toast.LENGTH_SHORT).show();
         
 
     }
@@ -267,7 +277,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
     @Override
     public void Registered(String studentId) {
         if (mStore != null){
-
+            Log.d(TAG, "Registered: student Id "+studentId);
             //set studentId
             mStore.setStudentId(studentId);
             mStore.setIsFirstTime(false);
@@ -277,10 +287,13 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         //show Direct home Page
         if (mStore.getStandard().equals("10")){
             //The Student is 10th, show MainActivity Directecly
+            Log.d(TAG, "Registered: 10standatd mainActiivty");
             final  Intent i = new Intent(this,HomeActivity.class);
             startActivity(i);
         }
         else{
+
+            Log.d(TAG, "12th so choose");
             final Intent  i  = new Intent(this,ChooseSubjectActivity.class);
             startActivity(i);
         }

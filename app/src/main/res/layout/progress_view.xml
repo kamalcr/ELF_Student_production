@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
+    android:layout_height="100dp">
+
+    <RelativeLayout
+        android:layout_width="322dp"
+        android:layout_height="match_parent">
+        <com.elf.elfstudent.CustomUI.HelviticaLight
+            android:layout_width="match_parent"
+            android:text="ELF"
+            android:id="@+id/title_progress"
+            android:textColor="@color/black_900"
+            android:gravity="center"
+            android:textSize="24sp"
+
+            android:layout_height="wrap_content" />
+
+        <com.elf.elfstudent.CustomUI.HelviticaLight
+            android:layout_width="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/black_viewpager"
+            android:text="Education Through Analysis"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress_sub"
+            android:layout_below="@+id/title_progress"
+            android:layout_centerHorizontal="true" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="wrap_content"
+            app:indicatorName="ball"
+            app:indicatorColor="@color/black_900"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

@@ -16,13 +16,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Activities.SingleSubjectReportActivity;
 import com.elf.elfstudent.Adapters.LessonListAdapter;
 import com.elf.elfstudent.Adapters.ReportLessonAdapter;
+import com.elf.elfstudent.DataStorage.DataStore;
+import com.elf.elfstudent.Network.AppRequestQueue;
+import com.elf.elfstudent.Network.ErrorHandler;
+import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.RequestParameterKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.model.Lesson;
+import com.elf.elfstudent.model.Topic;
+
+import org.json.JSONObject;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -43,8 +53,11 @@ import static com.elf.elfstudent.Adapters.ReportLessonAdapter.*;
  * Gets The OVerall Percentage , lesson List and shows them in lIst
  * clicking on List , will show them topic wise
  */
-public class ReportFragment extends Fragment implements LessonClickCallbacks{
+public class ReportFragment extends Fragment implements LessonClickCallbacks, LessonProvider.SubjectLoaderCallback, ErrorHandler.ErrorHandlerCallbacks {
 
+
+    private static final String TAG = "REPORT_FRAG";
+    private static final String REPORT_URL = "http://www.hijazboutique.com/elf_ws.svc/GetLessionWiseReport";
 
 
 
@@ -55,6 +68,8 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks{
     RecyclerView mList;
 
     String overall = "";
+
+    private List<Topic> mTopiclist = null;
 //    List<T> mLessonNames;
 
     ReportLessonAdapter mAdapter = null;
@@ -62,40 +77,70 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks{
     List<Lesson> mLessonList = null;
 
     String subjecId = null;
+    DataStore mStore = null;
 
+    JsonArrayRequest getLessonRequest = null;
+    private String subjectName = null;
+    String studentId = null;
 
+    private AppRequestQueue mRequestQueue = null;
+    private LessonProvider mLessonProvider = null;
+    private ErrorHandler errorHandler = null;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mView = inflater.inflate(R.layout.report_fragment,container,false);
-        ButterKnife.bind(this,mView);
-        if (getArguments()!= null){
-            //overall = getArguments().get
-            //Lesson Names  = getArguments.getP
-            //subjecId =
+        View mView = inflater.inflate(R.layout.report_fragment, container, false);
+        ButterKnife.bind(this, mView);
+        if (getArguments() != null) {
+            subjecId = getArguments().getString(BundleKey.SUBJECT_ID);
+            subjectName = getArguments().getString(BundleKey.SUBJECT_NAME);
+
+        }
+
+        mRequestQueue = AppRequestQueue.getInstance(getContext());
+        mLessonProvider = new LessonProvider(this);
+        errorHandler = new ErrorHandler(this);
+        mStore = DataStore.getStorageInstance(getContext());
+
+        if (mStore != null) {
+            studentId = mStore.getStudentId();
+        }
+
+        if (studentId != null) {
+            PrepareSubjectReportsFor(studentId,subjecId);
 
         }
 
 
-        mAdapter = new ReportLessonAdapter(getContext(),getLessonList(),this);
-        mList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mList.setAdapter(mAdapter);
 
 
+//
 
         return mView;
+
+    }
+    private void PrepareSubjectReportsFor(String studentId, String subjecId) {
+        JSONObject mObject = new JSONObject();
+        try {
+            mObject.put(RequestParameterKey.STUDENT_ID, studentId);
+            mObject.put(RequestParameterKey.SUBJECT_ID, subjecId);
+        } catch (Exception e) {
+            Log.d(TAG, "PrepareSubjectReportsFor: ");
+        }
+
+        getLessonRequest = new JsonArrayRequest(Request.Method.POST, REPORT_URL, mObject, mLessonProvider, errorHandler);
+
+        if (mRequestQueue != null) {
+            mRequestQueue.addToRequestQue(getLessonRequest);
+
+        }
     }
 
-    private List<Lesson> getLessonList() {
-        mLessonList = new ArrayList<>(5);
-        mLessonList.add(new Lesson("Electricity","92"));
-        mLessonList.add(new Lesson("Matrix Addition","75"));
-        mLessonList.add(new Lesson("Magnetism","85"));
-        mLessonList.add(new Lesson("Kinematics","44"));
-        mLessonList.add(new Lesson("Linear Algebra","88"));
-        return mLessonList;
-    }
+
+
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -185,6 +230,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks{
         String LessonTransName = ViewCompat.getTransitionName(itemView.mLessonName);
         String percentTransName = ViewCompat.getTransitionName(itemView.mGrowth);
         i.putExtra(BundleKey.SUBJECT_ID,subjecId);
+        i.putExtra(BundleKey.LESSON_ID,mLessonList.get(position).getLessonId());
         i.putExtra(BundleKey.LESSON_NAME,mLessonList.get(position).getmLessonName());
         i.putExtra(BundleKey.PERCENTAGE,mLessonList.get(position).getmGrowthPercentage());
         i.putExtra(BundleKey.LESSON_NAME_TRANS,LessonTransName);
@@ -202,5 +248,33 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks{
         }else{
             startActivity(i);
         }
+    }
+
+    @Override
+    public void setLessonList(List<Lesson> mLessons) {
+        this.mLessonList = mLessons;
+        mAdapter = new ReportLessonAdapter(getContext(),mLessons,this);
+        mList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mList.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void noLesson() {
+
+    }
+
+    @Override
+    public void TimeoutError() {
+        Log.d(TAG, "TimeoutError: ");
+    }
+
+    @Override
+    public void NetworkError() {
+        Log.d(TAG, "NetworkError: ");
+    }
+
+    @Override
+    public void ServerError() {
+        Log.d(TAG, "ServerError: ");
     }
 }

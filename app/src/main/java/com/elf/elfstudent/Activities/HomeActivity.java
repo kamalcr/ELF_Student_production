@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -140,6 +141,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
     //The Root Content Layyout
     @BindView(R.id.home_root) FrameLayout mRoot;
+    @BindView(R.id.home_root_scrollview)
+    ScrollView mRootScroll;
 
 
 
@@ -291,7 +294,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
                 @Override
                 public void onAnimationUpdate(ValueAnimator valueAnimator) {
                     float value = valueAnimator.getAnimatedFraction();
-                    mContentRoot.setTranslationX(value);
+                    mRootScroll.setTranslationX(value * mdrawerLayout.getWidth());
+
 
                 }
             }).start();
@@ -299,6 +303,27 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
         else{
             mdrawerLayout.animate().setDuration(500)
                     .setInterpolator(new AccelerateDecelerateInterpolator())
+                    .setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            mRootScroll.setTranslationX(0);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+
+                        }
+                    })
                     .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
         }
 

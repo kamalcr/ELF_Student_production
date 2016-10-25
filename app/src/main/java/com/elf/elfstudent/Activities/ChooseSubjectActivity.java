@@ -75,7 +75,7 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
         }
 
         mGroup.setOnCheckedChangeListener(this);
-
+        mStore = DataStore.getStorageInstance(this);
 
 
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());

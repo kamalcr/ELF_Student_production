@@ -1,37 +1,29 @@
 package com.elf.elfstudent.Adapters.ViewPagerAdapters;
 
 import android.os.Bundle;
-import android.support.v4.app.BundleCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.elf.elfstudent.Activities.SingleSubjectReportActivity;
 import com.elf.elfstudent.Fragments.ReportFragment;
 import com.elf.elfstudent.Utils.BundleKey;
 
-import java.util.List;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 /**
- * Created by nandhu on 20/10/16.
- * Construction of Top Report Pager Adapter
+ *
+ * Created by nandhu on 26/10/16.
  */
-public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
+public class BiologyReportPagerAdapter extends FragmentStatePagerAdapter {
 
 
 
     String overall;
     String mSubjectName  = "";
     String mSubjectId = "";
-//    List<T> LessoList  =
-    String[] tenthtitles = {"SCIENCE","SOCIAL","MATHS"};
-    String[] computerTitles  = {"PHYSICS","CHEMISTRY","MATHS","COMPUTER"};
-    String[] bioTitles = {"PHYSICS","CHEMISTRY","MATHS","BIOLOGY"};
+    //    List<T> LessoList  =
 
 
-    public ReportPagerAdapter(FragmentManager fm, int i) {
+
+    public BiologyReportPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -39,11 +31,13 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0 :
-                return "MATHS";
+                return "PHYSCICS";
             case 1:
-                return "SCIENCE";
+                return "CHEMISTRY";
             case 2:
-                return "SOCIAL";
+                return "MATHS";
+            case 3:
+                return "BIOLOGY";
 
 
 
@@ -57,12 +51,19 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
         ReportFragment fragment = new ReportFragment();
 
         switch (position){
-          //based on subjects , set Arguments to Fragemnt such as
+            //based on subjects , set Arguments to Fragemnt such as
             //overall percentage , List of Lessons etc
             case 0: mSubjectId = "1";
                 mSubjectName = "SCIENCE";
                 break;
             case 1 :
+                mSubjectId = "";
+                mSubjectName = "";
+                break;
+            case 2:
+                mSubjectId = "";
+                mSubjectName = "";
+                break;
 
 
 
@@ -73,7 +74,8 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
 
 
         Bundle b  = new Bundle();
-        b.putString(BundleKey.REPORT_OVERALL,overall);
+        b.putString(BundleKey.SUBJECT_ID,mSubjectId);
+        b.putString(BundleKey.SUBJECT_NAME,mSubjectName);
         fragment.setArguments(b);
 
         return fragment;
@@ -92,6 +94,6 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 }

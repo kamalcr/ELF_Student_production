@@ -47,6 +47,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
     DataStore mStore = null;
 
     ErrorHandler errorHandler = null;
+    JsonArrayRequest getTopicRequest = null;
 
 
     //The Lesson iD, by Lesson get TOpic lists
@@ -118,57 +119,35 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
         mStore = DataStore.getStorageInstance(getApplicationContext());
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
         errorHandler = new ErrorHandler(this);
+        topicProvider = new TopicProvider(this);
 
 
-        mAdapter = new TopicListAdapter(getApplicationContext(),getTopciList());
-       /* topicProvider = new TopicProvider(this);
+       
+        topicProvider = new TopicProvider(this);
         studentId = mStore.getStudentId();
         if (lessonId != null && studentId != null){
 
-            getTopicForlesson(lessonId,studentId);
+            getTopicForlesson(lessonId,studentId,lessonId);
         }
-        */
-        mTopicListView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mTopicListView.setAdapter(mAdapter);
+      
     }
 
-    private List<Topic> getTopciList() {
-        List<Topic> mTopicList = new ArrayList<>(12);
-        mTopicList.add(new Topic("Addition of Matrix","458"));
-        mTopicList.add(new Topic("Subtraction of Matrix","789"));
-        mTopicList.add(new Topic("Determinants","789"));
+   
 
-        mTopicList.add(new Topic("Adjoints","789"));
-        mTopicList.add(new Topic("Inverse","789"));
-        mTopicList.add(new Topic("Cosine Transformations","789"));
-
-        mTopicList.add(new Topic("Wave Theory","789"));
-        mTopicList.add(new Topic("Boolean Algebra","789"));
-        mTopicList.add(new Topic("Gravity pull of Earth","789"));
-
-        mTopicList.add(new Topic("Carbon - Carbon Bonding","789"));
-        mTopicList.add(new Topic("Electrical Conductance","789"));
-        mTopicList.add(new Topic("Two Variables","789"));
-
-
-        return mTopicList;
-
-
-    }
-
-    private void getTopicForlesson(String lessonId, String studentId) {
+    private void getTopicForlesson(String lessonId, String studentId, String id) {
         JSONObject mObject  = new JSONObject();
 
         try {
 
             mObject.put(RequestParameterKey.STUDENT_ID,studentId);
             mObject.put(RequestParameterKey.LESSON_ID,lessonId);
+            mObject.put(RequestParameterKey.SUBJECT_ID,id);
         }
         catch (Exception e ){
             Log.d(TAG, "getTopicForlesson: ");
         }
-        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST,GET_TOPIC_FOR_LESSON,mObject,topicProvider,errorHandler);
-        mRequestQueue.addToRequestQue(mRequest);
+        getTopicRequest = new JsonArrayRequest(Request.Method.POST,GET_TOPIC_FOR_LESSON,mObject,topicProvider,errorHandler);
+        mRequestQueue.addToRequestQue(getTopicRequest);
     }
 
     @Override
@@ -199,16 +178,17 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
     @Override
     public void TimeoutError() {
 
+        Log.d(TAG, "TimeoutError: ");
     }
 
     @Override
     public void NetworkError() {
-
+        Log.d(TAG, "NetworkError: ");
     }
 
     @Override
     public void ServerError() {
-
+        Log.d(TAG, "ServerError: ");
     }
 
     @Override

@@ -25,6 +25,7 @@ public class RegisterListener implements Response.Listener<JSONArray> {
     public void onResponse(JSONArray response) {
 
         //get the Object from Array
+        Log.d(TAG, "onResponse: from register "+response);
         try {
 
             JSONObject mObj = response.getJSONObject(0);
@@ -44,7 +45,7 @@ public class RegisterListener implements Response.Listener<JSONArray> {
         }
 
         Log.d(TAG, "onResponse: from Registration "+response.toString());
-        mCallback.Registered("45");
+        mCallback.Registered("1");
         //String success = response.getJSONObject()
         //String studentId = response.getJSONObject("StudentId");
     }

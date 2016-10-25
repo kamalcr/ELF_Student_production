@@ -7,7 +7,7 @@ package com.elf.elfstudent.Utils;
 public class RequestParameterKey {
     public   static  final String board_id = "BoardId";
     public static final String state_id = "StateId";
-    public static final String STUDENT_ID = "StudentId";
+    public static final String STUDENT_ID = "studentId";
     public static final String BOARD_ID = "BoardId";
     public static final String LOGIN_LAS_NAME = "LastName";
 
@@ -29,4 +29,5 @@ public class RequestParameterKey {
     public static String CITY_ID = "CityId";
     public static String DISTRICT_ID = "DistrictId";
     public static String FIRST_NAME= "FirstName";
+    public static String SUBJECT_ID = "subjectId";
 }

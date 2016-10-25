@@ -41,7 +41,7 @@ public class TopicProvider implements Response.Listener<JSONArray> {
             JSONObject mObj ;
             for (int i  = 0; i<count; i++){
                 mObj = response.getJSONObject(i);
-                mTopicList.add(new Topic(mObj.getString("TopicName"),mObj.getString("Points")));
+                mTopicList.add(new Topic(mObj.getString("TopicName"),mObj.getString("Percentage")));
 
             }
             //send Topic back to Activity
