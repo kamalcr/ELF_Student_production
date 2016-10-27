@@ -9,26 +9,27 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:id="@+id/report_toolbar"
-            app:title="REPORTS"
+            <include layout="@layout/toolbar_new"
 
-            android:layout_height="?attr/actionBarSize">
+                android:id="@+id/report_toolbar"/>
 
-        </android.support.v7.widget.Toolbar>
+
     </android.support.design.widget.AppBarLayout>
     <FrameLayout
         android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="match_parent">
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:orientation="vertical" android:layout_width="match_parent"
+            android:id="@+id/report_content_root"
             android:layout_height="match_parent">
 
             <android.support.design.widget.TabLayout
                 android:layout_width="match_parent"
                 android:id="@+id/report_tab"
+                app:tabGravity="fill"
+                app:tabMode="scrollable"
                 app:tabBackground="@color/black_900"
                 app:tabTextColor="@color/white_light"
                 app:tabSelectedTextColor="@color/white"

@@ -56,7 +56,7 @@ public void onBindViewHolder(HomeHolder holder, int position) {
 
 
         runEnterAnimations(holder,position);
-    Log.d(TAG, "onBindViewHolder: "+position);
+         Log.d(TAG, "onBindViewHolder: "+position);
         holder.mPercent.setText(mSubjectList.get(position).getmPercentage());
         holder.mTitle.setText(mSubjectList.get(position).getmSubjectName());
         ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");

@@ -1,6 +1,9 @@
 package com.elf.elfstudent.Activities;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -9,6 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -22,6 +31,7 @@ import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.RequestParameterKey;
+import com.elf.elfstudent.Utils.ScreenUtil;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -61,6 +71,24 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
     @BindView(R.id.report_toolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.report_content_root)
+    LinearLayout mContentRoot;
+
+
+
+
+    /*THe Drawer Related Atrributes*/
+    //The Drop Down Icon
+    @BindView(R.id.tool_bar_drop)
+    ImageView mDropIcon;
+    @BindView(R.id.report_drawer_frame)
+    FrameLayout mdrawerLayout;
+    @BindView(R.id.home_menu)
+    RelativeLayout mHomeButton;
+    @BindView(R.id.test_menu) RelativeLayout mTestButton;
+    @BindView(R.id.report_menu ) RelativeLayout mReportButton;
+    @BindView(R.id.test_report_menu) RelativeLayout mTestReportButton;
+    @BindView(R.id.payments_menu) RelativeLayout mPaymentsButton;
 
     Drawer result = null;
 
@@ -79,6 +107,8 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 
     String classId = null;
     int group;
+    private boolean isDrawerShowing =false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +128,13 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         errorHandler = new ErrorHandler(this);
 
         setSupportActionBar(mToolbar);
-
+        mDropIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DropButtonClicked();
+            }
+        });
+        setUpCustomDrawer();
 
 
 
@@ -106,6 +142,131 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 
     }
 
+
+
+    private void setUpCustomDrawer() {
+
+        //Report
+        mReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final  Intent i = new Intent(getApplicationContext(),ReportActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //Browse test Page
+        mTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final  Intent i = new Intent(getApplicationContext(),BrowseTestActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //Test Reports
+
+        mTestReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent i = new Intent(getApplicationContext(),TestReportsActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //Payments
+        mPaymentsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent i  = new Intent(getApplicationContext(),PaymentActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void DropButtonClicked() {
+//
+
+
+        if (!isDrawerShowing){
+            mdrawerLayout.setTranslationX(-ScreenUtil.getScreenWidth(this));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                mdrawerLayout.animate().translationX(0).setInterpolator(new DecelerateInterpolator(1.5f)).setDuration(600).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        mdrawerLayout.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                }).setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        float value = valueAnimator.getAnimatedFraction();
+                        mContentRoot.setTranslationX(value * mdrawerLayout.getWidth());
+
+
+                    }
+                }).start();
+            }
+        }
+        else{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                mdrawerLayout.animate().setDuration(500)
+                        .setInterpolator(new AccelerateDecelerateInterpolator())
+                        .setListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animator) {
+
+                            }
+                        })
+                        .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                                float va = valueAnimator.getAnimatedFraction();
+                                mContentRoot.setTranslationX(-va);
+                            }
+                        })
+                        .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
+            }
+        }
+
+        Log.d(TAG, "DropButtonClicked: ");
+
+        isDrawerShowing = !isDrawerShowing;
+
+
+
+
+    }
     private void setPagerAdapter() {
 
         if (mStore != null){

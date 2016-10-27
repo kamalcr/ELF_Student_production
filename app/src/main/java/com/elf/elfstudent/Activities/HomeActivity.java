@@ -3,6 +3,7 @@ package com.elf.elfstudent.Activities;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -27,6 +28,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -113,6 +115,10 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     RecyclerView mList=null;
 
 
+//    @BindView(R.id.try_again_text)
+//    TextView mTryagain;
+
+
 
 
     //The Adapter for The list
@@ -162,6 +168,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
 
     @BindView(R.id.home_frame) FrameLayout mContentRoot;
+
+    @BindView(R.id.home_relative_root) RelativeLayout mRelativeRoot;
 
 
     boolean isDrawerShowing = false;
@@ -266,65 +274,78 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     private void DropButtonClicked() {
 //
 
-        Log.d(TAG, "is Drawer SHowing "+isDrawerShowing);
+
         if (!isDrawerShowing){
             mdrawerLayout.setTranslationX(-ScreenUtil.getScreenWidth(this));
 
-            mdrawerLayout.animate().translationX(0).setInterpolator(new DecelerateInterpolator(1.5f)).setDuration(600).setListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animator) {
-                    mdrawerLayout.setVisibility(View.VISIBLE);
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                mdrawerLayout.animate().translationX(0).setInterpolator(new DecelerateInterpolator(1.5f)).setDuration(600)
+                        .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        mdrawerLayout.setVisibility(View.VISIBLE);
+                    }
 
-                @Override
-                public void onAnimationEnd(Animator animator) {
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
 
-                }
+                    }
 
-                @Override
-                public void onAnimationCancel(Animator animator) {
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
 
-                }
+                    }
 
-                @Override
-                public void onAnimationRepeat(Animator animator) {
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
 
-                }
-            }).setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    float value = valueAnimator.getAnimatedFraction();
-                    mRootScroll.setTranslationX(value * mdrawerLayout.getWidth());
+                    }
+                })
+                        .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        float value = valueAnimator.getAnimatedFraction();
+                        mRelativeRoot.setTranslationX(value * mdrawerLayout.getWidth());
 
 
-                }
-            }).start();
+                    }
+                }).start();
+            }
         }
         else{
-            mdrawerLayout.animate().setDuration(500)
-                    .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animator) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                mdrawerLayout.animate().setDuration(500)
+                        .setInterpolator(new AccelerateDecelerateInterpolator())
+                        .setListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animator) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onAnimationEnd(Animator animator) {
-                            mRootScroll.setTranslationX(0);
-                        }
+                            @Override
+                            public void onAnimationEnd(Animator animator) {
+                                    
+                            }
 
-                        @Override
-                        public void onAnimationCancel(Animator animator) {
+                            @Override
+                            public void onAnimationCancel(Animator animator) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onAnimationRepeat(Animator animator) {
+                            @Override
+                            public void onAnimationRepeat(Animator animator) {
 
-                        }
-                    })
-                    .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
+                            }
+                        })
+                        .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                                float va = valueAnimator.getAnimatedFraction();
+                                mRelativeRoot.setTranslationX(-va);
+                            }
+                        })
+                        .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
+            }
         }
 
         Log.d(TAG, "DropButtonClicked: ");
@@ -547,35 +568,20 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
     @Override
     public void TimeoutError() {
-       /* mRoot.removeAllViews();
-        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.try_again_layout,mRoot,true);
 
-
-
-
-        try {
-            TextView tryAgain = (TextView) view.findViewById(R.id.try_again_text);
-
-            if (tryAgain != null){
-                tryAgain.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (mRequestQueue!=null){
-                            if (mHomeRequest != null){
-                                mRequestQueue.addToRequestQue(mHomeRequest);
-                            }
-                        }
-                    }
-                });
+        mRoot.removeAllViews();
+        View v = View.inflate(this,R.layout.try_again_layout,mRoot);
+        ButterKnife.bind(v);
+        TextView t = (TextView) v.findViewById(R.id.try_again_text);
+        t.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if(mRequestQueue != null){
+                   mRequestQueue.addToRequestQue(mHomeRequest);
+               }
             }
-        }
-        catch (Exception e){
-            Log.d(TAG, "TimeoutError: ");
-        }
+        });
 
-*/
-
-        Log.d(TAG, "TimeoutError: ");
 
     }
 

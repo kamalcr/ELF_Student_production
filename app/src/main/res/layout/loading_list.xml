@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/loading_list_root"
+    android:background="@color/black_viewpager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:layout_width="wrap_content"
+        android:text="Getting Data"
+        android:id="@+id/getting_data_text"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+    <com.wang.avi.AVLoadingIndicatorView
+        android:layout_width="wrap_content"
+        app:indicatorColor="@color/white"
+        android:layout_marginTop="4dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/getting_data_text"
+        app:indicatorName="BallRotateIndicator"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

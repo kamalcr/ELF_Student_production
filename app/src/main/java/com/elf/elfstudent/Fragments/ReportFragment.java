@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -67,6 +69,10 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     @BindView(R.id.report_frag_list)
     RecyclerView mList;
 
+    //The Top Level Content Root
+
+
+
     String overall = "";
 
     private List<Topic> mTopiclist = null;
@@ -86,6 +92,12 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     private AppRequestQueue mRequestQueue = null;
     private LessonProvider mLessonProvider = null;
     private ErrorHandler errorHandler = null;
+
+    @BindView(R.id.report_progress)
+    FrameLayout mLoadingLayout;
+
+    @BindView(R.id.report_visisble_layout)
+    RelativeLayout mVisibleLayout;
 
     @Nullable
     @Override
@@ -194,20 +206,8 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
         super.onViewCreated(view, savedInstanceState);
     }
 
-    @Override
-    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
-        super.dump(prefix, fd, writer, args);
-    }
 
-    @Override
-    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
-        return super.getLayoutInflater(savedInstanceState);
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -266,6 +266,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     @Override
     public void TimeoutError() {
         Log.d(TAG, "TimeoutError: ");
+
     }
 
     @Override

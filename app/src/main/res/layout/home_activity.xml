@@ -40,9 +40,12 @@
             android:id="@+id/home_root_scrollview"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:layout_marginBottom="4dp"
             android:background="@color/black_viewpager">
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:id="@+id/home_relative_root"
                 android:layout_height="wrap_content">
                 <include layout="@layout/profile_in_home"
                     android:id="@+id/profile_root"/>
@@ -52,6 +55,8 @@
                     android:layout_below="@+id/profile_root"
                     android:id="@+id/home_root"
                     android:layout_height="match_parent">
+                    <include
+                        layout="@layout/loading_list"/>
 
                 </FrameLayout>
             </RelativeLayout>

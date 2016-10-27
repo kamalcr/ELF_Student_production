@@ -10,8 +10,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -65,8 +69,8 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
 
     //The Recycler view
-    @BindView(R.id.sub_view_list)
-    RecyclerView mSubList;
+
+    RecyclerView mSubListView;
 
 
 
@@ -79,8 +83,10 @@ public class SubjectViewActivity extends AppCompatActivity implements
     //The Image
     @BindView(R.id.subject_view_image)
     ImageView mSubjectViewImage;
-    //The Request Quue
 
+
+    @BindView(R.id.report_changable_root)
+    FrameLayout mChangableRoot;
 
 
     private AppRequestQueue mRequestQueue = null;
@@ -115,7 +121,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
             mSubjectName.setText(subjectName);
             mPercentage.setText(percent);
 
-            mSubjectViewImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_lightbulb));
+            mSubjectViewImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_social_300_80));
 
             //setting Transition Name
             ViewCompat.setTransitionName(mSubjectName,subject_trans_name);
@@ -209,10 +215,25 @@ public class SubjectViewActivity extends AppCompatActivity implements
     @Override
     public void TimeoutError() {
 
+        mChangableRoot.removeAllViews();
+        View v = LayoutInflater.from(this).inflate(R.layout.try_again_layout,mChangableRoot,true);
+        TextView t = (TextView) v.findViewById(R.id.try_again_text);
+        t.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mRequestQueue != null){
+                    mRequestQueue.addToRequestQue(mLessonListRequestor);
+                }
+            }
+        });
+
     }
 
     @Override
     public void NetworkError() {
+
+        mChangableRoot.removeAllViews();
+        View v = LayoutInflater.from(this).inflate(R.layout.no_internet,mChangableRoot,true);
 
     }
 
@@ -222,12 +243,21 @@ public class SubjectViewActivity extends AppCompatActivity implements
     }
 
 
+    /*Got Lesson List from Provider*/
+
     @Override
     public void setLessonList(List<Lesson> mLessons) {
 //        mLessonList = mLessons;
         mAdapter = new LessonListAdapter(getApplicationContext(),mLessons);
-        mSubList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mSubList.setAdapter(mAdapter);
+        mChangableRoot.removeAllViews();
+        View listView = LayoutInflater.from(this).inflate(R.layout.home_recycler,mChangableRoot,true);
+        mSubListView = (RecyclerView) listView.findViewById(R.id.home_list);
+
+        if (mAdapter != null){
+            mSubListView.setAdapter(mAdapter);
+        }
+
+
     }
 
 

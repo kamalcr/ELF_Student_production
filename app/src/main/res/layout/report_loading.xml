@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black_viewpager"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+        <com.elf.elfstudent.CustomUI.HelviticaLight
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:text="Just a sec"
+            android:textColor="@color/white_light"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/report_getting_text">
+
+        </com.elf.elfstudent.CustomUI.HelviticaLight>
+
+    <TextView
+        android:text="Getting Report.."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white_light"
+        android:layout_below="@+id/report_getting_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:id="@+id/textView4" />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:layout_width="wrap_content"
+        app:indicatorColor="@color/white"
+        app:indicatorName="BallScaleMultipleIndicator"
+        android:layout_height="wrap_content"
+        android:id="@+id/avl_ind_report"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="102dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_icon_logo_150"
+        android:id="@+id/imageView5"
+        android:layout_marginTop="24dp"
+       android:layout_below="@id/avl_ind_report"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

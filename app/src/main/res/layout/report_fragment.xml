@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/report_frag_changable_root"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!--The Loading Page -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/report_progress"
+
+        android:layout_height="match_parent"
+        >
+       <include layout="@layout/report_loading"/>
+
+    </FrameLayout>
+    <!--The Main content view , it is visible once data is available-->
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:visibility="invisible"
+    android:id="@+id/report_visisble_layout"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -17,10 +37,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Completion"
+                android:id="@+id/completed_text"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/white_light"
                 android:textSize="22sp"
                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/completed_text"
+                app:srcCompat="@drawable/c_pie_chart_50"
+                android:id="@+id/imageView"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:text="75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/textView" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
@@ -33,3 +71,5 @@
     </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
+
+</FrameLayout>

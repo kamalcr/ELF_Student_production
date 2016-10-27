@@ -58,10 +58,10 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
     @BindView(R.id.all_sci_list)
     RecyclerView mScienceList;
 
-    //the url for this link
+//    the url for this link
     private static String URL = "http://www.hijazboutique.com/elf_ws.svc/GetPendingTests";
 
-    //the Request Queue for this body
+//    the Request Queue for this body
     private AppRequestQueue mRequestQue;
 
     private static final String TAG = "ALL TEST";
@@ -95,6 +95,8 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
 
 
     DataStore mStore = null;
+    private String mStdId;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,19 +108,21 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         //get Student id
         //get tests to write for that student .. it is overall
         mRequestQue = AppRequestQueue.getInstance(getContext());
-        String mStdId = mStore.getStudentId();
+         mStdId = mStore.getStudentId();
 
         errorHandler = new ErrorHandler(this);
         mTestListProvider  = new TestListProvider(this);
-        prepareTests(mStdId);
 
 
 
-        mAdapter  = new TestLessonAdapter(getContext(),this);
-        mAdapter.setmCallback(this);
+
+//        mAdapter  = new TestLessonAdapter(getContext(),this);
+//        mAdapter.setmCallback(this);
         //prepare adapter for writng tests
 
     }
+
+
 
     private void prepareTests(String mStdId) {
         JSONObject object = new JSONObject();
@@ -137,38 +141,13 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         // make request with that body
 
         final JsonArrayRequest mReq = new JsonArrayRequest(Request.Method.POST, URL, object,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        //build objects show it
-                        processResponse(response);
-                    }
-                }, errorHandler);
+                mTestListProvider, errorHandler);
+
 
 
         mRequestQue.addToRequestQue(mReq);
     }
 
-    private void processResponse(JSONArray response) {
-        int count = response.length();
-        Log.d(TAG, "onResponse: count " + count);
-        ArrayList<AllTestModels> mTestList = new ArrayList<>(count);
-
-        JSONObject mobject = null;
-        try {
-            for (int i = 0; i < count; i++) {
-                mobject = response.getJSONObject(0);
-                mTestList.add(new AllTestModels(mobject.getString("TestId"),
-                        mobject.getString("Description")
-                        , mobject.getString("SubjectName"),
-                        mobject.getString("SubjectId")));
-
-            }
-
-        } catch (Exception e) {
-            Log.d(TAG, "Exception");
-        }
-    }
 
 
 
@@ -202,11 +181,12 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         mScienceList.setLayoutManager(mLinearLayoutManager);
         mSocialList.setLayoutManager(mManager2);
         mMathsList.setLayoutManager(mManager3);
+        prepareTests(mStdId);
 
 
-        mScienceList.setAdapter(mAdapter);
-        mSocialList.setAdapter(mAdapter);
-        mMathsList.setAdapter(mAdapter);
+//        mScienceList.setAdapter(mAdapter);
+//        mSocialList.setAdapter(mAdapter);
+//        mMathsList.setAdapter(mAdapter);
 
 
 
@@ -286,6 +266,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
   * */
     @Override
     public void setTestListData(List<AllTestModels> mScience, List<AllTestModels> mSocial, List<AllTestModels> maths) {
+        Log.d(TAG, "setTestListData: ");
       mScienceQuestion = mScience;
         mSocialQuestion = mSocial;
         mMathsQuestions = maths;
@@ -297,20 +278,52 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         setMathsAdapter(maths);
     }
 
+    @Override
+    public void NoTestListData() {
+        //// TODO: 26/10/16 Remove all Views
+    }
+
     private void setMathsAdapter(List<AllTestModels> maths) {
        mMathsAdapter = new MathsAdapter(this,maths,getContext());
-        mMathsList.setAdapter(mMathsAdapter);
+        if (mMathsList != null){
+
+            mMathsList.setAdapter(mMathsAdapter);
+            refreshLayout();
+        }
+        else{
+            Log.d(TAG, "MAths Null");
+        }
 
     }
 
     private void setScicneAdapter(List<AllTestModels> mScience) {
         mScienceAdapter = new ScienceAdapter(this,mScience,getContext());
-        mScienceList.setAdapter(mScienceAdapter);
+        if (mScienceList != null) {
+
+            mScienceList.setAdapter(mScienceAdapter);
+            refreshLayout();
+        }
     }
+
+
+    private void refreshLayout() {
+
+        try {
+            getView().requestLayout();
+        }
+        catch (Exception e ){
+            Log.d(TAG, "refreshLayout: exception in Refreshing layout");
+        }
+    }
+
 
     private void setSocailAdapter(List<AllTestModels> mSocial) {
         mSocialAdapter = new SocialAdapter(this,mSocial,getContext());
-        mSocialList.setAdapter(mSocialAdapter);
+        if (mSocialList != null) {
+
+            mSocialList.setAdapter(mSocialAdapter);
+            refreshLayout();
+        }
     }
 
 
@@ -323,6 +336,8 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
     //Maths Test has been Clicked
     @Override
     public void mathsTestClicked(MathsAdapter.TestHolder holder, int position) {
+
+        Log.d(TAG, "mathsTestClicked: ");
         String testId = null;
         if (mMathsQuestions != null){
             try {
@@ -336,20 +351,56 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         //
 
         if (testId  != null){
-
+            showTestWritingPage(testId);
         }
 
+    }
+
+    private void showTestWritingPage(String testId) {
+        Log.d(TAG, "showTestWritingPage: "+testId);
+        final Intent i  = new Intent(getContext(),TestWriteActivity.class);
+        i.putExtra(BundleKey.TEST_ID,testId);
+        startActivity(i);
     }
 
 
     //Scienc Subject has Been CLicked
     @Override
     public void scienceTestClicked(ScienceAdapter.TestHolder holder, int position) {
+        String testId = null;
+        if (mScienceQuestion != null){
+            try {
+
+                testId = mScienceQuestion.get(position).getmTestId();
+            }
+            catch (Exception e ){
+                Log.d(TAG, "NO Subject iD");
+            }
+        }
+        //
+
+        if (testId  != null){
+            showTestWritingPage(testId);
+        }
 
     }
 
     @Override
     public void SocialTestClicked(SocialAdapter.TestHolder holder, int position) {
+        String testId = null;
+        if (mSocialQuestion != null){
+            try {
 
+                testId = mScienceQuestion.get(position).getmTestId();
+            }
+            catch (Exception e ){
+                Log.d(TAG, "NO Subject iD");
+            }
+        }
+        //
+
+        if (testId  != null){
+            showTestWritingPage(testId);
+        }
     }
 }

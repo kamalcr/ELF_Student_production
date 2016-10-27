@@ -15,49 +15,52 @@
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <!--THe Main Content  -->
+
+         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_height="match_parent">
 
+             <com.elf.elfstudent.CustomUI.HelviticaMedium
+                 android:text="Percentage"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textSize="22sp"
+                 android:id="@+id/percent_single"
+                 android:layout_alignParentTop="true"
+                 android:layout_alignParentRight="true"
+                 android:layout_alignParentEnd="true"
+                 android:layout_marginRight="18dp"
+                 android:layout_marginEnd="18dp"
+                 android:layout_marginTop="40dp" />
+
+             <com.elf.elfstudent.CustomUI.HelviticaMedium
+                 android:text="Lesson Name"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textSize="22sp"
+                 android:id="@+id/lesson_name_single"
+                 android:layout_marginLeft="44dp"
+                 android:layout_marginStart="44dp"
+                 android:layout_alignBaseline="@+id/percent_single"
+                 android:layout_alignBottom="@+id/percent_single"
+                 android:layout_alignParentLeft="true"
+                 android:layout_alignParentStart="true" />
+             <FrameLayout
+                 android:layout_width="match_parent"
+                 android:layout_below="@+id/lesson_name_single"
+                 android:id="@+id/topic_list_root"
+                 android:layout_height="match_parent">
+                 <include layout="@layout/loading_list"/>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:id="@+id/topic_list"
-        android:layout_below="@+id/lesson_name_single"
 
-        android:layout_marginTop="12dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+             </FrameLayout>
 
-    </android.support.v7.widget.RecyclerView>
 
-    <com.elf.elfstudent.CustomUI.HelviticaMedium
-        android:text="Percentage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:id="@+id/percent_single"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="18dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginTop="40dp" />
 
-    <com.elf.elfstudent.CustomUI.HelviticaMedium
-        android:text="Lesson Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:id="@+id/lesson_name_single"
-        android:layout_marginLeft="44dp"
-        android:layout_marginStart="44dp"
-        android:layout_alignBaseline="@+id/percent_single"
-        android:layout_alignBottom="@+id/percent_single"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-</RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+
+   </RelativeLayout>
+         </android.support.design.widget.CoordinatorLayout>

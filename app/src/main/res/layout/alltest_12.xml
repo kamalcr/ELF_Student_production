@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!---->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,19 +16,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="16dp"
-            android:id="@+id/all_science_text"
+            android:id="@+id/all_physics_text"
             android:text="PHYSICS"
             android:textColor="@color/black_viewpager" />
 
 
         <com.elf.elfstudent.CustomUI.HelviticaMedium
             android:layout_width="match_parent"
-            android:layout_below="@+id/all_sci_list"
+            android:layout_below="@+id/all_phy_list"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:textColor="@color/black_viewpager"
             android:layout_marginLeft="16dp"
-            android:id="@+id/all_social_text"
+            android:id="@+id/all_chemistry_text"
             android:text="CHEMISTRY" />
 
         <com.elf.elfstudent.CustomUI.HelviticaMedium
@@ -35,8 +37,8 @@
             android:layout_marginTop="12dp"
             android:textColor="@color/black_viewpager"
             android:layout_marginLeft="16dp"
-            android:layout_below="@+id/all_social_list"
-            android:id="@+id/all_maths_tex"
+            android:layout_below="@+id/all_chem_list"
+            android:id="@+id/all_mathss_text"
             android:text="MATHS"/>
 
 
@@ -46,14 +48,14 @@
             android:paddingTop="16dp"
             android:layout_marginTop="27dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:id="@+id/all_social_list"
+            android:id="@+id/all_chem_list"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:clipChildren="false"
-            android:layout_below="@+id/all_social_text"
-            android:layout_alignStart="@+id/all_maths_tex"
+            android:layout_below="@+id/all_chemistry_text"
+            android:layout_alignStart="@+id/all_mathss_text"
             android:layout_marginLeft="16dp"
-            android:layout_alignLeft="@+id/all_maths_tex" />
+            android:layout_alignLeft="@+id/all_mathss_text" />
 
         <android.support.v7.widget.RecyclerView
 
@@ -61,28 +63,28 @@
             android:paddingTop="16dp"
             android:layout_marginTop="22dp"
             android:layout_marginLeft="16dp"
-            android:id="@+id/all_sci_list"
+            android:id="@+id/all_phy_list"
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:clipToPadding="false"
             android:clipChildren="false"
-            android:layout_below="@+id/all_science_text"
-            android:layout_alignStart="@+id/all_social_text"
-            android:layout_alignLeft="@+id/all_social_text" />
+            android:layout_below="@+id/all_physics_text"
+            android:layout_alignStart="@+id/all_chemistry_text"
+            android:layout_alignLeft="@+id/all_chemistry_text" />
 
         <android.support.v7.widget.RecyclerView
 
             android:layout_width="wrap_content"
 
-            android:layout_below="@id/all_maths_tex"
+            android:layout_below="@id/all_mathss_text"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginTop="12dp"
-            android:id="@+id/all_math_list"
+            android:id="@+id/all_maths_list"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:clipChildren="false"
-            android:layout_alignStart="@+id/all_social_list"
-            android:layout_alignLeft="@+id/all_social_list"
+            android:layout_alignStart="@+id/all_chem_list"
+            android:layout_alignLeft="@+id/all_chem_list"
             android:layout_marginBottom="40dp" />
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
@@ -90,9 +92,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:id="@+id/opt_subject"
-            android:layout_below="@id/all_math_list"
-            android:layout_alignLeft="@+id/all_maths_tex"
-            android:layout_alignStart="@+id/all_maths_tex" />
+            android:layout_below="@id/all_maths_list"
+            android:layout_alignLeft="@+id/all_mathss_text"
+            android:layout_alignStart="@+id/all_mathss_text" />
         <android.support.v7.widget.RecyclerView
 
             android:layout_width="wrap_content"
@@ -104,8 +106,8 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:clipChildren="false"
-            android:layout_alignStart="@+id/all_social_list"
-            android:layout_alignLeft="@+id/all_social_list"
+            android:layout_alignStart="@+id/all_chem_list"
+            android:layout_alignLeft="@+id/all_chem_list"
             android:layout_marginBottom="40dp" />
     </RelativeLayout>
 

@@ -10,6 +10,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -42,7 +46,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
 
 
     private static final String TAG = "TOPIC LISTS";
-    private static final String GET_TOPIC_FOR_LESSON = "";
+    private static final String GET_TOPIC_FOR_LESSON = "http://www.hijazboutique.com/elf_ws.svc/GetTopicwiseReport";
     AppRequestQueue mRequestQueue = null;
     DataStore mStore = null;
 
@@ -60,8 +64,8 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
 
     //The Recycler view which shows Topic List
 
-    @BindView(R.id.topic_list)
-    RecyclerView mTopicListView;
+
+    RecyclerView mTopicListView = null;
 
 
 
@@ -74,11 +78,18 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
     HelviticaMedium mLessonName;
     @BindView(R.id.percent_single) HelviticaMedium mPercentName;
 
+    @BindView(R.id.loading_list_root)
+    FrameLayout mChangableRoot;
+
+
+
     String lessonnametrans = null;
     String percenttransName  = null;
 
     String lessonName = null;
     String percentage = null;
+    private int count = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,12 +189,26 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
     @Override
     public void TimeoutError() {
 
-        Log.d(TAG, "TimeoutError: ");
+        if ((count>2)){
+            //Request has been sent two times / show Time out Error
+            mChangableRoot.removeAllViews();
+            View v = View.inflate(this,R.layout.try_again_layout,mChangableRoot);
+
+
+        }
+        else{
+            //Request timed out , try again
+            if (mRequestQueue != null){
+                 if (getTopicRequest != null){
+                     mRequestQueue.addToRequestQue(getTopicRequest);
+                 }
+            }
+        }
     }
 
     @Override
     public void NetworkError() {
-        Log.d(TAG, "NetworkError: ");
+
     }
 
     @Override
@@ -194,12 +219,17 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
     @Override
     public void setTopics(List<Topic> mTopicList) {
 
+        mAdapter = new TopicListAdapter(this,mTopicList);
+       mChangableRoot.removeAllViews();
+        View v  = LayoutInflater.from(this).inflate(R.layout.topic_list,mChangableRoot,true);
+        if (v != null){
 
-        mAdapter = new TopicListAdapter(getApplicationContext(),mTopicList);
-        if (mTopicListView != null){
-            mTopicListView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            mTopicListView.setAdapter(mAdapter);
-
+            mTopicListView = (RecyclerView) v.findViewById(R.id.topic_list);
+            if (mTopicListView != null && mAdapter != null){
+                mTopicListView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                mTopicListView.setAdapter(mAdapter);
+            }
         }
+
     }
 }

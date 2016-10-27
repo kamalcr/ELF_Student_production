@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
+
+<FrameLayout android:layout_height="match_parent"
+
+
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -28,18 +36,21 @@
         android:layout_width="match_parent"
         android:background="@color/black_viewpager"
         android:id="@+id/test_write_viewpager"
-        android:layout_height="414dp"
+        android:layout_height="match_parent"
         >
 
     </android.support.v4.view.ViewPager>
+   </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:background="#3cdedd"
-        android:text="Finish"
-        android:textColor="@color/cardview_light_background"
-        android:layout_height="50dp"
-        android:id="@+id/test_write_finish" />
+        <Button
+            android:layout_width="match_parent"
+           android:layout_gravity="bottom"
+            android:background="#3cdedd"
+            android:text="Finish"
 
-</LinearLayout>
+            android:textColor="@color/cardview_light_background"
+            android:layout_height="50dp"
+            android:id="@+id/test_write_finish" />
+
+
+</FrameLayout>

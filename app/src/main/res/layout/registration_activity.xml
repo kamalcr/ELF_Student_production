@@ -23,7 +23,7 @@
           android:layout_height="match_parent">
           <android.support.v7.widget.CardView
               android:layout_width="match_parent"
-              app:cardBackgroundColor="@color/report_black"
+              app:cardBackgroundColor="@color/white"
               android:layout_margin = "32dp"
               app:cardCornerRadius="16dp"
               android:layout_height="match_parent">
@@ -36,67 +36,90 @@
 
                   <android.support.design.widget.TextInputLayout
                       android:layout_width="match_parent"
-                      android:id="@+id/nregister_name"
-                      android:layout_height="wrap_content"
-                      android:hint="Name"
-                      android:textColorHint="#3083c9"
-                     android:background="@drawable/personal_info_editext"
-                      android:layout_marginTop="60dp"
-                    >
-
-                      <com.elf.elfstudent.CustomUI.IosLightEditText
-                          android:layout_width="match_parent"
-                          android:background="@null"
-                          android:layout_height="match_parent" />
-                  </android.support.design.widget.TextInputLayout>
-
-
-                  <android.support.design.widget.TextInputLayout
-                      android:layout_width="match_parent"
-                      android:id="@+id/nregister_pass"
-                      android:layout_below="@id/nregister_name"
-                      android:layout_height="wrap_content"
-                      android:hint="Password"
-                      android:background="@drawable/personal_info_editext"
-                      android:textColorHint="#3083c9"
-                      android:layout_marginTop="35dp"
-
-                      android:layout_alignLeft="@+id/nregister_name"
-                      android:layout_alignStart="@+id/nregister_name">
-
-                      <com.elf.elfstudent.CustomUI.IosLightEditText
-                          android:layout_width="match_parent"
-                          android:background="@null"
-                          android:layout_height="match_parent" />
-                  </android.support.design.widget.TextInputLayout>
-                  <android.support.design.widget.TextInputLayout
-                      android:layout_width="match_parent"
                       android:id="@+id/nregister_phone"
-                      android:layout_height="wrap_content"
+                      android:layout_height="60dp"
+                      android:layout_marginRight="20dp"
                       android:hint="Phone Number"
+                      style = "@style/register_page_text_layout"
                       android:background="@drawable/personal_info_editext"
-                      android:textColorHint="#3083c9"
+                      android:textColorHint="@color/white_light"
+                      android:textColor="@color/white_light"
                       android:layout_below="@+id/nregister_pass"
                       android:layout_marginTop="35dp"
-                      android:layout_marginRight="32dp"
+
                       android:layout_alignLeft="@+id/nregister_pass"
                       android:layout_alignStart="@+id/nregister_pass">
 
                       <com.elf.elfstudent.CustomUI.IosLightEditText
                           android:layout_width="match_parent"
                           android:background="@null"
+                          android:paddingLeft="16dp"
+                          android:gravity="center_vertical"
                           android:layout_height="match_parent" />
                   </android.support.design.widget.TextInputLayout>
 
                   <Button
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
+                      android:layout_width="120dp"
+                      android:layout_height="60dp"
                       android:layout_marginBottom="25dp"
-                      android:text="Enter"
+                      android:text="Next"
+                      android:padding="4dp"
                       android:id="@+id/nregister_submit"
                       android:layout_alignParentBottom="true"
                       android:layout_alignRight="@+id/nregister_phone"
                       android:layout_alignEnd="@+id/nregister_phone" />
+
+                  <android.support.design.widget.TextInputLayout
+                      android:layout_width="match_parent"
+                      android:id="@+id/nregister_pass"
+                      android:layout_height="60dp"
+                      android:hint="Password"
+                      style = "@style/register_page_text_layout"
+                      android:background="@drawable/personal_info_editext"
+                      android:textColorHint="@color/white_light"
+                      android:textColor="@color/white_light"
+                      android:layout_marginTop="38dp"
+                      android:layout_marginLeft="20dp"
+                      android:layout_below="@+id/nregister_name"
+                      android:layout_alignRight="@+id/nregister_name"
+                      android:layout_alignEnd="@+id/nregister_name">
+
+                      <com.elf.elfstudent.CustomUI.IosLightEditText
+                          android:layout_width="match_parent"
+                          android:background="@null"
+
+                          android:paddingLeft="16dp"
+                          android:gravity="center_vertical"
+                          android:layout_height="match_parent" />
+                  </android.support.design.widget.TextInputLayout>
+
+                  <android.support.design.widget.TextInputLayout
+                      android:layout_width="match_parent"
+                      android:id="@+id/nregister_name"
+                      android:layout_height="60dp"
+                      android:hint="Name"
+
+                      style = "@style/register_page_text_layout"
+                      android:textColorHint="@color/white_light"
+                      android:textColor="@color/white_light"
+                     android:background="@drawable/personal_info_editext"
+                      android:layout_marginTop="206dp"
+                      android:layout_marginLeft="20dp"
+                      android:layout_marginRight="20dp"
+                      android:layout_alignParentTop="true"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"
+                     >
+
+                      <com.elf.elfstudent.CustomUI.IosLightEditText
+                          android:layout_width="match_parent"
+                          android:background="@null"
+                          android:textColorHint="@color/white_light"
+                          android:textColor="@color/white_light"
+                          android:paddingLeft="16dp"
+                          android:gravity="center_vertical"
+                          android:layout_height="match_parent" />
+                  </android.support.design.widget.TextInputLayout>
 
 
               </RelativeLayout>

@@ -51,6 +51,7 @@ public class TopicProvider implements Response.Listener<JSONArray> {
         catch (Exception e){
             Log.d(TAG, "onResponse: ");
 
+
         }
 
     }

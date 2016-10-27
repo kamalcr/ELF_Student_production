@@ -41,6 +41,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:id="@+id/subject_view_image"
+                    android:scaleType="fitXY"
                     android:layout_height="match_parent" />
 
                 <RelativeLayout
@@ -85,13 +86,15 @@
             </FrameLayout>
 
 
-            <android.support.v7.widget.RecyclerView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_below="@+id/frame_root"
-                android:id = "@+id/sub_view_list"
+                android:id="@+id/report_changable_root"
                 android:layout_height="match_parent">
+             <include layout="@layout/loading_list"/>
 
-            </android.support.v7.widget.RecyclerView>
+            </FrameLayout>
+
 
 
         </RelativeLayout>

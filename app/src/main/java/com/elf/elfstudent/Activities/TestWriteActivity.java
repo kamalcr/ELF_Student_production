@@ -119,6 +119,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
         //initialise Request Que
         mRequestQueue = AppRequestQueue.getInstance(this);
+        mStore = DataStore.getStorageInstance(this);
 
 
         //get Test Details From Intent From Intent
@@ -137,7 +138,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         errorHandler = new ErrorHandler(this);
         mTestSubmiter  = new TestSubitter(this);
 
-        prepareTestQuestionsFor(mTestId,mSubjectId);
+        Log.d(TAG, "onCreate: "+mTestId);
+        prepareTestQuestionsFor(mTestId,"2");
 
         //The Button which Completed the Test
         testWriteFinish.setOnClickListener(new View.OnClickListener() {
@@ -146,28 +148,32 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
                 //Shows an Alert dialog for asking confirmation
 //                // TODO: 25/10/16 Custom Alert dialog
-                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
-                alertDialog.setTitle("Finish Test?");
-                alertDialog.setMessage("Are you sure  you want to finish the test");
-                alertDialog.setPositiveButton("COMPLETE", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finishTest();
-                    }
-                });
-                alertDialog.setNegativeButton("STAY", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //No Has Been Clicked, Dismiss Dialog
-
-
-                    }
-                });
-                alertDialog.show();
+               finishButtonClicked();
 
             }
         });
 
+    }
+
+    private void finishButtonClicked() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Finish Test?");
+        alertDialog.setMessage("Are you sure  you want to finish the test");
+        alertDialog.setPositiveButton("COMPLETE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finishTest();
+            }
+        });
+        alertDialog.setNegativeButton("STAY", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //No Has Been Clicked, Dismiss Dialog
+
+
+            }
+        });
+        alertDialog.show();
     }
 
     /*This method Gets the Question Clicked SO for From
@@ -210,10 +216,11 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
 
             //preapare test Object
-            testObject.put("StudentID",testSubmit.getStudnetID());
-            testObject.put("testId",testSubmit.getTestId());
-            testObject.put("AnswersList",testArray);
+            testObject.put("StudentId",testSubmit.getStudnetID());
+            testObject.put("TestId",testSubmit.getTestId());
+            testObject.put("Answers",testArray);
 
+            Log.d(TAG, "Submit Test Rquest body "+testObject.toString());
             //send Request
             submitTestRequest = new JsonArrayRequest(Request.Method.POST, TEST_SUBMIT, testObject, mTestSubmiter,errorHandler);
 
@@ -239,15 +246,15 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         // todo: Dynamic Student id
         //       {"StudentId":1,"TestId":1,"SubjectId":2}
         try {
-            mObject.put("StudentId", mStore.getStudentId());
-            mObject.put("TestId", mTestId);
-            mObject.put("SubjectId", mSubjectId);
+            mObject.put("StudentId", "1");
+            mObject.put("TestId", "1");
+            mObject.put("SubjectId", "2");
         } catch (Exception e) {
             Log.d(TAG, "Exception in putting JSON Objects: ");
         }
 
         //Request Object
-          getQuestionRequest = new JsonArrayRequest(Request.Method.POST, URL, mObject, mQuestionProvider, errorHandler);
+          getQuestionRequest = new JsonArrayRequest(Request.Method.POST, GET_QUESTIONS_URL, mObject, mQuestionProvider, errorHandler);
 
         getQuestionRequest.setTag("QUESTION");
         mRequestQueue.addToRequestQue(getQuestionRequest);
@@ -308,7 +315,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     //set Adapter data and Tab
     private void setAdapter(String[] mTitles, List<Question> mQuestionList) {
-        if (mAdapter == null) {
+
             Log.d(TAG, "onResponse: Adapter  = new Adapter");
             mAdapter = new QuestionPagerAdapter(this, mQuestionList);
             if (mPager != null) {
@@ -317,12 +324,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
 
             }
-        } else {
-            Log.d(TAG, "onResponse: notify Data set Changed");
-            mAdapter.notifyDataSetChanged();
 
-
-        }
         mTab.setTitles(mTitles);
         mTab.setTabIndex(0);
         mTab.setViewPager(mPager);
@@ -342,7 +344,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putParcelable(BundleKey.TEST_PAGE_SELECTION,);
+//        outState.putParcelable(BundleKey.TEST_PAGE_SELECTION,); // TODO: 27/10/16 save adapter state
     }
 
     @Override
