@@ -4,10 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.DataStorage.DataStore;
+import com.elf.elfstudent.Network.ErrorHandler;
+import com.elf.elfstudent.Network.JsonProcessors.TestDetailReportProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+
+import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 
@@ -19,13 +26,16 @@ import butterknife.ButterKnife;
 public class TestCompletedActivity extends AppCompatActivity {
 
 
-
+    private static final String TEST_DETAIL_URL ="http://www.hijazboutique.com/elf_ws.svc/GetDetailedTestReport";
     String testId = null;
     String subjectId = null;
     String testDesc = null;
 
     String studentId = null;
 
+
+    ErrorHandler mErrorHandler = null;
+    TestDetailReportProvider testDetailReportProvider = null;
 
     DataStore mStore =  null;
     @Override
@@ -49,7 +59,22 @@ public class TestCompletedActivity extends AppCompatActivity {
         }
 
 
+        getDetailedTestReport(testId,studentId);
 
+
+
+    }
+
+    private void getDetailedTestReport(String testId, String studentId) {
+        try{
+            JSONObject mObj  = new JSONObject();
+            mObj.put("TestId",testId);
+            mObj.put("StudentId",studentId);
+//            JsonArrayRequest getDeteailedRequest  = new JsonArrayRequest(Request.Method.POST,TEST_DETAIL_URL,mObj,)
+        }
+        catch (Exception e){
+            Log.d("TG", "getDetailedTestReport: ");
+        }
     }
 
     @Override
@@ -74,8 +99,10 @@ public class TestCompletedActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        final Intent i  = new Intent(this,HomeActivity.class);
+
+        final Intent i  = new Intent(this,BrowseTestActivity.class);
+        startActivity(i);
+
     }
 
     @Override

@@ -4,49 +4,71 @@ import android.util.Log;
 
 /**
  * Created by Nandha on 9/29/2016.
+ *
  */
 public class Answers {
-    String questionId;
-    String OptionSelected;
-    boolean isOptionSelected = false;
 
+    public String mQuestion;
+    public String mOpt_a;
+    public String mOpt_b;
+    public String mOpt_c;
+    public String mOpt_d;
+    String Correctoption;
 
-    private static final String TAG = "ANSWER MODEL";
-    public Answers(String questionId, String optionSelected, boolean isOptionSelected) {
-
-        Log.d(TAG, "Answers: Added question Added "+questionId+ " OPtion selected:"+optionSelected);
-        this.questionId = questionId;
-        OptionSelected = optionSelected;
-        this.isOptionSelected = isOptionSelected;
+    public Answers(String mQuestion, String mOpt_a, String mOpt_b, String mOpt_c, String mOpt_d, String correctoption) {
+        this.mQuestion = mQuestion;
+        this.mOpt_a = mOpt_a;
+        this.mOpt_b = mOpt_b;
+        this.mOpt_c = mOpt_c;
+        this.mOpt_d = mOpt_d;
+        Correctoption = correctoption;
     }
 
-    public String getQuestionId() {
-        return questionId;
+    public String getmQuestion() {
+        return mQuestion;
     }
 
-    public void setQuestionId(String questionId) {
-        this.questionId = questionId;
+    public void setmQuestion(String mQuestion) {
+        this.mQuestion = mQuestion;
     }
 
-    public String getOptionSelected() {
-        return OptionSelected;
+    public String getmOpt_a() {
+        return mOpt_a;
     }
 
-    public void setOptionSelected(String optionSelected) {
-        OptionSelected = optionSelected;
+    public void setmOpt_a(String mOpt_a) {
+        this.mOpt_a = mOpt_a;
     }
 
-    public boolean isOptionSelected() {
-        return isOptionSelected;
+    public String getmOpt_b() {
+        return mOpt_b;
     }
 
-    public void setOptionSelected(boolean optionSelected) {
-        isOptionSelected = optionSelected;
+    public void setmOpt_b(String mOpt_b) {
+        this.mOpt_b = mOpt_b;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        Log.d(TAG, "equals: ");
-        return obj != null && obj instanceof Question && ((Question) obj).getmQuestionId() == this.getQuestionId();
+    public String getmOpt_c() {
+        return mOpt_c;
+    }
+
+    public void setmOpt_c(String mOpt_c) {
+        this.mOpt_c = mOpt_c;
+    }
+
+    public String getmOpt_d() {
+        return mOpt_d;
+    }
+
+    public void setmOpt_d(String mOpt_d) {
+        this.mOpt_d = mOpt_d;
+    }
+
+    public String getCorrectoption() {
+        return Correctoption;
+    }
+
+    public void setCorrectoption(String correctoption) {
+        Correctoption = correctoption;
     }
 }

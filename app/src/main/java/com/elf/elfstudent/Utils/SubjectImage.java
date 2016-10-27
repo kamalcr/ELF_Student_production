@@ -10,18 +10,18 @@ import com.elf.elfstudent.R;
  */
 
 public class SubjectImage {
-    private static int SCINEC_IMAGE = R.drawable.ic_science_300_80;
-    private static int SOCIAL = R.drawable.ic_science_300_80;
-    private static int MATHS = R.drawable.ic_science_300_80;
-    private static int PHYSICS = R.drawable.ic_science_300_80;
-    private static int CHEMISTRY = R.drawable.ic_science_300_80;
-    private static int BIOLOGY = R.drawable.ic_science_300_80;
-    private static int COMPUTER = R.drawable.ic_science_300_80;
-    private static String  SCIENCE_ID = "";
-    private static String  SOCIAL_ID = "";
-    private static String  MATHS_ID = "";
-    private static String  PHY_ID = "";
-    private static String  CHEM_ID = "";
-    private static String  BIO_ID = "";
-    private static String  COMP_ID = "";
+    public static int SCINEC_IMAGE = R.drawable.ic_science_300_80;
+    public static int SOCIAL = R.drawable.ic_science_300_80;
+    public static int MATHS = R.drawable.ic_science_300_80;
+    public static int PHYSICS = R.drawable.ic_science_300_80;
+    public static int CHEMISTRY = R.drawable.ic_science_300_80;
+    public static int BIOLOGY = R.drawable.ic_science_300_80;
+    public static int COMPUTER = R.drawable.ic_science_300_80;
+    public static String  SCIENCE_ID = "";
+    public static String  SOCIAL_ID = "";
+    public static String  MATHS_ID = "";
+    public static String  PHY_ID = "";
+    public static String  CHEM_ID = "";
+    public static String  BIO_ID = "";
+    public static String  COMP_ID = "";
 }

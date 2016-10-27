@@ -300,15 +300,6 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
                     public void onAnimationRepeat(Animator animator) {
 
                     }
-                })
-                        .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        float value = valueAnimator.getAnimatedFraction();
-                        mRelativeRoot.setTranslationX(value * mdrawerLayout.getWidth());
-
-
-                    }
                 }).start();
             }
         }
@@ -336,15 +327,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
                             public void onAnimationRepeat(Animator animator) {
 
                             }
-                        })
-                        .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                float va = valueAnimator.getAnimatedFraction();
-                                mRelativeRoot.setTranslationX(-va);
-                            }
-                        })
-                        .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
+                        }).translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
             }
         }
 

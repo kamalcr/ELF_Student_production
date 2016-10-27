@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -178,9 +179,20 @@ public class SubjectViewActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        switch (item.getItemId()){
+            case android.R.id.home:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    finishAfterTransition();
+                }
+                else{
+                    finish();
+                }
+        }
 
         return true;
     }
+
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

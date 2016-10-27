@@ -56,7 +56,7 @@ public class QuestionPagerAdapter extends PagerAdapter {
 
 
 
-    private List<Answers> mAnswersList;
+
     private int count = 0;
     public QuestionPagerAdapter(Context context , List<Question> mQuestionList) {
 
@@ -65,7 +65,7 @@ public class QuestionPagerAdapter extends PagerAdapter {
 
         this.mList = mQuestionList;
         count = mQuestionList.size();
-        mAnswersList = new ArrayList<>(mList.size());
+
 
 
 
@@ -101,10 +101,10 @@ public class QuestionPagerAdapter extends PagerAdapter {
 
 
         mQuestionText.setText(mList.get(position).getmQuestion());
-        optionA.setText(mList.get(position).getmOpt_a());
-        optionB.setText(mList.get(position).getmOpt_b());
-        optionC.setText(mList.get(position).getmOpt_c());
-        optionD.setText(mList.get(position).getmOpt_d());
+        optionA.setText(String.format("A.    %s", mList.get(position).getmOpt_a()));
+        optionB.setText(String.format("B.    %s", mList.get(position).getmOpt_b()));
+        optionC.setText(String.format("C.    %s", mList.get(position).getmOpt_c()));
+        optionD.setText(String.format("D.    %s", mList.get(position).getmOpt_d()));
 
         isAlreadyChecked(mList.get(position),position);
         mGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

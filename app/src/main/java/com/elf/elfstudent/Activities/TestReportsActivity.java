@@ -100,6 +100,15 @@ public class TestReportsActivity extends AppCompatActivity
             getWriitetenTestFor(studentId);
         }
 
+        setUpCustomDrawer();
+
+        mDropIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DropButtonClicked();
+            }
+        });
+
     }
 
 
@@ -235,6 +244,9 @@ public class TestReportsActivity extends AppCompatActivity
             Log.d(TAG, "getWriitetenTestFor: ");
         }
         JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST,GET_TEST_REPORT_URL,mObject,mListDataProvider,errorHandler);
+        if (mRequestQueue != null){
+            mRequestQueue.addToRequestQue(mRequest);
+        }
     }
 
     @Override

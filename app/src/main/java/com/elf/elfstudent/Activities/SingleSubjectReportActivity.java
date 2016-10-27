@@ -79,7 +79,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
     @BindView(R.id.percent_single) HelviticaMedium mPercentName;
 
     @BindView(R.id.loading_list_root)
-    FrameLayout mChangableRoot;
+    RelativeLayout mChangableRoot;
 
 
 

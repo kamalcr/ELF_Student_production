@@ -1,6 +1,7 @@
 package com.elf.elfstudent.Adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.ScreenUtil;
+import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.SubjectModel;
 
 import java.util.ArrayList;
@@ -55,10 +57,12 @@ public HomeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 public void onBindViewHolder(HomeHolder holder, int position) {
 
 
+
         runEnterAnimations(holder,position);
          Log.d(TAG, "onBindViewHolder: "+position);
         holder.mPercent.setText(mSubjectList.get(position).getmPercentage());
         holder.mTitle.setText(mSubjectList.get(position).getmSubjectName());
+            holder.mSubjectImage.setImageDrawable(ContextCompat.getDrawable(mContext, SubjectImage.SCINEC_IMAGE));
         ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");
         ViewCompat.setTransitionName(holder.mPercent, String.valueOf(position) + "_sub");
         ViewCompat.setTransitionName(holder.mRootView,String.valueOf(position) + "_root");

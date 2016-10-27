@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -35,11 +36,11 @@ public class RegisterActivity  extends AppCompatActivity{
     private static final String TAG = "ELF";
     //password
     @BindView(R.id.nregister_pass)
-    TextInputLayout mPassword;
+    TextInputEditText mPassword;
     // phone Number
-    @BindView(R.id.nregister_phone) TextInputLayout mPhoneBox;
+    @BindView(R.id.nregister_phone) TextInputEditText mPhoneBox;
     //Name
-    @BindView(R.id.nregister_name) TextInputLayout mNameBox;
+    @BindView(R.id.nregister_name) TextInputEditText mNameBox;
 
     // submit Button
     @BindView(R.id.nregister_submit)
@@ -47,9 +48,6 @@ public class RegisterActivity  extends AppCompatActivity{
 
 
 
-    //Toolbar
-    @BindView(R.id.register_toolbar)
-    Toolbar mToolbar;
 
 
 
@@ -75,15 +73,8 @@ public class RegisterActivity  extends AppCompatActivity{
             }
         });
         //set Toolbar
-        setSupportActionBar(mToolbar);
-        ActionBar ab = getSupportActionBar();
-        try {
-            ab.setDisplayShowHomeEnabled(true);
-            ab.setDisplayShowHomeEnabled(true);
-        }
-        catch (Exception e ){
-            Log.d(TAG, "onCreate: eXCeption");
-        }
+
+
     }
 
     private void submitButtonClicked() {
@@ -96,9 +87,9 @@ public class RegisterActivity  extends AppCompatActivity{
             Email = mEmail;
         }
         try {
-            Name  = mNameBox.getEditText().getText().toString();
-            Password = mPassword.getEditText().getText().toString();
-            phone = mPhoneBox.getEditText().getText().toString();
+            Name  = mNameBox.getText().toString();
+            Password = mPassword.getText().toString();
+            phone = mPhoneBox.getText().toString();
         }
         catch (Exception e){
             throw new NullPointerException("NULL");
@@ -136,20 +127,20 @@ public class RegisterActivity  extends AppCompatActivity{
                     //phone number is not valid
                     Toast.makeText(this,"Please Enter Phone Number",Toast.LENGTH_SHORT).show();
                     mPhoneBox.startAnimation(shake);
-                    mNameBox.getEditText().setText("");
+                    mNameBox.setText("");
                 }
             }else{
                 // Name is not valid
                 Toast.makeText(this,"Please Enter Valid Name",Toast.LENGTH_SHORT).show();
                 mNameBox.startAnimation(shake);
-                mNameBox.getEditText().setText("");
+                mNameBox.setText("");
             }
 
         }else{
             //password is wrong
             Toast.makeText(this,"Please Enter Valid Password",Toast.LENGTH_SHORT).show();
             mPassword.startAnimation(shake);
-            mPassword.getEditText().setText("");
+            mPassword.setText("");
         }
 
 
@@ -171,19 +162,19 @@ public class RegisterActivity  extends AppCompatActivity{
             String name  = mStore.getUserName();
             if (name != null){
                 //
-                mNameBox.getEditText().setText(name);
+                mNameBox.setText(name);
             }
 
             //set Phone Number
             String phone  = mStore.getPhoneNumber();
             if (phone != null){
-                mPhoneBox.getEditText().setText(phone);
+                mPhoneBox.setText(phone);
             }
 
             //set Password
             String pass = mStore.getPassWord();
             if (pass != null){
-                mPassword.getEditText().setText(pass);
+                mPassword.setText(pass);
             }
         }
         catch (Exception e){

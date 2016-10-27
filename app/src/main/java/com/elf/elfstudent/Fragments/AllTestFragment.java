@@ -20,6 +20,7 @@ import com.elf.elfstudent.Adapters.TestRecyclerAdapeters.MathsAdapter;
 import com.elf.elfstudent.Adapters.TestRecyclerAdapeters.ScienceAdapter;
 import com.elf.elfstudent.Adapters.TestRecyclerAdapeters.SocialAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaMedium;
+import com.elf.elfstudent.CustomUI.QucikSand;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -44,11 +45,11 @@ import butterknife.ButterKnife;
 public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTestViewClick, ErrorHandler.ErrorHandlerCallbacks, TestListProvider.TestProviderCallback, MathsAdapter.MathsAdapterCallback, ScienceAdapter.ScienceAdapterCallback, SocialAdapter.SocialAdapterCallback {
 
     @BindView(R.id.all_science_text)
-    HelviticaMedium mScienceText;
+    QucikSand mScienceText;
     @BindView(R.id.all_social_text)
-    HelviticaMedium mSocialText;
+    QucikSand mSocialText;
     @BindView(R.id.all_maths_tex)
-    HelviticaMedium mMathsText;
+    QucikSand mMathsText;
     @BindView(R.id.all_math_list)
     RecyclerView mMathsList;
     @BindView(R.id.all_social_list)

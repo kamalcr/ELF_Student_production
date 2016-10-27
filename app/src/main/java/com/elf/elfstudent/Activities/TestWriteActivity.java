@@ -28,6 +28,7 @@ import com.elf.elfstudent.model.Answers;
 import com.elf.elfstudent.model.Question;
 import com.elf.elfstudent.model.TestSubmit;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.google.gson.JsonArray;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -51,7 +52,7 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class TestWriteActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, QuestionProvider.QuestionCallback, TestSubitter.SubmittedTestCallback {
     private static final String TAG = "TestWritePage";
-    private static final String TEST_SUBMIT = "";
+    private static final String TEST_SUBMIT = "http://www.hijazboutique.com/elf_ws.svc/SubmitTest";
     private static final String GET_QUESTIONS_URL = "http://www.hijazboutique.com/elf_ws.svc/GetTestQuestions";
 
 
@@ -183,29 +184,37 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         if(mAdapter != null){
 
 
-            List<Question> answerList =  mAdapter.getQuestionList();
-            int count = answerList.size();
+            try {
 
-            //The Rest Model That is sent to server
-             //Adding selected option From Pager Adapter data
-            TestSubmit testSubmit = new TestSubmit(mStore.getStudentId(),mTestId,count);
-            for (int i= 0; i<count ; i++){
-                //setting The Question Id and option to Test Submit Object
-                testSubmit.setAnswerForQuestion(answerList.get(i).getmQuestionId()
-                        ,answerList.get(i).getSelectedOption());
+                List<Question> answerList =  mAdapter.getQuestionList();
+                JSONObject obj = new JSONObject();
+                JSONArray mArray = new JSONArray();
 
+                int count = answerList.size();
+
+                //The Rest Model That is sent to server
+                //Adding selected option From Pager Adapter data
+                TestSubmit testSubmit = new TestSubmit(mStore.getStudentId(),mTestId,count);
+                for (int i= 0; i<count ; i++){
+                    obj.put("QuestionId",answerList.get(i).getmQuestionId());
+                    obj.put("AnswerSelected",answerList.get(i).getSelectedOption());
+
+                    mArray.put(obj);
+                }
+
+
+                //Adding Student Id and test Id to
+                testSubmit.setStudnetID(mStore.getStudentId());
+                testSubmit.setTestId(mTestId);
+                SubmitTest(testSubmit,count,mArray);
             }
-
-
-            //Adding Student Id and test Id to
-            testSubmit.setStudnetID(mStore.getStudentId());
-            testSubmit.setTestId(mTestId);
-            SubmitTest(testSubmit,count);
-
+                catch (Exception e){
+                    Log.d(TAG, "finishTest: exception e "+e.getLocalizedMessage());
+                }
         }
     }
 
-    private void SubmitTest(TestSubmit testSubmit, int count) {
+    private void SubmitTest(TestSubmit testSubmit, int count, JSONArray mArray) {
 
         JSONArray testArray = new JSONArray();
         final JSONObject testObject = new JSONObject();
@@ -218,7 +227,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
             //preapare test Object
             testObject.put("StudentId",testSubmit.getStudnetID());
             testObject.put("TestId",testSubmit.getTestId());
-            testObject.put("Answers",testArray);
+            testObject.put("Answers",mArray);
 
             Log.d(TAG, "Submit Test Rquest body "+testObject.toString());
             //send Request
@@ -233,6 +242,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         }
 
     }
+
+
 
 
 
@@ -359,7 +370,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        finishButtonClicked();
     }
 
     @Override

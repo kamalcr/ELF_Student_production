@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">ELF Student</string>
     <string name="forgot_title">Please Enter Your Crendentials to change Password</string>
-    <string name="email_text">Enter your e-mail here</string>
+    <string name="email_text">REGISTER YOUR EMAIL </string>
     <string name="oops">Oops!</string>
     <string name="nright">Something\'s Not Right</string>
     <string name="no_int_string">Please make sure you have an Active Internet Connection</string>
+    <string name="instituion_amp_board"><![CDATA[INSTITUION & BOARD]]></string>
 </resources>

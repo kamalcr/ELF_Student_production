@@ -5,69 +5,102 @@
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:id="@+id/ins_toolbar"
-            android:layout_height="?attr/actionBarSize">
-
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0.75"
+        android:src="@drawable/ic_skin_back_groud"
+        android:layout_height="match_parent" />
 
 
     <Button
         android:layout_width="match_parent"
-        android:text="Register"
+        android:text="COMPLETE REGISTRATION"
         android:id="@+id/institute_page_register_button"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="40dp" />
+        android:layout_marginBottom="40dp"
+
+        android:layout_alignRight="@+id/ins_autocomplete"
+        android:layout_alignEnd="@+id/ins_autocomplete"
+        android:layout_alignLeft="@+id/ins_std_text"
+        android:layout_alignStart="@+id/ins_std_text" />
+
+    <com.elf.elfstudent.CustomUI.HelviticaMedium
+        android:text="@string/instituion_amp_board"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:id="@+id/textView8"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Please fill your School and Class details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView8"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="9dp"
+        android:id="@+id/textView9" />
+
+    <com.elf.elfstudent.CustomUI.QucikSand
+        android:text="SCHOOL NAME"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ins_school_text"
+
+
+        android:layout_below="@+id/textView9"
+        android:layout_marginStart="30dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="48dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_marginLeft="30dp" />
 
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:id="@+id/ins_autocomplete"
         android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="220dp" />
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_below="@+id/ins_school_text"
+        android:layout_alignLeft="@+id/ins_school_text"
+        android:layout_alignStart="@+id/ins_school_text"
+       />
 
-    <TextView
-        android:text="Enter you School"
+    <com.elf.elfstudent.CustomUI.QucikSand
+        android:text="STANDARD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ins_autocomplete"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="68dp"
-        android:id="@+id/ins_school_text" />
-
-    <TextView
-        android:text="Standard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp"
+        android:id="@+id/ins_std_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:layout_below="@+id/ins_autocomplete"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
-        android:id="@+id/ins_std_text" />
+        android:layout_alignLeft="@+id/ins_autocomplete"
+        android:layout_alignStart="@+id/ins_autocomplete" />
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_below="@+id/ins_std_text"
-        android:layout_alignLeft="@+id/ins_autocomplete"
-        android:layout_alignStart="@+id/ins_autocomplete"
-        android:layout_marginTop="41dp"
-        android:id="@+id/ins_std_spinner" />
+        android:layout_marginTop="28dp"
+        android:id="@+id/ins_std_spinner"
+        android:layout_alignLeft="@+id/ins_std_text"
+        android:layout_alignStart="@+id/ins_std_text"
+        android:layout_alignRight="@+id/institute_page_register_button"
+        android:layout_alignEnd="@+id/institute_page_register_button">
+
+    </Spinner>
 </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

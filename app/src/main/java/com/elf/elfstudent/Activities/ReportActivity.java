@@ -60,7 +60,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 
 
     private static final String TAG = "ELF";
-    private static final String REPORT_URL = "http://www.hijazboutique.com/elf_ws.svc/GetLessionWiseReport";
+    private static final String REPORT_URL ="http://www.hijazboutique.com/elf_ws.svc/GetLessionWiseReport";
 
     @BindView(R.id.report_tab)
     TabLayout mTab;
@@ -145,6 +145,13 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 
 
     private void setUpCustomDrawer() {
+        mHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final  Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+                startActivity(i);
+            }
+        });
 
         //Report
         mReportButton.setOnClickListener(new View.OnClickListener() {
@@ -212,14 +219,6 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
                     public void onAnimationRepeat(Animator animator) {
 
                     }
-                }).setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        float value = valueAnimator.getAnimatedFraction();
-                        mContentRoot.setTranslationX(value * mdrawerLayout.getWidth());
-
-
-                    }
                 }).start();
             }
         }
@@ -246,13 +245,6 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
                             @Override
                             public void onAnimationRepeat(Animator animator) {
 
-                            }
-                        })
-                        .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                float va = valueAnimator.getAnimatedFraction();
-                                mContentRoot.setTranslationX(-va);
                             }
                         })
                         .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();

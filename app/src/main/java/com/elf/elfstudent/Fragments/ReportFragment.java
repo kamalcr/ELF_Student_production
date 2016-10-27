@@ -135,8 +135,8 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     private void PrepareSubjectReportsFor(String studentId, String subjecId) {
         JSONObject mObject = new JSONObject();
         try {
-            mObject.put(RequestParameterKey.STUDENT_ID, studentId);
-            mObject.put(RequestParameterKey.SUBJECT_ID, subjecId);
+            mObject.put("studentId", "1");
+            mObject.put("subjectId", "11");
         } catch (Exception e) {
             Log.d(TAG, "PrepareSubjectReportsFor: ");
         }
@@ -253,6 +253,10 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     @Override
     public void setLessonList(List<Lesson> mLessons) {
         this.mLessonList = mLessons;
+
+        mLoadingLayout.setVisibility(View.INVISIBLE);
+        mVisibleLayout.setVisibility(View.VISIBLE);
+        Log.d(TAG, "got lesson list");
         mAdapter = new ReportLessonAdapter(getContext(),mLessons,this);
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
         mList.setAdapter(mAdapter);

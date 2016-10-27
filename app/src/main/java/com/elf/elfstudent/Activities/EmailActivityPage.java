@@ -73,7 +73,9 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
         errorHandler = new ErrorHandler(this);
         mDialog = new ProgressDialog(this);
         mDialog.setIndeterminate(true);
-        mDialog.setContentView(R.layout.progress_view);
+        mDialog.setTitle("Checking for Registration" +
+                "");
+//        mDialog.setContentView(R.layout.progress_view);
         mDialog.setCanceledOnTouchOutside(false);
         emailHandler = new EmailHandler(this);
         mNextButton.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +100,7 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
     }
 
     private void checkifEmailExists(String email) {
-//        mDialog.show();
+        mDialog.show();
         email = email.trim();
         JSONObject mObj = new JSONObject();
         try {
