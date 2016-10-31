@@ -9,9 +9,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
         android:layout_width="match_parent"
-        android:src="@drawable/ic_skin_back_groud"
-        android:scaleType="centerCrop"
-        android:alpha="0.75"
+        android:src="@mipmap/logo_back_icon"
+        android:scaleType="center"
+
         android:layout_height="match_parent" />
 
     <RelativeLayout
@@ -24,7 +24,7 @@
             android:text="NAME"
             android:id="@+id/name_text"
             android:textSize="20sp"
-            android:textColor="@color/white"
+            android:textColor="@color/material_pink500"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:layout_marginLeft="40dp"
@@ -68,7 +68,7 @@
             android:text="PASSWORD"
             android:id="@+id/passtext"
             android:textSize="20sp"
-            android:textColor="@color/white"
+            android:textColor="@color/material_pink500"
             android:layout_below="@+id/nregister_name"
             android:layout_height="wrap_content"
 
@@ -82,7 +82,7 @@
             android:text="PHONE NUMBER"
             android:id="@+id/phone_number_text"
             android:textSize="20sp"
-            android:textColor="@color/white"
+            android:textColor="@color/material_pink500"
             android:layout_below="@+id/nregister_pass"
             android:layout_height="wrap_content"
 
@@ -93,9 +93,11 @@
 
         <com.elf.elfstudent.CustomUI.HelviticaMedium
             android:text="PROFILE"
+            android:textColor="@color/pink900"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+
             android:layout_centerHorizontal="true"
             android:layout_marginTop="45dp"
             android:id="@+id/textView5"
@@ -112,6 +114,7 @@
         <com.elf.elfstudent.CustomUI.HelviticaMedium
             android:text="Provide your basic details"
             android:layout_width="wrap_content"
+            android:textColor="@color/pink900"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView6"
             android:layout_marginTop="4dp"
@@ -123,9 +126,10 @@
             android:text="Next"
             android:layout_width="wrap_content"
             android:layout_height="52dp"
-
+            android:background="@color/material_pinkA200"
             android:id="@+id/nregister_submit"
             android:layout_marginTop="72dp"
+            android:textColor="@color/white_primary"
             android:layout_below="@+id/nregister_phone"
             android:layout_alignLeft="@+id/nregister_phone"
             android:layout_alignStart="@+id/nregister_phone"

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -269,7 +270,23 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
     @Override
     public void TimeoutError() {
-        Log.d(TAG, "TimeoutError: ");
+        try {
+
+            mLoadingLayout.removeAllViews();
+            View v  = LayoutInflater.from(getContext()).inflate(R.layout.try_again_layout,mLoadingLayout,true);
+            TextView t = (TextView) v.findViewById(R.id.try_again_text);
+            t.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mRequestQueue != null){
+                        mRequestQueue.addToRequestQue(getLessonRequest);
+                    }
+                }
+            });
+        }
+        catch (Exception e ){
+            Log.d(TAG, "TimeoutError");
+        }
 
     }
 

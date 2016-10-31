@@ -24,18 +24,27 @@ public class RegisterListener implements Response.Listener<JSONArray> {
     @Override
     public void onResponse(JSONArray response) {
 
+
+
         //get the Object from Array
-        Log.d(TAG, "onResponse: from register "+response);
+        Log.d(TAG, "onResponse: from register "+response.toString());
         try {
 
             JSONObject mObj = response.getJSONObject(0);
             String statusCode = mObj.getString("StatusCode");
             String statusKey  = mObj.getString("OutputStatus");
             Log.d(TAG, "Output Status "+statusKey);
-            mCallback.Registered("1");
+
             if (statusCode.equals("1000")){
                 //success full Registration
-                //// TODO: 21/10/16 mcallbac.registered
+                 String studeId = mObj.getString("StudentId");
+
+                if (studeId != null){
+                    mCallback.Registered(studeId);
+                }
+                else{
+                    mCallback.NotRegistered();
+                }
             }
             else {
             }

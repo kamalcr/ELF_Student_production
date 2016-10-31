@@ -34,11 +34,6 @@ public class ClassSpinnerAdapter extends ArrayAdapter<StandardModel>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-     return super.getView(position,convertView,parent);
-    }
-
-    @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
         if (row == null){
             LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -54,5 +49,11 @@ public class ClassSpinnerAdapter extends ArrayAdapter<StandardModel>{
         }
 
         return row;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+
+        return super.getDropDownView(position,convertView,parent);
     }
 }

@@ -46,41 +46,41 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_gravity="bottom"
 
-                    android:layout_height="wrap_content">
-                    <com.elf.elfstudent.CustomUI.HelviticaLight
-                        android:layout_width="100dp"
-                        android:textColor="@color/accent"
-                        android:text="Hello"
 
-                        android:textSize="22sp"
-                        android:gravity="left|center_vertical"
-                        android:layout_marginLeft="32dp"
-                        android:id="@+id/sub_view_sub_name"
-                        android:layout_height="75dp"
-                        android:layout_alignParentTop="true"
-
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_toLeftOf="@+id/sub_view_percent"
-                        android:layout_toStartOf="@+id/sub_view_percent" />
+                    android:layout_height="match_parent">
 
                     <com.elf.elfstudent.CustomUI.HelviticaLight
                         android:layout_width="59dp"
-                        android:textColor="@color/bio_bg"
+                        android:textColor="@color/black_900"
                         android:text="Hi"
                         android:gravity="center"
                         android:textSize="22sp"
                         android:id="@+id/sub_view_percent"
-                        android:layout_height="100dp"
-                        android:layout_alignBottom="@id/sub_view_sub_name"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignTop="@+id/sub_view_sub_name" />
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
 
+                    <com.elf.elfstudent.CustomUI.HelviticaLight
+                        android:layout_width="100dp"
+                        android:textColor="@color/black_900"
+                        android:text="Hello"
+
+                        android:textSize="22sp"
+                        android:gravity="left|center_vertical"
+                        android:id="@+id/sub_view_sub_name"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="26dp"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="22dp" />
 
                 </RelativeLayout>
+
+
 
 
             </FrameLayout>

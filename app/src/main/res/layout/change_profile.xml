@@ -19,7 +19,7 @@
     <RelativeLayout
             android:layout_width="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:background="@color/black_900"
+            android:background="@drawable/login_background_gradient"
             android:layout_height="match_parent">
 
             <android.support.v7.widget.AppCompatImageView
@@ -48,7 +48,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_below="@+id/personal_info_text"
-                android:background="@color/md_blue_100"/>
+                android:background="@color/material_pink900"/>
 
             <TextView
                 android:text="Persona Info"
@@ -57,7 +57,7 @@
                 android:id="@+id/personal_info_text"
                 android:layout_marginTop="12dp"
                 android:textSize="18sp"
-                android:textColor="@color/md_blue_100"
+                android:textColor="@color/material_pink700"
                 android:layout_below="@+id/elf_id"
                 android:layout_alignLeft="@+id/elf_id"
                 android:layout_alignStart="@+id/elf_id" />
@@ -136,7 +136,7 @@
                 android:id="@+id/chg_profile_contact"
                 android:layout_marginTop="12dp"
                 android:textSize="18sp"
-                android:textColor="@color/md_blue_100"
+                android:textColor="@color/material_pink700"
                 android:layout_below="@+id/chg_profile_school_value"
                 android:layout_alignLeft="@+id/elf_id"
                 android:layout_alignStart="@+id/elf_id" />
@@ -150,7 +150,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_below="@id/chg_profile_contact"
-                android:background="@color/md_blue_100"/>
+                android:background="@color/material_pink900"/>
 
             <TextView
                 android:text="Email"
@@ -211,8 +211,6 @@
 
 
     </RelativeLayout>
-
-
 
 
 </android.support.design.widget.CoordinatorLayout>

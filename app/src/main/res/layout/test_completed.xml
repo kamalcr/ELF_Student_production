@@ -21,13 +21,16 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <include layout="@layout/test_completed_content_root"/>
 
         </FrameLayout>
 
         <!--The Drawer-->
         <FrameLayout
             android:layout_width="wrap_content"
+            android:visibility="invisible"
             android:layout_height="wrap_content">
+            <include layout="@layout/drawer_new"/>
 
         </FrameLayout>
 

@@ -8,15 +8,11 @@
     <ImageView
         android:paddingTop="2dp"
         android:layout_width="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/welcome_back_image"
+        android:scaleType="center"
+        android:src="@mipmap/logo_back_icon"
         android:layout_height="match_parent" />
-    <View
-        android:layout_width="match_parent"
-        android:background="@color/black_900"
-        android:alpha="0.4"
-        android:layout_height="match_parent"/>
-<RelativeLayout android:layout_width="match_parent"
+
+     <RelativeLayout android:layout_width="match_parent"
 
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">

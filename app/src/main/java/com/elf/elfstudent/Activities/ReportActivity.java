@@ -1,7 +1,6 @@
 package com.elf.elfstudent.Activities;
 
 import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Adapters.ViewPagerAdapters.BiologyReportPagerAdapter;
 import com.elf.elfstudent.Adapters.ViewPagerAdapters.ComputerReportPagerAdapter;
-import com.elf.elfstudent.Adapters.ViewPagerAdapters.ReportPagerAdapter;
 import com.elf.elfstudent.Adapters.ViewPagerAdapters.TenthReportPagerAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
@@ -32,14 +30,7 @@ import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.RequestParameterKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -56,7 +47,7 @@ import butterknife.ButterKnife;
  */
 
 public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.ErrorHandlerCallbacks
-        , Response.Listener<JSONArray> ,Drawer.OnDrawerItemClickListener {
+        , Response.Listener<JSONArray> {
 
 
     private static final String TAG = "ELF";
@@ -90,7 +81,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
     @BindView(R.id.test_report_menu) RelativeLayout mTestReportButton;
     @BindView(R.id.payments_menu) RelativeLayout mPaymentsButton;
 
-    Drawer result = null;
+
 
     TenthReportPagerAdapter tenthAdapter = null;
     BiologyReportPagerAdapter bioAdapter = null;
@@ -310,49 +301,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         mRequestQueue.addToRequestQue(mRequest);
     }
 
-    private void initDrawer() {
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header_img)
-                .addProfiles(
-                        new ProfileDrawerItem().withName(mStore.getUserName()).withEmail(mStore.getEmailId()).withIcon(R.drawable.ic_account_circle_white_48dp)
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
-                .build();
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(0).withName("Home").withIcon(R.drawable.ic_home_black_48dp)
-                .withIconTintingEnabled(true);
-        PrimaryDrawerItem item2 = new PrimaryDrawerItem()
-                .withIdentifier(1).withName("Reports")
-                .withIcon(R.drawable.ic_assessment_black_24dp).withIconTintingEnabled(true);
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(2).withName("Tests").withIcon(R.drawable.ic_assignment_black_48dp) .withIconTintingEnabled(true);
-        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(3).withName("Notifications").withIcon(R.drawable.ic_message_black_48dp) .withIconTintingEnabled(true);
-        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(4).withName("Test Reports");
 
-        result = new DrawerBuilder()
-                .withActivity(this)
-                .addDrawerItems(
-                        item1,
-                        item2,
-                        item3,
-                        item4,
-                        item5
-                )
-                .withHasStableIds(true)
-
-                .withActionBarDrawerToggle(true)
-                .withToolbar(mToolbar)
-                .withOnDrawerItemClickListener(this)
-                .withAccountHeader(headerResult)
-                .build();
-
-
-
-    }
 
     @Override
     protected void onDestroy() {
@@ -409,41 +358,6 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
     @Override
     public void ServerError() {
 
-    }
-
-    @Override
-    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-        Intent i = null;
-        if (drawerItem != null) {
-            if (drawerItem.getIdentifier() == 0) {
-                //Current Activity do Nothing
-                i = new Intent(this,HomeActivity.class);
-            }
-            if (drawerItem.getIdentifier() == 1) {
-                i = new Intent(this,ReportActivity.class);
-            }
-            if (drawerItem.getIdentifier() == 2) {
-                i =new Intent(this,BrowseTestActivity.class);
-            }
-            if (drawerItem.getIdentifier() == 3) {
-                i = new Intent(this,NotificationsActivity.class);
-            }
-            if (drawerItem.getIdentifier() == 4){
-                i = new Intent(this,TestReportsActivity.class);
-            }
-
-
-            result.closeDrawer();
-
-            if (i != null){
-                startActivity(i);
-            }
-
-
-
-
-        }
-        return true;
     }
 
     /*

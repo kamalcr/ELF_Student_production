@@ -179,14 +179,6 @@ public class TestReportsActivity extends AppCompatActivity
                 public void onAnimationRepeat(Animator animator) {
 
                 }
-            }).setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    float value = valueAnimator.getAnimatedFraction();
-                    mContentRoot.setTranslationX(value * mdrawerLayout.getWidth());
-
-
-                }
             }).start();
         }
         else{
@@ -213,15 +205,7 @@ public class TestReportsActivity extends AppCompatActivity
                             public void onAnimationRepeat(Animator animator) {
 
                             }
-                        })
-                        .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                float va = valueAnimator.getAnimatedFraction();
-                                mContentRoot.setTranslationX(-va);
-                            }
-                        })
-                        .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
+                        }).translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
             }
         }
 

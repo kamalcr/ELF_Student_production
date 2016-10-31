@@ -30,7 +30,7 @@
                 android:id="@+id/report_tab"
 
                 app:tabMode="fixed"
-                app:tabBackground="@color/black_900"
+                app:tabBackground="@color/black_viewpager"
                 app:tabTextColor="@color/white_light"
                 app:tabSelectedTextColor="@color/white"
                 app:tabIndicatorColor="@color/white"

@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -17,10 +18,15 @@
         <item name="android:textColor">@color/black_900</item>
     </style>
 
-    <style name="change_profile_top_text"></style>
+    <style name="change_profile_top_text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black_dribble</item>
+    </style>
 
-
-    <style name="change_profile_bottom_text"></style>
+    <style name="change_profile_bottom_text">
+        <item name="android:textColor">@color/material_black</item>
+        <item name="android:textSize">22sp</item>
+    </style>
 
     <style name="drawer_text_view">
         <item name="android:gravity">center</item>

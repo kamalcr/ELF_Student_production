@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/class_name_spinner"
-
+    android:textColor="@color/pink900"
     android:textSize="20sp"
-
+    android:text="Hello this is your school"
     android:gravity="center_vertical|center"
     android:paddingLeft="16dp"
-    android:background="@drawable/spinner_border"
+    android:background="@color/white"
     android:tint="#3083C9"
     android:layout_height="60dp">
 </com.elf.elfstudent.CustomUI.HelviticaLight>

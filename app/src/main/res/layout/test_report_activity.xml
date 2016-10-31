@@ -8,12 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                app:layout_collapseMode="pin"
-                android:layout_height="?attr/actionBarSize">
-
-            </android.support.v7.widget.Toolbar>
+          <include layout="@layout/toolbar_new"/>
 
     </android.support.design.widget.AppBarLayout>
     <FrameLayout
@@ -32,8 +27,8 @@
                 android:text="Test Written"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:textColor="@color/white"
-                android:layout_marginTop="4dp"
+                android:textColor="@color/black_dribble"
+                android:layout_marginTop="12dp"
                 android:textSize="22sp"
                 android:layout_height="wrap_content" />
             <com.elf.elfstudent.CustomUI.HelviticaLight

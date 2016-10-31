@@ -45,6 +45,7 @@
         <RadioButton
             android:layout_width="0dp"
             android:id="@+id/cs_group"
+
             android:layout_weight="1"
             android:text="Computer Science Group"
             android:layout_height="wrap_content">

@@ -89,6 +89,8 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
     JsonArrayRequest mRegisterRequest = null;
 
 
+    String ins_name  = null;
+
     boolean isButtonPressed = false;
 
     @Override
@@ -153,6 +155,17 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
 
         //The autcomplete Textview
+
+        mInsTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                InstitutionModel ins = institutionList.get(i);
+                ins_id = ins.getIns_id();
+                ins_name = ins.getInsName();
+                mStore.setInstitutionId(ins_id);
+
+            }
+        });
 
     }
 

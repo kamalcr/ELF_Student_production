@@ -59,14 +59,25 @@ public void onBindViewHolder(HomeHolder holder, int position) {
 
 
         runEnterAnimations(holder,position);
-         Log.d(TAG, "onBindViewHolder: "+position);
+    try {
+
+        Log.d(TAG, "onBindViewHolder: "+position);
         holder.mPercent.setText(mSubjectList.get(position).getmPercentage());
         holder.mTitle.setText(mSubjectList.get(position).getmSubjectName());
-            holder.mSubjectImage.setImageDrawable(ContextCompat.getDrawable(mContext, SubjectImage.SCINEC_IMAGE));
+
+        //setting Subject Image Based on Subject Id
+        String subID = mSubjectList.get(position).getmSubjectId();
+        Log.d(TAG, "geting image for SUbject id "+subID);
+
+        holder.mSubjectImage.setImageDrawable(SubjectImage.getSubjectImage(mContext,subID));
         ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");
         ViewCompat.setTransitionName(holder.mPercent, String.valueOf(position) + "_sub");
         ViewCompat.setTransitionName(holder.mRootView,String.valueOf(position) + "_root");
         ViewCompat.setTransitionName(holder.mSubjectImage,String.valueOf(position) + "_img");
+    }
+    catch (Exception e ){
+
+    }
 
 
         }

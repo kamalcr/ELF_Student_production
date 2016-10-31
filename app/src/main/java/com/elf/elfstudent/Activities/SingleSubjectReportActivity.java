@@ -1,6 +1,7 @@
 package com.elf.elfstudent.Activities;
 
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -42,7 +44,9 @@ import butterknife.ButterKnife;
  * THe PAge Which SHows Single Lesson In Detail
  */
 
-public class SingleSubjectReportActivity  extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, TopicProvider.TopicProviderCallbacks {
+public class SingleSubjectReportActivity  extends AppCompatActivity implements
+        ErrorHandler.ErrorHandlerCallbacks,
+        TopicProvider.TopicProviderCallbacks {
 
 
     private static final String TAG = "TOPIC LISTS";
@@ -109,6 +113,8 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
         }
 
 
+
+
         setSupportActionBar(mToolbar);
         mToolbar.setTitle("Topic Wise Report");
         
@@ -143,7 +149,21 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements E
       
     }
 
-   
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    finishAfterTransition();
+                }else{
+                    finish();
+                }
+                break;
+        }
+
+        return true;
+    }
 
     private void getTopicForlesson(String lessonId, String studentId, String id) {
         JSONObject mObject  = new JSONObject();

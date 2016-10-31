@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@+id/report_progress"
-
+        android:visibility="invisible"
         android:layout_height="match_parent"
         >
        <include layout="@layout/report_loading"/>
@@ -19,14 +19,14 @@
     <!--The Main content view , it is visible once data is available-->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:visibility="invisible"
+    android:visibility="visible"
     android:id="@+id/report_visisble_layout"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        app:cardBackgroundColor="@color/black_900"
+        app:cardBackgroundColor="#F7F9FA"
         android:id="@+id/report_frag_card"
         android:layout_height="250dp">
         <RelativeLayout

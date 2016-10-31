@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_splash"
     android:layout_width="match_parent"
-    android:background="@color/black_viewpager"
+
     android:layout_height="match_parent"
 
     tools:context="com.elf.elfstudent.SplashActivity">
        <ImageView
            android:layout_width="match_parent"
-           android:src="@drawable/ic_icon_logo_150"
+           android:src="@mipmap/logo_back"
+           android:scaleType="center"
            android:layout_height="match_parent" />
 </RelativeLayout>

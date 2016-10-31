@@ -1,7 +1,6 @@
 package com.elf.elfstudent.Activities;
 
 import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,14 +43,6 @@ import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.model.SubjectModel;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import org.json.JSONObject;
 
@@ -67,11 +58,9 @@ import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAn
  * The Home Acitivity
  *
  */
-public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapter.onCardClick, ErrorHandler.ErrorHandlerCallbacks, HomePageDataProvider.HomeDataProvider,
-        Drawer.OnDrawerItemClickListener {
+public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapter.onCardClick, ErrorHandler.ErrorHandlerCallbacks, HomePageDataProvider.HomeDataProvider{
 
-
-    private static final String HOME_URL = "http://www.hijazboutique.com/elf_ws.svc/GetStudentDashboard";
+    private static final String HOME_URL ="http://www.hijazboutique.com/elf_ws.svc/GetStudentDashboard";
     private static final String TAG = "ELF";
 
 
@@ -164,7 +153,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     JsonArrayRequest mHomeRequest = null;
 
     //The Drawer
-    Drawer result = null;
+
 
 
     @BindView(R.id.home_frame) FrameLayout mContentRoot;
@@ -233,6 +222,14 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
     private void setUpCustomDrawer() {
 
+
+        mHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final  Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+                startActivity(i);
+            }
+        });
         //Report
         mReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,7 +239,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
             }
         });
 
-        //Browse test Page
+        //Browse test Page/
         mTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -340,49 +337,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
     }
 
-    private void initDrawer() {
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header_img)
-                .addProfiles(
-                        new ProfileDrawerItem().withName(mStore.getUserName()).withEmail(mStore.getEmailId()).withIcon(R.drawable.ic_account_circle_white_48dp)
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
-                .build();
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(0).withName("Home").withIcon(R.drawable.ic_home_black_48dp)
-                .withIconTintingEnabled(true);
-        PrimaryDrawerItem item2 = new PrimaryDrawerItem()
-                .withIdentifier(1).withName("Reports")
-                .withIcon(R.drawable.ic_assessment_black_24dp).withIconTintingEnabled(true);
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(2).withName("Tests").withIcon(R.drawable.ic_assignment_black_48dp) .withIconTintingEnabled(true);
-        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(3).withName("Notifications").withIcon(R.drawable.ic_message_black_48dp) .withIconTintingEnabled(true);
-        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(4).withName("Test Reports");
 
-        result = new DrawerBuilder()
-                .withActivity(this)
-                .addDrawerItems(
-                        item1,
-                        item2,
-                        item3,
-                        item4,
-                        item5
-                )
-                .withHasStableIds(true)
-
-                .withActionBarDrawerToggle(true)
-                .withToolbar(mToolbar)
-                .withOnDrawerItemClickListener(this)
-                .withAccountHeader(headerResult)
-                .build();
-
-
-
-    }
     private void setViewValues() {
 
 //        // TODO: 25/10/16 institiution values
@@ -507,6 +462,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
                 Intent i = new Intent(this,SubjectViewActivity.class);
                 i.putExtra(BundleKey.SUBJECT_NAME,subjectName.getText());
                 i.putExtra(BundleKey.PERCENTAGE,percentText.getText());
+                i.putExtra(BundleKey.SUBJECT_ID,mSubjectList.get(position).getmSubjectId());
 //            i.putExtra(BundleKey.ROOT_VIEW_TRANS_NAME,root_transName);
 
 
@@ -662,38 +618,5 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     *
     * getIdentifier and Send to Appropriate Activity
     * */
-    @Override
-    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-        Intent i = null;
-        if (drawerItem != null) {
-            if (drawerItem.getIdentifier() == 0) {
-              //Current Activity do Nothing
-                return true;
-            }
-            if (drawerItem.getIdentifier() == 1) {
-             i = new Intent(this,ReportActivity.class);
-            }
-            if (drawerItem.getIdentifier() == 2) {
-              i =new Intent(this,BrowseTestActivity.class);
-            }
-            if (drawerItem.getIdentifier() == 3) {
-               i = new Intent(this,NotificationsActivity.class);
-            }
-            if (drawerItem.getIdentifier() == 4){
-              i = new Intent(this,TestReportsActivity.class);
-            }
 
-
-            result.closeDrawer();
-
-            if (i != null){
-                startActivity(i);
-            }
-
-
-
-
-        }
-        return true;
-    }
 }

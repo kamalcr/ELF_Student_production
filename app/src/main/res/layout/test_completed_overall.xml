@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black_dribble"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/c_pie_chart_50"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="9dp"
+        android:layout_marginStart="9dp"
+        android:id="@+id/imageView4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Subject Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:id="@+id/test_comp_test_desc"
+        android:textColor="@color/white"
+        android:layout_below="@+id/imageView4"
+        android:textSize="22sp"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:text="Subject Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_comp_test_desc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="61dp"
+        android:textSize="20sp"
+        android:textColor="@color/white_light"
+        android:id="@+id/test_comp_test_sub"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:text="85"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_comp_correct_answer"
+        android:textColor="@color/white"
+        android:layout_alignBaseline="@+id/test_comp_total_questions"
+        android:layout_alignBottom="@+id/test_comp_total_questions"
+        android:layout_toRightOf="@+id/test_comp_test_desc"
+        android:layout_toEndOf="@+id/test_comp_test_desc"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:text="Total Questions Asked"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white_light"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_comp_total_questions"
+        android:layout_alignLeft="@+id/test_comp_total_questions"
+        android:layout_alignStart="@+id/test_comp_total_questions"
+        android:layout_marginTop="42dp"
+        android:id="@+id/textView18" />
+
+    <TextView
+        android:text="Correct Answers"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white_light"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView18"
+        android:layout_alignLeft="@+id/test_comp_correct_answer"
+        android:layout_alignStart="@+id/test_comp_correct_answer"
+        android:id="@+id/textView19" />
+
+    <TextView
+        android:text="45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:textColor="@color/white"
+        android:id="@+id/test_comp_total_questions"
+        android:layout_below="@+id/test_comp_test_sub"
+        android:layout_alignLeft="@+id/imageView4"
+        android:layout_alignStart="@+id/imageView4"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+</RelativeLayout>

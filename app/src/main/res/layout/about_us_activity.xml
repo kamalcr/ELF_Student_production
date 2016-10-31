@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+    android:background="@drawable/login_background_gradient"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.elf.elfstudent.CustomUI.HelviticaMedium
-        android:text="ELF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/ic_elf_logo_36"
+        android:id="@+id/imageView7"
+        android:layout_below="@+id/about_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:id="@+id/about_title"
-        android:textSize="30sp" />
+        android:layout_marginTop="9dp" />
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
         android:text="Learning ReInvented"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="168dp"
         android:id="@+id/textView2"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textColor="@color/black_viewpager"
+        android:layout_below="@+id/imageView7"
+        android:layout_alignRight="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageView7"
+        android:layout_marginTop="17dp" />
+
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="ELF reinvents tradition learning methods . our system provides a personalised learning platform for students by combining various algorithams adn adapting the system accoring to each individual "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_900"
+        android:id="@+id/textView20"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="22sp"
+        android:layout_marginTop="40dp"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
 </RelativeLayout>

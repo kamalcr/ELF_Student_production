@@ -29,6 +29,7 @@ import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
 import com.elf.elfstudent.Network.JsonProcessors.TopicProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.Lesson;
 
 import org.json.JSONArray;
@@ -114,6 +115,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
             String percent = getIntent().getStringExtra(BundleKey.PERCENTAGE);
             String subject_trans_name = getIntent().getStringExtra(BundleKey.HOME_SUBJECT_TRANS_NAME);
             String percent_trans_name  = getIntent().getStringExtra(BundleKey.HOME_PERCENT_TRANS_NAME);
+            String subjectID = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
 
             String img_transName = getIntent().getStringExtra(BundleKey.HOME_SUBJECT_IMAGE_TRANS_NAME);
             Log.d(TAG, "Trans Values are image"+img_transName+ " sub : "+subject_trans_name + " percnet "+percent_trans_name);
@@ -122,7 +124,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
             mSubjectName.setText(subjectName);
             mPercentage.setText(percent);
 
-            mSubjectViewImage.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_social_300_80));
+            mSubjectViewImage.setImageDrawable(SubjectImage.getSubjectImage(getApplicationContext(),subjectID));
 
             //setting Transition Name
             ViewCompat.setTransitionName(mSubjectName,subject_trans_name);

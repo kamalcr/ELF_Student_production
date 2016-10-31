@@ -22,17 +22,19 @@ public class EmailHandler implements Response.Listener<JSONArray> {
     public void onResponse(JSONArray response) {
         try {
 
+            Log.d("EMAIL", "Email Response: "+response.toString());
             JSONObject object = response.getJSONObject(0);
-            if (object.getString("StatusCode").equals("1000")){
-                // new Email only Can Regsiter wit this email
-                if (mCallback != null){
-                    mCallback.ShowPersonalInfoPage();
-                }
-            }else {
-                if (mCallback != null){
-                    mCallback.emailAlreadyExists();
-                }
-            }
+//            if (object.getString("StatusCode").equals("1000")){
+//                 new Email only Can Regsiter wit this email
+//                if (mCallback != null){
+//                    mCallback.ShowPersonalInfoPage();
+//                }
+//            }else {
+//                if (mCallback != null){
+//                    mCallback.emailAlreadyExists();
+//                }
+//            }
+            mCallback.ShowPersonalInfoPage();
         }
         catch (Exception e ){
             Log.d("EMAIL HADLER", "onResponse: Error");

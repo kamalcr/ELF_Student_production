@@ -9,14 +9,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-
+        android:background="@drawable/login_background_gradient"
         android:layout_height="match_parent">
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:layout_width="match_parent"
             android:text="No Internet"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black_viewpager"
             android:textSize="22sp"
             android:id="@+id/internet_text"
             android:layout_height="wrap_content"
@@ -30,6 +30,7 @@
             android:layout_below="@id/internet_text"
             android:id="@+id/internet_text_2"
             android:layout_marginLeft="32dp"
+            android:textColor="@color/black_900"
             android:layout_marginRight="32dp"
             android:text="@string/no_int_string"
             android:layout_height="wrap_content" />

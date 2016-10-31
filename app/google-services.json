@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "964406250356",
-    "firebase_url": "https://elf-student-32e79.firebaseio.com",
-    "project_id": "elf-student-32e79",
-    "storage_bucket": "elf-student-32e79.appspot.com"
+    "project_number": "230578974010",
+    "firebase_url": "https://elf-student-e0f2d.firebaseio.com",
+    "project_id": "elf-student-e0f2d",
+    "storage_bucket": "elf-student-e0f2d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:964406250356:android:975b67cb45850d90",
+        "mobilesdk_app_id": "1:230578974010:android:975b67cb45850d90",
         "android_client_info": {
           "package_name": "com.elf.elfstudent"
         }
       },
       "oauth_client": [
         {
-          "client_id": "964406250356-h9a7asj9qrvpls455lli3do746nlncpr.apps.googleusercontent.com",
+          "client_id": "230578974010-65qv65nv8elhp8rev0b8lhv9bunlehjo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDN-6_0iXa61w4ttDk71rOM-7yOvJ6d90I"
+          "current_key": "AIzaSyCtJ6r8yssE3kuw31pmkBsQohIErDzTILw"
         }
       ],
       "services": {

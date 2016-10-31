@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/black_viewpager</color>
+    <color name="colorPrimary">@color/white_primary</color>
     <color name="colorPrimaryDark">@color/black_viewpager</color>
-    <color name="colorAccent">@color/white</color>
+    <color name="white_primary">#F7F9FA</color>
+    <color name="colorAccent">@color/pink900</color>
     <color name="report_divider">#51469A</color>
     <color name="violet_dark">#302263</color>
     <color name="green_dark">#33691E</color>
@@ -25,7 +26,8 @@
 
     <color name="blue400">#42A5F5</color>
     <color name="indigo900">#1A237E</color>
-    <color name="pink900">#AA00FF</color>
+    <color name="pink900">#F20654</color>
+    <color name="black_dribble">#343D45</color>
 
 
 </resources>

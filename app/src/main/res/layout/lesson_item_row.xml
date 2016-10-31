@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/black_900"
+    app:cardBackgroundColor="@color/black_viewpager"
     android:layout_width="match_parent"
     android:layout_height="80dp">
     <RelativeLayout
@@ -10,7 +10,7 @@
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:layout_width="wrap_content"
             android:text="Lesson Name"
-            android:textColor="@color/md_white_1000"
+            android:textColor="@color/white_primary"
             android:id="@+id/lesson_name_item"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -26,7 +26,7 @@
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:layout_width="@dimen/growth_width"
             android:text="52%"
-            android:textColor="@color/md_white_1000"
+            android:textColor="@color/white_primary"
 
             android:id="@+id/lesson_growth"
             android:layout_height="50dp"

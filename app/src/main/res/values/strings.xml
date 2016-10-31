@@ -6,4 +6,5 @@
     <string name="nright">Something\'s Not Right</string>
     <string name="no_int_string">Please make sure you have an Active Internet Connection</string>
     <string name="instituion_amp_board"><![CDATA[INSTITUION & BOARD]]></string>
+    <string name="feed">Please state the problems , bugs you encountered or You can tell us the features that would make ELF cool </string>
 </resources>

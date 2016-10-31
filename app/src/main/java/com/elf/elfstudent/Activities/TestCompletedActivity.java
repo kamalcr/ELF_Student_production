@@ -3,12 +3,17 @@ package com.elf.elfstudent.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.FrameLayout;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.elf.elfstudent.Adapters.ViewPagerAdapters.TestCompletedPagerAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
+import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.TestDetailReportProvider;
 import com.elf.elfstudent.R;
@@ -16,6 +21,7 @@ import com.elf.elfstudent.Utils.BundleKey;
 
 import org.json.JSONObject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,7 +29,7 @@ import butterknife.ButterKnife;
  * The Page which Show Test Completed
  */
 
-public class TestCompletedActivity extends AppCompatActivity {
+public class TestCompletedActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks {
 
 
     private static final String TEST_DETAIL_URL ="http://www.hijazboutique.com/elf_ws.svc/GetDetailedTestReport";
@@ -38,6 +44,22 @@ public class TestCompletedActivity extends AppCompatActivity {
     TestDetailReportProvider testDetailReportProvider = null;
 
     DataStore mStore =  null;
+    AppRequestQueue mRequestQueue = null;
+
+    //The Views
+
+    @BindView(R.id.test_completed_pager)
+    ViewPager mPager;
+
+    @BindView(R.id.test_completed_tab)
+    TabLayout mTab;
+
+    JsonArrayRequest getDeteailedRequest = null;
+    ErrorHandler errorHandler = null;
+
+    TestCompletedPagerAdapter mAdapter  = null;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +68,10 @@ public class TestCompletedActivity extends AppCompatActivity {
 
 
         mStore = DataStore.getStorageInstance(getApplicationContext());
+        testDetailReportProvider  = new TestDetailReportProvider();
+        mRequestQueue = AppRequestQueue.getInstance(this);
+        errorHandler = new ErrorHandler(this);
+
 
         if (mStore == null){
             studentId = mStore.getStudentId();
@@ -62,7 +88,16 @@ public class TestCompletedActivity extends AppCompatActivity {
         getDetailedTestReport(testId,studentId);
 
 
+        setAdapterToPager();
 
+
+    }
+
+    private void setAdapterToPager() {
+
+        mAdapter = new TestCompletedPagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mAdapter);
+        mTab.setupWithViewPager(mPager);
     }
 
     private void getDetailedTestReport(String testId, String studentId) {
@@ -70,7 +105,11 @@ public class TestCompletedActivity extends AppCompatActivity {
             JSONObject mObj  = new JSONObject();
             mObj.put("TestId",testId);
             mObj.put("StudentId",studentId);
-//            JsonArrayRequest getDeteailedRequest  = new JsonArrayRequest(Request.Method.POST,TEST_DETAIL_URL,mObj,)
+           getDeteailedRequest = new JsonArrayRequest(Request.Method.POST,TEST_DETAIL_URL,mObj,testDetailReportProvider,errorHandler);
+
+            if (mRequestQueue != null){
+                mRequestQueue.addToRequestQue(getDeteailedRequest);
+            }
         }
         catch (Exception e){
             Log.d("TG", "getDetailedTestReport: ");
@@ -118,5 +157,20 @@ public class TestCompletedActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void TimeoutError() {
+
+    }
+
+    @Override
+    public void NetworkError() {
+
+    }
+
+    @Override
+    public void ServerError() {
+
     }
 }

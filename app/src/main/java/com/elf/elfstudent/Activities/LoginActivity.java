@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,10 +31,14 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
 
     private static final String TAG = "ELF";
-    private static final String LOGIN_URL = "";
+    private static final String LOGIN_URL = "http://www.hijazboutique.com/elf_ws.svc/CheckStudentLogin";
 
     @BindView(R.id.login_button)
     Button mLoginButton;
+
+    @BindView(R.id.login_email_box)
+    EditText memailBox;
+    @BindView(R.id.login_password_box) EditText mPasswordBox;
 
 
     private AppRequestQueue mRequestQueue;
@@ -69,19 +74,21 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     }
 
     private void loginButtonClicked() {
-        String userName = "";
-        String password = "";
+        String userName = memailBox.getText().toString();
+        String password = mPasswordBox.getText().toString();
+
 
         JSONObject mObject = new JSONObject();
         try{
-            mObject.put(RequestParameterKey.LOGIN_USER_NAME,userName);
-            mObject.put(RequestParameterKey.LOGIN_PASSWORD,password);
+            mObject.put("username",userName);
+            mObject.put("password",password);
         }
         catch (Exception e ){
             Log.d(TAG, "loginButtonClicked: ");
         }
 
         JsonObjectRequest mRequest = new JsonObjectRequest(Request.Method.POST,LOGIN_URL,mObject,this,this);
+        mRequestQueue.addToRequestQue(mRequest);
     }
 
     @Override

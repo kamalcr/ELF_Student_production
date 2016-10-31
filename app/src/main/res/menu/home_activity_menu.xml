@@ -3,10 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+
+    <!--rProfile-->
     <item android:id="@+id/profile_menu"
         android:title="Profile"
-        app:showAsAction ="always"
-        android:icon="@drawable/ic_account_circle_white_48dp"
+        app:showAsAction ="never"
+
         />
+
+<!--About us-->
+    <item android:id="@+id/about_menu"
+        android:title="About Us"
+        app:showAsAction ="never"
+
+        />
+
+
+    <item android:id="@+id/feedback_menu"
+        android:title="Submit Feedback"
+        app:showAsAction ="never"
+
+        />
+
+
+    <item android:id="@+id/settings_menu"
+        android:title="Settings"
+        app:showAsAction ="always"
+
+        />
+
+
+
 
 </menu>
