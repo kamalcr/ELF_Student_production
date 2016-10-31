@@ -1,25 +1,34 @@
 package com.elf.elfstudent.Adapters.ViewPagerAdapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.elf.elfstudent.Fragments.TesCompletedOverallFragment;
 import com.elf.elfstudent.Fragments.TestComQuesListFrag;
+import com.elf.elfstudent.Utils.BundleKey;
 
 /**
  * Created by nandhu on 30/10/16.
  *
+ * The pager Fragment is shown in {@link com.elf.elfstudent.Activities.TestCompletedActivity}
+ *
+ * Send TestID as arguments
+ *
+ *
  */
 public class TestCompletedPagerAdapter extends FragmentStatePagerAdapter{
-    public TestCompletedPagerAdapter(FragmentManager fm) {
+    private String TestId = null;
+    public TestCompletedPagerAdapter(FragmentManager fm, String testId) {
         super(fm);
+        this.TestId = testId;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
-            case 0:return "OVERALL";
+            case 0:return "OVERVIEW";
             case 1: return "REVIEW";
 
         }
@@ -28,10 +37,21 @@ public class TestCompletedPagerAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
+        Bundle b = new Bundle();
+        b.putString(BundleKey.TEST_ID,this.TestId);
       switch (position){
           case 0:
-              return new TesCompletedOverallFragment();
-          case 1 :return new TestComQuesListFrag();
+
+
+              TesCompletedOverallFragment mFragment = new TesCompletedOverallFragment();
+              mFragment.setArguments(b);
+
+              return mFragment;
+          case 1 :
+              TestComQuesListFrag mFrag =  new TestComQuesListFrag();
+              mFrag.setArguments(b);
+              return mFrag;
+
       }
         return null;
     }

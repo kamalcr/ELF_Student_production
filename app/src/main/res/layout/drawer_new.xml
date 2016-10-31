@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView android:layout_height="wrap_content"
-    android:layout_width="60dp"
+<android.support.v7.widget.CardView android:layout_height="match_parent"
+    android:layout_width="100dp"
 
     android:layout_centerVertical="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -74,7 +74,7 @@
             android:textColor="@color/material_orange600"
 
             android:layout_below="@+id/report_icon"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -112,7 +112,7 @@
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/write_test_icon"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -150,7 +150,7 @@
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/wrtin_test_menu"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -186,7 +186,7 @@
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/payments_icon"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp" />
 
         <ImageView
             android:layout_width="wrap_content"

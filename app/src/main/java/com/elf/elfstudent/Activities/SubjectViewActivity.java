@@ -29,6 +29,7 @@ import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
 import com.elf.elfstudent.Network.JsonProcessors.TopicProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.RVdecorator;
 import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.Lesson;
 
@@ -56,7 +57,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
 
     private static final String TAG = "SUBJECT_VIEW";
-    private static final String GET_LESSON_URL = "";
+    private static final String GET_LESSON_URL = "http://www.hijazboutique.com/elf_ws.svc/GetLessionWiseReport";
 
     //The VIews of this Activity
 
@@ -229,17 +230,24 @@ public class SubjectViewActivity extends AppCompatActivity implements
     @Override
     public void TimeoutError() {
 
-        mChangableRoot.removeAllViews();
-        View v = LayoutInflater.from(this).inflate(R.layout.try_again_layout,mChangableRoot,true);
-        TextView t = (TextView) v.findViewById(R.id.try_again_text);
-        t.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mRequestQueue != null){
-                    mRequestQueue.addToRequestQue(mLessonListRequestor);
+
+        try {
+
+            mChangableRoot.removeAllViews();
+            View v = LayoutInflater.from(this).inflate(R.layout.try_again_layout,mChangableRoot,true);
+            TextView t = (TextView) v.findViewById(R.id.try_again_text);
+            t.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mRequestQueue != null){
+                        mRequestQueue.addToRequestQue(mLessonListRequestor);
+                    }
                 }
-            }
-        });
+            });
+        }
+        catch (Exception e ){
+            Log.d(TAG, "TimeoutError: ");
+        }
 
     }
 
@@ -261,11 +269,12 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
     @Override
     public void setLessonList(List<Lesson> mLessons) {
-//        mLessonList = mLessons;
+        mLessonList = mLessons;
         mAdapter = new LessonListAdapter(getApplicationContext(),mLessons);
         mChangableRoot.removeAllViews();
         View listView = LayoutInflater.from(this).inflate(R.layout.home_recycler,mChangableRoot,true);
         mSubListView = (RecyclerView) listView.findViewById(R.id.home_list);
+        mSubListView.addItemDecoration(new RVdecorator(ContextCompat.getDrawable(getApplicationContext(),R.drawable.divider)));
 
         if (mAdapter != null){
             mSubListView.setAdapter(mAdapter);

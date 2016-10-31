@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -294,6 +295,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
             //set studentId
             mStore.setStudentId(studentId);
             mStore.setIsFirstTime(false);
+
 
         }
         //The User Has been Registered show Choose subject page if he is 12th

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -162,6 +163,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
 
     boolean isDrawerShowing = false;
+    String studnetId = null;
 
 
 
@@ -175,6 +177,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
         //get The details for this User from Shared PRefs
         mStore  = DataStore.getStorageInstance(this.getApplicationContext());
         setViewValues();
+
 
         //initialising Request Queue
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
@@ -206,7 +209,11 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
         });
 
 //        // TODO: 25/10/16 save student Dash board
-        prepareDashBoardFor("1");
+
+        if (studnetId != null){
+
+            prepareDashBoardFor(studnetId);
+        }
         setSupportActionBar(mToolbar);
 
 
@@ -341,9 +348,13 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     private void setViewValues() {
 
 //        // TODO: 25/10/16 institiution values
-        mSchoolname.setText("Sri Akilandeswari Vidhyala");
-        mStandardName.setText("10th Standard");
-        mStudentName.setText(mStore.getUserName());
+        if(mStore != null){
+
+            mSchoolname.setText(mStore.getInstituionName());
+            mStandardName.setText(mStore.getStandard());
+            mStudentName.setText(mStore.getUserName());
+            studnetId  = mStore.getStudentId();
+        }
     }
 
     private void prepareDashBoardFor(String studentId) {
@@ -351,16 +362,20 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
         try {
 
 
-            //// TODO: 23/8/16 dynamic student id
+
             mReqObjects.put("studentId", studentId);
 
         }
         catch (Exception e) {
-
+            Log.d(TAG, "Exception: ");
         }
        mHomeRequest = new JsonArrayRequest(Request.Method.POST, HOME_URL, mReqObjects, mDataProvider, errorHandler);
         Log.d(TAG, "onCreate: making request");
-        mRequestQueue.addToRequestQue(mHomeRequest);
+
+        if (mRequestQueue !=null){
+
+            mRequestQueue.addToRequestQue(mHomeRequest);
+        }
 
     }
 
@@ -375,11 +390,16 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
         protected void onDestroy () {
             super.onDestroy();
             Log.d(TAG, "onDestroy: ");
+            mStore = null;
+            mDataProvider = null;
+            errorHandler = null;
+
         }
 
         @Override
         protected void onSaveInstanceState (Bundle outState){
             super.onSaveInstanceState(outState);
+
         }
 
         @Override
@@ -390,7 +410,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.home_activity_menu,menu);
+        getMenuInflater().inflate(R.menu.home_activity_menu,menu);
         return true;
     }
 
@@ -400,7 +420,17 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
            case R.id.profile_menu:
                final  Intent i = new Intent(this,ChangeProfileActivity.class);
                startActivity(i);
+
                break;
+           case R.id.about_menu :
+               final  Intent ii  = new Intent(this,AboutUsActivity.class);
+               startActivity(ii);
+               break;
+           case R.id.settings_menu :
+               final Intent iii = new Intent(this,SettingActivity.class);
+               startActivity(iii);
+               break;
+           case R.id.
        }
         return true;
     }

@@ -100,6 +100,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     private String mSubjectId = null;
     private String mSubjectName = null;
     private String mTestDesc = null;
+    private String mStudentID = null;
 
 
     //Error Handler for Volley
@@ -122,6 +123,10 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         mRequestQueue = AppRequestQueue.getInstance(this);
         mStore = DataStore.getStorageInstance(this);
 
+        if (mStore != null){
+            mStudentID = mStore.getStudentId();
+        }
+
 
         //get Test Details From Intent From Intent
         if (getIntent() != null){
@@ -140,15 +145,16 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         mTestSubmiter  = new TestSubitter(this);
 
         Log.d(TAG, "onCreate: "+mTestId);
-        prepareTestQuestionsFor(mTestId,"2");
+
+
+        prepareTestQuestionsFor(mTestId,mSubjectId);
 
         //The Button which Completed the Test
         testWriteFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //Shows an Alert dialog for asking confirmation
-//                // TODO: 25/10/16 Custom Alert dialog
+
                finishButtonClicked();
 
             }
@@ -194,7 +200,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
                 //The Rest Model That is sent to server
                 //Adding selected option From Pager Adapter data
-                TestSubmit testSubmit = new TestSubmit(mStore.getStudentId(),mTestId,count);
+                TestSubmit testSubmit = new TestSubmit(mStudentID,mTestId,count);
                 for (int i= 0; i<count ; i++){
                     obj.put("QuestionId",answerList.get(i).getmQuestionId());
                     obj.put("AnswerSelected",answerList.get(i).getSelectedOption());
@@ -233,12 +239,19 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
             //send Request
             submitTestRequest = new JsonArrayRequest(Request.Method.POST, TEST_SUBMIT, testObject, mTestSubmiter,errorHandler);
 
-            mRequestQueue.addToRequestQue(submitTestRequest);
+            if (mRequestQueue != null){
+
+                mRequestQueue.addToRequestQue(submitTestRequest);
+            }
+            else{
+                testNotSubmitted();
+            }
+
         }
 
 
         catch (Exception e){
-            Log.d(TAG, "SubmitTest: No Json Object Created");
+
         }
 
     }
@@ -257,9 +270,9 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         // todo: Dynamic Student id
         //       {"StudentId":1,"TestId":1,"SubjectId":2}
         try {
-            mObject.put("StudentId", "1");
-            mObject.put("TestId", "1");
-            mObject.put("SubjectId", "2");
+            mObject.put("StudentId", mStudentID);
+            mObject.put("TestId", mTestId);
+            mObject.put("SubjectId", mSubjectId);
         } catch (Exception e) {
             Log.d(TAG, "Exception in putting JSON Objects: ");
         }
@@ -268,7 +281,10 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
           getQuestionRequest = new JsonArrayRequest(Request.Method.POST, GET_QUESTIONS_URL, mObject, mQuestionProvider, errorHandler);
 
         getQuestionRequest.setTag("QUESTION");
-        mRequestQueue.addToRequestQue(getQuestionRequest);
+        if (mRequestQueue != null){
+
+            mRequestQueue.addToRequestQue(getQuestionRequest);
+        }
 
 
     }

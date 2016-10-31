@@ -85,17 +85,17 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
         }
 
 
-        getDetailedTestReport(testId,studentId);
+//        getDetailedTestReport(testId,studentId);
 
 
-        setAdapterToPager();
+        setAdapterToPager(testId);
 
 
     }
 
-    private void setAdapterToPager() {
+    private void setAdapterToPager(String testId) {
 
-        mAdapter = new TestCompletedPagerAdapter(getSupportFragmentManager());
+        mAdapter = new TestCompletedPagerAdapter(getSupportFragmentManager(),testId);
         mPager.setAdapter(mAdapter);
         mTab.setupWithViewPager(mPager);
     }

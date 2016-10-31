@@ -4,19 +4,6 @@
     android:background="@color/black_dribble"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/c_pie_chart_50"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="9dp"
-        android:layout_marginStart="9dp"
-        android:id="@+id/imageView4"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <TextView
         android:text="Subject Name"
         android:layout_width="wrap_content"

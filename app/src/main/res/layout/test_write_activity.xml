@@ -47,7 +47,7 @@
         app:nts_weight="7dp"/>
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:background="@color/black_viewpager"
+        android:background="@drawable/login_background_gradient"
         android:id="@+id/test_write_viewpager"
         android:layout_height="match_parent"
         >
@@ -59,9 +59,9 @@
             android:layout_width="match_parent"
            android:layout_gravity="bottom"
             android:background="#3cdedd"
-            android:text="Finish"
+            android:text="Finish Test"
 
-            android:textColor="@color/cardview_light_background"
+            android:textColor="@color/material_black"
             android:layout_height="50dp"
             android:id="@+id/test_write_finish" />
 

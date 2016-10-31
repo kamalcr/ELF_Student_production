@@ -13,7 +13,7 @@ public class Question {
     public String mQuestionId;
 
     public boolean isSelected =false;
-    public String selectedOption = "A";
+    public String selectedOption = "null";
 
     public Question(boolean isSelected, String selectedOption) {
         this.isSelected = isSelected;
