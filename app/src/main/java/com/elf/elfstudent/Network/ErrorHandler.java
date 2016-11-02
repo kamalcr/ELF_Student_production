@@ -27,6 +27,8 @@ public class ErrorHandler implements Response.ErrorListener {
     @Override
     public void onErrorResponse(VolleyError error) {
 
+        Log.d(TAG, "onErrorResponse: "+error.getLocalizedMessage());
+
         if (error instanceof NetworkError){
 
            mCallback.NetworkError();

@@ -29,6 +29,7 @@ public class InstituteRespHandler implements Response.Listener<JSONArray> {
 
     @Override
     public void onResponse(JSONArray response) {
+        Log.d(TAG, "onResponse: from Ins "+response.toString());
         int count = response.length();
         if (institutionList == null) {
             institutionList = new ArrayList<>(count);

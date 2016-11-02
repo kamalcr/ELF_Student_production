@@ -8,13 +8,14 @@ import com.elf.elfstudent.R;
 
 /**
  * Created by nandhu on 27/10/16.
- *
+ *The Image provider for Subject used in {@link com.elf.elfstudent.Adapters.SubjectHomeAdapter} and
+ * {@link com.elf.elfstudent.Activities.SubjectViewActivity}
  */
 
 public class SubjectImage {
-    public static int SCINEC_IMAGE = R.drawable.ic_science_300_80;
-    public static int SOCIAL = R.drawable.ic_social_300_80;
-    public static int MATHS = R.drawable.ic_maths_300_80;
+    public static int SCINEC_IMAGE = R.drawable.maths;
+    public static int SOCIAL = R.drawable.maths;
+    public static int MATHS = R.drawable.maths;
     public static int PHYSICS = R.drawable.ic_science_300_80;
     public static int CHEMISTRY = R.drawable.ic_science_300_80;
     public static int BIOLOGY = R.drawable.ic_science_300_80;

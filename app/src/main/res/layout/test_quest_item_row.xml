@@ -3,13 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/test_comp_card_root"
     android:layout_width="match_parent"
+
+     android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="2dp"
     android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp">
+        android:layout_height="wrap_content">
 
-        <TextView
+        <com.elf.elfstudent.CustomUI.HelviticaLight
             android:text="This is question textivew which holdes al Question a list, this text hsaa to be rounded somw htat wmargquue at end so that this text does ot get wrap automattically to end there by incerasing the hance of not likebale textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,26 +23,31 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="10dp"
+            android:textSize="18sp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
             android:id="@+id/item_question"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <TextView
-            android:text="Correct Option"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="13dp"
-            android:id="@+id/textView17"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
+        <com.elf.elfstudent.CustomUI.QucikSand
             android:text="A."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/correct_option"
-            android:layout_above="@+id/textView17"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:layout_below="@+id/item_question"
+            android:layout_centerHorizontal="true" />
+
+        <com.elf.elfstudent.CustomUI.HelviticaLight
+            android:text="Correct Option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView17"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@+id/correct_option"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 

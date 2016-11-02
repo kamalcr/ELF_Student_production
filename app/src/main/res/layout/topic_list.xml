@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
     android:id="@+id/topic_list"
-
+    android:background="@drawable/login_background_gradient"
     android:visibility="visible"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"

@@ -15,7 +15,7 @@
             android:id="@+id/tool_bar_drop"
             android:background="?selectableItemBackground"
             android:layout_width="wrap_content"
-            android:src="@drawable/ic_elf_logo_36"
+            app:srcCompat="@drawable/ic_elf_logo_36"
             android:layout_height="match_parent" />
 
     </FrameLayout>

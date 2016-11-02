@@ -25,11 +25,15 @@
         android:layout_marginTop="11dp"
         android:id="@+id/textView11"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-    <android.support.v7.widget.RecyclerView
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_below="@id/textView11"
-        android:id="@+id/test_comp_rv_list"
+        android:id="@+id/frame_root_qlist_frag"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <include layout="@layout/loading_list"/>
+
+    </FrameLayout>
+
 </RelativeLayout>

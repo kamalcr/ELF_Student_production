@@ -4,7 +4,9 @@ import com.android.volley.Response;
 import com.elf.elfstudent.model.TestReportModel;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,11 +27,44 @@ public class TestReportProvider implements Response.Listener<JSONArray> {
     @Override
     public void onResponse(JSONArray response) {
 
+        int count = response.length();
+
+        if (!(count>0)){
+
+            //Empty Response
+            mCallback.noWrittenTest();
+        }
+        else{
+            try {
+            JSONObject mObjet = null;
+                mWrittenTest = new ArrayList<>(count);
+            for (int i = 0; i < count;i++){
+
+
+                    mObjet = response.getJSONObject(i);
+
+                //// TODO: 2/11/16 get Strings
+                mWrittenTest.add(new TestReportModel(mObjet.getString("TestId"),mObjet.getString("TestDesc"),
+                        mObjet.getString("TestDesc"),mObjet.getString("Overall")));
+
+
+                }
+                if (mWrittenTest != null){
+                    mCallback.showWrittenTest(mWrittenTest);
+                }
+
+            }
+            catch (Exception e){
+
+            }
+        }
+
 
 
     }
 
     public interface TestListCallback{
         void showWrittenTest(List<TestReportModel> mWrittenTestList);
+        void noWrittenTest();
     }
 }

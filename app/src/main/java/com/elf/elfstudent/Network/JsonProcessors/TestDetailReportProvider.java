@@ -18,14 +18,29 @@ public class TestDetailReportProvider  implements Response.Listener<JSONArray>{
     int no_of_right = 0;
     int no_of_wrong = 0;
     private List<Answers> mAnserList = null;
+
+    private TestDetailaCallbacks mCallbacks = null;
+
+    public TestDetailReportProvider(TestDetailaCallbacks mCallbacks) {
+        this.mCallbacks = mCallbacks;
+    }
+
     @Override
     public void onResponse(JSONArray response) {
         int total  = response.length();
+
+
+        //if total test Written is not greater than zero
+        if(!(total>0)){
+               mCallbacks.noDetail();
+        }
 //        JSONObject mOb
 
     }
 
     public interface TestDetailaCallbacks{
         void TestCallback(int no_of_correct,int no_of_wrong);
+
+        void noDetail();
     }
 }

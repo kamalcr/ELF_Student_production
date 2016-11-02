@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -47,9 +48,11 @@ public class TestReportsActivity extends AppCompatActivity
 
 
     private static final String TAG = "TEST_REPORT";
+
+//    // TODO: 2/11/16 add URl
     private static final String GET_TEST_REPORT_URL = "";
-    @BindView(R.id.test_report_list)
-    RecyclerView mList;
+
+    RecyclerView mList = null;
 
     TestReportsAdapter mAdapter = null;
 
@@ -57,8 +60,12 @@ public class TestReportsActivity extends AppCompatActivity
 
 
 
-
+    //The COntenet Root
     @BindView(R.id.test_report_content_root) RelativeLayout mContentRoot;
+
+    //THe Changeale Root
+
+    @BindView(R.id.frame_root_treports) FrameLayout mChangableRoot;
 
     /*THe Drawer Related Atrributes*/
     //The Drop Down Icon
@@ -67,12 +74,11 @@ public class TestReportsActivity extends AppCompatActivity
     @BindView(R.id.test_report_drawer_frame)
     FrameLayout mdrawerLayout;
     @BindView(R.id.home_menu)
-    RelativeLayout mHomeButton;
-    @BindView(R.id.test_menu) RelativeLayout mTestButton;
-    @BindView(R.id.report_menu ) RelativeLayout mReportButton;
-    @BindView(R.id.test_report_menu) RelativeLayout mTestReportButton;
-    @BindView(R.id.payments_menu) RelativeLayout mPaymentsButton;
-
+    CardView mHomeButton;
+    @BindView(R.id.test_menu) CardView mTestButton;
+    @BindView(R.id.report_menu ) CardView mReportButton;
+    @BindView(R.id.test_report_menu) CardView mTestReportButton;
+    @BindView(R.id.payments_menu) CardView mPaymentsButton;
 
     ErrorHandler errorHandler = null;
     TestReportProvider mListDataProvider = null;
@@ -114,7 +120,16 @@ public class TestReportsActivity extends AppCompatActivity
 
     private void setUpCustomDrawer() {
 
+        mHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+                startActivity(i);
+            }
+        });
+
         //Report
+
         mReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,6 +251,9 @@ public class TestReportsActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        errorHandler = null;
+        mStore  = null;
+        mRequestQueue = null;
     }
 
     @Override
@@ -298,8 +316,22 @@ public class TestReportsActivity extends AppCompatActivity
         mTestListdata = mWrittenTestList;
         //prepare adapter
         mAdapter = new TestReportsAdapter(getApplicationContext(), mWrittenTestList, this);
+
+        mChangableRoot.removeAllViews();
+        View view = View.inflate(this,R.layout.home_recycler,mChangableRoot);
+
+        mList = (RecyclerView) view.findViewById(R.id.home_list);
+
         mList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mList.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void noWrittenTest() {
+
+
+        mChangableRoot.removeAllViews();
+        View view  = View.inflate(this,R.layout.no_data,mChangableRoot);
     }
 
     /*the callback from Recycler view Adapter { @link TestReportsAdapter }
@@ -315,7 +347,7 @@ public class TestReportsActivity extends AppCompatActivity
              if (testId != null){
                  //Test ID is Present
                  //show Detailed test Report for that Test Id bu that student
-                 Intent i = new Intent(this,DetailedTestReportActivity.class);
+                 Intent i = new Intent(this,TestCompletedActivity.class);
                  i.putExtra(BundleKey.TEST_ID,testId);
                  startActivity(i);
 

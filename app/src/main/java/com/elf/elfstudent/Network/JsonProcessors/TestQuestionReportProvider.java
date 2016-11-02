@@ -30,29 +30,28 @@ public class TestQuestionReportProvider  implements Response.Listener<JSONArray>
     @Override
     public void onResponse(JSONArray response) {
 
+
+        Log.d(TAG, "onResponse: "+response.toString());
         JSONObject mObject ;
         int count = response.length();
         if (mAnswersList == null){
             mAnswersList = new ArrayList<>(count);
 
         }
-
+        Log.d(TAG, "onResponse: count "+count);
         try {
 
             for (int i =0 ;i<count; i++){
 
                 mObject = response.getJSONObject(i);
-                if (i==0){
-                    subDesc = mObject.getString("SubjectName");
-                    subDesc = mObject.getString("SubjectDescription");
-                }
+
                 mAnswersList.add(new Answers(mObject.getString("Question")
-                        ,mObject.getString("AnswerStatus"),mObject.getString("Correctoption")));
+                        ,mObject.getString("Answer"),mObject.getString("AnswerStatus")));
             }
             //End of Loop
             if (mCallback != null){
 
-                mCallback.TestDetails(subName,subDesc,mAnswersList);
+                mCallback.TestDetails("Test","Test",mAnswersList);
             }
 
         }

@@ -87,15 +87,15 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     //state Rank Value
 
     @BindView(R.id.home_state_value)
-    SansRegularTextview mStateRank;
+    TextView mStateRank;
 
     //Overall rank
 
-    @BindView(R.id.home_overall_rank_value) SansRegularTextview mOverallValue;
+    @BindView(R.id.home_overall_rank_value) TextView mOverallValue;
 
     //District
 
-    @BindView(R.id.home_dist_rank_value) SansRegularTextview mDistrictRankValue;
+    @BindView(R.id.home_dist_rank_value) TextView mDistrictRankValue;
 
 
 
@@ -129,11 +129,11 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     //The Drop Down Icon
     @BindView(R.id.tool_bar_drop) ImageView mDropIcon;
     @BindView(R.id.home_drawer_frame) FrameLayout mdrawerLayout;
-    @BindView(R.id.home_menu) RelativeLayout mHomeButton;
-    @BindView(R.id.test_menu) RelativeLayout mTestButton;
-    @BindView(R.id.report_menu ) RelativeLayout mReportButton;
-    @BindView(R.id.test_report_menu) RelativeLayout mTestReportButton;
-    @BindView(R.id.payments_menu) RelativeLayout mPaymentsButton;
+    @BindView(R.id.home_menu) CardView mHomeButton;
+    @BindView(R.id.test_menu) CardView mTestButton;
+    @BindView(R.id.report_menu ) CardView mReportButton;
+    @BindView(R.id.test_report_menu) CardView mTestReportButton;
+    @BindView(R.id.payments_menu) CardView mPaymentsButton;
 
     //The Root Content Layyout
     @BindView(R.id.home_root) FrameLayout mRoot;
@@ -210,10 +210,10 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
 //        // TODO: 25/10/16 save student Dash board
 
-        if (studnetId != null){
+
 
             prepareDashBoardFor(studnetId);
-        }
+
         setSupportActionBar(mToolbar);
 
 
@@ -350,8 +350,9 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 //        // TODO: 25/10/16 institiution values
         if(mStore != null){
 
-            mSchoolname.setText(mStore.getInstituionName());
-            mStandardName.setText(mStore.getStandard());
+            mSchoolname.setText("Sri Akilandeswari Vidhayalaya");
+
+            mStandardName.setText(String.format("%s Standard", mStore.getStandard()));
             mStudentName.setText(mStore.getUserName());
             studnetId  = mStore.getStudentId();
         }
@@ -363,7 +364,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
 
 
-            mReqObjects.put("studentId", studentId);
+            mReqObjects.put("studentId", "1");
 
         }
         catch (Exception e) {
@@ -430,7 +431,10 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
                final Intent iii = new Intent(this,SettingActivity.class);
                startActivity(iii);
                break;
-           case R.id.
+           case R.id.feedback_menu:
+               final  Intent iiii = new Intent(this,FeedbackActivity.class);
+               startActivity(iiii);
+               break;
        }
         return true;
     }
@@ -447,7 +451,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
         public void onBackPressed () {
             Log.d(TAG, "onBackPressed: ");
             finish();
-            super.onBackPressed();
+
             
         }
 

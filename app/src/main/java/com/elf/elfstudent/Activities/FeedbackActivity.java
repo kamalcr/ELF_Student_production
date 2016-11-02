@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 31/10/16.
@@ -50,6 +51,7 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feedback_activity);
+        ButterKnife.bind(this);
 
         mRequestQueue = AppRequestQueue.getInstance(this);
         errorHandler = new ErrorHandler(this);
@@ -81,8 +83,25 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
             @Override
             public void onResponse(JSONArray response) {
 
+                try {
+
+                    JSONObject mOb = response.getJSONObject(0);
+                    if (mOb.getString("Statuscode").equals("Success")){
+                        Toast.makeText(getApplicationContext(),"Feedback sent, Thanks for Sharing you valuable opinion",Toast.LENGTH_LONG).show();
+                    }
+                    else{
+
+                    }
+                }
+                catch (Exception  e ){
+                    Log.d(TAG, "onResponse: ");
+                }
             }
         },errorHandler);
+
+        if (mRequestQueue != null){
+            mRequestQueue.addToRequestQue(mRequest);
+        }
 
 
     }
@@ -114,18 +133,18 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
 
     @Override
     public void TimeoutError() {
-        Toast.makeText(getApplicationContext(),"Time out Error",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Please make sure you have Internet",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void NetworkError() {
 
-        Toast.makeText(getApplicationContext(),"Network Error",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Network Error ,Please try again",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void ServerError() {
-        Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Server Error, please try again after some time",Toast.LENGTH_SHORT).show();
 
     }
 }

@@ -286,6 +286,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
     @Override
     public void noLesson() {
-
+        mChangableRoot.removeAllViews();
+        View v  = LayoutInflater.from(this).inflate(R.layout.no_data,mChangableRoot,true);
     }
 }

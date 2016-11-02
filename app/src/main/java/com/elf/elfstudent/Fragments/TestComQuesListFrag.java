@@ -10,6 +10,8 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -40,8 +42,10 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
 
 
     private static final String TAG = "TestComList Frag";
-    private static final String TEST_REPORT_URL = "";
-    @BindView(R.id.test_comp_rv_list)
+
+//    Add detailed Test Reports
+private static final String TEST_DETAIL_URL ="http://www.hijazboutique.com/elf_ws.svc/GetDetailedTestReport";
+
     RecyclerView mList;
 
 
@@ -58,15 +62,16 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
 
 
 
+    @BindView(R.id.frame_root_qlist_frag)
+    FrameLayout mChangableLayout;
+
+
     TestCompQuestionsAdapter mAdapter = null;
     private List<Answers> mListData;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        errorHandler = new ErrorHandler(this);
-        reportProvider  = new TestQuestionReportProvider(this);
-        mStore = DataStore.getStorageInstance(getActivity().getApplicationContext());
-        mRequestQueue = AppRequestQueue.getInstance(getActivity().getApplicationContext());
+
     }
 
     @Override
@@ -89,7 +94,11 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View v = inflater.inflate(R.layout.test_comp_ques_list,container,false);
         ButterKnife.bind(this,v);
-
+        Log.d(TAG, "onCreateView: ");
+        errorHandler = new ErrorHandler(this);
+        reportProvider  = new TestQuestionReportProvider(this);
+        mStore = DataStore.getStorageInstance(getActivity().getApplicationContext());
+        mRequestQueue = AppRequestQueue.getInstance(getActivity().getApplicationContext());
 
 
 
@@ -101,9 +110,9 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
             studentId = mStore.getStudentId();
         }
 
-        if (testId!= null && studentId != null){
+
             getTestReport(testId,studentId);
-        }
+
 
 
 
@@ -116,18 +125,22 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
     }
 
     private void getTestReport(String testId, String studentId) {
+
+
+        Log.d(TAG, "getTestReport: ");
         JSONObject mObject = new JSONObject();
         try {
-            mObject.put("studnetId",studentId);
-            mObject.put("TestId",testId);
+            mObject.put("StudentId","1");
+            mObject.put("TestId","1");
         }
         catch (Exception e ){
             Log.d(TAG, "getTestReport: ");
         }
 
-        mRequest = new JsonArrayRequest(Request.Method.POST,TEST_REPORT_URL,mObject,reportProvider,errorHandler);
+        mRequest = new JsonArrayRequest(Request.Method.POST,TEST_DETAIL_URL,mObject,reportProvider,errorHandler);
 
         if (mRequestQueue!= null){
+            Log.d(TAG, "getTestReport: adding to Request quueue");
             mRequestQueue.addToRequestQue(mRequest);
         }
     }
@@ -154,24 +167,30 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
 
     @Override
     public void TimeoutError() {
-
+        Log.d(TAG, "TimeoutError: ");
+        Toast.makeText(getActivity().getApplicationContext(),"Time Out Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void NetworkError() {
-
+        Log.d(TAG, "NetworkError: ");
+        Toast.makeText(getActivity().getApplicationContext(),"Network Out Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void ServerError() {
-
+        Log.d(TAG, "ServerError: ");
+        Toast.makeText(getActivity().getApplicationContext(),"server Out Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void TestDetails(String subjectName, String subDesc, List<Answers> mTestReportQuestions) {
         this.mListData = mTestReportQuestions;
+        mChangableLayout.removeAllViews();
+        View view = View.inflate(getActivity().getApplicationContext(),R.layout.home_recycler,mChangableLayout);
         mAdapter = new TestCompQuestionsAdapter(mListData,getContext());
-        mList.setLayoutManager(new LinearLayoutManager(getContext()));
+       mList = (RecyclerView) view.findViewById(R.id.home_list);
+        mList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         mList.setAdapter(mAdapter);
     }
 }

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -78,11 +79,11 @@ public class BrowseTestActivity extends AppCompatActivity {
     @BindView(R.id.browse_drawer_frame)
     FrameLayout mdrawerLayout;
     @BindView(R.id.home_menu)
-    RelativeLayout mHomeButton;
-    @BindView(R.id.test_menu) RelativeLayout mTestButton;
-    @BindView(R.id.report_menu ) RelativeLayout mReportButton;
-    @BindView(R.id.test_report_menu) RelativeLayout mTestReportButton;
-    @BindView(R.id.payments_menu) RelativeLayout mPaymentsButton;
+    CardView mHomeButton;
+    @BindView(R.id.test_menu) CardView mTestButton;
+    @BindView(R.id.report_menu ) CardView mReportButton;
+    @BindView(R.id.test_report_menu) CardView mTestReportButton;
+    @BindView(R.id.payments_menu) CardView mPaymentsButton;
 
     //The Pager Adapter for View pager
     tenthTestPagerAdapter mAdapter;
@@ -236,15 +237,6 @@ public class BrowseTestActivity extends AppCompatActivity {
                     public void onAnimationRepeat(Animator animator) {
 
                     }
-                }).
-                        setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        float value = valueAnimator.getAnimatedFraction();
-                        mContentRoot.setTranslationX(value * mdrawerLayout.getWidth());
-
-
-                    }
                 }).start();
             }
         }
@@ -272,15 +264,7 @@ public class BrowseTestActivity extends AppCompatActivity {
                             public void onAnimationRepeat(Animator animator) {
 
                             }
-                        })
-                        .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                float va = valueAnimator.getAnimatedFraction();
-                                mContentRoot.setTranslationX(-va );
-                            }
-                        })
-                        .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
+                        }).translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
             }
         }
 
@@ -309,7 +293,8 @@ public class BrowseTestActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+       final  Intent i = new Intent(this,HomeActivity.class);
+        startActivity(i);
     }
 
     @Override

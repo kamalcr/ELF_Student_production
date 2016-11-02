@@ -3,15 +3,16 @@
 
 <FrameLayout
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
         android:layout_width="match_parent"
-        android:src="@mipmap/logo_back_icon"
-        android:scaleType="center"
-
+        android:id="@+id/register_back_image"
+        android:scaleType="fitXY"
         android:layout_height="match_parent" />
 
     <RelativeLayout
@@ -19,89 +20,40 @@
         android:layout_height="match_parent">
 
 
-        <com.elf.elfstudent.CustomUI.QucikSand
-            android:layout_width="wrap_content"
-            android:text="NAME"
-            android:id="@+id/name_text"
-            android:textSize="20sp"
-            android:textColor="@color/material_pink500"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginStart="40dp"
-            android:layout_below="@+id/textView7"
-           />
-
-
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_below="@id/name_text"
-            android:layout_alignLeft="@+id/name_text"
+            android:layout_below="@+id/name_text"
+            android:maxLines="1"
             android:layout_marginTop="4dp"
             android:id="@+id/nregister_name"
             android:layout_marginRight="16dp"
-            android:layout_height="60dp" />
+            android:layout_height="60dp"
+            android:layout_alignLeft="@+id/name_imageview"
+            android:layout_alignStart="@+id/name_imageview" />
 
-
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_below="@+id/passtext"
-            android:layout_alignLeft="@+id/name_text"
-            android:layout_marginTop="4dp"
-            android:inputType="textPassword"
-            android:id="@+id/nregister_pass"
-            android:layout_marginRight="16dp"
-            android:layout_height="60dp" />
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_below="@+id/phone_number_text"
-            android:layout_alignLeft="@+id/name_text"
             android:layout_marginTop="4dp"
             android:inputType="number"
             android:id="@+id/nregister_phone"
             android:layout_marginRight="16dp"
-            android:layout_height="60dp" />
+            android:layout_height="60dp"
+            android:layout_alignLeft="@+id/nregister_pass"
+            android:layout_alignStart="@+id/nregister_pass" />
 
         <com.elf.elfstudent.CustomUI.QucikSand
             android:layout_width="wrap_content"
             android:text="PASSWORD"
             android:id="@+id/passtext"
             android:textSize="20sp"
+            android:layout_toRightOf="@+id/password_imageview"
             android:textColor="@color/material_pink500"
             android:layout_below="@+id/nregister_name"
             android:layout_height="wrap_content"
-
-            android:layout_marginLeft="40dp"
-            android:layout_marginStart="40dp"
-
-            android:layout_marginTop="24dp" />
-
-        <com.elf.elfstudent.CustomUI.QucikSand
-            android:layout_width="wrap_content"
-            android:text="PHONE NUMBER"
-            android:id="@+id/phone_number_text"
-            android:textSize="20sp"
-            android:textColor="@color/material_pink500"
-            android:layout_below="@+id/nregister_pass"
-            android:layout_height="wrap_content"
-
-            android:layout_marginLeft="40dp"
-            android:layout_marginStart="40dp"
-
-            android:layout_marginTop="24dp" />
-
-        <com.elf.elfstudent.CustomUI.HelviticaMedium
-            android:text="PROFILE"
-            android:textColor="@color/pink900"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="45dp"
-            android:id="@+id/textView5"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            android:layout_alignBottom="@+id/password_imageview"
+            android:gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,30 +63,79 @@
             android:layout_marginTop="14dp"
             android:id="@+id/textView6" />
 
-        <com.elf.elfstudent.CustomUI.HelviticaMedium
-            android:text="Provide your basic details"
+        <ImageView
             android:layout_width="wrap_content"
-            android:textColor="@color/pink900"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView6"
-            android:layout_marginTop="4dp"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/textView7"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <Button
-            android:text="Next"
+            android:layout_alignTop="@+id/name_text"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:id="@+id/name_imageview" />
+
+        <com.elf.elfstudent.CustomUI.QucikSand
             android:layout_width="wrap_content"
-            android:layout_height="52dp"
-            android:background="@color/material_pinkA200"
+            android:text="NAME"
+            android:id="@+id/name_text"
+            android:textSize="20sp"
+            android:textColor="@color/material_pink500"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+
+            android:layout_toRightOf="@+id/name_imageview"
+            android:layout_toEndOf="@+id/name_imageview" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/password_imageview"
+            android:layout_below="@+id/nregister_name"
+            android:layout_alignLeft="@+id/nregister_name"
+            android:layout_alignStart="@+id/nregister_name"
+            android:layout_toLeftOf="@+id/name_text"
+            android:layout_toStartOf="@+id/name_text" />
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:inputType="textPassword"
+            android:id="@+id/nregister_pass"
+            android:layout_height="60dp"
+            android:layout_below="@+id/password_imageview"
+            android:layout_alignLeft="@+id/password_imageview"
+            android:layout_alignStart="@+id/password_imageview" />
+
+        <com.elf.elfstudent.CustomUI.QucikSand
+            android:layout_width="wrap_content"
+            android:text="PHONE NUMBER"
+            android:id="@+id/phone_number_text"
+            android:textSize="20sp"
+            android:textColor="@color/material_pink500"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/nregister_pass"
+            android:layout_toRightOf="@+id/password_imageview"
+            android:layout_toEndOf="@+id/password_imageview" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignTop="@+id/phone_number_text"
+            android:layout_alignRight="@+id/password_imageview"
+            android:layout_alignEnd="@+id/password_imageview"
+            android:id="@+id/phone_imageview" />
+
+        <ImageButton
+
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@null"
             android:id="@+id/nregister_submit"
-            android:layout_marginTop="72dp"
-            android:textColor="@color/white_primary"
+            android:layout_marginTop="30dp"
+
             android:layout_below="@+id/nregister_phone"
-            android:layout_alignLeft="@+id/nregister_phone"
-            android:layout_alignStart="@+id/nregister_phone"
-            android:layout_alignRight="@+id/nregister_phone"
-            android:layout_alignEnd="@+id/nregister_phone" />
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 

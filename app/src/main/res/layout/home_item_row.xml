@@ -7,6 +7,7 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:alpha="0.9"
+    android:background="@drawable/login_background_gradient"
     android:layout_marginTop="4dp"
     android:id="@+id/home_holder_root"
     android:padding="4dp"
@@ -19,8 +20,8 @@
         android:layout_height="match_parent">
         <ImageView
             android:layout_width="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_social_300_80"
+            android:scaleType="fitEnd"
+
             android:id="@+id/home_card_sub_imageview"
             android:layout_height="match_parent" />
 
@@ -30,6 +31,21 @@
 
             android:layout_height="match_parent">
 
+
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:id="@+id/subject_title"
+                android:layout_weight="1"
+                android:text="Phsyics"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textColor="@color/white_primary"
+                android:layout_marginRight="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/imageView3"
+                android:layout_toStartOf="@+id/imageView3" />
 
             <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:layout_width="wrap_content"
@@ -43,51 +59,26 @@
 
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:layout_centerVertical="true"
-                android:layout_alignRight="@+id/imageView3"
-                android:layout_alignEnd="@+id/imageView3"
-                android:layout_marginRight="19dp"
-                android:layout_marginEnd="19dp" />
-
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_lock_outline_black_24px"
-                android:id="@+id/button4"
-                android:padding="8dp"
-                android:layout_below="@+id/percent"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="9dp"
-                android:layout_marginEnd="9dp" />
+                android:layout_alignBaseline="@+id/subject_title"
+                android:layout_alignBottom="@+id/subject_title"
+                android:layout_toLeftOf="@+id/subject_title"
+                android:layout_toStartOf="@+id/subject_title"
+                android:layout_marginRight="49dp"
+                android:layout_marginEnd="49dp" />
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/imageView3"
-                android:src="@drawable/ic_info_black_36px"
+                app:srcCompat="@drawable/ic_info_black_36px"
                 android:backgroundTintMode="add"
                 android:backgroundTint="@color/puprle"
                 android:padding="4dp"
-                android:layout_above="@+id/percent"
-                android:layout_alignRight="@+id/button4"
-                android:layout_alignEnd="@+id/button4" />
-
-            <com.elf.elfstudent.CustomUI.HelviticaLight
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:id="@+id/subject_title"
-                android:layout_weight="1"
-                android:text="Phsyics"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textColor="@color/white_primary"
-                android:layout_alignTop="@+id/percent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp" />
+                android:layout_marginRight="9dp"
+                android:layout_marginEnd="9dp"
+                android:layout_above="@+id/subject_title"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
 
         </RelativeLayout>

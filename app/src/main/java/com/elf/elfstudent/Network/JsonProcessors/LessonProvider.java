@@ -1,5 +1,7 @@
 package com.elf.elfstudent.Network.JsonProcessors;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.elf.elfstudent.model.Lesson;
 
@@ -28,30 +30,39 @@ public class LessonProvider implements Response.Listener<JSONArray> {
     public void onResponse(JSONArray response) {
 
         int count = response.length();
+
+        Log.d("Lesson List", "onResponse: "+response.toString());
         mlist=new ArrayList<>(count);
-        JSONObject mObject;
-        for (int i=0;i<response.length();i++){
+        if (!(count>1)){
+
+            mCallback.noLesson();
+        }
+        else {
+
+            JSONObject mObject;
+            for (int i=0;i<response.length();i++){
 
 //                    getting individual objects by index
-            try {
-                mObject=(JSONObject) response.getJSONObject(i);
+                try {
+                    mObject=(JSONObject) response.getJSONObject(i);
 
-                mlist.add(new Lesson(mObject.getString("LessionName"),
-                        mObject.getString("LessionId"),
-                        mObject.getString("Percentage"),
-                        mObject.getString("QustionAsked"),
-                        mObject.getString("CorrectAnswer")));
+                    mlist.add(new Lesson(mObject.getString("LessionName"),
+                            mObject.getString("LessionId"),
+                            mObject.getString("Percentage"),
+                            mObject.getString("QustionAsked"),
+                            mObject.getString("CorrectAnswer")));
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        if (mlist!=null){
-            mCallback.setLessonList(mlist);
-        }
-        else{
-            mCallback.noLesson();
+            if (mlist!=null){
+                mCallback.setLessonList(mlist);
+            }
+            else{
+                mCallback.noLesson();
+            }
         }
 
     }

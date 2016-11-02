@@ -23,11 +23,16 @@ public class TestSubitter implements Response.Listener<JSONArray> {
     @Override
     public void onResponse(JSONArray response) {
 
+
+        Log.d(TAG, "onResponse: from TestSubmitted "+response.toString());
         try {
 
             JSONObject object = response.getJSONObject(0);
             if (object.getString("StatusCode").equals("1000")){
                 mCallback.testSubmitted();
+            }
+            else{
+                mCallback.testNotSubmitted();
             }
         }
         catch (Exception e ){

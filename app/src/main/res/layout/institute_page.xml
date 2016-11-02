@@ -57,9 +57,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:layout_marginLeft="30dp" />
 
-    <AutoCompleteTextView
+    <Spinner
         android:layout_width="match_parent"
         android:id="@+id/ins_autocomplete"
+        android:spinnerMode="dialog"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="12dp"
         android:layout_marginRight="20dp"
@@ -99,11 +100,12 @@
         android:layout_width="wrap_content"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
+        android:textColor="@color/white"
         android:text="COMPLETE REGISTRATION"
         android:id="@+id/institute_page_register_button"
         android:layout_height="wrap_content"
         android:layout_marginBottom="43dp"
-        android:background="@color/pink900"
+        android:background="@color/material_pinkA200"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

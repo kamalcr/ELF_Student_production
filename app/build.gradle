@@ -1,9 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.trello.victor'
 
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
+
     defaultConfig {
         applicationId "com.elf.elfstudent"
         minSdkVersion 15
@@ -11,13 +13,38 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
     }
+
+    sourceSets {
+        main {
+            svg.srcDir 'src/main/svg'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
+
+        dexOptions {
+            preDexLibraries = false
+        }
+
     }
+    victor {
+        // Any assets defined in relative terms needs a base DPI specified
+        svgDpi = 72
+
+
+
+        // Set this to "true" if you want to generate Android vectors instead of PNGs
+        generateVectorDrawables = false
+    }
+
 }
 
 dependencies {
@@ -35,22 +62,75 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
 
-//    compile 'com.google.android.gms:play-services:9.8.0'
+    compile 'com.google.android.gms:play-services:9.8.0'
     compile 'com.tonicartos:superslim:0.4.13'
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
 
+    compile 'com.android.support:multidex:1.0.0'
     compile 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
     compile 'com.jakewharton:butterknife:8.2.1'
-    compile 'com.diogobernardino:williamchart:2.2'
+
     compile 'me.relex:circleindicator:1.2.1@aar'
-    compile 'org.greenrobot:eventbus:3.0.0'
+
 //    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
     compile project(':volley')
-    compile 'com.google.code.gson:gson:2.7'
+
     compile 'com.github.mcginty:material-colors:1.1.0'
-//    compile 'com.google.firebase:firebase-crash:9.8.0'
-//    compile 'com.google.firebase:firebase-core:9.8.0'
+    compile 'com.google.firebase:firebase-crash:9.8.0'
+    compile 'com.google.firebase:firebase-core:9.8.0'
+
 
 }
+
+def toCamelCase(String string) {
+    String result = ""
+    string.findAll("[^\\W]+") { String word ->
+        result += word.capitalize()
+    }
+    return result
+}
+
+afterEvaluate { project ->
+    Configuration runtimeConfiguration = project.configurations.getByName('compile')
+    ResolutionResult resolution = runtimeConfiguration.incoming.resolutionResult
+    // Forces resolve of configuration
+    ModuleVersionIdentifier module = resolution.getAllComponents().find { it.moduleVersion.name.equals("play-services") }.moduleVersion
+
+    String prepareTaskName = "prepare${toCamelCase("${module.group} ${module.name} ${module.version}")}Library"
+    File playServiceRootFolder = project.tasks.find { it.name.equals(prepareTaskName) }.explodedDir
+
+    Task stripPlayServices = project.tasks.create(name: 'stripPlayServices', group: "Strip") {
+        inputs.files new File(playServiceRootFolder, "classes.jar")
+        outputs.dir playServiceRootFolder
+        description 'Strip useless packages from Google Play Services library to avoid reaching dex limit'
+
+        doLast {
+            copy {
+                from(file(new File(playServiceRootFolder, "classes.jar")))
+                into(file(playServiceRootFolder))
+                rename { fileName ->
+                    fileName = "classes_orig.jar"
+                }
+            }
+            tasks.create(name: "stripPlayServices" + module.version, type: Jar) {
+                destinationDir = playServiceRootFolder
+                archiveName = "classes.jar"
+                from(zipTree(new File(playServiceRootFolder, "classes_orig.jar"))) {
+                    exclude "com/google/ads/**"
+                    exclude "com/google/android/gms/analytics/**"
+                    exclude "com/google/android/gms/games/**"
+                    exclude "com/google/android/gms/plus/**"
+                    exclude "com/google/android/gms/drive/**"
+                    exclude "com/google/android/gms/ads/**"
+                }
+            }.execute()
+            delete file(new File(playServiceRootFolder, "classes_orig.jar"))
+        }
+    }
+
+    project.tasks.findAll { it.name.startsWith('prepare') && it.name.endsWith('Dependencies') }.each { Task task ->
+        task.dependsOn stripPlayServices
+    }
+}
 apply plugin: 'com.google.gms.google-services'
+
 

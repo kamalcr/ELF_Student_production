@@ -53,8 +53,8 @@ public class RegisterListener implements Response.Listener<JSONArray> {
             Log.d(TAG, "Cannot get Object");
         }
 
-        Log.d(TAG, "onResponse: from Registration "+response.toString());
-        mCallback.Registered("1");
+
+
         //String success = response.getJSONObject()
         //String studentId = response.getJSONObject("StudentId");
     }

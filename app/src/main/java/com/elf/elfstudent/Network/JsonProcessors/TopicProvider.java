@@ -29,24 +29,29 @@ public class TopicProvider implements Response.Listener<JSONArray> {
     @Override
     public void onResponse(JSONArray response) {
 
-
         try {
 
 
             int count = response.length();
-            if (mTopicList == null){
+            if (!(count > 1)) {
+                mCallback.noTopics();
+            } else {
 
-                mTopicList = new ArrayList<>(count);
+
+                if (mTopicList == null) {
+
+                    mTopicList = new ArrayList<>(count);
+                }
+                JSONObject mObj;
+                for (int i = 0; i < count; i++) {
+                    mObj = response.getJSONObject(i);
+                    mTopicList.add(new Topic(mObj.getString("TopicName"), mObj.getString("Percentage")));
+
+                }
+                //send Topic back to Activity
+                mCallback.setTopics(mTopicList);
+
             }
-            JSONObject mObj ;
-            for (int i  = 0; i<count; i++){
-                mObj = response.getJSONObject(i);
-                mTopicList.add(new Topic(mObj.getString("TopicName"),mObj.getString("Percentage")));
-
-            }
-            //send Topic back to Activity
-            mCallback.setTopics(mTopicList);
-
         }
         catch (Exception e){
             Log.d(TAG, "onResponse: ");
@@ -54,9 +59,11 @@ public class TopicProvider implements Response.Listener<JSONArray> {
 
         }
 
+
     }
 
     public interface TopicProviderCallbacks{
         void setTopics(List<Topic> mTopicList);
+        void noTopics();
     }
 }

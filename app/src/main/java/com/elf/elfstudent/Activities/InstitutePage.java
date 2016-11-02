@@ -59,11 +59,10 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
 
     @BindView(R.id.ins_autocomplete)
-    AutoCompleteTextView mInsTextView;
+    Spinner mInsTextView;
 
     //standard Spinner can be 10th or 11th or 12th
-    @BindView(R.id.ins_std_spinner)
-    Spinner mSpinner;
+    @BindView(R.id.ins_std_spinner) Spinner mSpinner;
 
 
 
@@ -100,12 +99,12 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         setContentView(R.layout.institute_page);
         ButterKnife.bind(this);
 
-        //get Board Id and State Id and Set it to Adapter
-        if (getIntent() != null){
-            boardId = getIntent().getStringExtra(BundleKey.ARG_BOARD_ID);
-            stateId  = getIntent().getStringExtra(BundleKey.ARG_STATE_ID);
+//        get Board Id and State Id and Set it to Adapter
+//        if (getIntent() != null){
+//            boardId = getIntent().getStringExtra(BundleKey.ARG_BOARD_ID);
+//            stateId  = getIntent().getStringExtra(BundleKey.ARG_STATE_ID);
 
-        }
+//        }
         //get a Handle to Saved Values
         mStore  = DataStore.getStorageInstance(getApplicationContext());
 
@@ -124,7 +123,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         classList.add(new StandardModel("12th Standard","12"));
 
         //prepare Adapter for Class SPinner
-        mClassAdapter = new ClassSpinnerAdapter(getApplicationContext(),R.layout.custom_spinner,classList);
+        mClassAdapter = new ClassSpinnerAdapter(getApplicationContext(),R.layout.simple_spinner,classList);
 
         mSpinner.setAdapter(mClassAdapter);
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -157,13 +156,19 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
         //The autcomplete Textview
 
-        mInsTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mInsTextView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 InstitutionModel ins = institutionList.get(i);
                 ins_id = ins.getIns_id();
                 ins_name = ins.getInsName();
+                Log.d(TAG, "onItemSelected: "+ins_id);
                 mStore.setInstitutionId(ins_id);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
@@ -176,17 +181,17 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         //Request Body Objects
         try{
 
-           mObject.put(RequestParameterKey.FIRST_NAME,mStore.getUserName());
+           mObject.put(RequestParameterKey.FIRST_NAME,"Nandha Kumar");
             mObject.put(RequestParameterKey.LOGIN_LAS_NAME,"NO NAme");
-            mObject.put(RequestParameterKey.EMAIL_ID,mStore.getEmailId());
-            mObject.put(RequestParameterKey.PASSWORD,mStore.getPassWord());
-            mObject.put(RequestParameterKey.INSTITUION_ID,"12");
+            mObject.put(RequestParameterKey.EMAIL_ID,"nandhu2105@gmail.com");
+            mObject.put(RequestParameterKey.PASSWORD,"password");
+            mObject.put(RequestParameterKey.INSTITUION_ID,ins_id);
             mObject.put(RequestParameterKey.board_id,"0");
             mObject.put(RequestParameterKey.CLASS_ID,classid);
             mObject.put(RequestParameterKey.CITY_ID,"12");
             mObject.put(RequestParameterKey.DISTRICT_ID,"4");
-            mObject.put(RequestParameterKey.STATE_ID,mStore.getStateId());
-            mObject.put(RequestParameterKey.PHONE,mStore.getPhoneNumber());
+            mObject.put(RequestParameterKey.STATE_ID,"0");
+            mObject.put(RequestParameterKey.PHONE,"9688612122");
 
             Log.d(TAG, "Registering Student "+mObject.toString());
             //get Instituion Id
@@ -279,9 +284,10 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
     @Override
     public void setInstitutionList(List<InstitutionModel> list) {
         Log.d(TAG, "setInstitutionList: ");
-        mSchoolAdapter = new SchoolListAdapter(getApplicationContext(),R.layout.institution_item_row_new,list);
+        this.institutionList = list;
+        mSchoolAdapter = new SchoolListAdapter(this,R.layout.institution_item_row_new,list);
         mInsTextView.setAdapter(mSchoolAdapter);
-        mInsTextView.setThreshold(1);
+
 
 
 

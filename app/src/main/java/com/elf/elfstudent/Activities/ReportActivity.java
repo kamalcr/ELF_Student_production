@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -75,11 +76,11 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
     @BindView(R.id.report_drawer_frame)
     FrameLayout mdrawerLayout;
     @BindView(R.id.home_menu)
-    RelativeLayout mHomeButton;
-    @BindView(R.id.test_menu) RelativeLayout mTestButton;
-    @BindView(R.id.report_menu ) RelativeLayout mReportButton;
-    @BindView(R.id.test_report_menu) RelativeLayout mTestReportButton;
-    @BindView(R.id.payments_menu) RelativeLayout mPaymentsButton;
+    CardView mHomeButton;
+    @BindView(R.id.test_menu) CardView mTestButton;
+    @BindView(R.id.report_menu ) CardView mReportButton;
+    @BindView(R.id.test_report_menu) CardView mTestReportButton;
+    @BindView(R.id.payments_menu) CardView mPaymentsButton;
 
 
 

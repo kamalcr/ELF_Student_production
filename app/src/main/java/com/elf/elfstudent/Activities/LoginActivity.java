@@ -21,6 +21,7 @@ import com.elf.elfstudent.Utils.RequestParameterKey;
 import org.json.JSONObject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 18/10/16.
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
+        ButterKnife.bind(this);
 
 
 

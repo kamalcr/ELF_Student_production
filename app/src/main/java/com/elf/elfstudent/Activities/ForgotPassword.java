@@ -87,7 +87,10 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
         }
 
         JsonObjectRequest mRequest  = new JsonObjectRequest(Request.Method.POST,CHECK_URL,mObj,mForgotHander,errorHandler);
-        mRequestQueue.addToRequestQue(mRequest);
+        if (mRequestQueue != null){
+
+            mRequestQueue.addToRequestQue(mRequest);
+        }
 
 
     }

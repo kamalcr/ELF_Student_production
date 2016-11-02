@@ -144,7 +144,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
         studentId = mStore.getStudentId();
         if (lessonId != null && studentId != null){
 
-            getTopicForlesson(lessonId,studentId,lessonId);
+            getTopicForlesson(lessonId,studentId,subjectId);
         }
       
     }
@@ -251,5 +251,11 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
             }
         }
 
+    }
+
+    @Override
+    public void noTopics() {
+        mChangableRoot.removeAllViews();
+        View v = View.inflate(this,R.layout.no_data,mChangableRoot);
     }
 }

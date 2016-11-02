@@ -79,11 +79,12 @@ public class ChangePasswordActivity  extends AppCompatActivity implements ErrorH
                 saveNewPassword(pass,identifier);
             }
             else{
-                //Animation anim  =
+              Toast.makeText(this,"Enter more than 6 Characters",Toast.LENGTH_SHORT).show();
             }
         }
         else{
             //Wrong password combo
+            Toast.makeText(this,"Enter Same Password",Toast.LENGTH_SHORT).show();
             mPasswordBox.setText("");
             mReEnterPaswordBox.setText("");
         }

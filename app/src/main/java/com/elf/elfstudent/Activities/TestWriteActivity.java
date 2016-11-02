@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Activities;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -28,7 +30,6 @@ import com.elf.elfstudent.model.Answers;
 import com.elf.elfstudent.model.Question;
 import com.elf.elfstudent.model.TestSubmit;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
-import com.google.gson.JsonArray;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -63,6 +64,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     NavigationTabStrip mTab;
 
 
+
     //The Pager, which Displays question one by one
     @BindView(R.id.test_write_viewpager)
     ViewPager mPager;
@@ -90,7 +92,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     private AppRequestQueue mRequestQueue = null;
 
-    AVLoadingIndicatorView mBar;
+    private ProgressDialog mBar;
 
     QuestionProvider mQuestionProvider = null;
 
@@ -113,6 +115,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     private JsonArrayRequest submitTestRequest = null;
 
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +125,11 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         //initialise Request Que
         mRequestQueue = AppRequestQueue.getInstance(this);
         mStore = DataStore.getStorageInstance(this);
+
+        mBar = new ProgressDialog(this);
+        mBar.setIndeterminate(true);
+        mBar.setTitle("Getting Questions");
+        mBar.show();
 
         if (mStore != null){
             mStudentID = mStore.getStudentId();
@@ -270,9 +278,9 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         // todo: Dynamic Student id
         //       {"StudentId":1,"TestId":1,"SubjectId":2}
         try {
-            mObject.put("StudentId", mStudentID);
-            mObject.put("TestId", mTestId);
-            mObject.put("SubjectId", mSubjectId);
+            mObject.put("StudentId", "1");
+            mObject.put("TestId", "1");
+            mObject.put("SubjectId", "2");
         } catch (Exception e) {
             Log.d(TAG, "Exception in putting JSON Objects: ");
         }
@@ -357,8 +365,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         mTab.setViewPager(mPager);
         //Hide the Progress Bar
 
-        if (mBar.isShown()){
-            mBar.setVisibility(View.INVISIBLE);
+        if (mBar.isShowing()){
+            mBar.hide();
         }
     }
 
@@ -446,6 +454,6 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     @Override
     public void testNotSubmitted() {
-
+        Toast.makeText(getApplicationContext(),"Test Not Submitted",Toast.LENGTH_SHORT).show();
     }
 }

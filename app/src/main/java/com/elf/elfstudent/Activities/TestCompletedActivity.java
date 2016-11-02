@@ -36,15 +36,11 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
     String testId = null;
     String subjectId = null;
     String testDesc = null;
-
     String studentId = null;
 
 
-    ErrorHandler mErrorHandler = null;
-    TestDetailReportProvider testDetailReportProvider = null;
 
-    DataStore mStore =  null;
-    AppRequestQueue mRequestQueue = null;
+
 
     //The Views
 
@@ -67,15 +63,10 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
         ButterKnife.bind(this);
 
 
-        mStore = DataStore.getStorageInstance(getApplicationContext());
-        testDetailReportProvider  = new TestDetailReportProvider();
-        mRequestQueue = AppRequestQueue.getInstance(this);
-        errorHandler = new ErrorHandler(this);
 
 
-        if (mStore == null){
-            studentId = mStore.getStudentId();
-        }
+
+
 
         //get The Test Variables from intent
         if (getIntent() != null){
@@ -88,7 +79,7 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
 //        getDetailedTestReport(testId,studentId);
 
 
-        setAdapterToPager(testId);
+        setAdapterToPager("1");
 
 
     }
@@ -105,11 +96,11 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
             JSONObject mObj  = new JSONObject();
             mObj.put("TestId",testId);
             mObj.put("StudentId",studentId);
-           getDeteailedRequest = new JsonArrayRequest(Request.Method.POST,TEST_DETAIL_URL,mObj,testDetailReportProvider,errorHandler);
-
-            if (mRequestQueue != null){
-                mRequestQueue.addToRequestQue(getDeteailedRequest);
-            }
+//           getDeteailedRequest = new JsonArrayRequest(Request.Method.POST,TEST_DETAIL_URL,mObj,testDetailReportProvider,errorHandler);
+//
+//            if (mRequestQueue != null){
+//                mRequestQueue.addToRequestQue(getDeteailedRequest);
+//            }
         }
         catch (Exception e){
             Log.d("TG", "getDetailedTestReport: ");

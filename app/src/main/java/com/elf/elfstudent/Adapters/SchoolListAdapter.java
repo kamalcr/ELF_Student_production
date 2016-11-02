@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.elf.elfstudent.CustomUI.HelviticaLight;
@@ -31,7 +32,6 @@ public class SchoolListAdapter extends ArrayAdapter<InstitutionModel> {
 
     private Context mContext = null;
     private List<InstitutionModel> mList = null;
-    private List<InstitutionModel> filteredInstituion, mListAll;
 
     @NonNull
     @Override
@@ -47,37 +47,28 @@ public class SchoolListAdapter extends ArrayAdapter<InstitutionModel> {
 
             //T
         }
-        TextView mInsName = (TextView)convertView.findViewById(R.id.ins_name_new);
+        HelviticaLight mInsName = (HelviticaLight) convertView.findViewById(R.id.ins_name_new);
+
         mInsName.setText(mList.get(position).getInsName());
         return convertView;
-/*
-        if (inflater == null){
-            inflater = LayoutInflater.from(mContext);
-        }
-        if (convertView == null){
-
-            //The Root View if Adapter
-            convertView  = inflater.inflate(R.layout.institution_item_row,parent,false);
-            //T
-        }
-
-        HelviticaLight mInsName = (HelviticaLight)convertView.findViewById(R.id.ins_name);
-        mInsName.setText(mList.get(position).getInsName());
-        HelviticaLight cityName = (HelviticaLight)convertView.findViewById(R.id.district_name);
-        cityName.setText(mList.get(position).getCityName());
-
-*/
-
-
-
     }
-    /*
+
+    @Nullable
+    @Override
+    public InstitutionModel getItem(int position) {
+        return mList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-
-        re
-     /*   if (inflater == null){
+        if (inflater == null){
             inflater = LayoutInflater.from(mContext);
         }
         if (convertView == null){
@@ -87,88 +78,25 @@ public class SchoolListAdapter extends ArrayAdapter<InstitutionModel> {
 
             //T
         }
-        HelviticaLight mInsName = (HelviticaLight)convertView.findViewById(R.id.ins_name);
+        HelviticaLight mInsName = (HelviticaLight) convertView.findViewById(R.id.ins_name_new);
+
         mInsName.setText(mList.get(position).getInsName());
-        /*
-
-        HelviticaLight mInsName = (HelviticaLight)convertView.findViewById(R.id.ins_name);
-        mInsName.setText(mList.get(position).getInsName());
-        HelviticaLight cityName = (HelviticaLight)convertView.findViewById(R.id.district_name);
-        cityName.setText(mList.get(position).getCityName());
-
-
-
-
         return convertView;
     }
-    */
 
 
+    @Override
+    public int getCount() {
+        return mList.size();
+
+    }
 
     public SchoolListAdapter(Context context, int resource, List<InstitutionModel> objects) {
         super(context, resource, objects);
         this.mContext  = context;
         this.mList = objects;
-        mListAll = objects;
-        filteredInstituion = new ArrayList<InstitutionModel>();
+
+
     }
-
-    //The Class Responsible for Filtering Objects
-
-
-    @NonNull
-    @Override
-    public Filter getFilter() {
-        return institutionFilter;
-    }
-
-    Filter institutionFilter = new Filter() {
-
-
-        @Override
-        public CharSequence convertResultToString(Object resultValue) {
-            Log.d("ADAPTER", "convertResultToString: ");
-            String insName = ((InstitutionModel)resultValue).getInsName();
-            return insName;
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void publishResults(CharSequence constraint,
-                                      FilterResults results) {
-            List<InstitutionModel> filteredList = (ArrayList<InstitutionModel>) results.values;
-
-            if (results != null && results.count > 0) {
-                clear();
-                for (InstitutionModel instituion : filteredList) {
-                    Log.d("ADAPTER", "Addingg Instituion to List: ");
-                    add(instituion);
-                }
-                notifyDataSetChanged();
-            } else {
-                notifyDataSetInvalidated();
-            }
-        }
-
-
-
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            FilterResults filterResults = new FilterResults();
-            if (constraint != null) {
-                Log.d("ADAPTER", "performFiltering: ");
-                filteredInstituion.clear();
-                for (InstitutionModel instittion : mListAll) {
-                    if (instittion.getInsName().toLowerCase().contains(constraint.toString().toLowerCase())) {
-                        filteredInstituion.add(instittion);
-                    }
-                }
-                filterResults.values = filteredInstituion;
-                filterResults.count = filteredInstituion.size();
-            }
-            return filterResults;
-        }
-    };
-
 
 }

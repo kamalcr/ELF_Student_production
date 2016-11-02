@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/black_900"
+    app:cardBackgroundColor="@color/white_primary"
+    app:cardCornerRadius="4dp"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_height="100dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:layout_width="wrap_content"
             android:text="Lesson Name"
-            android:textColor="@color/white"
+            android:textColor="@color/material_bluegrey900"
             android:id="@+id/report_frag_lesson_name"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical|start"
             android:paddingStart="16dp"
             android:paddingLeft="16dp"
-
-            android:textSize="22sp"
+            android:paddingRight="16dp"
+            android:textSize="18sp"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/lesson_growth"
-            android:layout_toStartOf="@+id/lesson_growth" />
+            android:layout_toStartOf="@+id/report_frag_lesson_growth"
+            android:layout_toLeftOf="@+id/report_frag_lesson_growth" />
+        <View
+            android:layout_below="@id/report_frag_lesson_name"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/report_item_div"
+            android:background="@color/material_black"
+            android:layout_height="1dp"/>
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:layout_width="@dimen/growth_width"
             android:text="52%"
-            android:textColor="@color/white"
+            android:textColor="@color/material_black"
 
             android:id="@+id/report_frag_lesson_growth"
             android:layout_height="50dp"
@@ -36,6 +49,49 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true" />
+
+        <TextView
+            android:text="Questions Correct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/textView27"
+            android:layout_alignStart="@+id/textView27"
+            android:layout_marginBottom="14dp"
+            android:id="@+id/textView28" />
+
+        <TextView
+            android:text="75"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView29"
+            android:layout_marginRight="39dp"
+            android:layout_marginEnd="39dp"
+            android:layout_alignBaseline="@+id/textView27"
+            android:layout_alignBottom="@+id/textView27"
+            android:layout_toLeftOf="@+id/report_frag_lesson_growth"
+            android:layout_toStartOf="@+id/report_frag_lesson_growth" />
+
+        <TextView
+            android:text="Questions Asked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView27"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/report_item_div"
+
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp" />
+
+        <TextView
+            android:text="55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView30"
+            android:layout_alignBaseline="@+id/textView28"
+            android:layout_alignBottom="@+id/textView28"
+            android:layout_alignRight="@+id/textView29"
+            android:layout_alignEnd="@+id/textView29" />
 
     </RelativeLayout>
 

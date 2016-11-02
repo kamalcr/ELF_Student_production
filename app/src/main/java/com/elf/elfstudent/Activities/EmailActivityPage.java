@@ -9,7 +9,11 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,8 +45,11 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
     @BindView(R.id.email_text)
     TextInputEditText mEmailBox;
 
+    @BindView(R.id.welcom_image)
+    ImageView mBackImage;
+
     @BindView(R.id.email_next_button)
-    Button mNextButton;
+    ImageButton mNextButton;
 
     DataStore mStore = null;
     EmailHandler emailHandler = null;
@@ -60,10 +67,13 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.email_activity);
         ButterKnife.bind(this);
 
-
+        mBackImage.setImageResource(R.drawable.welcome_back);
+        mNextButton.setImageResource(R.drawable.enter_icon);
 
 
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
@@ -94,7 +104,7 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
         }
         else{
             //wrong Email Format
-            Log.d(TAG, "CheckEmail: wrong email format");
+            Toast.makeText(this,"Enter Valid Email",Toast.LENGTH_SHORT).show();
             // TODO: 20/10/16 show Shake Animation
         }
     }

@@ -16,9 +16,14 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="match_parent">
+        <RelativeLayout
             android:layout_width="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
             android:background="@drawable/login_background_gradient"
             android:layout_height="match_parent">
 
@@ -26,7 +31,7 @@
                 android:layout_width="100dp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/chn_profile_image"
-                    android:src="@drawable/ic_users"
+                android:src="@drawable/ic_users"
                 android:layout_height="100dp" />
 
             <com.elf.elfstudent.CustomUI.HelviticaLight
@@ -174,7 +179,7 @@
                 android:layout_marginTop="4dp"
                 android:id="@+id/chg_profile_email_value" />
 
-        <TextView
+            <TextView
                 android:text="9688612122"
                 style="@style/change_profile_bottom_text"
                 android:layout_width="wrap_content"
@@ -198,19 +203,23 @@
                 android:layout_alignLeft="@+id/elf_id_view"
                 android:layout_alignStart="@+id/elf_id_view" />
 
-        <TextView
-            android:text="Phone Number"
-            android:layout_width="wrap_content"
-            style="@style/change_profile_top_text"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:id="@+id/textView14"
-            android:layout_below="@+id/chg_profile_email_value"
-            android:layout_alignLeft="@+id/chg_profile_phone_value"
-            android:layout_alignStart="@+id/chg_profile_phone_value" />
+            <TextView
+                android:text="Phone Number"
+                android:layout_width="wrap_content"
+                style="@style/change_profile_top_text"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:id="@+id/textView14"
+                android:layout_below="@+id/chg_profile_email_value"
+                android:layout_alignLeft="@+id/chg_profile_phone_value"
+                android:layout_alignStart="@+id/chg_profile_phone_value" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+
 
 
 </android.support.design.widget.CoordinatorLayout>

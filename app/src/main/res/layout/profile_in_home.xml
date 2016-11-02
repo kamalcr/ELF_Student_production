@@ -76,139 +76,183 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/home_profile_imageview"
-
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-               android:src="@drawable/ic_overall_ih"
-                android:layout_marginLeft="20dp"
-                android:id="@+id/home_o_img"
-                android:layout_marginStart="30dp"
-                android:layout_alignTop="@+id/home_state_img"
-                android:layout_alignLeft="@+id/home_overall_rank_text"
-                android:layout_alignStart="@+id/home_overall_rank_text" />
-
-            <com.elf.elfstudent.CustomUI.SansRegularTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/material_amber600"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Overall rank"
-
-                android:id="@+id/home_overall_rank_text"
-                android:layout_marginLeft="18dp"
-                android:layout_alignTop="@+id/home_state_text"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="18dp" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_cup_i"
-                android:id="@+id/home_state_img"
-
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp" />
-
-            <com.elf.elfstudent.CustomUI.SansRegularTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text=" State Rank"
-                android:textColor="@color/material_pinkA200"
-                android:id="@+id/home_state_text"
-                android:layout_below="@+id/home_o_img"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_shield_ih"
-                android:id="@+id/home_dist_img"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="42dp"
-                android:layout_alignTop="@+id/home_state_img"
-                android:layout_alignRight="@+id/home_district_text"
-                android:layout_alignEnd="@+id/home_district_text" />
-
-            <com.elf.elfstudent.CustomUI.HelviticaMedium
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="District Rank"
-                android:textColor="@color/material_purple600"
-                android:id="@+id/home_district_text"
-                android:layout_alignTop="@+id/home_state_text"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="12dp" />
-
-            <com.elf.elfstudent.CustomUI.SansRegularTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="72"
-                android:id="@+id/home_overall_rank_value"
-                android:gravity="center"
-                android:layout_alignTop="@+id/home_dist_rank_value"
-                android:layout_alignRight="@+id/home_state_text"
-                android:layout_alignEnd="@+id/home_state_text"
-                android:layout_alignLeft="@+id/home_state_text"
-                android:layout_alignStart="@+id/home_state_text" />
-
-            <com.elf.elfstudent.CustomUI.SansRegularTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="1550"
-                android:id="@+id/home_state_value"
-                android:layout_below="@+id/home_state_text"
-                android:gravity="center"
-                android:layout_marginTop="8dp"
-                android:layout_alignRight="@+id/home_overall_rank_text"
-                android:layout_alignEnd="@+id/home_overall_rank_text"
-                android:layout_marginBottom="10dp"
-                android:layout_alignLeft="@+id/home_overall_rank_text"
-                android:layout_alignStart="@+id/home_overall_rank_text" />
-
-            <com.elf.elfstudent.CustomUI.SansRegularTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="502"
-                android:id="@+id/home_dist_rank_value"
-                android:layout_alignTop="@+id/home_state_value"
-                android:layout_alignRight="@+id/home_district_text"
-                android:layout_alignEnd="@+id/home_district_text"
-                android:layout_alignLeft="@+id/home_district_text"
-                android:layout_alignStart="@+id/home_district_text"
-                android:gravity="center" />
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="Sri Akilandeswari Vidhyala"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="4dp"
+        android:textSize="14sp"
+        android:id="@+id/home_school_name"
+        android:layout_alignTop="@+id/imageView8"
+        android:layout_alignLeft="@+id/home_section_name"
+        android:layout_alignStart="@+id/home_section_name"
+        android:layout_alignBottom="@+id/home_profile_imageview"
+        android:textColor="@color/black_viewpager" />
 
 
-        </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="3"
+        android:layout_below="@+id/home_profile_imageview"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
 
-        <com.elf.elfstudent.CustomUI.HelviticaLight
-            android:text="Sri Akilandeswari Vidhyala"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="4dp"
-            android:textSize="14sp"
-            android:id="@+id/home_school_name"
-            android:layout_alignTop="@+id/imageView8"
-            android:layout_alignLeft="@+id/home_section_name"
-            android:layout_alignStart="@+id/home_section_name"
-            android:layout_alignBottom="@+id/home_profile_imageview"
-            android:textColor="@color/black_viewpager" />
+        <!--State Rank-->
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="4dp"
+            app:cardBackgroundColor="@color/material_blue100"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.elf.elfstudent.CustomUI.QucikSand
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/material_indigo700"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Overall rank"
+                    android:layout_below="@+id/home_o_img"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/home_overall_rank_text"
+                    android:layout_centerHorizontal="true"
+                  />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_globe_ih_24"
+                    android:layout_marginTop="6dp"
+                    android:id="@+id/home_o_img"
+
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_below="@id/home_overall_rank_text"
+                    android:text="-"
+                    android:textColor="@color/material_black"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/home_overall_rank_value"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!--OVerall-->
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="4dp"
+            app:cardBackgroundColor="@color/material_pink100"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_cup_i"
+                    android:layout_marginTop="6dp"
+                    android:id="@+id/home_state_img"
+
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/home_state_text"
+                    android:text="-"
+                    android:textColor="@color/material_black"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/home_state_value"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_height="wrap_content" />
+
+                <com.elf.elfstudent.CustomUI.QucikSand
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/material_pink800"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="State rank"
+                    android:id="@+id/home_state_text"
+                    android:layout_below="@+id/home_state_img"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!--District-->
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="4dp"
+            app:cardBackgroundColor="@color/material_purple50"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_shield_ih"
+
+                    android:id="@+id/home_dist_img"
+                    android:layout_marginTop="6dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/home_district_text"
+                    android:text="-"
+                    android:textColor="@color/material_black"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/home_dist_rank_value"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_height="wrap_content" />
+
+                <com.elf.elfstudent.CustomUI.QucikSand
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/material_purple500"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="District Rank"
+                    android:id="@+id/home_district_text"
+                    android:layout_below="@+id/home_dist_img"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
 
 
 

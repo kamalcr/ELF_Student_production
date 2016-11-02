@@ -53,7 +53,21 @@ public class ClassSpinnerAdapter extends ArrayAdapter<StandardModel>{
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        View row = convertView;
+        if (row == null){
+            LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(R.layout.simple_spinner,parent,false);
+        }
+        StandardModel current = mList.get(position);
+        if (current != null){
+            HelviticaLight mStandarNAme = (HelviticaLight) row.findViewById(R.id.class_name_spinner);
+            if (mStandarNAme != null){
+                mStandarNAme.setText(current.getName());
 
-        return super.getDropDownView(position,convertView,parent);
+            }
+        }
+
+        return row;
+
     }
 }

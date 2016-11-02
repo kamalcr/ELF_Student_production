@@ -3,11 +3,14 @@ package com.elf.elfstudent.Adapters;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.elf.elfstudent.CustomUI.HelviticaLight;
+import com.elf.elfstudent.CustomUI.QucikSand;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.model.Answers;
 
@@ -41,10 +44,10 @@ public class TestCompQuestionsAdapter extends RecyclerView.Adapter<TestCompQuest
 
     @Override
     public void onBindViewHolder(TestQuestionHolder holder, int position) {
-          holder.mQuestion.setText(mList.get(position).getCorrectoption());
+          holder.mQuestion.setText(mList.get(position).getmQuestion());
         holder.correctOption.setText(mList.get(position).getCorrectoption());
 
-        if (mList.get(position).getAnswerStatus().equals("CorrectAnswer")){
+        if (mList.get(position).getAnswerStatus().equals("Correct")){
             holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext,R.color.material_green500));
         }else{
             holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext,R.color.material_red300));
@@ -52,7 +55,9 @@ public class TestCompQuestionsAdapter extends RecyclerView.Adapter<TestCompQuest
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
+        Log.d("Report Adapter", "getItemCount: size"+mList.size());
         return mList.size();
     }
 
@@ -61,8 +66,9 @@ public class TestCompQuestionsAdapter extends RecyclerView.Adapter<TestCompQuest
 
 
         public @BindView(R.id.item_question)
-        TextView mQuestion;
-        @BindView(R.id.correct_option) TextView correctOption;
+        HelviticaLight mQuestion;
+        @BindView(R.id.correct_option)
+        QucikSand correctOption;
         public TestQuestionHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);

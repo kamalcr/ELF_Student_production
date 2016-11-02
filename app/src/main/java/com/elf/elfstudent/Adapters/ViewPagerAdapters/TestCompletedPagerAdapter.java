@@ -38,6 +38,8 @@ public class TestCompletedPagerAdapter extends FragmentStatePagerAdapter{
     @Override
     public Fragment getItem(int position) {
         Bundle b = new Bundle();
+
+        //Add Test Id to Fragment
         b.putString(BundleKey.TEST_ID,this.TestId);
       switch (position){
           case 0:

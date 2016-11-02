@@ -9,6 +9,6 @@
     android:gravity="center_vertical|center"
     android:paddingLeft="16dp"
     android:background="@drawable/spinner_border"
-    android:tint="#3083C9"
+
     android:layout_height="60dp">
 </com.elf.elfstudent.CustomUI.HelviticaLight>
