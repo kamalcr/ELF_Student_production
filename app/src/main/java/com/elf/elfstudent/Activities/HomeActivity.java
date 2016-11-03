@@ -51,6 +51,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAnimation;
 
@@ -59,16 +60,27 @@ import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAn
  * The Home Acitivity
  *
  */
-public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapter.onCardClick, ErrorHandler.ErrorHandlerCallbacks, HomePageDataProvider.HomeDataProvider{
+public class HomeActivity extends AppCompatActivity  implements ErrorHandler.ErrorHandlerCallbacks,
+        HomePageDataProvider.HomeDataProvider,SubjectHomeAdapter.onCardClick{
 
     private static final String HOME_URL ="http://www.hijazboutique.com/elf_ws.svc/GetStudentDashboard";
     private static final String TAG = "ELF";
+
+
+    @BindView(R.id.home_state_image)
+    CircleImageView mStateImage;
+    @BindView(R.id.home_overall_image) CircleImageView overall;
+    @BindView(R.id.home_district_image) CircleImageView mdist;
+
 
 
     DataStore mStore;
 
     //the Views OF this Activity
 
+
+
+//
 
     //student Name
     @BindView(R.id.home_student_name)
@@ -82,20 +94,20 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
     //Profile picture
     @BindView(R.id.home_profile_imageview)
-    RoundedImageView mProfilePicture;
+    CircleImageView mProfilePicture;
 
     //state Rank Value
 
     @BindView(R.id.home_state_value)
-    TextView mStateRank;
+    HelviticaLight mStateRank;
 
     //Overall rank
 
-    @BindView(R.id.home_overall_rank_value) TextView mOverallValue;
+    @BindView(R.id.home_overall_rank_value) HelviticaLight mOverallValue;
 
     //District
 
-    @BindView(R.id.home_dist_rank_value) TextView mDistrictRankValue;
+    @BindView(R.id.home_dist_rank_value) HelviticaLight mDistrictRankValue;
 
 
 
@@ -125,7 +137,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     AppBarLayout mAppbar;
 
 
-    /*THe Drawer Related Atrributes*/
+
     //The Drop Down Icon
     @BindView(R.id.tool_bar_drop) ImageView mDropIcon;
     @BindView(R.id.home_drawer_frame) FrameLayout mdrawerLayout;
@@ -136,9 +148,10 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     @BindView(R.id.payments_menu) CardView mPaymentsButton;
 
     //The Root Content Layyout
-    @BindView(R.id.home_root) FrameLayout mRoot;
+    @BindView(R.id.changable_home_root) FrameLayout mRoot;
     @BindView(R.id.home_root_scrollview)
     ScrollView mRootScroll;
+
 
 
 
@@ -157,9 +170,6 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
 
 
 
-    @BindView(R.id.home_frame) FrameLayout mContentRoot;
-
-    @BindView(R.id.home_relative_root) RelativeLayout mRelativeRoot;
 
 
     boolean isDrawerShowing = false;
@@ -174,6 +184,11 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
         ButterKnife.bind(this);
 
 
+
+        //setting trophy images
+        mStateImage.setImageResource(R.drawable.state);
+        overall.setImageResource(R.drawable.overall);
+        mdist.setImageResource(R.drawable.district);
         //get The details for this User from Shared PRefs
         mStore  = DataStore.getStorageInstance(this.getApplicationContext());
         setViewValues();
@@ -384,6 +399,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     /*
     * Response is Obtained Stop SHoing Progress Bar
     * and Update the View
+    *
+    *
     * */
 
 
@@ -407,6 +424,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
         protected void onStart () {
             super.onStart();
         }
+
+
 
 
     @Override
@@ -592,6 +611,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
      *   This  Method provides the Process Response
      *
      * */
+
+
     @Override
     public void NewDataReceived(String overallRank, String districtRank, String stateRank, List<SubjectModel> mSubjectList) {
 
@@ -624,6 +645,7 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
     }
 
 
+
     /**
      *This method Returns NEw Adapter from the data or calls notifydatasetChanged
      * {@param List<SubjectModel> subjectList}
@@ -640,6 +662,8 @@ public class HomeActivity extends AppCompatActivity implements SubjectHomeAdapte
             return mSubjectAdapter;
         }
     }
+
+
 
     @Override
     public void NoDataReceivedFromWebservice() {

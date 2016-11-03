@@ -1,86 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
 
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--Tool BAr-->
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/home_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_collapseMode="pin"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:fitsSystemWindows="true"
-        >
-
+        android:id="@+id/home_app_bar"
+        android:layout_height="wrap_content">
         <include layout="@layout/toolbar_new"
-            android:id="@+id/elf_toolbar"
-            app:layout_collapseMode="none"
+            android:id="@+id/elf_toolbar"/>
+    </android.support.design.widget.AppBarLayout>
 
-            />
- </android.support.design.widget.AppBarLayout>
-
-
-
+    <!--THe Main Content Root-->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/home_frame"
-
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="match_parent">
 
-      >
 
-
-        <!--The Secon Main Layout-->
+        <!--The Content Root-->
         <ScrollView
             android:layout_width="match_parent"
-            android:id="@+id/home_root_scrollview"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_height="match_parent"
             android:fillViewport="true"
-            android:layout_marginBottom="4dp"
-          >
+            android:id="@+id/home_root_scrollview"
+            android:layout_height="match_parent">
+
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:id="@+id/home_relative_root"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
                 <include layout="@layout/profile_in_home"
-                    android:id="@+id/profile_root"/>
+                    android:id="@+id/home_top_section"/>
+
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_below="@+id/profile_root"
-                    android:id="@+id/home_root"
+                    android:id="@+id/changable_home_root"
+                    android:layout_below="@id/home_top_section"
                     android:layout_height="match_parent">
-                    <include
-                        layout="@layout/loading_list"/>
 
                 </FrameLayout>
+
             </RelativeLayout>
 
+
+
+
+
+
         </ScrollView>
+
+
+        <!--The Drawer-->
         <FrameLayout
             android:layout_width="100dp"
-
-            android:id="@+id/home_drawer_frame"
-            android:layout_gravity="center_vertical"
             android:visibility="invisible"
+            android:id="@+id/home_drawer_frame"
             android:layout_height="match_parent">
-
-            <include layout="@layout/drawer_new"
-               />
+            <include layout="@layout/drawer_new"/>
         </FrameLayout>
-
-
-
-
-
     </FrameLayout>
 
 
+
+
+
+
+
 </android.support.design.widget.CoordinatorLayout>
-
-
