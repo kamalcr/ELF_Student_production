@@ -42,15 +42,16 @@
                 android:textColor="@color/white_light"
                 android:textSize="22sp"
                android:layout_centerHorizontal="true" />
+            <com.github.mikephil.charting.charts.PieChart
+                android:layout_width="match_parent"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/report_chart"
+                android:layout_below="@+id/completed_text"
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/completed_text"
-                app:srcCompat="@drawable/c_pie_chart_50"
-                android:id="@+id/imageView"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+            </com.github.mikephil.charting.charts.PieChart>
 
             <TextView
                 android:text="75"

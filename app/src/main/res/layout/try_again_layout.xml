@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/login_background_gradient"
+    android:background="@drawable/black_graident"
     android:layout_height="match_parent">
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/black_dribble"
+        android:textColor="@color/white_light"
         android:textSize="@dimen/try_again_text_size"
         android:layout_marginTop="@dimen/try_again_text_margin_top"
         android:id="@+id/oops_text" />
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="@color/black_viewpager"
+        android:textColor="@color/white_light"
         android:textSize="@dimen/try_again_text_size"
         android:id="@+id/wrong_text"
         android:layout_below="@+id/oops_text"
@@ -34,7 +34,7 @@
 
         android:textSize="24sp"
         android:layout_marginTop="93dp"
-        android:textColor="@color/material_black"
+        android:textColor="@color/white"
         android:id="@+id/try_again_text"
         android:layout_below="@+id/wrong_text"
         android:layout_centerHorizontal="true" />

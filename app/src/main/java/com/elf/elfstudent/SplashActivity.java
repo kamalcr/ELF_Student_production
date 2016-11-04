@@ -52,7 +52,6 @@ public class SplashActivity extends AppCompatActivity {
         mSplashImage.setImageResource(R.drawable.splah_new_svg);
         dataStore = DataStore.getStorageInstance(getApplicationContext());
 
-       /*
 
         //Check whether user already logged in or not
         new Handler().postDelayed(new Runnable() {
@@ -82,7 +81,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
 
-        */
 
 
     }

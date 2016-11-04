@@ -1,10 +1,12 @@
 package com.elf.elfstudent.Activities;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,11 +15,14 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.elf.elfstudent.DataStorage.DataStore;
@@ -26,6 +31,8 @@ import com.elf.elfstudent.SplashActivity;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.Utils.StringValidator;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 
@@ -64,13 +71,16 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.phone_imageview)
     ImageView phoneImageview;
 
+    @BindView(R.id.profile_root)
+    RelativeLayout mRootlayout;
+
     @BindView(R.id.register_back_image) ImageView mBackImage;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_activity);
         ButterKnife.bind(this);
-
+        loadBitmap(R.drawable.register_back_image,mBackImage);
         mStore = DataStore.getStorageInstance(getApplicationContext());
 
         if (getIntent() != null) {
@@ -90,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
             passwordImageview.setImageResource(R.drawable.password_ih);
             phoneImageview.setImageResource(R.drawable.mobile_ih);
 //            mBackImage.setImageResource(R.drawable.register_back_image);
-            loadBitmap(R.drawable.register_back_image,mBackImage);
+
             mSubmitButton.setImageResource(R.drawable.enter_icon);
         }
         catch (Exception e ){
@@ -102,8 +112,35 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void loadBitmap(int resId, ImageView imageView) {
-       MyBitmapWorkerTask task = new MyBitmapWorkerTask(imageView);
-        task.execute(resId);
+        Picasso.with(this).load(R.drawable.register_back_image)
+                .resize(ScreenUtil.getScreenWidth(this),ScreenUtil.getScreenHeight(this))
+                .into(imageView, new Callback() {
+            @Override
+            public void onSuccess() {
+                runEnterAnimations();
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+    }
+
+    private void runEnterAnimations() {
+
+
+        mNameBox.setScaleX(0);
+        mPassword.setScaleX(0);
+        mPhoneBox.setScaleX(0);
+        startScaleAnimation(mNameBox,1);
+        startScaleAnimation(mPassword,2);
+        startScaleAnimation(mPhoneBox,3);
+    }
+
+    private void startScaleAnimation(View view, int i) {
+        view.animate().scaleX(1f).setDuration(400).setStartDelay(i*400).setInterpolator(new DecelerateInterpolator(3f)).start();
+
     }
 
     private void submitButtonClicked() {
@@ -207,66 +244,6 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    class MyBitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
-        private final WeakReference<ImageView> imageViewReference;
-        private int data = 0;
 
-        public MyBitmapWorkerTask(ImageView imageView) {
-            // Use a WeakReference to ensure the ImageView can be garbage collected
-            imageViewReference = new WeakReference<ImageView>(imageView);
-        }
-
-        // Decode image in background.
-        @Override
-        protected Bitmap doInBackground(Integer... params) {
-            data = params[0];
-            return BitmapFactory.decodeResource(getResources(),data);
-        }
-
-        private Bitmap decodeSampledBitmapFromResource(Resources resources, int data, int i, int i1) {
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inJustDecodeBounds = true;
-//            BitmapFactory.decodeResource(resources, data, options);
-//
-            // Calculate inSampleSize
-            options.inSampleSize = calculateInSampleSize(options, i, i1);
-
-            // Decode bitmap with inSampleSize set
-//            options.inJustDecodeBounds = false;
-            return BitmapFactory.decodeResource(resources, data, options);
-        }
-
-        private int calculateInSampleSize(BitmapFactory.Options options, int i, int i1) {
-            final int height = options.outHeight;
-            final int width = options.outWidth;
-            int inSampleSize = 1;
-
-            if (height > i1 || width > i) {
-
-                final int halfHeight = height / 2;
-                final int halfWidth = width / 2;
-
-                // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-                // height and width larger than the requested height and width.
-                while ((halfHeight / inSampleSize) >= i1
-                        && (halfWidth / inSampleSize) >= i) {
-                    inSampleSize *= 2;
-                }
-            }
-
-            return inSampleSize;
-        }
-
-        // Once complete, see if ImageView is still around and set bitmap.
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            if (imageViewReference != null && bitmap != null) {
-                final ImageView imageView = imageViewReference.get();
-                if (imageView != null) {
-                    imageView.setImageBitmap(bitmap);
-                }
-            }
-        }
-    }
 
 }

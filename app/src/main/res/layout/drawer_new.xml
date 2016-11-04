@@ -88,7 +88,7 @@
                 style="@style/drawer_image_view"
                />
             <com.elf.elfstudent.CustomUI.QucikSand
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:text="Report"
                 style="@style/drawer_text_view"
                 android:id="@+id/report_drawer_text"
@@ -201,7 +201,7 @@
                 style="@style/drawer_image_view" />
 
             <com.elf.elfstudent.CustomUI.QucikSand
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:text="Payment"
                 android:id="@+id/drawer_payments_text"
 

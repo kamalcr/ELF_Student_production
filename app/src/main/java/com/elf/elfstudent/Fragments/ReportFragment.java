@@ -2,6 +2,7 @@ package com.elf.elfstudent.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -22,7 +23,6 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Activities.SingleSubjectReportActivity;
-import com.elf.elfstudent.Adapters.LessonListAdapter;
 import com.elf.elfstudent.Adapters.ReportLessonAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
@@ -30,22 +30,25 @@ import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
-import com.elf.elfstudent.Utils.RequestParameterKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.model.Lesson;
 import com.elf.elfstudent.model.Topic;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.google.firebase.crash.FirebaseCrash;
+import com.google.firebase.crash.internal.FirebaseCrashOptions;
 
 import org.json.JSONObject;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.support.v4.app.ActivityOptionsCompat.*;
 import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAnimation;
 import static com.elf.elfstudent.Adapters.ReportLessonAdapter.*;
 
@@ -70,6 +73,11 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     @BindView(R.id.report_frag_list)
     RecyclerView mList;
 
+
+    ///THe pie chart
+
+    @BindView(R.id.report_chart)
+    PieChart mChart;
     //The Top Level Content Root
 
 
@@ -120,10 +128,10 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
             studentId = mStore.getStudentId();
         }
 
-        if (studentId != null) {
+//        if (studentId != null) { todo uncooment
             PrepareSubjectReportsFor(studentId,subjecId);
 
-        }
+//        }
 
 
 
@@ -136,6 +144,8 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     private void PrepareSubjectReportsFor(String studentId, String subjecId) {
         JSONObject mObject = new JSONObject();
         try {
+
+//            // TODO: 4/11/16 dynamic student
             mObject.put("studentId", "1");
             mObject.put("subjectId", "11");
         } catch (Exception e) {
@@ -252,15 +262,55 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     }
 
     @Override
-    public void setLessonList(List<Lesson> mLessons) {
+    public void setLessonList(List<Lesson> mLessons, int overall) {
         this.mLessonList = mLessons;
 
-        mLoadingLayout.setVisibility(View.INVISIBLE);
+
+
+
+        if (mLoadingLayout.isShown()){
+
+            mLoadingLayout.setVisibility(View.INVISIBLE);
+        }
         mVisibleLayout.setVisibility(View.VISIBLE);
+        setPieChartValue(overall);
         Log.d(TAG, "got lesson list");
         mAdapter = new ReportLessonAdapter(getContext(),mLessons,this);
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
         mList.setAdapter(mAdapter);
+    }
+
+
+    /*seting pie chart values
+    *
+    *   As per example at {https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/PieChartActivity.java}
+    *
+    *   Pie chart data is added in following mechanism
+    *
+    *  Chart---> piedata-->pieDataset--->entries--->pieEntry
+    *
+    *
+    * */
+    private void setPieChartValue(int overall) {
+        mChart.setCenterText("Overall completion");
+        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+
+        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+        // the chart.
+
+            entries.add(new PieEntry(overall));
+
+            PieDataSet dataSet = new PieDataSet(entries, "Overall Percentage");
+            dataSet.setSliceSpace(3f);
+            dataSet.setSelectionShift(5f);
+
+            PieData data = new PieData(dataSet);
+            data.setValueFormatter(new PercentFormatter());
+            data.setValueTextSize(11f);
+            data.setValueTextColor(Color.WHITE);
+            mChart.setData(data);
+//            data.setValueTypeface(mTfLight);
+
     }
 
     @Override
@@ -292,7 +342,15 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
     @Override
     public void NetworkError() {
-        Log.d(TAG, "NetworkError: ");
+       try {
+           mLoadingLayout.removeAllViews();;
+           View v = LayoutInflater.from(getContext()).inflate(R.layout.try_again_layout,mLoadingLayout,true);
+
+
+       }
+       catch (Exception e ){
+
+       }
     }
 
     @Override

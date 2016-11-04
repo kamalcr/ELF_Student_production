@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 20/10/16.
+ *
  */
 public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdapter.LessonView>{
 

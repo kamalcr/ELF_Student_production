@@ -38,7 +38,7 @@ public class HomePageDataProvider implements Response.Listener<JSONArray> {
     List<SubjectModel> mList;
     @Override
     public void onResponse(JSONArray response) {
-
+        Log.d(TAG, "onResponse: "+response.toString());
         processResponse(response);
 
     }

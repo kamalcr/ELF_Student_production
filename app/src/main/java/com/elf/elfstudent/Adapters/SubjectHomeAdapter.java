@@ -69,7 +69,7 @@ public void onBindViewHolder(HomeHolder holder, int position) {
         String subID = mSubjectList.get(position).getmSubjectId();
         Log.d(TAG, "geting image for SUbject id "+subID);
 
-        holder.mSubjectImage.setImageResource(R.drawable.maths);
+        holder.mSubjectImage.setImageResource(SubjectImage.getSubjectImage(subID));
         ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");
         ViewCompat.setTransitionName(holder.mPercent, String.valueOf(position) + "_sub");
         ViewCompat.setTransitionName(holder.mRootView,String.valueOf(position) + "_root");
@@ -127,8 +127,7 @@ public int getItemCount() {
     @BindView(R.id.percent) HelviticaLight mPercent;
 
 
-    @BindView(R.id.imageView3)
-    ImageView mInfoButton;
+
 
     @BindView(R.id.home_card_sub_imageview) ImageView mSubjectImage;
 
@@ -138,29 +137,21 @@ public int getItemCount() {
         super(itemView);
         ButterKnife.bind(this,itemView);
         this.mCall  = mcallback;
-        mInfoButton.setOnClickListener(this);
+        itemView.setOnClickListener(this);
 //        mDetailsButton.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-
-//            case R.id.button4:
-//                Log.d(TAG, "onClick: ");
-//                mCall.DetailsButtonClicked(getAdapterPosition(),itemView);
-//                break;
-            case R.id.imageView3:
-                Log.d(TAG, "onClick: ");
-                mCall.InfoButtonClicked(getAdapterPosition(),itemView);
+        mCall.InfoButtonClicked(getAdapterPosition(),itemView);
         }
-    }
+
 }
 
-public interface onCardClick{
-    void InfoButtonClicked(int position, View itemView);
-    void DetailsButtonClicked(int position, View itemView);
+   public interface onCardClick{
+         void InfoButtonClicked(int position, View itemView);
+         void DetailsButtonClicked(int position, View itemView);
 }
 
 }

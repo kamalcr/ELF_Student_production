@@ -13,13 +13,13 @@ import com.elf.elfstudent.R;
  */
 
 public class SubjectImage {
-    public static int SCINEC_IMAGE = R.drawable.maths;
-    public static int SOCIAL = R.drawable.maths;
+    public static int SCINEC_IMAGE = R.drawable.sci_svg;
+    public static int SOCIAL = R.drawable.soc_svg;
     public static int MATHS = R.drawable.maths;
-    public static int PHYSICS = R.drawable.ic_science_300_80;
-    public static int CHEMISTRY = R.drawable.ic_science_300_80;
-    public static int BIOLOGY = R.drawable.ic_science_300_80;
-    public static int COMPUTER = R.drawable.ic_science_300_80;
+    public static int PHYSICS = R.drawable.phy_svg;
+    public static int CHEMISTRY = R.drawable.chem_svg;
+    public static int BIOLOGY = R.drawable.bio_svg;
+    public static int COMPUTER = R.drawable.cs_svg;
     public static String  SCIENCE_ID = "12";
     public static String  SOCIAL_ID = "13";
     public static String  MATHS_ID = "11";
@@ -29,7 +29,7 @@ public class SubjectImage {
     public static String  BIO_ID = "";
     public static String  COMP_ID = "";
 
-    public static Drawable getSubjectImage(Context mContext, String subID) {
+    public static int getSubjectImage( String subID) {
 
 
         switch (subID){
@@ -37,40 +37,38 @@ public class SubjectImage {
 
               //Tenth Science
             case  "12" :
-                return ContextCompat.getDrawable(mContext,SCINEC_IMAGE);
+                return SCINEC_IMAGE;
 
 
             //Tenth Social
             case  "13" :
-                return ContextCompat.getDrawable(mContext,SOCIAL);
-
+                return SOCIAL;
             //tenth Maths
             case  "11" :
-                return ContextCompat.getDrawable(mContext,MATHS);
+                return MATHS;
 
             //Twelth Maths
             case  "1" :
-                return ContextCompat.getDrawable(mContext,MATHS);
+                return MATHS;
 
             //Twelth Physics
             case  "2" :
-                return ContextCompat.getDrawable(mContext,PHYSICS);
-
+                return PHYSICS;
             //Twelth chemistry
             case  "3" :
-                return ContextCompat.getDrawable(mContext,CHEMISTRY);
+                return CHEMISTRY;
 
             //Twelth Biology
-            case  "4" :
-                return ContextCompat.getDrawable(mContext,BIOLOGY);
+            case  "4":
+                return BIOLOGY;
             //twelth Computer
             case  "5" :
-                return ContextCompat.getDrawable(mContext,COMPUTER);
+                return COMPUTER;
 
 
         }
 
-        return null;
+        return 0;
 
 
 

@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,24 +18,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Adapters.LessonListAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
-import com.elf.elfstudent.Network.JsonProcessors.TopicProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RVdecorator;
 import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.Lesson;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -125,7 +120,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
             mSubjectName.setText(subjectName);
             mPercentage.setText(percent);
 
-            mSubjectViewImage.setImageDrawable(SubjectImage.getSubjectImage(getApplicationContext(),subjectID));
+            mSubjectViewImage.setImageResource(SubjectImage.getSubjectImage(subjectID));
 
             //setting Transition Name
             ViewCompat.setTransitionName(mSubjectName,subject_trans_name);
@@ -268,7 +263,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
     /*Got Lesson List from Provider*/
 
     @Override
-    public void setLessonList(List<Lesson> mLessons) {
+    public void setLessonList(List<Lesson> mLessons, int overall) {
         mLessonList = mLessons;
         mAdapter = new LessonListAdapter(getApplicationContext(),mLessons);
         mChangableRoot.removeAllViews();

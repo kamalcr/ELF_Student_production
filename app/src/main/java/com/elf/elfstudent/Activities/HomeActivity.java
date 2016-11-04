@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -26,7 +25,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -34,8 +32,6 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Adapters.SubjectHomeAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
-import com.elf.elfstudent.CustomUI.RoundedImageView;
-import com.elf.elfstudent.CustomUI.SansRegularTextview;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -44,6 +40,7 @@ import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.model.SubjectModel;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONObject;
 
@@ -227,7 +224,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
 
 
-            prepareDashBoardFor(studnetId);
+            prepareDashBoardFor("1");
 
         setSupportActionBar(mToolbar);
 
@@ -244,7 +241,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
     private void setUpCustomDrawer() {
 
-
+        FirebaseCrash.log("Drawer setted up in home activity");
         mHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -378,8 +375,8 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         try {
 
 
-
-            mReqObjects.put("studentId", "1");
+            Log.d(TAG, "Making Home Request for "+studentId);
+            mReqObjects.put("studentId", studentId);
 
         }
         catch (Exception e) {

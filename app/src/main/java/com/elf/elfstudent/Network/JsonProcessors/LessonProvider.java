@@ -16,6 +16,11 @@ import java.util.List;
  * Created by nandhu on 22/10/16.
  *
  * used in {@link com.elf.elfstudent.Activities.SubjectViewActivity}
+ *
+ *
+ * This Resposne does not provide full overall percentage is gotten in only {@link HomePageDataProvider}
+ *
+ * SO get the Percentage divide it by number of Subjects
  */
 public class LessonProvider implements Response.Listener<JSONArray> {
 
@@ -30,6 +35,7 @@ public class LessonProvider implements Response.Listener<JSONArray> {
     public void onResponse(JSONArray response) {
 
         int count = response.length();
+        int percentageSum = 0;
 
         Log.d("Lesson List", "onResponse: "+response.toString());
         mlist=new ArrayList<>(count);
@@ -52,13 +58,16 @@ public class LessonProvider implements Response.Listener<JSONArray> {
                             mObject.getString("QustionAsked"),
                             mObject.getString("CorrectAnswer")));
 
+                    percentageSum = percentageSum+Integer.parseInt(mObject.getString("Percentage"));
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
 
             if (mlist!=null){
-                mCallback.setLessonList(mlist);
+                int overall = percentageSum/count;
+                mCallback.setLessonList(mlist,overall);
             }
             else{
                 mCallback.noLesson();
@@ -68,7 +77,7 @@ public class LessonProvider implements Response.Listener<JSONArray> {
     }
 
     public interface SubjectLoaderCallback{
-        void setLessonList(List<Lesson> mLessons);
+        void setLessonList(List<Lesson> mLessons, int overall);
         void noLesson();
     }
 }

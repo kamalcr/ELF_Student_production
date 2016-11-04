@@ -41,11 +41,19 @@
                 android:gravity="center"
                 android:textSize="22sp"
                 android:textColor="@color/white_primary"
-                android:layout_marginRight="32dp"
-                android:layout_marginEnd="32dp"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/imageView3"
-                android:layout_toStartOf="@+id/imageView3" />
+                android:layout_centerHorizontal="true" />
+
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:text="Overall Percetage"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_orange400"
+                android:layout_below="@+id/subject_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/textView32" />
 
             <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:layout_width="wrap_content"
@@ -56,29 +64,12 @@
                 android:id="@+id/percent"
                 android:gravity="center"
                 android:textSize="24sp"
-
+                android:layout_marginBottom="8dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:layout_alignBaseline="@+id/subject_title"
-                android:layout_alignBottom="@+id/subject_title"
-                android:layout_toLeftOf="@+id/subject_title"
-                android:layout_toStartOf="@+id/subject_title"
-                android:layout_marginRight="49dp"
-                android:layout_marginEnd="49dp" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:id="@+id/imageView3"
-                app:srcCompat="@drawable/ic_info_black_36px"
-                android:backgroundTintMode="add"
-                android:backgroundTint="@color/puprle"
-                android:padding="4dp"
-                android:layout_marginRight="9dp"
-                android:layout_marginEnd="9dp"
-                android:layout_above="@+id/subject_title"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_above="@+id/textView32"
+                android:layout_alignLeft="@+id/textView32"
+                android:layout_alignStart="@+id/textView32" />
 
 
         </RelativeLayout>

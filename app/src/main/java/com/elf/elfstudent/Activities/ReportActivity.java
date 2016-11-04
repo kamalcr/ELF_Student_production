@@ -137,13 +137,20 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 
 
     private void setUpCustomDrawer() {
-        mHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final  Intent i = new Intent(getApplicationContext(),HomeActivity.class);
-                startActivity(i);
-            }
-        });
+
+        try{
+
+            mHomeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final  Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+                    startActivity(i);
+                }
+            });
+        }
+        catch (Exception e){
+            Log.d(TAG, "setUpCustomDrawer: "+e.getLocalizedMessage());
+        }
 
         //Report
         mReportButton.setOnClickListener(new View.OnClickListener() {

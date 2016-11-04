@@ -41,6 +41,7 @@
                     android:id="@+id/changable_home_root"
                     android:layout_below="@id/home_top_section"
                     android:layout_height="match_parent">
+                    <include layout="@layout/loading_list"/>
 
                 </FrameLayout>
 

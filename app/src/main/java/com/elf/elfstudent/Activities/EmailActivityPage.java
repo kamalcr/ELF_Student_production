@@ -1,8 +1,13 @@
 package com.elf.elfstudent.Activities;
 
+import android.animation.Animator;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -11,6 +16,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,9 +31,14 @@ import com.elf.elfstudent.Network.JsonProcessors.EmailHandler;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.RequestParameterKey;
+import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.Utils.StringValidator;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,7 +84,7 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
         setContentView(R.layout.email_activity);
         ButterKnife.bind(this);
 
-        mBackImage.setImageResource(R.drawable.welcome_back);
+        loadBitmap(R.drawable.welcome_back,mBackImage);
         mNextButton.setImageResource(R.drawable.enter_icon);
 
 
@@ -126,6 +138,69 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
 
     }
 
+
+    public void loadBitmap(int resId, ImageView imageView) {
+        Picasso.with(this)
+
+                .load(R.drawable.welcome_back)
+                .resize(ScreenUtil.getScreenWidth(this),ScreenUtil.getScreenHeight(this))
+
+                .into(mBackImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        RunEnterAnimations();
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+
+    }
+
+    private void RunEnterAnimations() {
+        mEmailBox.setTranslationY(ScreenUtil.getScreenHeight(this));
+        mEmailBox.animate().translationY(0).setDuration(800)
+                .setInterpolator(new DecelerateInterpolator(2f))
+                .setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                if (!mEmailBox.isShown()){
+
+                    mEmailBox.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                popupNextButton();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        }).start();
+    }
+
+    private void popupNextButton() {
+        if (!mNextButton.isShown()){
+            mNextButton.setVisibility(View.VISIBLE);   //make button visible and pop up
+        }
+        mNextButton.setScaleX(0);
+        mNextButton.setScaleY(0);
+        mNextButton.animate().scaleX(1.1f).scaleY(1.1f)
+                .setInterpolator(new OvershootInterpolator(1.5f))
+                .setDuration(600)
+                .start();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -177,12 +252,15 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
     @Override
     public void NetworkError() {
 
+        stopDialog();
+
         Toast.makeText(getApplicationContext(),"Network Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void ServerError() {
 
+        stopDialog();
         Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_SHORT).show();
     }
 
@@ -204,4 +282,7 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
 
         Toast.makeText(getApplicationContext(),"Email Already Exists",Toast.LENGTH_SHORT).show();
     }
+
+
+
 }

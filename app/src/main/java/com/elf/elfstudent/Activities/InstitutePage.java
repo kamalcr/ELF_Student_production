@@ -181,20 +181,25 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         //Request Body Objects
         try{
 
-           mObject.put(RequestParameterKey.FIRST_NAME,"Nandha Kumar");
-            mObject.put(RequestParameterKey.LOGIN_LAS_NAME,"NO NAme");
-            mObject.put(RequestParameterKey.EMAIL_ID,"nandhu2105@gmail.com");
-            mObject.put(RequestParameterKey.PASSWORD,"password");
-            mObject.put(RequestParameterKey.INSTITUION_ID,ins_id);
-            mObject.put(RequestParameterKey.board_id,"0");
-            mObject.put(RequestParameterKey.CLASS_ID,classid);
-            mObject.put(RequestParameterKey.CITY_ID,"12");
-            mObject.put(RequestParameterKey.DISTRICT_ID,"4");
-            mObject.put(RequestParameterKey.STATE_ID,"0");
-            mObject.put(RequestParameterKey.PHONE,"9688612122");
 
-            Log.d(TAG, "Registering Student "+mObject.toString());
-            //get Instituion Id
+            if (mStore!=null){
+
+                mObject.put(RequestParameterKey.FIRST_NAME,mStore.getUserName());
+                mObject.put(RequestParameterKey.LOGIN_LAS_NAME,"null");
+                mObject.put(RequestParameterKey.EMAIL_ID,mStore.getEmailId());
+                mObject.put(RequestParameterKey.PASSWORD,mStore.getPassWord());
+                mObject.put(RequestParameterKey.INSTITUION_ID,ins_id);
+                mObject.put(RequestParameterKey.board_id,"1");
+                mObject.put(RequestParameterKey.CLASS_ID,"1");
+                //// TODO: 4/11/16 class id and Board id
+                mObject.put(RequestParameterKey.CITY_ID,"1");
+                mObject.put(RequestParameterKey.DISTRICT_ID,"1");
+                mObject.put(RequestParameterKey.STATE_ID,"1");
+                mObject.put(RequestParameterKey.PHONE,mStore.getPhoneNumber());
+
+                Log.d(TAG, "Registering Student "+mObject.toString());
+                //get Instituion Id
+            }
 //            mObject.put(RequestParameterKey.INSTITUION_ID,mStore.)
 
             //get standard

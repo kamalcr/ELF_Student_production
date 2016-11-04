@@ -29,6 +29,7 @@ public class ErrorHandler implements Response.ErrorListener {
 
         Log.d(TAG, "onErrorResponse: "+error.getLocalizedMessage());
 
+
         if (error instanceof NetworkError){
 
            mCallback.NetworkError();
@@ -40,7 +41,7 @@ public class ErrorHandler implements Response.ErrorListener {
            mCallback.ServerError();
         }
         else{
-            Log.d(TAG, "onErrorResponse: "+error.getLocalizedMessage());
+            Log.d(TAG, "onErrorResponse: "+error.getMessage());
         }
     }
 
