@@ -41,7 +41,11 @@ import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 18/10/16.
- * THe PAge Which SHows Single Lesson In Detail
+ * THe PAge Which SHows Single Lesson In Detail , The last branch of Report
+ *
+ * The Topic list is shown here
+ *
+ *
  */
 
 public class SingleSubjectReportActivity  extends AppCompatActivity implements
@@ -79,20 +83,28 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
     Toolbar mToolbar;
 
     @BindView(R.id.lesson_name_single)
-    HelviticaMedium mLessonName;
-    @BindView(R.id.percent_single) HelviticaMedium mPercentName;
+    HelviticaLight mLessonName;
+    @BindView(R.id.percent_single) HelviticaLight mPercentName;
 
-    @BindView(R.id.loading_list_root)
-    RelativeLayout mChangableRoot;
+
+    @BindView(R.id.topic_list_root)
+    FrameLayout mChangableRoot;
+
+    @BindView(R.id.single_subject_content_root) RelativeLayout mlayout;
+
+
 
 
 
     String lessonnametrans = null;
     String percenttransName  = null;
-
+    String layouttrns = null;
     String lessonName = null;
     String percentage = null;
     private int count = 0;
+
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,15 +115,20 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
         if (getIntent()!= null){
             lessonId  = getIntent().getStringExtra(BundleKey.LESSON_ID);
             subjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
-
+            layouttrns = getIntent().getStringExtra(BundleKey.ITEMVIEW);
             lessonnametrans = getIntent().getStringExtra(BundleKey.LESSON_NAME_TRANS);
             percenttransName = getIntent().getStringExtra(BundleKey.PERCENT_TRANS);
             lessonName  = getIntent().getStringExtra(BundleKey.LESSON_NAME);
             percentage = getIntent().getStringExtra(BundleKey.PERCENTAGE);
 
 
+
         }
 
+
+        if (layouttrns !=null){
+            ViewCompat.setTransitionName(mlayout,layouttrns);
+        }
 
 
 
@@ -134,8 +151,11 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
             ViewCompat.setTransitionName(mPercentName,percenttransName);
         }
         mStore = DataStore.getStorageInstance(getApplicationContext());
+
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
+
         errorHandler = new ErrorHandler(this);
+
         topicProvider = new TopicProvider(this);
 
 
@@ -143,8 +163,12 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
         topicProvider = new TopicProvider(this);
         studentId = mStore.getStudentId();
         if (lessonId != null && studentId != null){
-
+            Log.d(TAG, "onCreate: lesson id to get report is "+lessonId);
             getTopicForlesson(lessonId,studentId,subjectId);
+        }
+        else{
+            throw new NullPointerException("input vairables cannot be null");
+
         }
       
     }
@@ -167,17 +191,21 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
 
     private void getTopicForlesson(String lessonId, String studentId, String id) {
         JSONObject mObject  = new JSONObject();
+        Log.d(TAG, "getTopicForlesson: ");
+
+//        // TODO: 6/11/16 add dynamic
 
         try {
 
-            mObject.put(RequestParameterKey.STUDENT_ID,studentId);
-            mObject.put(RequestParameterKey.LESSON_ID,lessonId);
-            mObject.put(RequestParameterKey.SUBJECT_ID,id);
+            mObject.put("StudentId","1");
+            mObject.put("SubjectId","11");
+            mObject.put(RequestParameterKey.LESSON_ID,"1");
         }
         catch (Exception e ){
             Log.d(TAG, "getTopicForlesson: ");
         }
         getTopicRequest = new JsonArrayRequest(Request.Method.POST,GET_TOPIC_FOR_LESSON,mObject,topicProvider,errorHandler);
+        Log.d(TAG, "adding to Request queue");
         mRequestQueue.addToRequestQue(getTopicRequest);
     }
 
@@ -246,6 +274,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
 
             mTopicListView = (RecyclerView) v.findViewById(R.id.topic_list);
             if (mTopicListView != null && mAdapter != null){
+                Log.d(TAG, "setTopics: ");
                 mTopicListView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 mTopicListView.setAdapter(mAdapter);
             }

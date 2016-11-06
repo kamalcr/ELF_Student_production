@@ -28,12 +28,12 @@ public class TopicProvider implements Response.Listener<JSONArray> {
 
     @Override
     public void onResponse(JSONArray response) {
-
+        Log.d(TAG, "onResponse: got topic response " +response.toString());
         try {
 
 
             int count = response.length();
-            if (!(count > 1)) {
+            if (!(count > 0)) {
                 mCallback.noTopics();
             } else {
 

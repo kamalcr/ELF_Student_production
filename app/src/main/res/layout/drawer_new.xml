@@ -16,7 +16,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:weightSum="5"
-    android:background="@color/material_grey800"
+    android:background="@color/material_black"
     android:layout_gravity="center_vertical"
 
 
@@ -31,12 +31,13 @@
         android:layout_weight="1"
         android:id="@+id/home_menu"
         style="@style/drawer_card"
-        android:background="@color/black_viewpager"
-        app:cardBackgroundColor="@color/white_primary"
+
+
 
         android:layout_height="0dp">
         <FrameLayout
             android:layout_width="match_parent"
+
             android:background="?selectableItemBackground"
             android:layout_height="match_parent">
             <ImageView
@@ -48,8 +49,8 @@
 
                 android:layout_alignParentBottom="true" />
 
-            <TextView
-                android:text="HOME"
+            <com.elf.elfstudent.CustomUI.HelviticaLight
+                android:text="Home"
                 style="@style/drawer_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,7 +69,6 @@
         android:layout_weight="1"
         android:layout_margin="4dp"
         style="@style/drawer_card"
-        app:cardBackgroundColor="@color/white_primary"
 
         android:id="@+id/report_menu"
         android:layout_height="0dp">
@@ -87,7 +87,7 @@
                 android:layout_height="match_parent"
                 style="@style/drawer_image_view"
                />
-            <com.elf.elfstudent.CustomUI.QucikSand
+            <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:layout_width="wrap_content"
                 android:text="Report"
                 style="@style/drawer_text_view"
@@ -105,7 +105,6 @@
         android:layout_weight="1"
         android:id="@+id/test_menu"
         style="@style/drawer_card"
-        app:cardBackgroundColor="@color/white_primary"
 
         android:layout_height="0dp">
         <FrameLayout
@@ -125,7 +124,7 @@
                 style="@style/drawer_image_view"
                 android:layout_above="@+id/drawer_test_icon" />
 
-            <com.elf.elfstudent.CustomUI.QucikSand
+            <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:layout_width="wrap_content"
                 android:text="Test"
                 android:id="@+id/drawer_test_icon"
@@ -144,7 +143,6 @@
         android:layout_weight="1"
         android:id="@+id/test_report_menu"
         style="@style/drawer_card"
-        app:cardBackgroundColor="@color/white_primary"
 
         android:layout_height="0dp">
         <FrameLayout
@@ -167,7 +165,7 @@
             <com.elf.elfstudent.CustomUI.QucikSand
                 android:layout_width="match_parent"
                 android:text="Test Reports"
-                android:layout_marginBottom="20dp"
+               android:layout_marginBottom="20dp"
                 android:id="@+id/test_reports_drawer_text"
                 android:layout_height="wrap_content"
                 style="@style/drawer_text_view"/>
@@ -182,7 +180,6 @@
         android:id="@+id/payments_menu"
         style="@style/drawer_card"
 
-        app:cardBackgroundColor="@color/white_primary"
 
         android:layout_height="0dp">
         <FrameLayout
@@ -200,7 +197,7 @@
                 android:layout_marginTop="6dp"
                 style="@style/drawer_image_view" />
 
-            <com.elf.elfstudent.CustomUI.QucikSand
+            <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:layout_width="wrap_content"
                 android:text="Payment"
                 android:id="@+id/drawer_payments_text"

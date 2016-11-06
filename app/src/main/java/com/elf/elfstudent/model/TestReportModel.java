@@ -9,21 +9,23 @@ package com.elf.elfstudent.model;
  *
  *
  *  thisis simple POJO class which forms the list of Test Objects
- *  to be supplied as Model to
+ *  to be supplied as Model to {@link com.elf.elfstudent.Activities.TestReportsActivity}
+ *
+ *
+ *
  */
 public class TestReportModel {
     public String testId;
-    public String testDescription;
+    public String subjectId;
     public String subjectName;
     public String overAll;
 
 
 
-    public TestReportModel(String testId, String testDescription, String subjectName,String overall) {
+    public TestReportModel(String testId, String subjectId,String overall) {
         this.testId = testId;
         this.overAll = overall;
-        this.testDescription = testDescription;
-        this.subjectName = subjectName;
+        this.subjectId = subjectId;
     }
 
     public String getTestId() {
@@ -34,9 +36,6 @@ public class TestReportModel {
         this.testId = testId;
     }
 
-    public String getTestDescription() {
-        return testDescription;
-    }
 
     public String getOverAll() {
         return overAll;
@@ -46,9 +45,6 @@ public class TestReportModel {
         this.overAll = overAll;
     }
 
-    public void setTestDescription(String testDescription) {
-        this.testDescription = testDescription;
-    }
 
     public String getSubjectName() {
         return subjectName;

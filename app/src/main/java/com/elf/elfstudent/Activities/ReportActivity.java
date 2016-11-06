@@ -42,17 +42,34 @@ import butterknife.ButterKnife;
 /**
  * Created by nandhu on 18/10/16.
  *
- * The Top Level Report Activity that shows Overall Percentage in a Subject
+ * The Top Level Report Activity that shows {@link com.elf.elfstudent.Fragments.ReportFragment }
+ *in viewpager
+ *
+ * The Activity is only responsinble for showing the view pager with correct fragment only
+ *
+ *
+ *  IT selects view pager data from one of three adapter {@link TenthReportPagerAdapter ,
+ *  {@link ComputerReportPagerAdapter} , {@link BiologyReportPagerAdapter}} and sets it viewpager
+ *
+ *
+ *
+ *
+ * the report Fragment must be shown in 2 ways based on class iD and groupID
+ *
+ * if 10 show REportFragment with 3 subject ID's physics -   , chemistry -  , maths --
+ *
+ * if 12 show titles different Fragment with additional subject either biology computer science
+ *
+ *
  *
  *
  */
 
-public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.ErrorHandlerCallbacks
-        , Response.Listener<JSONArray> {
+public class ReportActivity extends AppCompatActivity{
 
 
     private static final String TAG = "ELF";
-    private static final String REPORT_URL ="http://www.hijazboutique.com/elf_ws.svc/GetLessionWiseReport";
+
 
     @BindView(R.id.report_tab)
     TabLayout mTab;
@@ -67,8 +84,6 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
     LinearLayout mContentRoot;
 
 
-
-
     /*THe Drawer Related Atrributes*/
     //The Drop Down Icon
     @BindView(R.id.tool_bar_drop)
@@ -77,11 +92,14 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
     FrameLayout mdrawerLayout;
     @BindView(R.id.home_menu)
     CardView mHomeButton;
-    @BindView(R.id.test_menu) CardView mTestButton;
-    @BindView(R.id.report_menu ) CardView mReportButton;
-    @BindView(R.id.test_report_menu) CardView mTestReportButton;
-    @BindView(R.id.payments_menu) CardView mPaymentsButton;
-
+    @BindView(R.id.test_menu)
+    CardView mTestButton;
+    @BindView(R.id.report_menu)
+    CardView mReportButton;
+    @BindView(R.id.test_report_menu)
+    CardView mTestReportButton;
+    @BindView(R.id.payments_menu)
+    CardView mPaymentsButton;
 
 
     TenthReportPagerAdapter tenthAdapter = null;
@@ -89,17 +107,14 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
     ComputerReportPagerAdapter compAdapter = null;
 
 
-    //Request Queu
-    private AppRequestQueue mRequestQueue;
 
-    private ErrorHandler errorHandler = null;
 
     private DataStore mStore = null;
 
 
     String classId = null;
     int group;
-    private boolean isDrawerShowing =false;
+    private boolean isDrawerShowing = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,17 +122,14 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         setContentView(R.layout.report_activity);
         ButterKnife.bind(this);
 
-        mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
+
         mStore = DataStore.getStorageInstance(getApplicationContext());
 
 
         //First Find Which Standard
 
-       setPagerAdapter();
-       PrepareSubjectReportsFor(mStore.getStudentId());
+        setPagerAdapter();
 
-
-        errorHandler = new ErrorHandler(this);
 
         setSupportActionBar(mToolbar);
         mDropIcon.setOnClickListener(new View.OnClickListener() {
@@ -129,34 +141,29 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         setUpCustomDrawer();
 
 
-
-
-
     }
-
 
 
     private void setUpCustomDrawer() {
 
-        try{
+        try {
 
             mHomeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final  Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+                    final Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(i);
                 }
             });
-        }
-        catch (Exception e){
-            Log.d(TAG, "setUpCustomDrawer: "+e.getLocalizedMessage());
+        } catch (Exception e) {
+            Log.d(TAG, "setUpCustomDrawer: " + e.getLocalizedMessage());
         }
 
         //Report
         mReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final  Intent i = new Intent(getApplicationContext(),ReportActivity.class);
+                final Intent i = new Intent(getApplicationContext(), ReportActivity.class);
                 startActivity(i);
             }
         });
@@ -165,7 +172,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         mTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final  Intent i = new Intent(getApplicationContext(),BrowseTestActivity.class);
+                final Intent i = new Intent(getApplicationContext(), BrowseTestActivity.class);
                 startActivity(i);
             }
         });
@@ -175,7 +182,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         mTestReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Intent i = new Intent(getApplicationContext(),TestReportsActivity.class);
+                final Intent i = new Intent(getApplicationContext(), TestReportsActivity.class);
                 startActivity(i);
             }
         });
@@ -184,7 +191,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         mPaymentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Intent i  = new Intent(getApplicationContext(),PaymentActivity.class);
+                final Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
                 startActivity(i);
             }
         });
@@ -194,7 +201,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
 //
 
 
-        if (!isDrawerShowing){
+        if (!isDrawerShowing) {
             mdrawerLayout.setTranslationX(-ScreenUtil.getScreenWidth(this));
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -220,8 +227,7 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
                     }
                 }).start();
             }
-        }
-        else{
+        } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 mdrawerLayout.animate().setDuration(500)
                         .setInterpolator(new AccelerateDecelerateInterpolator())
@@ -255,35 +261,32 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         isDrawerShowing = !isDrawerShowing;
 
 
-
-
     }
+
     private void setPagerAdapter() {
 
-        if (mStore != null){
+        if (mStore != null) {
             classId = mStore.getStandard();
-            Log.d(TAG, "student class "+classId);
-            if (classId != null){
+            Log.d(TAG, "student class " + classId);
+            if (classId != null) {
 
 
-                if (classId.equals("10")){
+                if (classId.equals("10")) {
 
                     //user is 10
                     Log.d(TAG, "user is 10");
                     tenthAdapter = new TenthReportPagerAdapter(getSupportFragmentManager());
                     mPager.setAdapter(tenthAdapter);
-                }
-                else{
+                } else {
                     //he is 12 , get the group
                     String group = mStore.getStudentGroup();
-                    Log.d(TAG, "student group "+group);
-                    if (group.equals("COMPUTER")){
+                    Log.d(TAG, "student group " + group);
+                    if (group.equals("COMPUTER")) {
                         //COmputer Group
                         Log.d(TAG, "Computer Group ");
                         compAdapter = new ComputerReportPagerAdapter(getSupportFragmentManager());
                         mPager.setAdapter(compAdapter);
-                    }
-                    else if (group.equals("BIOLOGY")){
+                    } else if (group.equals("BIOLOGY")) {
                         Log.d(TAG, "Biology group");
                         bioAdapter = new BiologyReportPagerAdapter(getSupportFragmentManager());
                         mPager.setAdapter(bioAdapter);
@@ -294,19 +297,6 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
         }
 
         mTab.setupWithViewPager(mPager);
-    }
-
-    private void PrepareSubjectReportsFor(String studentId) {
-        JSONObject mObject = new JSONObject();
-        try {
-            mObject.put(RequestParameterKey.STUDENT_ID,studentId);
-        }
-        catch (Exception e){
-            Log.d(TAG, "PrepareSubjectReportsFor: ");
-        }
-
-        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST,REPORT_URL,mObject,this,errorHandler);
-        mRequestQueue.addToRequestQue(mRequest);
     }
 
 
@@ -352,40 +342,4 @@ public class ReportActivity extends AppCompatActivity  implements  ErrorHandler.
     }
 
 
-
-    @Override
-    public void TimeoutError() {
-
-    }
-
-    @Override
-    public void NetworkError() {
-
-    }
-
-    @Override
-    public void ServerError() {
-
-    }
-
-    /*
-    *
-    * This mehtod presents us a Method
-    * it
-    * subject Name , Subject iD , overall percentage, Lesson List and growth Percentage
-    * may be witin lesson Percentage topic list may be present
-    *
-    * */
-    @Override
-    public void onResponse(JSONArray response) {
-
-
-
-
-
-
-
-
-
-    }
 }

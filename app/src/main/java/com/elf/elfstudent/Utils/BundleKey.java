@@ -46,4 +46,5 @@ public class BundleKey {
     public static String LESSON_NAME_TRANS = "LESSON_TRANS";
     public static String PERCENT_TRANS = "percent";
     public static String LESSON_NAME = "LESSON_NAME";
+    public static String ITEMVIEW = "itemview";
 }

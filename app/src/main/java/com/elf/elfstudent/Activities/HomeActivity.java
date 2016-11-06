@@ -497,8 +497,8 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
                 Log.d(TAG, "InfoButtonClicked: ");
                 //get the view and transition Name of views
-                HelviticaLight subjectName = (HelviticaLight) itemView.findViewById(R.id.subject_title);
-                String subTransName = ViewCompat.getTransitionName(subjectName);
+//                HelviticaLight subjectName = (HelviticaLight) itemView.findViewById(R.id.subject_title);
+//                String subTransName = ViewCompat.getTransitionName(subjectName);
                 CardView viewRoot = (CardView) itemView;
                 String root_transName = ViewCompat.getTransitionName(viewRoot);
                 HelviticaLight percentText = (HelviticaLight) itemView.findViewById(R.id.percent);
@@ -510,7 +510,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
                 //Intent for Next Activity
                 Intent i = new Intent(this,SubjectViewActivity.class);
-                i.putExtra(BundleKey.SUBJECT_NAME,subjectName.getText());
+//                i.putExtra(BundleKey.SUBJECT_NAME,subjectName.getText());
                 i.putExtra(BundleKey.PERCENTAGE,percentText.getText());
                 i.putExtra(BundleKey.SUBJECT_ID,mSubjectList.get(position).getmSubjectId());
 //            i.putExtra(BundleKey.ROOT_VIEW_TRANS_NAME,root_transName);
@@ -518,7 +518,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
                 //Putting Transition Name Values
 
-                i.putExtra(BundleKey.HOME_SUBJECT_TRANS_NAME,subTransName);
+//                i.putExtra(BundleKey.HOME_SUBJECT_TRANS_NAME,subTransName);
                 i.putExtra(BundleKey.HOME_PERCENT_TRANS_NAME,percentTransName);
 
                 i.putExtra(BundleKey.HOME_SUBJECT_IMAGE_TRANS_NAME,img_trans_name);
@@ -526,17 +526,17 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
                 //send Subject iD to NExt Activity
                 i.putExtra(BundleKey.SUBJECT_ID,mSubjectList.get(position).getmSubjectId());
 
-                Log.d(TAG, "Sending Transition Values "+subTransName +" "+percentTransName + " "+img_trans_name);
+//                Log.d(TAG, "Sending Transition Values "+subTransName +" "+percentTransName + " "+img_trans_name);
 
 
 
                 //MAking pairs for many Share elements
                 Pair<View, String> p1 = Pair.create((View)subjectImage, img_trans_name);
-                Pair<View, String> p2 = Pair.create((View) subjectName, subTransName);
+//                Pair<View, String> p2 = Pair.create((View) subjectName, subTransName);
                 Pair<View, String> p3 = Pair.create((View)percentText, percentTransName);
 
 
-                ActivityOptionsCompat options = makeSceneTransitionAnimation(this, p1, p2,p3);
+                ActivityOptionsCompat options = makeSceneTransitionAnimation(this, p1,p3);
                 if (ScreenUtil.isAndroid5()){
 
                     startActivity(i, options.toBundle());

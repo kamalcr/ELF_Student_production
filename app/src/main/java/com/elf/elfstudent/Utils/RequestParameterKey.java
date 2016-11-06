@@ -23,7 +23,7 @@ public class RequestParameterKey {
     public static String EMAIL_ID = "EmailAddress";
     public static String PASSWORD = "Password";
     public static String PHONE = "PhoneNumber";
-    public static String LESSON_ID = "LessonId";
+    public static String LESSON_ID = "LessionId";
     public static String TEST_ID = "TestId";
     public static String CLASS_ID = "ClassId";
     public static String CITY_ID = "CityId";

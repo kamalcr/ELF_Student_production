@@ -51,6 +51,7 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
         holder.mGrowth.setText(mList.get(position).getmGrowthPercentage());
         ViewCompat.setTransitionName(holder.mLessonName,String.valueOf(position)+"_lesson");
         ViewCompat.setTransitionName(holder.mGrowth,String.valueOf(position)+"_growth");
+        ViewCompat.setTransitionName(holder.itemView,String.valueOf(position)+"_item");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

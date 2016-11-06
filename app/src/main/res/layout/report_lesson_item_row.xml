@@ -2,16 +2,16 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/white_primary"
-    app:cardCornerRadius="4dp"
+
     android:layout_width="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
-    android:layout_height="60dp">
+
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="@color/black_900"
         android:layout_height="match_parent">
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
@@ -19,41 +19,52 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-
-            android:paddingEnd="16dp"
-            android:paddingRight="16dp"
-            android:layout_marginLeft="19dp"
-            android:layout_marginStart="19dp"
+            android:textColor="@color/orang_dribble"
+             android:textSize="22sp"
+           android:paddingLeft="6dp"
+            android:gravity="left|center_vertical"
+            android:paddingStart="6dp"
+            android:paddingRight="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:id="@+id/report_frag_lesson_name"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/report_item_overall_text"
-            android:layout_alignBottom="@+id/report_frag_lesson_growth" />
+
+            android:layout_toLeftOf="@+id/report_item_overall_text"
+
+            android:layout_alignTop="@+id/report_frag_lesson_growth" />
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:text="75"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/report_frag_lesson_growth"
-            android:layout_marginRight="59dp"
-            android:layout_marginEnd="59dp"
-            android:layout_marginTop="11dp"
+            android:layout_marginRight="40dp"
+            android:textColor="@color/orang_dribble"
+            android:layout_marginEnd="40dp"
+            android:textSize="22sp"
+            android:layout_marginTop="6dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
         <TextView
             android:text="Overall Percentage"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
+            android:textColor="@color/white_light"
             android:id="@+id/report_item_overall_text"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/report_frag_lesson_name"
-            android:layout_alignParentRight="true"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginEnd="20dp" />
+            android:paddingRight="6dp"
+            android:paddingEnd="6dp"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/report_frag_lesson_growth"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 

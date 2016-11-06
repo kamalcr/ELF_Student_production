@@ -52,19 +52,21 @@ public class ComputerReportPagerAdapter extends FragmentStatePagerAdapter {
         switch (position){
             //based on subjects , set Arguments to Fragemnt such as
             //overall percentage , List of Lessons etc
-            case 0: mSubjectId = "1";
+
+//            todo add correct subject id
+            case 0: mSubjectId = "11";
                 mSubjectName = "PHYSCICS";
                 break;
             case 1 :
-                mSubjectId = "";
+                mSubjectId = "11";
                 mSubjectName = "CHEMISTRY";
                 break;
             case 2:
-                mSubjectId = "";
+                mSubjectId = "11";
                 mSubjectName = "MATHS";
                 break;
             case 3:
-                mSubjectId = "";
+                mSubjectId = "11";
                 mSubjectName = "COMPUTER";
                 break;
 

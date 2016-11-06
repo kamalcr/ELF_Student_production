@@ -58,8 +58,8 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
 
     //The Subject Name text View
-    @BindView(R.id.sub_view_sub_name)
-    HelviticaLight mSubjectName ;
+//    @BindView(R.id.sub_view_sub_name)
+//    HelviticaLight mSubjectName ;
 
     // The percentage Text
 
@@ -107,23 +107,23 @@ public class SubjectViewActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
         if (getIntent() != null){
 //            String transName = getIntent().getStringExtra(BundleKey.ROOT_VIEW_TRANS_NAME);
-            String subjectName = getIntent().getStringExtra(BundleKey.SUBJECT_NAME);
+//            String subjectName = getIntent().getStringExtra(BundleKey.SUBJECT_NAME);
             String percent = getIntent().getStringExtra(BundleKey.PERCENTAGE);
-            String subject_trans_name = getIntent().getStringExtra(BundleKey.HOME_SUBJECT_TRANS_NAME);
+//            String subject_trans_name = getIntent().getStringExtra(BundleKey.HOME_SUBJECT_TRANS_NAME);
             String percent_trans_name  = getIntent().getStringExtra(BundleKey.HOME_PERCENT_TRANS_NAME);
             String subjectID = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
 
             String img_transName = getIntent().getStringExtra(BundleKey.HOME_SUBJECT_IMAGE_TRANS_NAME);
-            Log.d(TAG, "Trans Values are image"+img_transName+ " sub : "+subject_trans_name + " percnet "+percent_trans_name);
+//            Log.d(TAG, "Trans Values are image"+img_transName+ " sub : "+subject_trans_name + " percnet "+percent_trans_name);
 
             //setting values to Textview
-            mSubjectName.setText(subjectName);
+//            mSubjectName.setText(subjectName);
             mPercentage.setText(percent);
 
             mSubjectViewImage.setImageResource(SubjectImage.getSubjectImage(subjectID));
 
             //setting Transition Name
-            ViewCompat.setTransitionName(mSubjectName,subject_trans_name);
+//            ViewCompat.setTransitionName(mSubjectName,subject_trans_name);
             ViewCompat.setTransitionName(mPercentage,percent_trans_name);
 //            ViewCompat.setTransitionName(mRoot,transName);
             ViewCompat.setTransitionName(mSubjectViewImage,img_transName);

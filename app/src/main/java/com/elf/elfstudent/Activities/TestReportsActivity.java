@@ -50,7 +50,7 @@ public class TestReportsActivity extends AppCompatActivity
     private static final String TAG = "TEST_REPORT";
 
 //    // TODO: 2/11/16 add URl
-    private static final String GET_TEST_REPORT_URL = "";
+    private static final String GET_TEST_REPORT_URL = "http://www.hijazboutique.com/elf_ws.svc/GetWritenTestDetails";
 
     RecyclerView mList = null;
 
@@ -118,6 +118,40 @@ public class TestReportsActivity extends AppCompatActivity
     }
 
 
+
+    public void closeDrawer(){
+        if (isDrawerShowing){
+            mdrawerLayout.animate().setDuration(500)
+                    .setInterpolator(new AccelerateDecelerateInterpolator())
+                    .setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+
+                        }
+                    })
+                    .translationX(-ScreenUtil.getScreenWidth(getApplicationContext()))
+                    .start();
+        }
+
+        Log.d(TAG, "DropButtonClicked: ");
+
+        isDrawerShowing = !isDrawerShowing;
+    }
     private void setUpCustomDrawer() {
 
         mHomeButton.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +186,7 @@ public class TestReportsActivity extends AppCompatActivity
         mTestReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final Intent i = new Intent(getApplicationContext(),TestReportsActivity.class);
                 startActivity(i);
             }
@@ -161,6 +196,7 @@ public class TestReportsActivity extends AppCompatActivity
         mPaymentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final Intent i  = new Intent(getApplicationContext(),PaymentActivity.class);
                 startActivity(i);
             }
@@ -171,7 +207,10 @@ public class TestReportsActivity extends AppCompatActivity
 //
 
 
+
+
         if (!isDrawerShowing){
+            //Drawer is not showing  , open with open animations
             mdrawerLayout.setTranslationX(-ScreenUtil.getScreenWidth(this));
 
             mdrawerLayout.animate().translationX(0).setInterpolator(new DecelerateInterpolator(1.5f)).setDuration(600).setListener(new Animator.AnimatorListener() {
@@ -197,7 +236,8 @@ public class TestReportsActivity extends AppCompatActivity
             }).start();
         }
         else{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
+            //drawer is showing close drawer , update the boolean
                 mdrawerLayout.animate().setDuration(500)
                         .setInterpolator(new AccelerateDecelerateInterpolator())
                         .setListener(new Animator.AnimatorListener() {
@@ -222,7 +262,7 @@ public class TestReportsActivity extends AppCompatActivity
                             }
                         }).translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
             }
-        }
+
 
         Log.d(TAG, "DropButtonClicked: ");
 
@@ -340,6 +380,9 @@ public class TestReportsActivity extends AppCompatActivity
      */
     @Override
     public void ShowTestReportFor(int position, TestReportsAdapter.TestReportHolder holder) {
+
+        closeDrawer();
+
         //first get the Test Id
         String testId = null;
          if (mTestListdata != null){

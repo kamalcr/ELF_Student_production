@@ -47,7 +47,7 @@ public class TestReportsAdapter  extends RecyclerView.Adapter<TestReportsAdapter
 
     @Override
     public void onBindViewHolder(final TestReportHolder holder, int position) {
-        holder.mTestName.setText(mTestList.get(position).getTestDescription());
+        holder.mTestName.setText(mTestList.get(position).getSubjectName());
         holder.mSubjectName.setText(mTestList.get(position).getSubjectName());
         holder.marksObtained.setText(mTestList.get(position).getOverAll());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

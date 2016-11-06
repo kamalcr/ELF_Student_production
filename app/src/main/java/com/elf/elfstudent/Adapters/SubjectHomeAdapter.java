@@ -19,6 +19,8 @@ import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.SubjectModel;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,14 +65,15 @@ public void onBindViewHolder(HomeHolder holder, int position) {
 
         Log.d(TAG, "onBindViewHolder: "+position);
         holder.mPercent.setText(mSubjectList.get(position).getmPercentage());
-        holder.mTitle.setText(mSubjectList.get(position).getmSubjectName());
+//        holder.mTitle.setText(mSubjectList.get(position).getmSubjectName());
 
         //setting Subject Image Based on Subject Id
         String subID = mSubjectList.get(position).getmSubjectId();
         Log.d(TAG, "geting image for SUbject id "+subID);
 
+
         holder.mSubjectImage.setImageResource(SubjectImage.getSubjectImage(subID));
-        ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");
+//        ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");
         ViewCompat.setTransitionName(holder.mPercent, String.valueOf(position) + "_sub");
         ViewCompat.setTransitionName(holder.mRootView,String.valueOf(position) + "_root");
         ViewCompat.setTransitionName(holder.mSubjectImage,String.valueOf(position) + "_img");
@@ -116,8 +119,8 @@ public int getItemCount() {
 
 
     private static final String TAG = "HOME HOLDER";
-    @BindView(R.id.subject_title)
-    HelviticaLight mTitle;
+//    @BindView(R.id.subject_title)
+//    HelviticaLight mTitle;
 
 
     @BindView(R.id.home_holder_root)

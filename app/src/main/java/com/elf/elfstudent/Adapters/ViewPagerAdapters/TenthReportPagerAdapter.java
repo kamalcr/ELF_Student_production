@@ -51,15 +51,17 @@ public class TenthReportPagerAdapter extends FragmentStatePagerAdapter {
         switch (position){
             //based on subjects , set Arguments to Fragemnt such as
             //overall percentage , List of Lessons etc
-            case 0: mSubjectId = "1";
+
+            //todo add subject iD heres
+            case 0: mSubjectId = "11";
                 mSubjectName = "SCIENCE";
                 break;
             case 1 :
-                mSubjectId = "";
+                mSubjectId = "11";
                 mSubjectName = "SOCIAL";
                 break;
             case 2:
-                mSubjectId = "";
+                mSubjectId = "11";
                 mSubjectName = "MATHS";
                 break;
 

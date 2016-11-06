@@ -15,6 +15,7 @@
     android:layout_height="120dp"
     android:paddingTop="16dp"
     android:paddingBottom="8dp">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -33,27 +34,17 @@
 
 
             <com.elf.elfstudent.CustomUI.HelviticaLight
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:id="@+id/subject_title"
-                android:layout_weight="1"
-                android:text="Phsyics"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textColor="@color/white_primary"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
-
-            <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:text="Overall Percetage"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="19dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/material_orange400"
-                android:layout_below="@+id/subject_title"
+                android:id="@+id/textView32"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:id="@+id/textView32" />
+                android:layout_marginLeft="19dp"
+                android:layout_marginBottom="25dp" />
 
             <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:layout_width="wrap_content"
@@ -64,10 +55,9 @@
                 android:id="@+id/percent"
                 android:gravity="center"
                 android:textSize="24sp"
-                android:layout_marginBottom="8dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:layout_above="@+id/textView32"
+                android:layout_centerVertical="true"
                 android:layout_alignLeft="@+id/textView32"
                 android:layout_alignStart="@+id/textView32" />
 

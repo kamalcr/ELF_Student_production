@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -33,6 +35,8 @@ import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.model.Lesson;
 import com.elf.elfstudent.model.Topic;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.animation.EasingFunction;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -106,32 +110,59 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     FrameLayout mLoadingLayout;
 
     @BindView(R.id.report_visisble_layout)
-    RelativeLayout mVisibleLayout;
+    ScrollView    mVisibleLayout;
+
+
+
+
+
+    private Context mContext = null;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.report_fragment, container, false);
         ButterKnife.bind(this, mView);
+
+        if (mContext == null){
+            mContext = getContext();
+            if (mContext == null){
+                mContext = getActivity().getApplicationContext();
+            }
+            else{
+                throw new  NullPointerException("Context is null");
+            }
+        }
+
         if (getArguments() != null) {
             subjecId = getArguments().getString(BundleKey.SUBJECT_ID);
             subjectName = getArguments().getString(BundleKey.SUBJECT_NAME);
 
         }
 
-        mRequestQueue = AppRequestQueue.getInstance(getContext());
+
+        //Check whetther subject id and name is not null
+
+        if (subjecId == null){
+            throw new NullPointerException("Subject Id cannot be null");
+        }
+
+
+        //Initislize network Related codes
+
+        mRequestQueue = AppRequestQueue.getInstance(mContext);
         mLessonProvider = new LessonProvider(this);
         errorHandler = new ErrorHandler(this);
-        mStore = DataStore.getStorageInstance(getContext());
+        mStore = DataStore.getStorageInstance(mContext);
 
         if (mStore != null) {
             studentId = mStore.getStudentId();
         }
 
-//        if (studentId != null) { todo uncooment
+        if (studentId != null) {
             PrepareSubjectReportsFor(studentId,subjecId);
 
-//        }
+        }
 
 
 
@@ -223,11 +254,16 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        this.mContext = context;
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+        mContext =null;
     }
 
     @Override
@@ -240,7 +276,11 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
         String LessonTransName = ViewCompat.getTransitionName(itemView.mLessonName);
         String percentTransName = ViewCompat.getTransitionName(itemView.mGrowth);
+        String laytrnas  =ViewCompat.getTransitionName(itemView.itemView);
         i.putExtra(BundleKey.SUBJECT_ID,subjecId);
+
+        i.putExtra(BundleKey.ITEMVIEW,laytrnas);
+
         i.putExtra(BundleKey.LESSON_ID,mLessonList.get(position).getLessonId());
         i.putExtra(BundleKey.LESSON_NAME,mLessonList.get(position).getmLessonName());
         i.putExtra(BundleKey.PERCENTAGE,mLessonList.get(position).getmGrowthPercentage());
@@ -276,7 +316,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
         setPieChartValue(overall);
         Log.d(TAG, "got lesson list");
         mAdapter = new ReportLessonAdapter(getContext(),mLessons,this);
-        mList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mList.setLayoutManager(new LinearLayoutManager(mContext));
         mList.setAdapter(mAdapter);
     }
 
@@ -292,6 +332,8 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     *
     * */
     private void setPieChartValue(int overall) {
+
+        int remaining  = 100 - overall;
         mChart.setCenterText("Overall completion");
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
@@ -299,16 +341,19 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
         // the chart.
 
             entries.add(new PieEntry(overall));
+            entries.add(new PieEntry(remaining));
 
-            PieDataSet dataSet = new PieDataSet(entries, "Overall Percentage");
-            dataSet.setSliceSpace(3f);
+            PieDataSet dataSet = new PieDataSet(entries, "Overall Completion");
+            dataSet.setSliceSpace(1f);
             dataSet.setSelectionShift(5f);
+            dataSet.setColor(ContextCompat.getColor(mContext,R.color.orang_dribble));
 
             PieData data = new PieData(dataSet);
             data.setValueFormatter(new PercentFormatter());
             data.setValueTextSize(11f);
             data.setValueTextColor(Color.WHITE);
-            mChart.setData(data);
+             mChart.setData(data);
+            mChart.animateY(400, Easing.EasingOption.EaseInOutBack);
 //            data.setValueTypeface(mTfLight);
 
     }
@@ -352,6 +397,8 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
        }
     }
+
+
 
     @Override
     public void ServerError() {

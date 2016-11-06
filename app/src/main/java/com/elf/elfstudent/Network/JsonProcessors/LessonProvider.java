@@ -58,7 +58,7 @@ public class LessonProvider implements Response.Listener<JSONArray> {
                             mObject.getString("QustionAsked"),
                             mObject.getString("CorrectAnswer")));
 
-                    percentageSum = percentageSum+Integer.parseInt(mObject.getString("Percentage"));
+                    percentageSum = (int) (percentageSum+Float.parseFloat(mObject.getString("Percentage")));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

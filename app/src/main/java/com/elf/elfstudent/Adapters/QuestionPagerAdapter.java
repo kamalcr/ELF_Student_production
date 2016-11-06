@@ -69,6 +69,7 @@ public class QuestionPagerAdapter extends PagerAdapter {
 
 
 
+
     }
 
 
@@ -98,7 +99,7 @@ public class QuestionPagerAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.questionview,container, false);
         ButterKnife.bind(this,layout);
-
+        Log.d(TAG, "Question ID "+mList.get(position).getmQuestionId());
 
         mQuestionText.setText(mList.get(position).getmQuestion());
         optionA.setText(String.format("A.    %s", mList.get(position).getmOpt_a()));

@@ -44,8 +44,9 @@ public class TestReportProvider implements Response.Listener<JSONArray> {
                     mObjet = response.getJSONObject(i);
 
                 //// TODO: 2/11/16 get Strings
-                mWrittenTest.add(new TestReportModel(mObjet.getString("TestId"),mObjet.getString("TestDesc"),
-                        mObjet.getString("TestDesc"),mObjet.getString("Overall")));
+                mWrittenTest.add(new TestReportModel(mObjet.getString("TestId"),
+                        mObjet.getString("SubjectId"),
+                        mObjet.getString("MarksScored")));
 
 
                 }
