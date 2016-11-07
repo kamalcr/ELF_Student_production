@@ -3,38 +3,5 @@
     android:background="@drawable/login_background_gradient"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:text="No Data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView24"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-    <TextView
-        android:text="We are extremely sorry for the inconvienence"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView24"
-        android:layout_marginTop="16dp"
-        android:id="@+id/textView25"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:layout_alignLeft="@+id/textView26"
-        android:layout_alignStart="@+id/textView26" />
-
-    <TextView
-        android:text="Our servers are down and will be up and Running in a matter of moments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:textSize="22sp"
-        android:id="@+id/textView26"
-        android:layout_below="@+id/textView25"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 </RelativeLayout>

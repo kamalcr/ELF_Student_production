@@ -10,6 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/alltest_frag_root"
         android:layout_height="wrap_content">
         <com.elf.elfstudent.CustomUI.HelviticaMedium
             android:layout_width="match_parent"

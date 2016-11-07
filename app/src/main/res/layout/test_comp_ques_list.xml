@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/black_viewpager"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
+    <com.elf.elfstudent.CustomUI.HelviticaLight
         android:text="Question List"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -15,8 +17,9 @@
         android:id="@+id/textView10"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-    <TextView
-        android:text="The Answer with Correct options"
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="See your Answers"
+        android:textColor="@color/white_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView10"

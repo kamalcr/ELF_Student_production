@@ -47,4 +47,16 @@ public class BundleKey {
     public static String PERCENT_TRANS = "percent";
     public static String LESSON_NAME = "LESSON_NAME";
     public static String ITEMVIEW = "itemview";
+
+
+    //FirebasRelated Codes
+    public static String F_PHYSCIS  = "Writing Physics";
+    public static String F_CHEMISTRy = "Writing Chemistry";
+    public static String F_MATHS_12 = "Writing ";
+    public static String F_COMPUTER = "Writing ";
+    public static String F_BIO = "Writing ";
+    public static String F_SCIENCE = "Writing ";
+    public static String F_SOCIAL = "Writing ";
+    public static String F_MATHS = "Writing ";
+
 }

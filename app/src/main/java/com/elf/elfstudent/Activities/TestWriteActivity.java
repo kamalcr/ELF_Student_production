@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -59,6 +60,9 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     //The Views
 
+
+    @BindView(R.id.test_write_root)
+    FrameLayout mChangableRoot;
     //Top Tab
     @BindView(R.id.nts_center)
     NavigationTabStrip mTab;
@@ -113,7 +117,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     //The Request Objects
     private JsonArrayRequest getQuestionRequest = null;
     private JsonArrayRequest submitTestRequest = null;
-
+    private int count = 0;
 
 
     @Override
@@ -201,7 +205,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
             try {
 
                 List<Question> answerList =  mAdapter.getQuestionList();
-                JSONObject obj = new JSONObject();
+                JSONObject obj = null;
                 JSONArray mArray = new JSONArray();
 
                 int count = answerList.size();
@@ -210,10 +214,13 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
                 //Adding selected option From Pager Adapter data
                 TestSubmit testSubmit = new TestSubmit(mStudentID,mTestId,count);
                 for (int i= 0; i<count ; i++){
+                    obj = new JSONObject();
                     obj.put("QuestionId",answerList.get(i).getmQuestionId());
                     obj.put("AnswerSelected",answerList.get(i).getSelectedOption());
 
                     mArray.put(obj);
+                    obj = null;
+
                 }
 
 
@@ -415,11 +422,21 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     @Override
     public void TimeoutError() {
+        if(!(count>2)){
+            //count is not greater than 2 , make re request
+        }
+        else{
+            mChangableRoot.removeAllViews();
+            View v = View.inflate(this, R.layout.try_again_layout,mChangableRoot);
 
+        }
     }
 
     @Override
     public void NetworkError() {
+
+        mChangableRoot.removeAllViews();
+        View v = View.inflate(this,R.layout.no_internet,mChangableRoot);
 
     }
 
@@ -438,6 +455,9 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     @Override
     public void NoQuestionObtained() {
 
+        mChangableRoot.removeAllViews();
+
+        View view = View.inflate(this,R.layout.no_data,mChangableRoot);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
     private static final String TAG = "TestComList Frag";
 
 //    Add detailed Test Reports
-private static final String TEST_DETAIL_URL ="http://www.hijazboutique.com/elf_ws.svc/GetDetailedTestReport";
+    private static final String TEST_DETAIL_URL ="http://www.hijazboutique.com/elf_ws.svc/GetDetailedTestReport";
 
     RecyclerView mList;
 

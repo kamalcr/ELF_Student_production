@@ -4,74 +4,60 @@
     android:background="@color/black_dribble"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
+    <com.elf.elfstudent.CustomUI.HelviticaLight
         android:text="Subject Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:id="@+id/test_comp_test_desc"
         android:textColor="@color/white"
-        android:layout_below="@+id/imageView4"
+
         android:textSize="22sp"
         android:layout_centerHorizontal="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-    <TextView
+    <com.elf.elfstudent.CustomUI.HelviticaLight
         android:text="Subject Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/test_comp_test_desc"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="24dp"
         android:textSize="20sp"
         android:textColor="@color/white_light"
         android:id="@+id/test_comp_test_sub"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <TextView
-        android:text="85"
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="TextView"
         android:layout_width="wrap_content"
+        android:textSize="30sp"
+        android:textColor="@color/orang_dribble"
         android:layout_height="wrap_content"
-        android:id="@+id/test_comp_correct_answer"
-        android:textColor="@color/white"
-        android:layout_alignBaseline="@+id/test_comp_total_questions"
-        android:layout_alignBottom="@+id/test_comp_total_questions"
-        android:layout_toRightOf="@+id/test_comp_test_desc"
-        android:layout_toEndOf="@+id/test_comp_test_desc"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-    <TextView
-        android:text="Total Questions Asked"
-        android:layout_width="wrap_content"
-        android:textColor="@color/white_light"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/test_comp_total_questions"
-        android:layout_alignLeft="@+id/test_comp_total_questions"
-        android:layout_alignStart="@+id/test_comp_total_questions"
-        android:layout_marginTop="42dp"
-        android:id="@+id/textView18" />
-
-    <TextView
-        android:text="Correct Answers"
-        android:layout_width="wrap_content"
-        android:textColor="@color/white_light"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView18"
-        android:layout_alignLeft="@+id/test_comp_correct_answer"
-        android:layout_alignStart="@+id/test_comp_correct_answer"
-        android:id="@+id/textView19" />
-
-    <TextView
-        android:text="45"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:textColor="@color/white"
-        android:id="@+id/test_comp_total_questions"
         android:layout_below="@+id/test_comp_test_sub"
-        android:layout_alignLeft="@+id/imageView4"
-        android:layout_alignStart="@+id/imageView4"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:id="@+id/right_no" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/divider_rw"
+        android:background="@color/orang_dribble"
+        android:layout_below="@+id/right_no"
+        android:layout_marginTop="12dp"
+        android:layout_alignStart="@+id/right_no"
+        android:layout_alignEnd="@+id/right_no" />
+
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:id="@+id/textView19"
+        android:textColor="@color/orang_dribble"
+        android:layout_below="@+id/divider_rw"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp" />
+
 </RelativeLayout>

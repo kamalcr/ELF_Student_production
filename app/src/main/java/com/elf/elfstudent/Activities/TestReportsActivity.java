@@ -371,7 +371,7 @@ public class TestReportsActivity extends AppCompatActivity
 
 
         mChangableRoot.removeAllViews();
-        View view  = View.inflate(this,R.layout.no_data,mChangableRoot);
+        View view  = View.inflate(this,R.layout.no_test_written,mChangableRoot);
     }
 
     /*the callback from Recycler view Adapter { @link TestReportsAdapter }

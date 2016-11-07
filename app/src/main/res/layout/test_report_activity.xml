@@ -22,26 +22,6 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="match_parent">
 
-            <com.elf.elfstudent.CustomUI.HelviticaLight
-                android:layout_width="match_parent"
-                android:id="@+id/written_text_title"
-                android:text="Test Written"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:textColor="@color/white"
-                android:layout_marginTop="12dp"
-                android:textSize="22sp"
-                android:layout_height="wrap_content" />
-            <com.elf.elfstudent.CustomUI.HelviticaLight
-                android:layout_width="match_parent"
-                android:textColor="@color/white_light"
-                android:id="@+id/written_text_titlle_sub"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:text="These are the tests Written by you so far"
-                android:layout_below="@id/written_text_title"
-                android:layout_height="wrap_content" />
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_below="@+id/written_text_titlle_sub"

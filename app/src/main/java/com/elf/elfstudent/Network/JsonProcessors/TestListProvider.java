@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by nandhu on 25/10/16.
+ *
  */
 
 public class TestListProvider implements Response.Listener<JSONArray> {
@@ -30,18 +31,19 @@ public class TestListProvider implements Response.Listener<JSONArray> {
     public void onResponse(JSONArray response) {
 
         int count = response.length();
-        String testId = null;
+        String subId = null;
 
-        ArrayList<AllTestModels> mTestList = new ArrayList<>(count);
 
         JSONObject mobject = null;
         try {
             for (int i = 0; i < count; i++) {
-                mobject = response.getJSONObject(0);
-                testId = mobject.getString("TestId");
+                mobject = response.getJSONObject(i);
+
+
+                subId = mobject.getString("SubjectId");
 
 //                // TODO: 26/10/16 find subject iD
-                if (testId.equals("1")){
+                if (subId.equals("1")){
                     //Science Subject
                     mScience.add(new AllTestModels(mobject.getString("TestId"),
                             mobject.getString("Description")
@@ -49,13 +51,13 @@ public class TestListProvider implements Response.Listener<JSONArray> {
                             mobject.getString("SubjectId")));
 
                 }
-                 else if(testId.equals("2")){
+                 else if(subId.equals("2")){
                     mSocial.add(new AllTestModels(mobject.getString("TestId"),
                             mobject.getString("Description")
                             , mobject.getString("SubjectName"),
                             mobject.getString("SubjectId")));
                 }
-                else if(testId.equals("3")){
+                else if(subId.equals("3")){
 
                     mMaths.add(new AllTestModels(mobject.getString("TestId"),
                             mobject.getString("Description")
