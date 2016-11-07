@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,8 @@ import com.elf.elfstudent.Network.JsonProcessors.TestQuestionReportProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.model.Answers;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONObject;
 
@@ -66,12 +69,22 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
     FrameLayout mChangableLayout;
 
 
+    FirebaseAnalytics mAnalytics = null;
+
     TestCompQuestionsAdapter mAdapter = null;
     private List<Answers> mListData;
+    private Context mContext = null;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 
     @Override
@@ -95,6 +108,7 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
        View v = inflater.inflate(R.layout.test_comp_ques_list,container,false);
         ButterKnife.bind(this,v);
         Log.d(TAG, "onCreateView: ");
+        mAnalytics = FirebaseAnalytics.getInstance(mContext);
         errorHandler = new ErrorHandler(this);
         reportProvider  = new TestQuestionReportProvider(this);
         mStore = DataStore.getStorageInstance(getActivity().getApplicationContext());
@@ -111,7 +125,14 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
         }
 
 
+        if (studentId != null && testId != null){
+
             getTestReport(testId,studentId);
+        }
+        else{
+            FirebaseCrash.log("TestCompListFrag, student id or test id is null");
+        }
+
 
 
 
@@ -130,8 +151,8 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
         Log.d(TAG, "getTestReport: ");
         JSONObject mObject = new JSONObject();
         try {
-            mObject.put("StudentId","1");
-            mObject.put("TestId","1");
+            mObject.put("StudentId",studentId);
+            mObject.put("TestId",testId);
         }
         catch (Exception e ){
             Log.d(TAG, "getTestReport: ");
@@ -167,24 +188,30 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
 
     @Override
     public void TimeoutError() {
-        Log.d(TAG, "TimeoutError: ");
+
+        Bundle  b = new Bundle();
+        b.putString(BundleKey.TIMEOUT,BundleKey.TIMEOUT);
+        mAnalytics.logEvent(BundleKey.TIMEOUT,b);
         Toast.makeText(getActivity().getApplicationContext(),"Time Out Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void NetworkError() {
-        Log.d(TAG, "NetworkError: ");
+
         Toast.makeText(getActivity().getApplicationContext(),"Network Out Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void ServerError() {
-        Log.d(TAG, "ServerError: ");
+        FirebaseCrash.log("Error in server");
         Toast.makeText(getActivity().getApplicationContext(),"server Out Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void TestDetails(String subjectName, String subDesc, List<Answers> mTestReportQuestions) {
+        Bundle b  = new Bundle();
+        b.putString(FirebaseAnalytics.Event.VIEW_ITEM_LIST,"Test Completed Questions Report -later");
+        mAnalytics.logEvent("TestView - Later",b);
         this.mListData = mTestReportQuestions;
         mChangableLayout.removeAllViews();
         View view = View.inflate(getActivity().getApplicationContext(),R.layout.home_recycler,mChangableLayout);

@@ -40,6 +40,7 @@ import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.model.SubjectModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONObject;
@@ -152,6 +153,9 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
 
 
+
+    FirebaseAnalytics mAnalytics = null;
+
     //The Request Queue
     private AppRequestQueue mRequestQueue= null;
     private List<SubjectModel> mSubjectList = null;
@@ -179,6 +183,8 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
         ButterKnife.bind(this);
+
+
 
 
 
@@ -420,6 +426,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         @Override
         protected void onStart () {
             super.onStart();
+            mAnalytics = FirebaseAnalytics.getInstance(this);
         }
 
 
@@ -558,6 +565,10 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     @Override
     public void TimeoutError() {
 
+
+        Bundle  b = new Bundle();
+        b.putString(BundleKey.TIMEOUT,BundleKey.TIMEOUT);
+        mAnalytics.logEvent(BundleKey.TIMEOUT,b);
         mRoot.removeAllViews();
         View v = View.inflate(this,R.layout.try_again_layout,mRoot);
         ButterKnife.bind(v);
@@ -595,7 +606,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
     @Override
     public void ServerError() {
-
+        FirebaseCrash.log("Error in server");
 
         Log.d(TAG, "ServerError: ");
 
@@ -637,7 +648,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             mList.setHasFixedSize(true);
         }
         catch (Exception e ){
-            Log.d(TAG, "Exception in setting adapter to Recycler view");
+            FirebaseCrash.log("Exception in setting Home Adapter");
         }
     }
 
@@ -664,7 +675,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
     @Override
     public void NoDataReceivedFromWebservice() {
-
+        FirebaseCrash.log("getting Response but showing no data in Home student dashboard API");
     }
 
 

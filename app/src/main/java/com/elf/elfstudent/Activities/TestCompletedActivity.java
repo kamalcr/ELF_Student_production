@@ -68,6 +68,7 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
 
 
 
+
         //get The Test Variables from intent
         if (getIntent() != null){
             testDesc = getIntent().getStringExtra(BundleKey.TEST_ID);
@@ -91,21 +92,7 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
         mTab.setupWithViewPager(mPager);
     }
 
-    private void getDetailedTestReport(String testId, String studentId) {
-        try{
-            JSONObject mObj  = new JSONObject();
-            mObj.put("TestId",testId);
-            mObj.put("StudentId",studentId);
-//           getDeteailedRequest = new JsonArrayRequest(Request.Method.POST,TEST_DETAIL_URL,mObj,testDetailReportProvider,errorHandler);
-//
-//            if (mRequestQueue != null){
-//                mRequestQueue.addToRequestQue(getDeteailedRequest);
-//            }
-        }
-        catch (Exception e){
-            Log.d("TG", "getDetailedTestReport: ");
-        }
-    }
+
 
     @Override
     protected void onDestroy() {

@@ -7,6 +7,8 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 
 /**
  * Created by nandhu on 18/10/16.
@@ -17,15 +19,18 @@ public class ErrorHandler implements Response.ErrorListener {
 
 
     ErrorHandlerCallbacks mCallback;
+    FirebaseAnalytics mAnalytics = null;
 
     public ErrorHandler(ErrorHandlerCallbacks mCallback) {
         this.mCallback = mCallback;
+
     }
 
     private static final String TAG = "Volley Error";
 
     @Override
     public void onErrorResponse(VolleyError error) {
+
 
         Log.d(TAG, "onErrorResponse: "+error.getLocalizedMessage());
 

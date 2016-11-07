@@ -59,4 +59,5 @@ public class BundleKey {
     public static String F_SOCIAL = "Writing ";
     public static String F_MATHS = "Writing ";
 
+    public static String TIMEOUT = "TIMEOUT_ERROR";
 }
