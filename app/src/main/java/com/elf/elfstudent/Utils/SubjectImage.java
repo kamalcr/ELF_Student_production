@@ -15,11 +15,13 @@ import com.elf.elfstudent.R;
 public class SubjectImage {
     public static int SCINEC_IMAGE = R.drawable.sci_svg;
     public static int SOCIAL = R.drawable.soc_svg;
-    public static int MATHS = R.drawable.science;
+    public static int MATHS = R.drawable.maths;
     public static int PHYSICS = R.drawable.phy_svg;
     public static int CHEMISTRY = R.drawable.chem_svg;
     public static int BIOLOGY = R.drawable.bio_svg;
     public static int COMPUTER = R.drawable.cs_svg;
+
+//    // TODO: 8/11/16 add Subject Id
     public static String  SCIENCE_ID = "12";
     public static String  SOCIAL_ID = "13";
     public static String  MATHS_ID = "11";

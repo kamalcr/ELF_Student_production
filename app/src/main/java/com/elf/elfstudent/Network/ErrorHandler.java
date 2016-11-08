@@ -12,6 +12,7 @@ import com.google.firebase.crash.FirebaseCrash;
 
 /**
  * Created by nandhu on 18/10/16.
+ *
  */
 
 public class ErrorHandler implements Response.ErrorListener {
@@ -46,8 +47,9 @@ public class ErrorHandler implements Response.ErrorListener {
            mCallback.ServerError();
         }
         else{
-            Log.d(TAG, "onErrorResponse: "+error.getMessage());
+            mCallback.NetworkError();
         }
+        mCallback.NetworkError();
     }
 
     public interface ErrorHandlerCallbacks{

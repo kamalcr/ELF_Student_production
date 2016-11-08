@@ -32,6 +32,7 @@ import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.RVdecorator;
 import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.model.Lesson;
 import com.elf.elfstudent.model.Topic;
@@ -77,6 +78,9 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     @BindView(R.id.report_frag_list)
     RecyclerView mList;
 
+    //The Divider for Recyler view
+    RVdecorator decorator  = null;
+
 
     ///THe pie chart
 
@@ -117,6 +121,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
 
     private Context mContext = null;
+    private int count = 0;
 
     @Nullable
     @Override
@@ -274,8 +279,8 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
         final Intent i = new Intent(getActivity(), SingleSubjectReportActivity.class);
         //i.putExtra(BundleKey.LESSON_ID,mLessonList.get(position).getLessonId());
 
-        String LessonTransName = ViewCompat.getTransitionName(itemView.mLessonName);
-        String percentTransName = ViewCompat.getTransitionName(itemView.mGrowth);
+//        String LessonTransName = ViewCompat.getTransitionName(itemView.mLessonName);
+//        String percentTransName = ViewCompat.getTransitionName(itemView.mGrowth);
         String laytrnas  =ViewCompat.getTransitionName(itemView.itemView);
         i.putExtra(BundleKey.SUBJECT_ID,subjecId);
 
@@ -284,15 +289,14 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
         i.putExtra(BundleKey.LESSON_ID,mLessonList.get(position).getLessonId());
         i.putExtra(BundleKey.LESSON_NAME,mLessonList.get(position).getmLessonName());
         i.putExtra(BundleKey.PERCENTAGE,mLessonList.get(position).getmGrowthPercentage());
-        i.putExtra(BundleKey.LESSON_NAME_TRANS,LessonTransName);
-        i.putExtra(BundleKey.PERCENT_TRANS,percentTransName);
+//        i.putExtra(BundleKey.LESSON_NAME_TRANS,LessonTransName);
+//        i.putExtra(BundleKey.PERCENT_TRANS,percentTransName);
         //MAking pairs for many Share elements
 
-        Pair<View, String> p2 = Pair.create((View) itemView.mLessonName, LessonTransName);
-        Pair<View, String> p3 = Pair.create((View)itemView.mGrowth, percentTransName);
+        Pair<View, String> p2 = Pair.create((View) itemView.itemView, laytrnas);
 
 
-        ActivityOptionsCompat options = makeSceneTransitionAnimation(getActivity(), p2,p3);
+        ActivityOptionsCompat options = makeSceneTransitionAnimation(getActivity(), p2);
         if (ScreenUtil.isAndroid5()){
 
             startActivity(i, options.toBundle());
@@ -313,11 +317,20 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
             mLoadingLayout.setVisibility(View.INVISIBLE);
         }
         mVisibleLayout.setVisibility(View.VISIBLE);
-        setPieChartValue(overall);
-        Log.d(TAG, "got lesson list");
-        mAdapter = new ReportLessonAdapter(getContext(),mLessons,this);
-        mList.setLayoutManager(new LinearLayoutManager(mContext));
-        mList.setAdapter(mAdapter);
+
+
+
+        try{
+            setPieChartValue(overall);
+            decorator = new RVdecorator(ContextCompat.getDrawable(mContext,R.drawable.divider));
+            mAdapter = new ReportLessonAdapter(getContext(),mLessons,this);
+            mList.setLayoutManager(new LinearLayoutManager(mContext));
+            mList.addItemDecoration(decorator);
+            mList.setAdapter(mAdapter);
+        }
+        catch (Exception e ){
+            FirebaseCrash.log("Exception in setting Adapter Report Fragment");
+        }
     }
 
 
@@ -346,14 +359,17 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
             PieDataSet dataSet = new PieDataSet(entries, "Overall Completion");
             dataSet.setSliceSpace(1f);
             dataSet.setSelectionShift(5f);
-            dataSet.setColor(ContextCompat.getColor(mContext,R.color.orang_dribble));
+            ArrayList<Integer> colors = new ArrayList<Integer>();
+            colors.add((Color.parseColor("#FE9C8E")));
+            colors.add((Color.parseColor("#36353F")));
+            dataSet.setColors(colors);
 
             PieData data = new PieData(dataSet);
             data.setValueFormatter(new PercentFormatter());
             data.setValueTextSize(11f);
             data.setValueTextColor(Color.WHITE);
              mChart.setData(data);
-            mChart.animateY(400, Easing.EasingOption.EaseInOutBack);
+            mChart.animateY(400, Easing.EasingOption.EaseOutQuad);
 //            data.setValueTypeface(mTfLight);
 
     }
@@ -361,10 +377,24 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     @Override
     public void noLesson() {
 
+        FirebaseCrash.log("No Report in Report Fragment , no lessons");
+        mLoadingLayout.removeAllViews();
+        View v = View.inflate(mContext,R.layout.no_data,mLoadingLayout);
     }
 
     @Override
     public void TimeoutError() {
+
+
+        if (!(count>2)){
+            //count in not greater , perform request again
+            if (mRequestQueue != null){
+                if (getLessonRequest != null){
+
+                    mRequestQueue.addToRequestQue(getLessonRequest);
+                }
+            }
+        }
         try {
 
             mLoadingLayout.removeAllViews();
@@ -380,7 +410,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
             });
         }
         catch (Exception e ){
-            Log.d(TAG, "TimeoutError");
+          FirebaseCrash.log("Error in setting view");
         }
 
     }
@@ -389,7 +419,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     public void NetworkError() {
        try {
            mLoadingLayout.removeAllViews();;
-           View v = LayoutInflater.from(getContext()).inflate(R.layout.try_again_layout,mLoadingLayout,true);
+           View v = LayoutInflater.from(getContext()).inflate(R.layout.no_internet,mLoadingLayout,true);
 
 
        }
@@ -402,6 +432,6 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
     @Override
     public void ServerError() {
-        Log.d(TAG, "ServerError: ");
+        FirebaseCrash.log("server error , top priority to look into");
     }
 }

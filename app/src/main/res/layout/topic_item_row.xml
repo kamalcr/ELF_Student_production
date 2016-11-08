@@ -3,12 +3,15 @@
 
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/black_viewpager"
     app:cardCornerRadius="4dp"
     android:layout_margin="2dp"
-    android:layout_height="80dp">
+
+
+    android:layout_height="60dp">
     <RelativeLayout
         android:layout_width="match_parent"
+
         android:layout_height="match_parent">
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
@@ -17,25 +20,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textColor="@color/black_900"
+            android:textColor="@color/white"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="32dp"
-            android:layout_marginStart="32dp"
-            android:id="@+id/topic_name_item" />
+            android:padding="16dp"
+            android:id="@+id/topic_name_item"
+            android:layout_toStartOf="@+id/points_topic_item" />
 
         <TextView
             android:text="758"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="22sp"
-            android:textColor="@color/black_900"
+            android:gravity="center"
+            android:textColor="@color/white"
             android:layout_alignTop="@+id/topic_name_item"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
-            android:id="@+id/points_topic_item" />
+            android:id="@+id/points_topic_item"
+            android:layout_alignBottom="@+id/topic_name_item"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

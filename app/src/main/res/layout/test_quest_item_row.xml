@@ -31,17 +31,17 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <com.elf.elfstudent.CustomUI.QucikSand
-            android:text="A."
+            android:text="A"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/correct_option"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            android:textSize="20sp"
             android:layout_below="@+id/item_question"
             android:layout_centerHorizontal="true" />
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
-            android:text="Correct Option"
+            android:text="Correct Answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView17"

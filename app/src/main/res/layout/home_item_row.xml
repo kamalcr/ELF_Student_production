@@ -44,7 +44,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="16dp"
-                 android:layout_below="@id/percent" />
+                 android:layout_below="@+id/percent" />
 
             <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:layout_width="wrap_content"

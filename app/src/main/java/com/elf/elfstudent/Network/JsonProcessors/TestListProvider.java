@@ -17,6 +17,7 @@ import java.util.List;
  */
 
 public class TestListProvider implements Response.Listener<JSONArray> {
+    private static final String TAG = "AllTestFrag";
     private List<AllTestModels> mSocial = new ArrayList<>();
     private List<AllTestModels> mScience = new ArrayList<>();
     private List<AllTestModels> mMaths = new ArrayList<>();
@@ -29,48 +30,61 @@ public class TestListProvider implements Response.Listener<JSONArray> {
 
     @Override
     public void onResponse(JSONArray response) {
-
+        Log.d(TAG, "onResponse: "+response.toString());
         int count = response.length();
-        String subId = null;
+
+        Log.d(TAG, "onResponse: count "+count);
+
+        if (count==0 ){
+
+            //No test Data Received
+            mCallback.NoTestListData();
+        }
+        else{
+
+            String subId = null;
 
 
-        JSONObject mobject = null;
-        try {
-            for (int i = 0; i < count; i++) {
-                mobject = response.getJSONObject(i);
+            JSONObject mobject = null;
+            try {
+                for (int i = 0; i < count; i++) {
+                    mobject = response.getJSONObject(i);
 
 
-                subId = mobject.getString("SubjectId");
+                    subId = mobject.getString("SubjectId");
+                    Log.d(TAG,"Subject iD "+subId);
 
 //                // TODO: 26/10/16 find subject iD
-                if (subId.equals("1")){
-                    //Science Subject
-                    mScience.add(new AllTestModels(mobject.getString("TestId"),
-                            mobject.getString("Description")
-                            , mobject.getString("SubjectName"),
-                            mobject.getString("SubjectId")));
+                    if (subId.equals("2")){
+                        //Science Subject
+                        mScience.add(new AllTestModels(mobject.getString("TestId"),
+                                mobject.getString("Description")
+                                , mobject.getString("SubjectName"),
+                                mobject.getString("SubjectId")));
+
+                    }
+                    else if(subId.equals("2")){
+                        mSocial.add(new AllTestModels(mobject.getString("TestId"),
+                                mobject.getString("Description")
+                                , mobject.getString("SubjectName"),
+                                mobject.getString("SubjectId")));
+                    }
+                    else if(subId.equals("2")){
+
+                        mMaths.add(new AllTestModels(mobject.getString("TestId"),
+                                mobject.getString("Description")
+                                , mobject.getString("SubjectName"),
+                                mobject.getString("SubjectId")));
+                    }
+
+
 
                 }
-                 else if(subId.equals("2")){
-                    mSocial.add(new AllTestModels(mobject.getString("TestId"),
-                            mobject.getString("Description")
-                            , mobject.getString("SubjectName"),
-                            mobject.getString("SubjectId")));
-                }
-                else if(subId.equals("3")){
+                mCallback.setTestListData(mScience,mScience,mScience);
 
-                    mMaths.add(new AllTestModels(mobject.getString("TestId"),
-                            mobject.getString("Description")
-                            , mobject.getString("SubjectName"),
-                            mobject.getString("SubjectId")));              }
-
-
-
+            } catch (Exception e) {
+                mCallback.NoTestListData();
             }
-            mCallback.setTestListData(mScience,mScience,mScience);
-
-        } catch (Exception e) {
-           mCallback.NoTestListData();
         }
     }
 

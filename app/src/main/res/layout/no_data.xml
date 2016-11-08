@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/login_background_gradient"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black_viewpager"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_warning"
+        android:layout_marginTop="83dp"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp" />
+
+    <TextView
+        android:text="Oops!"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView18"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp" />
+
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="We are working on what happened"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView18"
+        android:paddingRight="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/white_light"
+        android:layout_alignStart="@+id/textView18"
+        android:id="@+id/textView24"
+        android:layout_toStartOf="@+id/imageView" />
+
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="Give us a couple of minutes to Rectify it"
+        android:textColor="@color/white_light"
+        android:layout_width="wrap_content"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView25"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp" />
 </RelativeLayout>

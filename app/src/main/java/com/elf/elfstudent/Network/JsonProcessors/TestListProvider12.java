@@ -31,72 +31,63 @@ public class TestListProvider12 implements Response.Listener<JSONArray>{
     @Override
     public void onResponse(JSONArray response) {
         int count = response.length();
-        String subId = null;
 
 
-        JSONObject mobject = null;
-        try {
-            for (int i = 0; i < count; i++) {
-                mobject = response.getJSONObject(0);
-
-
-                //Get Subject Id
-                subId = mobject.getString("SubjectId");
-
-//                // TODO: 26/10/16 find subject iD
-                //based on subject iD, add it to appropriate list
-                if (subId.equals("2")){
-                    //Science Subject
-                    mPhysics.add(new AllTestModels(mobject.getString("TestId"),
-                            mobject.getString("Description")
-                            , mobject.getString("SubjectName"),
-                            mobject.getString("SubjectId")));
-
-                }
-                else if(subId.equals("3")){
-                    mChem.add(new AllTestModels(mobject.getString("TestId"),
-                            mobject.getString("Description")
-                            , mobject.getString("SubjectName"),
-                            mobject.getString("SubjectId")));
-                }
-                else if(subId.equals("3")){
-
-                    mMaths.add(new AllTestModels(mobject.getString("TestId"),
-                            mobject.getString("Description")
-                            , mobject.getString("SubjectName"),
-                            mobject.getString("SubjectId")));
-
-
-
-                }
-
-                //FOr computer science
-                else if (subId.equals("4")){
-                    subjectName = "Computer Science";
-                    moptional.add(new AllTestModels(mobject.getString("TestId"),
-                            mobject.getString("Description")
-                            , mobject.getString("SubjectName"),
-                            mobject.getString("SubjectId")));
-
-                }
-
-                //bio
-                else if (subId.equals("5")){
-                    subjectName = "Biology";
-                    moptional.add(new AllTestModels(mobject.getString("TestId"),
-                            mobject.getString("Description")
-                            , mobject.getString("SubjectName"),
-                            mobject.getString("SubjectId")));
-                }
-
-
-
-            }
-            mCallback.setTestListData(mPhysics,mChem,mMaths,moptional,subjectName);
-
-        } catch (Exception e) {
+        if (count == 0){
             mCallback.NoTestListData();
         }
+        else{
+            String subId = null;
+            JSONObject mobject = null;
+            try {
+                for (int i = 0; i < count; i++) {
+                    mobject = response.getJSONObject(0);
+                    //Get Subject Id
+                    subId = mobject.getString("SubjectId");
+//                // TODO: 26/10/16 find subject iD
+                    //based on subject iD, add it to appropriate list
+                    if (subId.equals("2")){
+                        //Science Subject
+                        mPhysics.add(new AllTestModels(mobject.getString("TestId"),
+                                mobject.getString("Description")
+                                , mobject.getString("SubjectName"),
+                                mobject.getString("SubjectId")));
+                    }
+                    else if(subId.equals("3")){
+                        mChem.add(new AllTestModels(mobject.getString("TestId"),
+                                mobject.getString("Description")
+                                , mobject.getString("SubjectName"),
+                                mobject.getString("SubjectId")));
+                    }
+                    else if(subId.equals("3")){
+                        mMaths.add(new AllTestModels(mobject.getString("TestId"),
+                                mobject.getString("Description")
+                                , mobject.getString("SubjectName"),
+                                mobject.getString("SubjectId")));
+                    }
+                    //FOr computer science
+                    else if (subId.equals("4")){
+                        subjectName = "Computer Science";
+                        moptional.add(new AllTestModels(mobject.getString("TestId"),
+                                mobject.getString("Description")
+                                , mobject.getString("SubjectName"),
+                                mobject.getString("SubjectId")));
+                    }
+                    //bio
+                    else if (subId.equals("5")){
+                        subjectName = "Biology";
+                        moptional.add(new AllTestModels(mobject.getString("TestId"),
+                                mobject.getString("Description")
+                                , mobject.getString("SubjectName"),
+                                mobject.getString("SubjectId")));
+                    }
+                }
+                mCallback.setTestListData(mPhysics,mChem,mMaths,moptional,subjectName);
+            } catch (Exception e) {
+                mCallback.NoTestListData();
+            }
+        }
+
 
 
     }

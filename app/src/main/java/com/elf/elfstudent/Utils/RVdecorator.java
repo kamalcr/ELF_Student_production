@@ -46,7 +46,7 @@ public class RVdecorator extends RecyclerView.ItemDecoration{
             mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom);
             mDivider.draw(c);
         }
-        super.onDrawOver(c, parent, state);
+
     }
 }
 

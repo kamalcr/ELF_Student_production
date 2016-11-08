@@ -7,6 +7,7 @@ import android.view.View;
 import com.android.volley.Response;
 import com.elf.elfstudent.Adapters.SubjectHomeAdapter;
 import com.elf.elfstudent.model.SubjectModel;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -94,11 +95,14 @@ public class HomePageDataProvider implements Response.Listener<JSONArray> {
 
             }
 
+            //data has been parsed, send it to adapter
+            mCallback.NewDataReceived(overallRank,districtRank,stateRank,mSubjectList);
         }
         catch (Exception e) {
-            Log.d(TAG, "Exception ");
+            FirebaseCrash.log("Exception in Home Dashboard Request");
+            mCallback.NoDataReceivedFromWebservice();
         }
-        mCallback.NewDataReceived(overallRank,districtRank,stateRank,mSubjectList);
+
 
 
 

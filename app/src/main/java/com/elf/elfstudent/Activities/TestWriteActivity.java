@@ -3,12 +3,17 @@ package com.elf.elfstudent.Activities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -27,6 +32,7 @@ import com.elf.elfstudent.Network.JsonProcessors.QuestionProvider;
 import com.elf.elfstudent.Network.JsonProcessors.TestSubitter;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.TimerMenu;
 import com.elf.elfstudent.model.Answers;
 import com.elf.elfstudent.model.Question;
 import com.elf.elfstudent.model.TestSubmit;
@@ -38,6 +44,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -118,6 +125,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     private JsonArrayRequest getQuestionRequest = null;
     private JsonArrayRequest submitTestRequest = null;
     private int count = 0;
+    private long timer = 1000 * 60 *20;  //20minutes
 
 
     @Override
@@ -125,6 +133,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_write_activity);
         ButterKnife.bind(this);
+
 
         //initialise Request Que
         mRequestQueue = AppRequestQueue.getInstance(this);
@@ -271,9 +280,24 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu: ");
+        getMenuInflater().inflate(R.menu.test_write, menu);
 
+        TimerMenu rc=(TimerMenu) menu
+                .findItem(R.id.countdown)
+                .getActionView();
 
+        rc.setOverallDuration(timer);
 
+//        rc.setOnClickListener(this);
+//        rc.setOnLongClickListener(this);
+        rc.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        rc.setTextColor(Color.WHITE);
+
+        return true;
+    }
 
 
     /*This Method hits the webserivice and gets the Question*/

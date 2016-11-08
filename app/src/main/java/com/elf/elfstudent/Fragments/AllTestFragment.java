@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -28,6 +30,7 @@ import com.elf.elfstudent.Network.JsonProcessors.TestListProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.model.AllTestModels;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,33 +47,39 @@ import butterknife.ButterKnife;
  */
 public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTestViewClick, ErrorHandler.ErrorHandlerCallbacks, TestListProvider.TestProviderCallback, MathsAdapter.MathsAdapterCallback, ScienceAdapter.ScienceAdapterCallback, SocialAdapter.SocialAdapterCallback {
 
+
+    ///The Textview of subject Names
     @BindView(R.id.all_science_text)
     QucikSand mScienceText;
     @BindView(R.id.all_social_text)
     QucikSand mSocialText;
     @BindView(R.id.all_maths_tex)
     QucikSand mMathsText;
+
+    //The list
     @BindView(R.id.all_math_list)
     RecyclerView mMathsList;
     @BindView(R.id.all_social_list)
     RecyclerView mSocialList;
+
+
+    //The Changable Frame Root , invisible by default
+    @BindView(R.id.changable_test_view_root)
+    FrameLayout mViewRoot;
+
+    @BindView(R.id.top_view_layout)
+    RelativeLayout mDataLayout;
     private View mView;
+
 
     @BindView(R.id.all_sci_list)
     RecyclerView mScienceList;
 
-//    the url for this link
-    private static String URL = "http://www.hijazboutique.com/elf_ws.svc/GetPendingTests";
-
-//    the Request Queue for this body
+    //    the Request Queue for this body
     private AppRequestQueue mRequestQue;
+    private JsonArrayRequest mReq = null;
 
     private static final String TAG = "ALL TEST";
-
-
-    private ScienceAdapter mScienceAdapter = null;
-    private SocialAdapter mSocialAdapter = null;
-    private MathsAdapter mMathsAdapter = null;
 
 
     List<AllTestModels> mSocialQuestion = null;
@@ -88,15 +97,12 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
     TestListProvider mTestListProvider = null;
 
 
-    private boolean adapterSet = false;
-    LinearLayoutManager mLayoutManager = null;
-
-    TestLessonAdapter mAdapter ;
 
 
 
     DataStore mStore = null;
     private String mStdId;
+    private int count = 0;
 
 
     @Override
@@ -104,22 +110,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         super.onCreate(savedInstanceState);
 
 
-       //get the Student Details for making Reuqest
-        mStore = DataStore.getStorageInstance(getContext());
-        //get Student id
-        //get tests to write for that student .. it is overall
-        mRequestQue = AppRequestQueue.getInstance(getContext());
-         mStdId = mStore.getStudentId();
 
-        errorHandler = new ErrorHandler(this);
-        mTestListProvider  = new TestListProvider(this);
-
-
-
-
-//        mAdapter  = new TestLessonAdapter(getContext(),this);
-//        mAdapter.setmCallback(this);
-        //prepare adapter for writng tests
 
     }
 
@@ -128,23 +119,22 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
     private void prepareTests(String mStdId) {
         JSONObject object = new JSONObject();
 
-//        // TODO: 23/8/16 add dynamic student id
+//
         try {
             object.put("StudentId", "1");
             object.put("Type", "All");
 
 
         } catch (Exception e) {
-            Log.d(TAG, "prepareTests:  exception");
+            FirebaseCrash.log("Exception in Making Json Object "+TAG);
 
         }
 
         // make request with that body
 
-        final JsonArrayRequest mReq = new JsonArrayRequest(Request.Method.POST, URL, object,
+        String URL = "http://www.hijazboutique.com/elf_ws.svc/GetPendingTests";
+        mReq = new JsonArrayRequest(Request.Method.POST, URL, object,
                 mTestListProvider, errorHandler);
-
-
 
         mRequestQue.addToRequestQue(mReq);
     }
@@ -161,7 +151,6 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d(TAG, "onActivityCreated: ");
 
 
     }
@@ -173,8 +162,24 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         ButterKnife.bind(this, mView);
 
         //setting layout Manager for Adapter
-        Log.d(TAG, "onCreateView: ");
 
+        //get the Student Details for making Reuqest
+        mStore = DataStore.getStorageInstance(getContext());
+        //get Student id
+        //get tests to write for that student .. it is overall
+        mRequestQue = AppRequestQueue.getInstance(getContext());
+        mStdId = mStore.getStudentId();
+
+        errorHandler = new ErrorHandler(this);
+        mTestListProvider  = new TestListProvider(this);
+
+
+        if (mStdId != null){
+            prepareTests(mStdId);
+        }
+        else{
+            FirebaseCrash.log("Test ID null in All Test 10");
+        }
 
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         LinearLayoutManager mManager2  = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -182,7 +187,6 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         mScienceList.setLayoutManager(mLinearLayoutManager);
         mSocialList.setLayoutManager(mManager2);
         mMathsList.setLayoutManager(mManager3);
-        prepareTests(mStdId);
 
 
 //        mScienceList.setAdapter(mAdapter);
@@ -235,7 +239,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
     public void onTestCardClick(TestLessonAdapter.LessonTextHolder holder, int position) {
         Log.d(TAG, "onTestCardClick: ");
 
-        final Intent i = new Intent(getActivity(), TestWriteActivity.class);;
+        final Intent i = new Intent(getActivity(), TestWriteActivity.class);
 //        i.putExtra(BundleKey.TEST_ID,t)
 
 
@@ -244,17 +248,56 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
 
     @Override
     public void TimeoutError() {
+        if (!(count>2)){
+            //make Request again
+            if (mRequestQue != null){
+                if (mReq != null){
+                    mRequestQue.addToRequestQue(mReq);
+                    count++;
+                }else{
+                    FirebaseCrash.log("Request object is null, TimeoutError "+TAG);
+                }
+            }
+        }
+        else{
 
+            //max retry Acheived
+
+            if (!mViewRoot.isShown()){
+             mViewRoot.setVisibility(View.VISIBLE);
+            }
+            if (mDataLayout.isShown()){
+                mDataLayout.setVisibility(View.INVISIBLE);
+            }
+            mViewRoot.removeAllViews();
+            View v = View.inflate(getContext(),R.layout.try_again_layout,mViewRoot);
+        }
     }
 
     @Override
     public void NetworkError() {
-
+        if (!mViewRoot.isShown()){
+            mViewRoot.setVisibility(View.VISIBLE);
+            mViewRoot.removeAllViews();
+            View v = View.inflate(getContext(),R.layout.no_internet,mViewRoot);
+        }
+        if (mDataLayout.isShown()){
+            mDataLayout.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
     public void ServerError() {
+        if (!mViewRoot.isShown()){
+            mViewRoot.setVisibility(View.VISIBLE);
+        }
+        if (mDataLayout.isShown()){
+            mDataLayout.setVisibility(View.INVISIBLE);
+        }
 
+        mViewRoot.removeAllViews();
+        View v = View.inflate(getContext(),R.layout.no_data,mViewRoot);
+        FirebaseCrash.log("Server error in "+TAG);
     }
 
 
@@ -268,12 +311,21 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
     @Override
     public void setTestListData(List<AllTestModels> mScience, List<AllTestModels> mSocial, List<AllTestModels> maths) {
         Log.d(TAG, "setTestListData: ");
-      mScienceQuestion = mScience;
+       mScienceQuestion = mScience;
         mSocialQuestion = mSocial;
         mMathsQuestions = maths;
 
 
+        if (!mDataLayout.isShown()){
 
+
+            mDataLayout.setVisibility(View.VISIBLE);
+            if(mViewRoot.isShown()){
+                mViewRoot.setVisibility(View.INVISIBLE);
+            }
+
+
+        }
         setSocailAdapter(mSocial);
         setScicneAdapter(mScience);
         setMathsAdapter(maths);
@@ -281,11 +333,26 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
 
     @Override
     public void NoTestListData() {
-        //// TODO: 26/10/16 Remove all Views
+
+
+        //NO data Received From Webservice
+
+        //hide Content LAyyout
+        if (mDataLayout.isShown()){
+            mDataLayout.setVisibility(View.INVISIBLE);
+        }
+
+        //Show no data  layout
+        if (!mViewRoot.isShown()){
+            mViewRoot.setVisibility(View.VISIBLE);
+        }
+
+        View v = View.inflate(getContext(),R.layout.no_data,mViewRoot);
+
     }
 
     private void setMathsAdapter(List<AllTestModels> maths) {
-       mMathsAdapter = new MathsAdapter(this,maths,getContext());
+        MathsAdapter mMathsAdapter = new MathsAdapter(this, maths, getContext());
         if (mMathsList != null){
 
             mMathsList.setAdapter(mMathsAdapter);
@@ -298,7 +365,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
     }
 
     private void setScicneAdapter(List<AllTestModels> mScience) {
-        mScienceAdapter = new ScienceAdapter(this,mScience,getContext());
+        ScienceAdapter mScienceAdapter = new ScienceAdapter(this, mScience, getContext());
         if (mScienceList != null) {
 
             mScienceList.setAdapter(mScienceAdapter);
@@ -319,7 +386,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
 
 
     private void setSocailAdapter(List<AllTestModels> mSocial) {
-        mSocialAdapter = new SocialAdapter(this,mSocial,getContext());
+        SocialAdapter mSocialAdapter = new SocialAdapter(this, mSocial, getContext());
         if (mSocialList != null) {
 
             mSocialList.setAdapter(mSocialAdapter);
@@ -358,7 +425,6 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
     }
 
     private void showTestWritingPage(String testId) {
-        Log.d(TAG, "showTestWritingPage: "+testId);
         final Intent i  = new Intent(getContext(),TestWriteActivity.class);
         i.putExtra(BundleKey.TEST_ID,testId);
         startActivity(i);

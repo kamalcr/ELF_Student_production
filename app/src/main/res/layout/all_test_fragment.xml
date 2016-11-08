@@ -10,88 +10,105 @@
     android:fillViewport="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.elf.elfstudent.CustomUI.QucikSand
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/white_primary"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="16dp"
-            android:id="@+id/all_science_text"
-            android:text="SCIENCE"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            android:visibility="visible"
+            android:id="@+id/changable_test_view_root"
+            android:layout_height="match_parent">
+            <include layout="@layout/loading_list"/>
 
-
-        <com.elf.elfstudent.CustomUI.QucikSand
+        </FrameLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_below="@+id/all_sci_list"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white_primary"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="16dp"
-            android:id="@+id/all_social_text"
-            android:text="SOCIAL"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-        <com.elf.elfstudent.CustomUI.QucikSand
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="16dp"
-            android:textColor="@color/white_primary"
-            android:layout_below="@+id/all_social_list"
-            android:id="@+id/all_maths_tex"
-            android:text="MATHS"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            android:id="@+id/top_view_layout"
+            android:visibility="invisible"
+            android:layout_height="match_parent">
+            <com.elf.elfstudent.CustomUI.QucikSand
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/white_primary"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="16dp"
+                android:id="@+id/all_science_text"
+                android:text="SCIENCE"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
 
-        <android.support.v7.widget.RecyclerView
+            <com.elf.elfstudent.CustomUI.QucikSand
+                android:layout_width="match_parent"
+                android:layout_below="@+id/all_sci_list"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white_primary"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="16dp"
+                android:id="@+id/all_social_text"
+                android:text="SOCIAL"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-            android:layout_width="wrap_content"
-            android:paddingTop="16dp"
-            android:layout_marginTop="27dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:id="@+id/all_social_list"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:clipChildren="false"
-            android:layout_below="@+id/all_social_text"
-            android:layout_alignStart="@+id/all_maths_tex"
-            android:layout_marginLeft="16dp"
-            android:layout_alignLeft="@+id/all_maths_tex" />
+            <com.elf.elfstudent.CustomUI.QucikSand
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/white_primary"
+                android:layout_below="@+id/all_social_list"
+                android:id="@+id/all_maths_tex"
+                android:text="MATHS"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-        <android.support.v7.widget.RecyclerView
 
-            android:layout_width="wrap_content"
-            android:paddingTop="16dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginLeft="16dp"
-            android:id="@+id/all_sci_list"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:clipToPadding="false"
-            android:clipChildren="false"
-            android:layout_below="@+id/all_science_text"
-            android:layout_alignStart="@+id/all_social_text"
-            android:layout_alignLeft="@+id/all_social_text" />
+            <android.support.v7.widget.RecyclerView
 
-        <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:paddingTop="16dp"
+                android:layout_marginTop="27dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:id="@+id/all_social_list"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:layout_below="@+id/all_social_text"
+                android:layout_alignStart="@+id/all_maths_tex"
+                android:layout_marginLeft="16dp"
+                android:layout_alignLeft="@+id/all_maths_tex" />
 
-            android:layout_width="wrap_content"
+            <android.support.v7.widget.RecyclerView
 
-            android:layout_below="@id/all_maths_tex"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_marginTop="12dp"
-            android:id="@+id/all_math_list"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:clipChildren="false"
-            android:layout_alignStart="@+id/all_social_list"
-            android:layout_alignLeft="@+id/all_social_list"
-            android:layout_marginBottom="40dp" />
-    </RelativeLayout>
+                android:layout_width="wrap_content"
+                android:paddingTop="16dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginLeft="16dp"
+                android:id="@+id/all_sci_list"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:layout_below="@+id/all_science_text"
+                android:layout_alignStart="@+id/all_social_text"
+                android:layout_alignLeft="@+id/all_social_text" />
+
+            <android.support.v7.widget.RecyclerView
+
+                android:layout_width="wrap_content"
+
+                android:layout_below="@id/all_maths_tex"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_marginTop="12dp"
+                android:id="@+id/all_math_list"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:layout_alignStart="@+id/all_social_list"
+                android:layout_alignLeft="@+id/all_social_list"
+                android:layout_marginBottom="40dp" />
+        </RelativeLayout>
+
+    </FrameLayout>
+
+
 
 </ScrollView>

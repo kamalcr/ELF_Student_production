@@ -27,6 +27,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -175,14 +176,22 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
     boolean isDrawerShowing = false;
     String studnetId = null;
+    private int count = 0;
+    private boolean adapterSet = false;
 
-
+    
+    
+    public void pop(String s ){
+        Log.d(TAG, " "+s);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
         ButterKnife.bind(this);
+        
+        pop("oncreate");
 
 
 
@@ -408,7 +417,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
 
         @Override
-        protected void onDestroy () {
+        protected void onDestroy (){
             super.onDestroy();
             Log.d(TAG, "onDestroy: ");
             mStore = null;
@@ -426,7 +435,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         @Override
         protected void onStart () {
             super.onStart();
-            mAnalytics = FirebaseAnalytics.getInstance(this);
+            mAnalytics = FirebaseAnalytics.getInstance(this);pop("onstart");
         }
 
 
@@ -468,6 +477,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             errorHandler = null;
             mDataProvider = null;
             mSubjectAdapter = null;
+        Log.d(TAG, "onStop: ");
         }
 
         @Override
@@ -502,12 +512,12 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
             try{
 
+                DropButtonClicked();
                 Log.d(TAG, "InfoButtonClicked: ");
                 //get the view and transition Name of views
 //                HelviticaLight subjectName = (HelviticaLight) itemView.findViewById(R.id.subject_title);
 //                String subTransName = ViewCompat.getTransitionName(subjectName);
                 CardView viewRoot = (CardView) itemView;
-                String root_transName = ViewCompat.getTransitionName(viewRoot);
                 HelviticaLight percentText = (HelviticaLight) itemView.findViewById(R.id.percent);
                 String percentTransName = ViewCompat.getTransitionName(percentText);
 
@@ -569,18 +579,32 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         Bundle  b = new Bundle();
         b.putString(BundleKey.TIMEOUT,BundleKey.TIMEOUT);
         mAnalytics.logEvent(BundleKey.TIMEOUT,b);
-        mRoot.removeAllViews();
-        View v = View.inflate(this,R.layout.try_again_layout,mRoot);
-        ButterKnife.bind(v);
-        TextView t = (TextView) v.findViewById(R.id.try_again_text);
-        t.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               if(mRequestQueue != null){
-                   mRequestQueue.addToRequestQue(mHomeRequest);
-               }
+
+
+        if (!(count>2)){
+
+
+            //Retrying
+            if (mHomeRequest != null){
+                mRequestQueue.addToRequestQue(mHomeRequest);
+                count++;
             }
-        });
+        }
+        else{
+
+            mRoot.removeAllViews();
+            View v = View.inflate(this,R.layout.try_again_layout,mRoot);
+            ButterKnife.bind(v);
+            TextView t = (TextView) v.findViewById(R.id.try_again_text);
+            t.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mRequestQueue != null){
+                        mRequestQueue.addToRequestQue(mHomeRequest);
+                    }
+                }
+            });
+        }
 
 
     }
@@ -608,9 +632,8 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     public void ServerError() {
         FirebaseCrash.log("Error in server");
 
-        Log.d(TAG, "ServerError: ");
-
-        Log.d(TAG, "ServerError: ");
+        mRoot.removeAllViews();
+        View v = View.inflate(this,R.layout.send_feedback,mRoot);
     }
 
 
@@ -638,17 +661,26 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     private void setListAdapter(SubjectHomeAdapter mSubjectAdapter) {
 
         //Remove the Present View in Frame Layout ,
-        mRoot.removeAllViews();
-        View v  = LayoutInflater.from(this).inflate(R.layout.home_recycler,mRoot,true);
 
-        mList = (RecyclerView) v.findViewById(R.id.home_list);
-        try {
-            mList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            mList.setAdapter(mSubjectAdapter);
-            mList.setHasFixedSize(true);
+        if (!adapterSet){
+
+            mRoot.removeAllViews();
+            View v  = LayoutInflater.from(this).inflate(R.layout.home_recyler_view,mRoot,true);
+
+            mList = (RecyclerView) v.findViewById(R.id.home_list_rv);
+            try {
+                adapterSet = true;
+                mList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                mList.setAdapter(mSubjectAdapter);
+                mList.setHasFixedSize(true);
+            }
+            catch (Exception e ){
+                FirebaseCrash.log("Exception in setting Home Adapter");
+            }
         }
-        catch (Exception e ){
-            FirebaseCrash.log("Exception in setting Home Adapter");
+        else{
+            // adapter already set
+            //dont do anything
         }
     }
 
@@ -676,13 +708,17 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     @Override
     public void NoDataReceivedFromWebservice() {
         FirebaseCrash.log("getting Response but showing no data in Home student dashboard API");
+
+        if (mRoot != null){
+            try {
+
+                View v = View.inflate(this,R.layout.no_data,mRoot);
+            }
+            catch (Exception e ){
+                Toast.makeText(this,"NO data Received , please try again later",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
-
-
-    /*From Drawer Item CLick events
-    *
-    * getIdentifier and Send to Appropriate Activity
-    * */
 
 }

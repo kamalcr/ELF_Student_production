@@ -30,6 +30,7 @@ import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RequestParameterKey;
 import com.elf.elfstudent.model.Topic;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONObject;
 
@@ -102,8 +103,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
     String lessonName = null;
     String percentage = null;
     private int count = 0;
-
-
+    private boolean adapterSet = false;
 
 
     @Override
@@ -116,8 +116,8 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
             lessonId  = getIntent().getStringExtra(BundleKey.LESSON_ID);
             subjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
             layouttrns = getIntent().getStringExtra(BundleKey.ITEMVIEW);
-            lessonnametrans = getIntent().getStringExtra(BundleKey.LESSON_NAME_TRANS);
-            percenttransName = getIntent().getStringExtra(BundleKey.PERCENT_TRANS);
+//            lessonnametrans = getIntent().getStringExtra(BundleKey.LESSON_NAME_TRANS);
+//            percenttransName = getIntent().getStringExtra(BundleKey.PERCENT_TRANS);
             lessonName  = getIntent().getStringExtra(BundleKey.LESSON_NAME);
             percentage = getIntent().getStringExtra(BundleKey.PERCENTAGE);
 
@@ -133,11 +133,12 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
 
 
         setSupportActionBar(mToolbar);
-        mToolbar.setTitle("Topic Wise Report");
+
         
         ActionBar ab  = getSupportActionBar();
         try {
             ab.setDisplayShowHomeEnabled(true);
+            ab.setDisplayShowCustomEnabled(true);
             ab.setDisplayHomeAsUpEnabled(true);
         }
         catch (Exception e ){
@@ -146,10 +147,10 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
         mLessonName.setText(lessonName);
         mPercentName.setText(percentage);
 
-        if (lessonnametrans != null && percenttransName != null){
-            ViewCompat.setTransitionName(mLessonName,lessonnametrans);
-            ViewCompat.setTransitionName(mPercentName,percenttransName);
-        }
+//        if (lessonnametrans != null && percenttransName != null){
+//            ViewCompat.setTransitionName(mLessonName,lessonnametrans);
+//            ViewCompat.setTransitionName(mPercentName,percenttransName);
+//        }
         mStore = DataStore.getStorageInstance(getApplicationContext());
 
         mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
@@ -162,7 +163,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
        
         topicProvider = new TopicProvider(this);
         studentId = mStore.getStudentId();
-        if (lessonId != null && studentId != null){
+        if (lessonId != null && studentId != null  && subjectId != null){
             Log.d(TAG, "onCreate: lesson id to get report is "+lessonId);
             getTopicForlesson(lessonId,studentId,subjectId);
         }
@@ -197,16 +198,24 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
 
         try {
 
-            mObject.put("StudentId","1");
-            mObject.put("SubjectId","11");
-            mObject.put(RequestParameterKey.LESSON_ID,"1");
+            mObject.put("StudentId",studentId);
+            mObject.put("SubjectId",subjectId);
+            mObject.put(RequestParameterKey.LESSON_ID,lessonId);
         }
         catch (Exception e ){
-            Log.d(TAG, "getTopicForlesson: ");
+            FirebaseCrash.log("Error in putting Json Values SingleSubjectReport ");
         }
         getTopicRequest = new JsonArrayRequest(Request.Method.POST,GET_TOPIC_FOR_LESSON,mObject,topicProvider,errorHandler);
-        Log.d(TAG, "adding to Request queue");
-        mRequestQueue.addToRequestQue(getTopicRequest);
+
+
+        if (mRequestQueue != null){
+
+            mRequestQueue.addToRequestQue(getTopicRequest);
+        }
+        else{
+            mRequestQueue  = AppRequestQueue.getInstance(this);
+            mRequestQueue.addToRequestQue(getTopicRequest);
+        }
     }
 
     @Override
@@ -236,6 +245,8 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
 
     @Override
     public void TimeoutError() {
+
+
 
         if ((count>2)){
             //Request has been sent two times / show Time out Error
@@ -267,23 +278,36 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
     @Override
     public void setTopics(List<Topic> mTopicList) {
 
-        mAdapter = new TopicListAdapter(this,mTopicList);
-       mChangableRoot.removeAllViews();
-        View v  = LayoutInflater.from(this).inflate(R.layout.topic_list,mChangableRoot,true);
-        if (v != null){
 
-            mTopicListView = (RecyclerView) v.findViewById(R.id.topic_list);
-            if (mTopicListView != null && mAdapter != null){
-                Log.d(TAG, "setTopics: ");
-                mTopicListView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                mTopicListView.setAdapter(mAdapter);
+        //set Adapter only if adapter is not set
+        if (!adapterSet){
+
+            mAdapter = new TopicListAdapter(this,mTopicList);
+            mChangableRoot.removeAllViews();
+            View v  = LayoutInflater.from(this).inflate(R.layout.topic_list,mChangableRoot,true);
+            if (v != null){
+
+                mTopicListView = (RecyclerView) v.findViewById(R.id.topic_list);
+                if (mTopicListView != null && mAdapter != null){
+                    adapterSet  = true;
+                    mTopicListView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    mTopicListView.setAdapter(mAdapter);
+                }
+                else{
+                    FirebaseCrash.log("Adapter not set in Single Subject Adctivity");
+                }
             }
+        }
+        else{
+            //adapter set
         }
 
     }
 
     @Override
     public void noTopics() {
+
+        FirebaseCrash.log("No Topics Received");
         mChangableRoot.removeAllViews();
         View v = View.inflate(this,R.layout.no_data,mChangableRoot);
     }
