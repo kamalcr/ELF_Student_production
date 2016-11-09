@@ -201,6 +201,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         mStateImage.setImageResource(R.drawable.state);
         overall.setImageResource(R.drawable.overall);
         mdist.setImageResource(R.drawable.district);
+
         //get The details for this User from Shared PRefs
         mStore  = DataStore.getStorageInstance(this.getApplicationContext());
         setViewValues();
@@ -212,6 +213,8 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
 
 
+
+        //Toolbar setup
         setSupportActionBar(mToolbar);
 
         ActionBar ab  = getSupportActionBar();
@@ -225,8 +228,12 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             Log.d(TAG, "onCreate:  exception in toolbar");
         }
 
+
+        // Network Related Codes
         errorHandler = new ErrorHandler(this);
         mDataProvider = new HomePageDataProvider(this);
+
+        //navigation ICon
 
         mDropIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,18 +242,19 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             }
         });
 
-//        // TODO: 25/10/16 save student Dash board
+        if (mStore != null){
+            studnetId = mStore.getStudentId();
+        }
+        else{
+            FirebaseCrash.log("Store null in Home");
+        }
+        //sending DahsoArd Request
+        if (studnetId != null){
 
+            prepareDashBoardFor(studnetId);
+        }
 
-
-            prepareDashBoardFor("1");
-
-        setSupportActionBar(mToolbar);
-
-
-
-
-    setUpCustomDrawer();
+         setUpCustomDrawer();
 
 
 
@@ -335,7 +343,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             }
         }
         else{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
                 mdrawerLayout.animate().setDuration(500)
                         .setInterpolator(new AccelerateDecelerateInterpolator())
                         .setListener(new Animator.AnimatorListener() {
@@ -359,7 +367,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
                             }
                         }).translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
-            }
+
         }
 
         Log.d(TAG, "DropButtonClicked: ");
@@ -374,10 +382,10 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
     private void setViewValues() {
 
-//        // TODO: 25/10/16 institiution values
+
         if(mStore != null){
 
-            mSchoolname.setText("Sri Akilandeswari Vidhayalaya");
+            mSchoolname.setText(mStore.getInstituionName());
 
             mStandardName.setText(String.format("%s Standard", mStore.getStandard()));
             mStudentName.setText(mStore.getUserName());
@@ -388,18 +396,14 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     private void prepareDashBoardFor(String studentId) {
         JSONObject mReqObjects = new JSONObject();
         try {
-
-
-            Log.d(TAG, "Making Home Request for "+studentId);
             mReqObjects.put("studentId", studentId);
-
         }
         catch (Exception e) {
-            Log.d(TAG, "Exception: ");
+            FirebaseCrash.log("Error in putting JSON value , Home");
         }
-       mHomeRequest = new JsonArrayRequest(Request.Method.POST, HOME_URL, mReqObjects, mDataProvider, errorHandler);
-        Log.d(TAG, "onCreate: making request");
 
+
+       mHomeRequest = new JsonArrayRequest(Request.Method.POST, HOME_URL, mReqObjects, mDataProvider, errorHandler);
         if (mRequestQueue !=null){
 
             mRequestQueue.addToRequestQue(mHomeRequest);
@@ -424,6 +428,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             mDataProvider = null;
             errorHandler = null;
 
+
         }
 
         @Override
@@ -435,7 +440,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         @Override
         protected void onStart () {
             super.onStart();
-            mAnalytics = FirebaseAnalytics.getInstance(this);pop("onstart");
+            mAnalytics = FirebaseAnalytics.getInstance(this);
         }
 
 
@@ -491,7 +496,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         @Override
         protected void onPause () {
             super.onPause();
-            Log.d(TAG, "onPause: ");
+
         }
 
         @Override
@@ -622,6 +627,8 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+//                // TODO: 10/11/16 show settings page
                 Log.d(TAG, "onClick:NO Internet Button CLicked");
             }
         });

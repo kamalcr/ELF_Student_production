@@ -163,8 +163,9 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
        
         topicProvider = new TopicProvider(this);
         studentId = mStore.getStudentId();
+
+        //maiking Request with Known Vaiiables
         if (lessonId != null && studentId != null  && subjectId != null){
-            Log.d(TAG, "onCreate: lesson id to get report is "+lessonId);
             getTopicForlesson(lessonId,studentId,subjectId);
         }
         else{
@@ -193,8 +194,6 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
     private void getTopicForlesson(String lessonId, String studentId, String id) {
         JSONObject mObject  = new JSONObject();
         Log.d(TAG, "getTopicForlesson: ");
-
-//        // TODO: 6/11/16 add dynamic
 
         try {
 
@@ -260,6 +259,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
             if (mRequestQueue != null){
                  if (getTopicRequest != null){
                      mRequestQueue.addToRequestQue(getTopicRequest);
+                     count++;
                  }
             }
         }
@@ -267,12 +267,20 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
 
     @Override
     public void NetworkError() {
+        //Request has been sent two times / show Time out Error
+        mChangableRoot.removeAllViews();
+        View v = View.inflate(this,R.layout.no_internet,mChangableRoot);
+
+
 
     }
 
     @Override
     public void ServerError() {
-        Log.d(TAG, "ServerError: ");
+        //Request has been sent two times / show Time out Error
+        mChangableRoot.removeAllViews();
+        View v = View.inflate(this,R.layout.no_data,mChangableRoot);
+
     }
 
     @Override
@@ -299,7 +307,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
             }
         }
         else{
-            //adapter set
+            //adapter set , do nothing
         }
 
     }

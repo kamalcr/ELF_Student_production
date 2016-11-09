@@ -281,7 +281,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
     /*This Method gives us the list of institution from { @link InstituteRespHandler }
     * Prepare the Adatpter and set it to Cusotm Autcomplete
     *
-    * //todo set Autocomplete view
+    *
     *
     *
     * */

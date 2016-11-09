@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout android:layout_height="match_parent"
+<ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
 
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,7 +23,7 @@
         android:text="@string/instituion_amp_board"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="@dimen/ins_page_tm"
         android:textColor="@color/pink900"
         android:textStyle="bold"
         android:id="@+id/textView8"
@@ -36,6 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/pink900"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:textSize="18sp"
         android:layout_below="@+id/textView8"
         android:layout_centerHorizontal="true"
@@ -74,7 +76,7 @@
         android:text="STANDARD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="@dimen/standar_margin_top"
         android:textColor="@color/pink900"
         android:id="@+id/ins_std_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -104,10 +106,11 @@
         android:text="COMPLETE REGISTRATION"
         android:id="@+id/institute_page_register_button"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="43dp"
+       android:layout_below="@id/ins_std_spinner"
+        android:layout_marginTop="8dp"
         android:background="@color/material_pinkA200"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</ScrollView>

@@ -37,6 +37,7 @@ import com.elf.elfstudent.model.Answers;
 import com.elf.elfstudent.model.Question;
 import com.elf.elfstudent.model.TestSubmit;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.google.firebase.crash.FirebaseCrash;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -157,6 +158,9 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
             mSubjectName  =getIntent().getStringExtra(BundleKey.SUBJECT_NAME);
             mTestDesc = getIntent().getStringExtra(BundleKey.TEST_DESC);
         }
+        else{
+            throw new NullPointerException("TestID cannot be Null");
+        }
 
 
         //get Question From webServices , until then
@@ -164,8 +168,6 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         mQuestionProvider = new QuestionProvider(this);
         errorHandler = new ErrorHandler(this);
         mTestSubmiter  = new TestSubitter(this);
-
-        Log.d(TAG, "onCreate: "+mTestId);
 
 
         prepareTestQuestionsFor(mTestId,mSubjectId);
@@ -234,12 +236,13 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
 
                 //Adding Student Id and test Id to
+
                 testSubmit.setStudnetID(mStore.getStudentId());
                 testSubmit.setTestId(mTestId);
                 SubmitTest(testSubmit,count,mArray);
             }
                 catch (Exception e){
-                    Log.d(TAG, "finishTest: exception e "+e.getLocalizedMessage());
+                  FirebaseCrash.log("Finish Test Exception "+e.getLocalizedMessage());
                 }
         }
     }
@@ -276,6 +279,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
         catch (Exception e){
 
+            FirebaseCrash.log("Test Not Submitted in "+e.getLocalizedMessage());
         }
 
     }
@@ -284,6 +288,9 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.d(TAG, "onCreateOptionsMenu: ");
         getMenuInflater().inflate(R.menu.test_write, menu);
+
+//        // TODO: 10/11/16 add timer
+
 
         TimerMenu rc=(TimerMenu) menu
                 .findItem(R.id.countdown)
@@ -306,14 +313,13 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
         //contstruct Request Parameters
         final JSONObject mObject = new JSONObject();
-        // todo: Dynamic Student id
-        //       {"StudentId":1,"TestId":1,"SubjectId":2}
+
         try {
-            mObject.put("StudentId", "1");
-            mObject.put("TestId", "1");
-            mObject.put("SubjectId", "2");
+            mObject.put("StudentId", mStudentID);
+            mObject.put("TestId", mTestId);
+            mObject.put("SubjectId", mSubjectId);
         } catch (Exception e) {
-            Log.d(TAG, "Exception in putting JSON Objects: ");
+            FirebaseCrash.log("Exception in pUtting Test Request JSOn Object");
         }
 
         //Request Object
@@ -324,59 +330,13 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
             mRequestQueue.addToRequestQue(getQuestionRequest);
         }
-
-
-    }
-
-
-
-    /*
-    * The Method parses the response and Builds Appropriate
-     * List of Model object  {@link  Question }
-     * and Provides that to recycler view
-     *
-    *
-    * */
-
-
-    private void processQuestionList(JSONArray response) {
-        JSONObject mObject;
-        Log.d(TAG, "onResponse: Test Result");
-        mQuestionCount = response.length();
-        String[] mTitles = new String[mQuestionCount];
-        try {
-            if (mQuestionList == null) {
-                mQuestionList = new ArrayList<>(mQuestionCount);
-            }
-
-            for (int i = 0; i < mQuestionCount; i++) {
-                mObject = response.getJSONObject(i);
-                Log.d(TAG, "onResponse: " + mObject);
-
-                //for each question in Resposne , get Question and Add it
-                //question List
-                mQuestionList.add(new Question(mObject.getString("QuestionId")
-                        , mObject.getString("Question"),
-                        mObject.getString("OptionA"),
-                        mObject.getString("OptionB"),
-                        mObject.getString("OptionC"),
-                        mObject.getString("OptionD"),
-                        mObject.getString("Answer"), false
-                ));
-
-                //set title(question count ) for tabs  ( +1 for not showing zero)
-                mTitles[i] = String.valueOf(i + 1);
-
-
-            }
-            setAdapter(mTitles, mQuestionList);
-
-        } catch (Exception e) {
-            Log.d(TAG, "Exception in parsing " + e.getLocalizedMessage());
+        else{
+            throw new NullPointerException("Request Queue cannot be Null");
         }
 
 
     }
+
 
 
     //set Adapter data and Tab
@@ -446,6 +406,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     @Override
     public void TimeoutError() {
+
+//        // TODO: 10/11/16 set tag ,retry  , i.e add to Request quueue based on Request TAG
         if(!(count>2)){
             //count is not greater than 2 , make re request
         }
@@ -459,6 +421,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     @Override
     public void NetworkError() {
 
+
         mChangableRoot.removeAllViews();
         View v = View.inflate(this,R.layout.no_internet,mChangableRoot);
 
@@ -466,7 +429,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     @Override
     public void ServerError() {
-
+        mChangableRoot.removeAllViews();
+        View v = View.inflate(this,R.layout.no_data,mChangableRoot);
     }
 
     @Override

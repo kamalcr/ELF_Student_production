@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -48,11 +49,16 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
 
     String email = null;
     String phoneNumber = null;
+    ProgressDialog mDialog = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forogot_password);
         ButterKnife.bind(this);
+
+        mDialog = new ProgressDialog(this);
+        mDialog.setIndeterminate(true);
+        mDialog.setMessage("Just a moment");
 
 
 
@@ -72,6 +78,9 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
     }
 
     private void forogotButtonClicked() {
+        if (!mDialog.isShowing()){
+            mDialog.show();
+        }
        email  = mEmailBox.getEditText().getText().toString();
         phoneNumber = mPhoneBox.getEditText().getText().toString();
 
@@ -120,19 +129,27 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
         super.onConfigurationChanged(newConfig);
     }
 
+
+
+    private void stopDialog(){
+        if (mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+    }
     @Override
     public void TimeoutError() {
 
+        stopDialog();
     }
 
     @Override
     public void NetworkError() {
-
+        stopDialog();
     }
 
     @Override
     public void ServerError() {
-
+        stopDialog();
     }
 
     /*
@@ -141,6 +158,9 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
 
     @Override
     public void ShowPassword(String password) {
+
+
+        stopDialog();
 
 
         //Entered Credentails is Correct
@@ -156,8 +176,8 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
 
     @Override
     public void WrongDetailsEntered() {
-
-
+        stopDialog();
+//// TODO: 10/11/16 show shake animation
 
     }
 }

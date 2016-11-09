@@ -55,6 +55,9 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
 
     TestCompletedPagerAdapter mAdapter  = null;
 
+    DataStore mStore = null;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,18 +72,30 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
 
 
 
+
+
         //get The Test Variables from intent
         if (getIntent() != null){
             testDesc = getIntent().getStringExtra(BundleKey.TEST_ID);
             subjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
             testId = getIntent().getStringExtra(BundleKey.TEST_DESC);
         }
+        else{
+            throw new NullPointerException("Intent  Cannot Be null");
+        }
 
 
-//        getDetailedTestReport(testId,studentId);
 
 
-        setAdapterToPager("1");
+
+        if (testId!= null){
+
+            setAdapterToPager(testId);
+        }
+        else{
+            throw  new NullPointerException("Test ID cannot be Null");
+        }
+
 
 
     }

@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.JsonProcessors.EmailHandler;
@@ -62,6 +63,11 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
 
     @BindView(R.id.email_next_button)
     ImageButton mNextButton;
+
+    //sign in Text
+
+    @BindView(R.id.sign_in_text)
+    HelviticaLight mSignIn;
 
     DataStore mStore = null;
     EmailHandler emailHandler = null;
@@ -106,6 +112,20 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
                 CheckEmail();
             }
         });
+
+        //Sign in Page
+
+        mSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showLoginPage();
+            }
+        });
+    }
+
+    private void showLoginPage() {
+        final  Intent i = new Intent(this,LoginActivity.class);
+        startActivity(i);
     }
 
     private void CheckEmail() {
@@ -174,6 +194,7 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
 
             @Override
             public void onAnimationEnd(Animator animator) {
+                mSignIn.setVisibility(View.VISIBLE);
                 popupNextButton();
             }
 

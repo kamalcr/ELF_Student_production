@@ -178,17 +178,22 @@ public class DataStore {
         editor.apply();
     }
 
-    public void setStudentPrefrerredSubject(int i){
+    public void setStudentPrefrerredSubject(String  i){
         //Zero for Computer
-        if (i == 0){
-            Log.d("PREFS", "Saving group computer:");
-            editor.putString(SUBJECT_SELECTED,COMPUTER);
-            editor.apply();
+        if (i.equals("0")){
+           //do nothing , student is tenth
+
         }
 
         //one for bio
-        else{
+        else if (i.equals("1")){
             Log.d("PREFS", "Saving group Bio:");
+            editor.putString(SUBJECT_SELECTED,COMPUTER);
+            editor.apply();
+
+        }
+        else if (i.equals("2")){
+            //// TODO: 10/11/16 ad io
             editor.putString(SUBJECT_SELECTED,BIOLOGY);
             editor.apply();
         }

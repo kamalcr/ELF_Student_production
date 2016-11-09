@@ -49,7 +49,6 @@ public class TestReportsActivity extends AppCompatActivity
 
     private static final String TAG = "TEST_REPORT";
 
-//    // TODO: 2/11/16 add URl
     private static final String GET_TEST_REPORT_URL = "http://www.hijazboutique.com/elf_ws.svc/GetWritenTestDetails";
 
     RecyclerView mList = null;
@@ -84,9 +83,12 @@ public class TestReportsActivity extends AppCompatActivity
     TestReportProvider mListDataProvider = null;
     private AppRequestQueue mRequestQueue;
 
+    JsonArrayRequest mRequest = null;
+
 
     List<TestReportModel> mTestListdata = null;
     private boolean isDrawerShowing =false;
+    private int count = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -282,7 +284,7 @@ public class TestReportsActivity extends AppCompatActivity
         catch (Exception e ){
             Log.d(TAG, "getWriitetenTestFor: ");
         }
-        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST,GET_TEST_REPORT_URL,mObject,mListDataProvider,errorHandler);
+        mRequest  = new JsonArrayRequest(Request.Method.POST,GET_TEST_REPORT_URL,mObject,mListDataProvider,errorHandler);
         if (mRequestQueue != null){
             mRequestQueue.addToRequestQue(mRequest);
         }
@@ -334,15 +336,34 @@ public class TestReportsActivity extends AppCompatActivity
     @Override
     public void TimeoutError() {
 
+
+        if (!(count>2)){
+            //Retry Request
+            mRequestQueue.addToRequestQue(mRequest);
+            count++;
+        }
+        else{
+
+            mChangableRoot.removeAllViews();
+            View view = View.inflate(this,R.layout.try_again_layout,mChangableRoot);
+        }
+
+
     }
 
     @Override
     public void NetworkError() {
 
+
+        mChangableRoot.removeAllViews();
+        View view = View.inflate(this,R.layout.no_internet,mChangableRoot);
     }
 
     @Override
     public void ServerError() {
+
+        mChangableRoot.removeAllViews();
+        View view = View.inflate(this,R.layout.no_data,mChangableRoot);
 
     }
 
@@ -381,7 +402,9 @@ public class TestReportsActivity extends AppCompatActivity
     @Override
     public void ShowTestReportFor(int position, TestReportsAdapter.TestReportHolder holder) {
 
-        closeDrawer();
+      if (isDrawerShowing){
+          closeDrawer();
+      }
 
         //first get the Test Id
         String testId = null;
@@ -394,6 +417,9 @@ public class TestReportsActivity extends AppCompatActivity
                  i.putExtra(BundleKey.TEST_ID,testId);
                  startActivity(i);
 
+             }
+             else {
+                 throw new NullPointerException("TestID cannot be null");
              }
          }
     }
