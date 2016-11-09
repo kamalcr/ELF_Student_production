@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/material_deeppurpleA200"
+    app:cardBackgroundColor="@color/white_primary"
     android:layout_margin="2dp"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"

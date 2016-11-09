@@ -511,8 +511,10 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
 
             try{
+                if(isDrawerShowing){
 
-                DropButtonClicked();
+                    DropButtonClicked();
+                }
                 Log.d(TAG, "InfoButtonClicked: ");
                 //get the view and transition Name of views
 //                HelviticaLight subjectName = (HelviticaLight) itemView.findViewById(R.id.subject_title);

@@ -31,7 +31,7 @@
                 android:layout_width="100dp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/chn_profile_image"
-                android:src="@drawable/ic_users"
+                app:srcCompat="@drawable/ic_users"
                 android:layout_height="100dp" />
 
             <com.elf.elfstudent.CustomUI.HelviticaLight

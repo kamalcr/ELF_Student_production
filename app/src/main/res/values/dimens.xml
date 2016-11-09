@@ -8,4 +8,6 @@
     <dimen name="forgot_button_top_margin">36dp</dimen>
     <dimen name="try_again_text_margin_top">32dp</dimen>
     <dimen name="try_again_text_size">24sp</dimen>
+    <dimen name="drawer_text_bottom_margin">30dp</dimen>
+    <dimen name="drawer_textt_tr_bm">16dp</dimen>
 </resources>

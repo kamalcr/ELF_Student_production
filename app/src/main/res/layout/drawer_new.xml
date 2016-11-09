@@ -10,7 +10,7 @@
     android:layout_marginStart="2dp"
     app:cardCornerRadius="4dp"
     android:layout_marginTop="4dp"
-    app:cardBackgroundColor="@color/white"
+
     xmlns:android="http://schemas.android.com/apk/res/android">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -165,7 +165,7 @@
             <com.elf.elfstudent.CustomUI.QucikSand
                 android:layout_width="match_parent"
                 android:text="Test Reports"
-               android:layout_marginBottom="20dp"
+                android:layout_marginBottom="@dimen/drawer_textt_tr_bm"
                 android:id="@+id/test_reports_drawer_text"
                 android:layout_height="wrap_content"
                 style="@style/drawer_text_view"/>

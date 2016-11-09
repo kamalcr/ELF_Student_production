@@ -25,6 +25,8 @@
         android:layout_width="wrap_content"
         android:id="@+id/home_list_sub"
         android:textSize="18sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:text="Click on a Subject to see In-Depth Details"
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"

@@ -269,6 +269,13 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
         mContext =null;
+        errorHandler = null;
+        mLessonProvider = null;
+        mStore = null;
+        mRequestQueue = null;
+        getLessonRequest = null;
+        subjecId = null;
+        subjectName = null;
     }
 
     @Override
