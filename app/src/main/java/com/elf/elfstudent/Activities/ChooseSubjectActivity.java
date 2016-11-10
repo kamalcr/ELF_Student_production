@@ -43,7 +43,7 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
     String studentId = null;
 
 
-    int  SUBJECT;
+    String  SUBJECT;
 
 
 
@@ -190,12 +190,12 @@ public class ChooseSubjectActivity extends AppCompatActivity implements ErrorHan
         switch (radioGroup.getCheckedRadioButtonId()){
             case R.id.bio_group:
                 Log.d(TAG, "Biology Clicked");
-                SUBJECT = 1;
+                SUBJECT = "0";
                 mStore.setStudentPrefrerredSubject(SUBJECT);
                 break;
             case R.id.cs_group:
                 Log.d(TAG, "onCheckedChanged: ");
-                SUBJECT = 0;
+                SUBJECT = "1";
                 mStore.setStudentPrefrerredSubject(SUBJECT);
                 break;
         }

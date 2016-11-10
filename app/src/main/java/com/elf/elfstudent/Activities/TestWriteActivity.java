@@ -361,6 +361,10 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         }
     }
 
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return  mAdapter.getQuestionList();
+    }
 
     @Override
     protected void onDestroy() {

@@ -76,7 +76,7 @@
         android:layout_marginBottom="40dp"
         android:layout_height="96dp"
         android:layout_marginLeft="8dp"
-        android:src="@mipmap/pro_pic"
+
         app:civ_border_width="2dp"
         app:civ_border_color="@color/white_light"/>
         <com.elf.elfstudent.CustomUI.HelviticaLight

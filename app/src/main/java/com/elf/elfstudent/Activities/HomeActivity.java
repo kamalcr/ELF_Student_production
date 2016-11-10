@@ -2,6 +2,7 @@ package com.elf.elfstudent.Activities;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
@@ -43,6 +45,7 @@ import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.model.SubjectModel;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -132,8 +135,6 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
     //The App bar layout
 
-    @BindView(R.id.home_app_bar)
-    AppBarLayout mAppbar;
 
 
 
@@ -198,9 +199,12 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
 
         //setting trophy images
-        mStateImage.setImageResource(R.drawable.state);
-        overall.setImageResource(R.drawable.overall);
-        mdist.setImageResource(R.drawable.district);
+        Picasso.with(this).load(R.drawable.state).into(mStateImage);
+        Picasso.with(this).load(R.drawable.overall).into(mStateImage);
+        Picasso.with(this).load(R.drawable.district).into(mdist);
+//        mStateImage.setImageResource(R.drawable.state);
+//        overall.setImageResource(R.drawable.overall);
+//        mdist.setImageResource(R.drawable.district);
 
         //get The details for this User from Shared PRefs
         mStore  = DataStore.getStorageInstance(this.getApplicationContext());
@@ -385,6 +389,9 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
         if(mStore != null){
 
+            Picasso.with(this).load(R.mipmap.pro_pic)
+                    .resize(100,100)
+                    .into(mProfilePicture);
             mSchoolname.setText(mStore.getInstituionName());
 
             mStandardName.setText(String.format("%s Standard", mStore.getStandard()));
@@ -497,7 +504,45 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         protected void onPause () {
             super.onPause();
 
+          unbindDrawables(mProfilePicture);
+
+
         }
+
+
+    //Unbinds Drawable , call this method in onPause , with a  to call System.gc();
+
+    /**
+     * see the post  <a href = "http://stackoverflow.com/questions/14620848/getting-out-of-memory-error-while-starting-a-activity-in-android-app"></a>
+     *
+     *  for futher clairificaitons
+     * */
+
+
+
+    private void unbindDrawables(View view) {
+        try{
+            System.out.println("UNBINDING"+view);
+            if (view.getBackground() != null) {
+
+                ((BitmapDrawable)view.getBackground()).getBitmap().recycle();
+                view.getBackground().setCallback(null);
+                view=null;
+            }
+
+            if (view instanceof ViewGroup) {
+                for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                    unbindDrawables(((ViewGroup) view).getChildAt(i));
+                }
+                ((ViewGroup) view).removeAllViews();
+            }
+
+        }catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+    }
+
 
         @Override
         protected void onResume () {

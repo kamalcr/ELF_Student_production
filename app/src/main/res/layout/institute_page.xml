@@ -11,12 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:scaleType="center"
 
-        android:src="@mipmap/logo_back_plain"
-        android:layout_height="match_parent" />
 
 
     <com.elf.elfstudent.CustomUI.HelviticaMedium
@@ -109,7 +104,6 @@
        android:layout_below="@id/ins_std_spinner"
         android:layout_marginTop="8dp"
         android:background="@color/material_pinkA200"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
 
