@@ -90,7 +90,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
 
 
-    String overall = "";
+    String overall = "75";
 
     private List<Topic> mTopiclist = null;
 //    List<T> mLessonNames;
@@ -114,7 +114,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     FrameLayout mLoadingLayout;
 
     @BindView(R.id.report_visisble_layout)
-    ScrollView    mVisibleLayout;
+    FrameLayout    mVisibleLayout;
 
 
 
@@ -144,6 +144,9 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
             subjectName = getArguments().getString(BundleKey.SUBJECT_NAME);
 
         }
+        else{
+            throw new NullPointerException("Arguments Cannot be null");
+        }
 
 
         //Check whetther subject id and name is not null
@@ -168,6 +171,19 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
             PrepareSubjectReportsFor(studentId,subjecId);
 
         }
+        else{
+            //NO request or Adapter is sent , display no data page
+            try {
+                mLoadingLayout.removeAllViews();;
+                View v = LayoutInflater.from(getContext()).inflate(R.layout.no_internet,mLoadingLayout,true);
+
+
+            }
+            catch (Exception e ){
+                FirebaseCrash.log("Adapter is not made , excepition in showing no data page");
+
+            }
+        }
 
 
 
@@ -177,15 +193,21 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
         return mView;
 
     }
+
+
+
+
+
+
+
     private void PrepareSubjectReportsFor(String studentId, String subjecId) {
         JSONObject mObject = new JSONObject();
         try {
 
-//            // TODO: 4/11/16 dynamic student
-            mObject.put("studentId", "1");
-            mObject.put("subjectId", "11");
+            mObject.put("studentId", studentId);
+            mObject.put("subjectId", subjecId);
         } catch (Exception e) {
-            Log.d(TAG, "PrepareSubjectReportsFor: ");
+            FirebaseCrash.log("Exception in putting JSON oBject");
         }
 
         getLessonRequest = new JsonArrayRequest(Request.Method.POST, REPORT_URL, mObject, mLessonProvider, errorHandler);
@@ -328,12 +350,15 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
 
         try{
+
+            //got the list from server , dispay it, after pie animations
             setPieChartValue(overall);
             decorator = new RVdecorator(ContextCompat.getDrawable(mContext,R.drawable.divider));
             mAdapter = new ReportLessonAdapter(getContext(),mLessons,this);
             mList.setLayoutManager(new LinearLayoutManager(mContext));
             mList.addItemDecoration(decorator);
             mList.setAdapter(mAdapter);
+
         }
         catch (Exception e ){
             FirebaseCrash.log("Exception in setting Adapter Report Fragment");
@@ -367,7 +392,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
             dataSet.setSliceSpace(1f);
             dataSet.setSelectionShift(5f);
             ArrayList<Integer> colors = new ArrayList<Integer>();
-            colors.add((Color.parseColor("#FE9C8E")));
+            colors.add((Color.parseColor("#F20654")));
             colors.add((Color.parseColor("#36353F")));
             dataSet.setColors(colors);
 
@@ -376,7 +401,8 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
             data.setValueTextSize(11f);
             data.setValueTextColor(Color.WHITE);
              mChart.setData(data);
-            mChart.animateY(400, Easing.EasingOption.EaseOutQuad);
+            mChart.animateY(400, Easing.EasingOption.EaseOutSine);
+
 //            data.setValueTypeface(mTfLight);
 
     }

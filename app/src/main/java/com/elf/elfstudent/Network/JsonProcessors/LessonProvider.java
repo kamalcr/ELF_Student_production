@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.elf.elfstudent.model.Lesson;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +42,8 @@ public class LessonProvider implements Response.Listener<JSONArray> {
         Log.d("Lesson List", "onResponse: "+response.toString());
         mlist=new ArrayList<>(count);
         if (!(count>1)){
-
+            //count is not greater than 1 , show error
+            FirebaseCrash.log("No Lesson List in Response ");
             mCallback.noLesson();
         }
         else {
@@ -60,8 +63,8 @@ public class LessonProvider implements Response.Listener<JSONArray> {
 
                     percentageSum = (int) (percentageSum+Float.parseFloat(mObject.getString("Percentage")));
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                   FirebaseCrash.log(" "+e.getLocalizedMessage());
                 }
             }
 

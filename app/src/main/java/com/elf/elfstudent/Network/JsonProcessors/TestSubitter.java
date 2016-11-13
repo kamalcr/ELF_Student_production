@@ -3,6 +3,7 @@ package com.elf.elfstudent.Network.JsonProcessors;
 import android.util.Log;
 
 import com.android.volley.Response;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,7 +37,8 @@ public class TestSubitter implements Response.Listener<JSONArray> {
             }
         }
         catch (Exception e ){
-            Log.d(TAG, "onResponse: ");
+           mCallback.testNotSubmitted();
+            FirebaseCrash.log("Test Not Sumitted  Exception in Putting Test Object");
         }
     }
 

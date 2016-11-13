@@ -47,8 +47,28 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:id="@+id/payment_pay_button" />
+
+            <TextView
+                android:text="Pay through Paytm, Debitcard , NetBanking & more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pay_text"
+                android:layout_alignLeft="@+id/payment_pay_button"
+                android:layout_alignStart="@+id/payment_pay_button"
+                android:id="@+id/textView7" />
+
+            <TextView
+                android:text="Payments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pay_text"
+                android:layout_marginTop="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/textView7"
+                android:layout_alignStart="@+id/textView7" />
         </RelativeLayout>
-        <FrameLayout
+
+        <!--        <FrameLayout
             android:layout_width="60dp"
             android:id="@+id/payment_drawer_frame"
 
@@ -56,8 +76,9 @@
             android:layout_height="match_parent">
 
             <include layout="@layout/drawer_new"
-                />
-        </FrameLayout>
+                android:layout_width="0dp" />
+        </FrameLayout>-->
+
     </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>

@@ -74,7 +74,7 @@ public void onBindViewHolder(HomeHolder holder, int position) {
 
 
 
-        holder.mSubjectImage.setImageResource(R.drawable.bio_sc);
+        holder.mSubjectImage.setImageResource(R.drawable.sciencee);
 //        ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");
         ViewCompat.setTransitionName(holder.mPercent, String.valueOf(position) + "_sub");
         ViewCompat.setTransitionName(holder.mRootView,String.valueOf(position) + "_root");

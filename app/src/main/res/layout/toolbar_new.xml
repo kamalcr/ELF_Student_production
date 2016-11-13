@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/elf_toolbar"
+    app:layout_scrollFlags="scroll|exitUntilCollapsed"
 
 
     android:background="@color/black_viewpager"

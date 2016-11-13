@@ -37,6 +37,7 @@ import com.elf.elfstudent.model.Answers;
 import com.elf.elfstudent.model.Question;
 import com.elf.elfstudent.model.TestSubmit;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -128,6 +129,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     private int count = 0;
     private long timer = 1000 * 60 *20;  //20minutes
 
+    FirebaseAnalytics mAnalytics  = null;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -144,6 +147,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         mBar.setIndeterminate(true);
         mBar.setTitle("Getting Questions");
         mBar.show();
+
+
 
         if (mStore != null){
             mStudentID = mStore.getStudentId();
@@ -170,7 +175,18 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         mTestSubmiter  = new TestSubitter(this);
 
 
-        prepareTestQuestionsFor(mTestId,mSubjectId);
+
+        if (mTestId != null && mSubjectId != null) {
+
+            prepareTestQuestionsFor(mTestId,mSubjectId);
+        }
+        else {
+
+            //NO Test PAge Noticed
+             FirebaseCrash.log("NO Request is being Passed");
+            mChangableRoot.removeAllViews();
+            View v = View.inflate(this,R.layout.no_data,mChangableRoot);
+        }
 
         //The Button which Completed the Test
         testWriteFinish.setOnClickListener(new View.OnClickListener() {
@@ -287,21 +303,6 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.d(TAG, "onCreateOptionsMenu: ");
-        getMenuInflater().inflate(R.menu.test_write, menu);
-
-//        // TODO: 10/11/16 add timer
-
-
-        TimerMenu rc=(TimerMenu) menu
-                .findItem(R.id.countdown)
-                .getActionView();
-
-        rc.setOverallDuration(timer);
-
-//        rc.setOnClickListener(this);
-//        rc.setOnLongClickListener(this);
-        rc.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-        rc.setTextColor(Color.WHITE);
 
         return true;
     }
@@ -319,7 +320,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
             mObject.put("TestId", mTestId);
             mObject.put("SubjectId", mSubjectId);
         } catch (Exception e) {
-            FirebaseCrash.log("Exception in pUtting Test Request JSOn Object");
+            FirebaseCrash.log("Exception in Putting  Test Request JSOn Object");
         }
 
         //Request Object
@@ -410,14 +411,12 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     @Override
     public void TimeoutError() {
+   // TODO: 10/11/16 set tag ,retry  , i.e add to Request quueue based on Request TAG
 
-//        // TODO: 10/11/16 set tag ,retry  , i.e add to Request quueue based on Request TAG
-        if(!(count>2)){
-            //count is not greater than 2 , make re request
-        }
-        else{
+        FirebaseCrash.log("Time put Error ");
             mChangableRoot.removeAllViews();
             View v = View.inflate(this, R.layout.try_again_layout,mChangableRoot);
+
 
         }
     }
@@ -466,6 +465,13 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     @Override
     public void testNotSubmitted() {
-        Toast.makeText(getApplicationContext(),"Test Not Submitted",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Test Not Submitted,Please Try again",Toast.LENGTH_SHORT).show();
+        finish();
+        Intent i = new Intent(this,TestWriteActivity.class);
+        i.putExtra(BundleKey.TEST_ID,mTestId);
+        i.putExtra(BundleKey.SUBJECT_ID,mSubjectId);
+        startActivity(i);
+
+
     }
 }

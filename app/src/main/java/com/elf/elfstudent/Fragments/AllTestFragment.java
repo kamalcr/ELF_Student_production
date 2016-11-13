@@ -276,14 +276,15 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
 
     @Override
     public void NetworkError() {
-        if (!mViewRoot.isShown()){
+        if (!mViewRoot.isShown()) {
             mViewRoot.setVisibility(View.VISIBLE);
-            mViewRoot.removeAllViews();
-            View v = View.inflate(getContext(),R.layout.no_internet,mViewRoot);
         }
+
         if (mDataLayout.isShown()){
             mDataLayout.setVisibility(View.INVISIBLE);
         }
+    mViewRoot.removeAllViews();
+    View v = View.inflate(getContext(),R.layout.no_internet,mViewRoot);
     }
 
     @Override
@@ -317,14 +318,12 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
 
 
         if (!mDataLayout.isShown()){
-
-
+            //IF Data layout is not shown , show data layout
             mDataLayout.setVisibility(View.VISIBLE);
             if(mViewRoot.isShown()){
+                //
                 mViewRoot.setVisibility(View.INVISIBLE);
             }
-
-
         }
         setSocailAdapter(mSocial);
         setScicneAdapter(mScience);

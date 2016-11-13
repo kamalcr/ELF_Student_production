@@ -31,10 +31,10 @@
 
                 app:tabMode="fixed"
                 app:tabGravity="fill"
-                app:tabBackground="@color/black_viewpager"
-                app:tabTextColor="@color/white_light"
-                app:tabSelectedTextColor="@color/white"
-                app:tabIndicatorColor="@color/white"
+
+                app:tabTextColor="@color/material_black"
+                app:tabSelectedTextColor="@color/pink900"
+                app:tabIndicatorColor="#F20654"
                 android:layout_height="wrap_content">
 
             </android.support.design.widget.TabLayout>

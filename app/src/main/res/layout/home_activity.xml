@@ -10,8 +10,11 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:id="@+id/home_app_bar"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        android:scrollbarFadeDuration="200"
         android:layout_height="wrap_content">
         <include layout="@layout/toolbar_new"
+
             android:id="@+id/elf_toolbar"/>
     </android.support.design.widget.AppBarLayout>
 
@@ -26,6 +29,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/home_root_scrollview"
             android:layout_height="match_parent">
 

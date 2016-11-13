@@ -11,7 +11,7 @@
     <color name="violet_backdrop_white">#D1C4E9</color>
     <color name="puprle">#BA77FE</color>
     <color name="home_back_dark_violet">#473F5B</color>
-    <color name="white_light">#A0A2A4</color>
+    <color name="white_light">@color/material_grey100</color>
     <color name="report_black">#1A1B26</color>
     <color name="orang_dribble">#FE9C8E</color>
     <color name="black_viewpager">#35363F</color>

@@ -199,12 +199,11 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
 
         //setting trophy images
-        Picasso.with(this).load(R.drawable.state).into(mStateImage);
-        Picasso.with(this).load(R.drawable.overall).into(mStateImage);
+
         Picasso.with(this).load(R.drawable.district).into(mdist);
-//        mStateImage.setImageResource(R.drawable.state);
-//        overall.setImageResource(R.drawable.overall);
-//        mdist.setImageResource(R.drawable.district);
+        mStateImage.setImageResource(R.drawable.state);
+        overall.setImageResource(R.drawable.overall);
+        mdist.setImageResource(R.drawable.district);
 
         //get The details for this User from Shared PRefs
         mStore  = DataStore.getStorageInstance(this.getApplicationContext());

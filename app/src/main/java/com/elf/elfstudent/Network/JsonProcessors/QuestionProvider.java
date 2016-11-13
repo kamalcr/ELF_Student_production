@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.elf.elfstudent.model.Question;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,37 +35,44 @@ public class QuestionProvider implements Response.Listener<JSONArray> {
         Log.d("TestQUestion ", "onResponse: "+response.toString());
         JSONObject mObject;
         mQuestionCount = response.length();
-        String[] mTitles = new String[mQuestionCount];
-        try {
-            if (mQuestionList == null) {
-                mQuestionList = new ArrayList<>(mQuestionCount);
+        if ((mQuestionCount>0)){
+            //zero Questions , show no QUestion Page
+            mCallback.NoQuestionObtained();
+        }
+        else{
+            String[] mTitles = new String[mQuestionCount];
+            try {
+                if (mQuestionList == null) {
+                    mQuestionList = new ArrayList<>(mQuestionCount);
+                }
+
+                for (int i = 0; i < mQuestionCount; i++) {
+                    mObject = response.getJSONObject(i);
+
+                    //for each question in Resposne , get Question and Add it
+                    //question List
+                    mQuestionList.add(new Question(mObject.getString("QuestionId")
+                            , mObject.getString("Question"),
+                            mObject.getString("OptionA"),
+                            mObject.getString("OptionB"),
+                            mObject.getString("OptionC"),
+                            mObject.getString("OptionD"),
+                            mObject.getString("Answer"), false
+                    ));
+
+                    //set title(question count ) for tabs  ( +1 for not showing zero)
+                    mTitles[i] = String.valueOf(i + 1);
+
+
+                }
+
+                //All Request has been Processed fire up the implementation
+                mCallback.setQuestionList(mQuestionList,mTitles);
+
+            } catch (Exception e) {
+                FirebaseCrash.log("Exception in Puttin Page");
+                mCallback.NoQuestionObtained();
             }
-
-            for (int i = 0; i < mQuestionCount; i++) {
-                mObject = response.getJSONObject(i);
-
-                //for each question in Resposne , get Question and Add it
-                //question List
-                mQuestionList.add(new Question(mObject.getString("QuestionId")
-                        , mObject.getString("Question"),
-                        mObject.getString("OptionA"),
-                        mObject.getString("OptionB"),
-                        mObject.getString("OptionC"),
-                        mObject.getString("OptionD"),
-                        mObject.getString("Answer"), false
-                ));
-
-                //set title(question count ) for tabs  ( +1 for not showing zero)
-                mTitles[i] = String.valueOf(i + 1);
-
-
-            }
-
-            //All Request has been Processed fire up the implementation
-            mCallback.setQuestionList(mQuestionList,mTitles);
-
-        } catch (Exception e) {
-
         }
 
 

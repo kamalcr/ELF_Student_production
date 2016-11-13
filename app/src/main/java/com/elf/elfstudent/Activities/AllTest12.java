@@ -18,6 +18,7 @@ import com.elf.elfstudent.Adapters.PhysicsAdapter;
 import com.elf.elfstudent.Adapters.TestRecyclerAdapeters.MathsAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.DataStorage.DataStore;
+import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.TestListProvider12;
 import com.elf.elfstudent.R;
@@ -41,7 +42,8 @@ import butterknife.ButterKnife;
  *
  */
 
-public class AllTest12 extends Fragment implements ErrorHandler.ErrorHandlerCallbacks, TestListProvider12.TestProviderCallback12, PhysicsAdapter.PhysicsAdapterCallback, MathsAdapter.MathsAdapterCallback, ChemistryAdapter.ChemistryAdapterCallback, OptionalAdapter.OptionalCallback {
+public class AllTest12 extends Fragment implements
+        ErrorHandler.ErrorHandlerCallbacks, TestListProvider12.TestProviderCallback12, PhysicsAdapter.PhysicsAdapterCallback, MathsAdapter.MathsAdapterCallback, ChemistryAdapter.ChemistryAdapterCallback, OptionalAdapter.OptionalCallback {
 
 
     private static final String TAG = "AllTEST12";
@@ -77,6 +79,7 @@ public class AllTest12 extends Fragment implements ErrorHandler.ErrorHandlerCall
     ErrorHandler errorHandler  = null;
     TestListProvider12 testListProvider = null;
     DataStore mStore = null;
+    AppRequestQueue mRequestQueue  = null;
 
 
 
@@ -95,7 +98,8 @@ public class AllTest12 extends Fragment implements ErrorHandler.ErrorHandlerCall
     List<AllTestModels> optionalList = null;
 
     FirebaseAnalytics mAnalytics;
-
+    private int count = 0;
+    private String studentId = null;
 
 
     @Nullable
@@ -109,11 +113,34 @@ public class AllTest12 extends Fragment implements ErrorHandler.ErrorHandlerCall
         testListProvider  = new TestListProvider12(this);
         errorHandler = new ErrorHandler(this);
 
+        mRequestQueue = AppRequestQueue.getInstance(mContext);
         mAnalytics = FirebaseAnalytics.getInstance(mContext);
+
+
+        if (mStore != null){
+
+            studentId = mStore.getStudentId();
+        }
+        else{
+            throw new NullPointerException("Store cannot be Null");
+
+        }
+
+        if (studentId != null){
+            prepareTests(studentId);
+        }
+        else{
+            throw new NullPointerException("Studnet ID cannot be NUll");
+        }
+
 
 
 
         return v;
+    }
+
+    private void prepareTests(String s) {
+
     }
 
     @Override
@@ -167,6 +194,22 @@ public class AllTest12 extends Fragment implements ErrorHandler.ErrorHandlerCall
     @Override
     public void TimeoutError() {
 
+        if(!(count>2)){
+            //Retry Request again
+            if ()
+
+        }
+        else{
+            //show the trya again page
+            mchangeableRoot.removeAllViews();
+            try {
+
+                View v = View.inflate(mContext,R.layout.no_data,mchangeableRoot);
+            }
+            catch (Exception e ){
+                Log.d(TAG, "NoTestListData: ");
+            }
+        }
     }
 
     @Override

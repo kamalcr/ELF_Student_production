@@ -32,8 +32,8 @@ public class ErrorHandler implements Response.ErrorListener {
     @Override
     public void onErrorResponse(VolleyError error) {
 
-
-        Log.d(TAG, "onErrorResponse: "+error.getLocalizedMessage());
+        FirebaseCrash.log("Error Response in Request, Localised Message : "+error.getLocalizedMessage());
+        FirebaseCrash.log("Error Response in Request, General Message : "+error.getMessage());
 
 
         if (error instanceof NetworkError){

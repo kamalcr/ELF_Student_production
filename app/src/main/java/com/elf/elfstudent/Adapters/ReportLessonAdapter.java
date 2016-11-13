@@ -3,12 +3,16 @@ package com.elf.elfstudent.Adapters;
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.R;
+import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.model.Lesson;
 
 import java.util.List;
@@ -27,6 +31,9 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
     private List<Lesson> mList;
     LayoutInflater inflater = null;
     private LessonClickCallbacks mCallback;
+    private int Animated_item_count;
+    int last_pos = -1;
+
     public ReportLessonAdapter(Context context,List<Lesson> mLessonList,LessonClickCallbacks mCallback) {
         this.mList  = mLessonList;
         this.mContext = context;
@@ -46,7 +53,7 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
     public void onBindViewHolder(final LessonView holder, int position) {
 
 
-
+        runEnterAnimations(holder,position);
         holder.mLessonName.setText(mList.get(position).getmLessonName());
         holder.mGrowth.setText(mList.get(position).getmGrowthPercentage());
         ViewCompat.setTransitionName(holder.mLessonName,String.valueOf(position)+"_lesson");
@@ -60,6 +67,31 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
         });
     }
 
+
+
+    private void runEnterAnimations(LessonView holder, int position) {
+        Log.d("Animation",""+position);
+
+        if (position >= Animated_item_count){
+            Log.d("Animation","postion one");
+            return;
+        }
+
+        if (position>last_pos){
+
+            Log.d("Animation","inside if");
+            last_pos=position;
+            holder.itemView.setTranslationY(ScreenUtil.getScreenHeight(mContext));
+            holder.itemView.setScaleX(0.4f);
+            holder.itemView.setScaleY(0.4f);
+            holder.itemView.animate().translationY(0)
+                    .scaleX(1)
+                    .scaleY(1)
+                    .setInterpolator(new DecelerateInterpolator(2f))
+                    .setDuration(600)
+                    .start();
+        }
+    }
     @Override
     public int getItemCount() {
         return mList.size();
@@ -82,5 +114,6 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
 
    public interface LessonClickCallbacks{
         void ShowLessonReportFor(int position , LessonView itemView);
+
     }
 }

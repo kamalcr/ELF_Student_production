@@ -7,7 +7,7 @@
 
 
     <solid
-        android:color="@color/orang_dribble"/>
+        android:color="@color/pink900"/>
     <size
         android:height="1dp"/>
     <padding

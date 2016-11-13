@@ -6,6 +6,7 @@
     android:layout_centerVertical="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="4dp"
+
     android:layout_marginLeft="2dp"
     android:layout_marginStart="2dp"
     app:cardCornerRadius="4dp"
@@ -43,18 +44,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:id="@+id/home_icon"
+                android:scaleType="fitXY"
                 style="@style/drawer_image_view"
-                app:srcCompat="@drawable/iic_home_ih"
+               android:src="@drawable/ic_home_24"
                 android:layout_height="match_parent"
 
-                android:layout_alignParentBottom="true" />
+               />
 
-            <com.elf.elfstudent.CustomUI.HelviticaLight
-                android:text="Home"
-                style="@style/drawer_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView7" />
+
 
         </FrameLayout>
     </android.support.v7.widget.CardView>
