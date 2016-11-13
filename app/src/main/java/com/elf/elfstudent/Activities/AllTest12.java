@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Adapters.ChemistryAdapter;
 import com.elf.elfstudent.Adapters.OptionalAdapter;
 import com.elf.elfstudent.Adapters.PhysicsAdapter;
@@ -26,6 +28,8 @@ import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.model.AllTestModels;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -100,6 +104,7 @@ public class AllTest12 extends Fragment implements
     FirebaseAnalytics mAnalytics;
     private int count = 0;
     private String studentId = null;
+    private JsonArrayRequest mReq = null;
 
 
     @Nullable
@@ -140,7 +145,26 @@ public class AllTest12 extends Fragment implements
     }
 
     private void prepareTests(String s) {
+        JSONObject object = new JSONObject();
 
+//
+        try {
+            object.put("StudentId", "1");
+            object.put("Type", "All");
+
+
+        } catch (Exception e) {
+            FirebaseCrash.log("Exception in Making Json Object "+TAG);
+
+        }
+
+        // make request with that body
+
+        String URL = "http://www.hijazboutique.com/elf_ws.svc/GetPendingTests";
+        mReq = new JsonArrayRequest(Request.Method.POST, URL, object,
+                testListProvider, errorHandler);
+
+        mRequestQueue.addToRequestQue(mReq);
     }
 
     @Override
@@ -196,7 +220,12 @@ public class AllTest12 extends Fragment implements
 
         if(!(count>2)){
             //Retry Request again
-            if ()
+            if (mReq!=null){
+                if (mRequestQueue!=null){
+
+                    mRequestQueue.addToRequestQue(mReq);
+                }
+            }
 
         }
         else{
@@ -214,12 +243,26 @@ public class AllTest12 extends Fragment implements
 
     @Override
     public void NetworkError() {
+        mchangeableRoot.removeAllViews();
+        try {
 
+            View v = View.inflate(mContext,R.layout.no_internet,mchangeableRoot);
+        }
+        catch (Exception e ){
+            Log.d(TAG, "NoTestListData: ");
+        }
     }
 
     @Override
     public void ServerError() {
+        mchangeableRoot.removeAllViews();
+        try {
 
+            View v = View.inflate(mContext,R.layout.no_data,mchangeableRoot);
+        }
+        catch (Exception e ){
+            Log.d(TAG, "NoTestListData: ");
+        }
     }
 
     private void refreshLayout() {

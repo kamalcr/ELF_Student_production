@@ -8,34 +8,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <Button
-            android:text="Open Settings"
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_cloud_off_white_24px"
+        android:id="@+id/imageView3"
+        android:layout_marginTop="24dp"
+        android:layout_centerHorizontal="true"
+        />
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/no_internet_button"
-            android:layout_marginTop="24dp"
-            android:layout_below="@+id/internet_text_2"
-            android:layout_centerHorizontal="true" />
+    <TextView
+        android:text="Please Make sure you have active Internet Connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/textView26"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
-        android:layout_width="wrap_content"
-        android:gravity="center"
+        android:text="NO INTERNET"
         android:textColor="@color/white"
-        android:textSize="22sp"
-        android:layout_marginTop="8dp"
-        android:id="@+id/internet_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cloud"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-
-        app:srcCompat="@drawable/no_internet_"
-        android:id="@+id/cloud"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_alignParentTop="true"
+        android:id="@+id/textView3"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/imageView3"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
-

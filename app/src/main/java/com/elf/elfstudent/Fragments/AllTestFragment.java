@@ -121,7 +121,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
 
 //
         try {
-            object.put("StudentId", "1");
+            object.put("StudentId", mStdId);
             object.put("Type", "All");
 
 
@@ -179,6 +179,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         }
         else{
             FirebaseCrash.log("Test ID null in All Test 10");
+            throw new NullPointerException("Student ID cannot be nUll");
         }
 
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
