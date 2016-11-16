@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 20/10/16.
+ * used in {@link com.elf.elfstudent.Activities.TestReportsActivity}
  */
 public class TestReportsAdapter  extends RecyclerView.Adapter<TestReportsAdapter.TestReportHolder>{
 

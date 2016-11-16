@@ -1,5 +1,7 @@
 package com.elf.elfstudent.Network.JsonProcessors;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.elf.elfstudent.model.TestReportModel;
 
@@ -27,6 +29,7 @@ public class TestReportProvider implements Response.Listener<JSONArray> {
     @Override
     public void onResponse(JSONArray response) {
 
+        Log.d("TAG", "onResponse: from Test Rprts "+response.toString());
         int count = response.length();
 
         if (!(count>0)){
@@ -50,6 +53,8 @@ public class TestReportProvider implements Response.Listener<JSONArray> {
 
 
                 }
+
+
                 if (mWrittenTest != null){
                     mCallback.showWrittenTest(mWrittenTest);
                 }

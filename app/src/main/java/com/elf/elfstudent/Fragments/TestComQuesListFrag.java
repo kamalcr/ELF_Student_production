@@ -74,6 +74,8 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
     TestCompQuestionsAdapter mAdapter = null;
     private List<Answers> mListData;
     private Context mContext = null;
+    private boolean adapterset = false;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +163,7 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
         mRequest = new JsonArrayRequest(Request.Method.POST,TEST_DETAIL_URL,mObject,reportProvider,errorHandler);
 
         if (mRequestQueue!= null){
-            Log.d(TAG, "getTestReport: adding to Request quueue");
+
             mRequestQueue.addToRequestQue(mRequest);
         }
     }
@@ -212,12 +214,21 @@ public class TestComQuesListFrag extends Fragment implements ErrorHandler.ErrorH
         Bundle b  = new Bundle();
         b.putString(FirebaseAnalytics.Event.VIEW_ITEM_LIST,"Test Completed Questions Report -later");
         mAnalytics.logEvent("TestView - Later",b);
-        this.mListData = mTestReportQuestions;
-        mChangableLayout.removeAllViews();
-        View view = View.inflate(getActivity().getApplicationContext(),R.layout.home_recycler,mChangableLayout);
-        mAdapter = new TestCompQuestionsAdapter(mListData,getContext());
-       mList = (RecyclerView) view.findViewById(R.id.home_list);
-        mList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        mList.setAdapter(mAdapter);
+        if (!adapterset){
+            //adapter is not set
+            this.mListData = mTestReportQuestions;
+            mChangableLayout.removeAllViews();
+            View view = View.inflate(getActivity().getApplicationContext(),R.layout.home_recycler,mChangableLayout);
+            mAdapter = new TestCompQuestionsAdapter(mListData,getContext());
+            mList = (RecyclerView) view.findViewById(R.id.home_list);
+            mList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+            mList.setAdapter(mAdapter);
+            adapterset = true;
+        }
+        else{
+            //adapter is already set , do not do anything
+            Log.d(TAG, "TestDetails: else");
+        }
+
     }
 }

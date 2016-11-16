@@ -36,24 +36,19 @@
 
 
         android:layout_height="0dp">
-        <FrameLayout
-            android:layout_width="match_parent"
 
-            android:background="?selectableItemBackground"
-            android:layout_height="match_parent">
             <ImageView
                 android:layout_width="match_parent"
                 android:id="@+id/home_icon"
-                android:scaleType="fitXY"
                 style="@style/drawer_image_view"
-               android:src="@drawable/ic_home_24"
+                app:srcCompat = "@drawable/report_nav_icon"
                 android:layout_height="match_parent"
 
                />
 
 
 
-        </FrameLayout>
+
     </android.support.v7.widget.CardView>
 
 
@@ -80,16 +75,12 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:id="@+id/report_icon"
-                app:srcCompat="@drawable/iic_report"
+                android:scaleType="center"
+                app:srcCompat="@drawable/report_nav_icon"
                 android:layout_height="match_parent"
                 style="@style/drawer_image_view"
                />
-            <com.elf.elfstudent.CustomUI.HelviticaLight
-                android:layout_width="wrap_content"
-                android:text="Report"
-                style="@style/drawer_text_view"
-                android:id="@+id/report_drawer_text"
-                android:layout_height="wrap_content"/>
+
         </FrameLayout>
     </android.support.v7.widget.CardView>
 

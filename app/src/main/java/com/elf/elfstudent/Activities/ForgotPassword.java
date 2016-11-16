@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -95,7 +96,7 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
             Log.d(TAG, "forogotButtonClicked: ");
         }
 
-        JsonObjectRequest mRequest  = new JsonObjectRequest(Request.Method.POST,CHECK_URL,mObj,mForgotHander,errorHandler);
+        JsonArrayRequest mRequest  = new JsonArrayRequest(Request.Method.POST,CHECK_URL,mObj,mForgotHander,errorHandler);
         if (mRequestQueue != null){
 
             mRequestQueue.addToRequestQue(mRequest);

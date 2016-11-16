@@ -30,6 +30,7 @@ import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.QuestionProvider;
 import com.elf.elfstudent.Network.JsonProcessors.TestSubitter;
+import com.elf.elfstudent.Network.TestSubmitEH;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.TimerMenu;
@@ -61,7 +62,7 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
  * {@param testiD from Intent and Displays Them in View pager}
  */
 
-public class TestWriteActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, QuestionProvider.QuestionCallback, TestSubitter.SubmittedTestCallback {
+public class TestWriteActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, QuestionProvider.QuestionCallback, TestSubitter.SubmittedTestCallback, TestSubmitEH.ErrorCallbacks {
     private static final String TAG = "TestWritePage";
     private static final String TEST_SUBMIT = "http://www.hijazboutique.com/elf_ws.svc/SubmitTest";
     private static final String GET_QUESTIONS_URL = "http://www.hijazboutique.com/elf_ws.svc/GetTestQuestions";
@@ -122,6 +123,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     ErrorHandler errorHandler ;
 
     TestSubitter mTestSubmiter = null;
+    TestSubmitEH er = null;
 
     //The Request Objects
     private JsonArrayRequest getQuestionRequest = null;
@@ -130,6 +132,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     private long timer = 1000 * 60 *20;  //20minutes
 
     FirebaseAnalytics mAnalytics  = null;
+    ProgressDialog mCompleteDialog = null;
 
 
     @Override
@@ -143,10 +146,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         mRequestQueue = AppRequestQueue.getInstance(this);
         mStore = DataStore.getStorageInstance(this);
 
-        mBar = new ProgressDialog(this);
-        mBar.setIndeterminate(true);
-        mBar.setTitle("Getting Questions");
-        mBar.show();
+
 
 
 
@@ -160,8 +160,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
             mTestId = getIntent().getStringExtra(BundleKey.TEST_ID);
             mSubjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
-            mSubjectName  =getIntent().getStringExtra(BundleKey.SUBJECT_NAME);
-            mTestDesc = getIntent().getStringExtra(BundleKey.TEST_DESC);
+
         }
         else{
             throw new NullPointerException("TestID cannot be Null");
@@ -172,17 +171,19 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         //SHow progress Dialog or Some Animation
         mQuestionProvider = new QuestionProvider(this);
         errorHandler = new ErrorHandler(this);
+        er = new TestSubmitEH(this);
         mTestSubmiter  = new TestSubitter(this);
 
 
 
         if (mTestId != null && mSubjectId != null) {
-
+            Log.d(TAG, "onCreate: TestID "+mTestId +" Subject iD "+mSubjectId+ " Student ID : "+mStudentID);
             prepareTestQuestionsFor(mTestId,mSubjectId);
         }
         else {
 
             //NO Test PAge Noticed
+            Log.d(TAG, "onCreate: NO Request Sent");
              FirebaseCrash.log("NO Request is being Passed");
             mChangableRoot.removeAllViews();
             View v = View.inflate(this,R.layout.no_data,mChangableRoot);
@@ -208,6 +209,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         alertDialog.setPositiveButton("COMPLETE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 finishTest();
             }
         });
@@ -226,6 +228,11 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     { @link QuestionPagerAdapter and Sends to adapter for validation*/
 
     private void finishTest() {
+        mCompleteDialog = new ProgressDialog(this);
+        mCompleteDialog.setIndeterminate(true);
+        mCompleteDialog.setMessage("Validating your Answers");
+        mCompleteDialog.setCanceledOnTouchOutside(false);
+        mCompleteDialog.show();
         if(mAdapter != null){
 
 
@@ -258,6 +265,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
                 SubmitTest(testSubmit,count,mArray);
             }
                 catch (Exception e){
+                    Log.d(TAG, "finishTest: exception "+e.getLocalizedMessage());
                   FirebaseCrash.log("Finish Test Exception "+e.getLocalizedMessage());
                 }
         }
@@ -280,13 +288,14 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
             Log.d(TAG, "Submit Test Rquest body "+testObject.toString());
             //send Request
-            submitTestRequest = new JsonArrayRequest(Request.Method.POST, TEST_SUBMIT, testObject, mTestSubmiter,errorHandler);
+            submitTestRequest = new JsonArrayRequest(Request.Method.POST, TEST_SUBMIT, testObject, mTestSubmiter,er);
 
             if (mRequestQueue != null){
 
                 mRequestQueue.addToRequestQue(submitTestRequest);
             }
             else{
+                Log.d(TAG, "SubmitTest: not sumitted");
                 testNotSubmitted();
             }
 
@@ -294,7 +303,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
 
         catch (Exception e){
-
+            Log.d(TAG, "SubmitTest: exception in ");
             FirebaseCrash.log("Test Not Submitted in "+e.getLocalizedMessage());
         }
 
@@ -316,26 +325,20 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         final JSONObject mObject = new JSONObject();
 
         try {
-            mObject.put("StudentId", mStudentID);
             mObject.put("TestId", mTestId);
-            mObject.put("SubjectId", mSubjectId);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             FirebaseCrash.log("Exception in Putting  Test Request JSOn Object");
         }
 
         //Request Object
-          getQuestionRequest = new JsonArrayRequest(Request.Method.POST, GET_QUESTIONS_URL, mObject, mQuestionProvider, errorHandler);
-
-        getQuestionRequest.setTag("QUESTION");
+        getQuestionRequest = new JsonArrayRequest(Request.Method.POST, GET_QUESTIONS_URL, mObject, mQuestionProvider, errorHandler);
         if (mRequestQueue != null){
-
             mRequestQueue.addToRequestQue(getQuestionRequest);
         }
         else{
             throw new NullPointerException("Request Queue cannot be Null");
         }
-
-
     }
 
 
@@ -343,12 +346,11 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     //set Adapter data and Tab
     private void setAdapter(String[] mTitles, List<Question> mQuestionList) {
 
-            Log.d(TAG, "onResponse: Adapter  = new Adapter");
+
             mAdapter = new QuestionPagerAdapter(this, mQuestionList);
             if (mPager != null) {
                 mPager.setAdapter(mAdapter);
                 mPager.setOffscreenPageLimit(0);
-
 
             }
 
@@ -357,9 +359,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         mTab.setViewPager(mPager);
         //Hide the Progress Bar
 
-        if (mBar.isShowing()){
-            mBar.hide();
-        }
+
     }
 
     @Override
@@ -414,11 +414,11 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
    // TODO: 10/11/16 set tag ,retry  , i.e add to Request quueue based on Request TAG
 
         FirebaseCrash.log("Time put Error ");
-            mChangableRoot.removeAllViews();
-            View v = View.inflate(this, R.layout.try_again_layout,mChangableRoot);
+          if (mRequestQueue!=null){
+              mRequestQueue.addToRequestQue(getQuestionRequest);
+          }
 
 
-        }
     }
 
     @Override
@@ -440,38 +440,65 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     public void setQuestionList(List<Question> mQuestionList,String[] mTitles) {
 
     //set Adapter and page titles
+
+
+        Log.d(TAG, "setQuestionList: "+mQuestionList.toString());
         setAdapter(mTitles,mQuestionList);
+
     }
 
     @Override
     public void NoQuestionObtained() {
 
-        mChangableRoot.removeAllViews();
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("No Questions");
+        alertDialog.setMessage("It seems some Error Occured , Please try again after some time, or try another tests ");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finishButtonClicked();
+//                startActivity();
+            }
+        });
 
-        View view = View.inflate(this,R.layout.no_data,mChangableRoot);
+        alertDialog.show();
     }
 
     @Override
     public void testSubmitted() {
+        stopSubmitDialog();
         final Intent i = new Intent(this,TestCompletedActivity.class);
         if (mTestId!= null){
 
             i.putExtra(BundleKey.TEST_ID,mTestId);
-            i.putExtra(BundleKey.TEST_DESC,mTestDesc);
-            i.putExtra(BundleKey.SUBJECT_ID,mSubjectId);
         }
         startActivity(i);
     }
 
+    private void stopSubmitDialog() {
+        if (mCompleteDialog !=null){
+            if (  mCompleteDialog.isShowing()){
+                //Dialog is visible hide it
+                mCompleteDialog.dismiss();
+            }
+        }
+    }
+
     @Override
     public void testNotSubmitted() {
-        Toast.makeText(getApplicationContext(),"Test Not Submitted,Please Try again",Toast.LENGTH_SHORT).show();
+        stopSubmitDialog();
+        Toast.makeText(getApplicationContext(),"Test Not Submitted,Please Try again",Toast.LENGTH_LONG).show();
         finish();
-        Intent i = new Intent(this,TestWriteActivity.class);
-        i.putExtra(BundleKey.TEST_ID,mTestId);
-        i.putExtra(BundleKey.SUBJECT_ID,mSubjectId);
+        Intent i = new Intent(this,BrowseTestActivity.class);
         startActivity(i);
 
 
+    }
+
+    @Override
+    public void ErrorOccurred() {
+        Log.d(TAG, "ErrorOccurred: in test submit ");
+        stopSubmitDialog();
+        Toast.makeText(this,"Some Error Occured while Submitting Test",Toast.LENGTH_LONG).show();
     }
 }

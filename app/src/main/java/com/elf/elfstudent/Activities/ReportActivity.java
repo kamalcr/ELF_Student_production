@@ -153,6 +153,7 @@ public class ReportActivity extends AppCompatActivity{
                 public void onClick(View view) {
                     final Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(i);
+                    finish();
                 }
             });
         } catch (Exception e) {
@@ -165,6 +166,7 @@ public class ReportActivity extends AppCompatActivity{
             public void onClick(View view) {
                 final Intent i = new Intent(getApplicationContext(), ReportActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -174,6 +176,7 @@ public class ReportActivity extends AppCompatActivity{
             public void onClick(View view) {
                 final Intent i = new Intent(getApplicationContext(), BrowseTestActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -184,6 +187,7 @@ public class ReportActivity extends AppCompatActivity{
             public void onClick(View view) {
                 final Intent i = new Intent(getApplicationContext(), TestReportsActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -193,6 +197,7 @@ public class ReportActivity extends AppCompatActivity{
             public void onClick(View view) {
                 final Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }
@@ -204,7 +209,6 @@ public class ReportActivity extends AppCompatActivity{
         if (!isDrawerShowing) {
             mdrawerLayout.setTranslationX(-ScreenUtil.getScreenWidth(this));
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 mdrawerLayout.animate().translationX(0).setInterpolator(new DecelerateInterpolator(1.5f)).setDuration(600).setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
@@ -226,9 +230,8 @@ public class ReportActivity extends AppCompatActivity{
 
                     }
                 }).start();
-            }
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
                 mdrawerLayout.animate().setDuration(500)
                         .setInterpolator(new AccelerateDecelerateInterpolator())
                         .setListener(new Animator.AnimatorListener() {
@@ -253,7 +256,7 @@ public class ReportActivity extends AppCompatActivity{
                             }
                         })
                         .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
-            }
+
         }
 
         Log.d(TAG, "DropButtonClicked: ");

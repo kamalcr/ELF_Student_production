@@ -1,7 +1,10 @@
 package com.elf.elfstudent.Network.JsonProcessors;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -9,7 +12,7 @@ import org.json.JSONObject;
  * used in {@link com.elf.elfstudent.Activities.ForgotPassword}
  */
 
-public class ForgotPasswordHandler implements Response.Listener<JSONObject>{
+public class ForgotPasswordHandler implements Response.Listener<JSONArray>{
 
 
     private ForgotPasswordCallbacks mCallback = null;
@@ -19,7 +22,25 @@ public class ForgotPasswordHandler implements Response.Listener<JSONObject>{
     }
 
     @Override
-    public void onResponse(JSONObject response) {
+    public void onResponse(JSONArray response) {
+
+        JSONObject mObjec  =  null;
+        try {
+            mObjec = response.getJSONObject(0);
+
+            if (mObjec.getString("StatusCode").equals("1000")){
+                //validated
+                mCallback.ShowPassword("Password");
+            }
+            else{
+                mCallback.WrongDetailsEntered();
+            }
+        }
+        catch (Exception e ){
+            Log.d("Forgot", "onResponse: exception " +e.getLocalizedMessage());
+        }
+
+
 
     }
 

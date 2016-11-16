@@ -16,7 +16,8 @@ import java.util.List;
  *
  */
 
-public class TestListProvider implements Response.Listener<JSONArray> {
+public class TestListProvider implements
+        Response.Listener<JSONArray> {
     private static final String TAG = "AllTestFrag";
     private List<AllTestModels> mSocial = new ArrayList<>();
     private List<AllTestModels> mScience = new ArrayList<>();
@@ -55,21 +56,21 @@ public class TestListProvider implements Response.Listener<JSONArray> {
                     Log.d(TAG,"Subject iD "+subId);
 
 //                // TODO: 26/10/16 find subject iD
-                    if (subId.equals("2")){
-                        //Science Subject
+                    if (subId.equals("13")){
+
                         mScience.add(new AllTestModels(mobject.getString("TestId"),
                                 mobject.getString("Description")
                                 , mobject.getString("SubjectName"),
                                 mobject.getString("SubjectId")));
 
                     }
-                    else if(subId.equals("2")){
+                    else if(subId.equals("12")){
                         mSocial.add(new AllTestModels(mobject.getString("TestId"),
                                 mobject.getString("Description")
                                 , mobject.getString("SubjectName"),
                                 mobject.getString("SubjectId")));
                     }
-                    else if(subId.equals("2")){
+                    else if(subId.equals("11")){
 
                         mMaths.add(new AllTestModels(mobject.getString("TestId"),
                                 mobject.getString("Description")
@@ -80,9 +81,10 @@ public class TestListProvider implements Response.Listener<JSONArray> {
 
 
                 }
-                mCallback.setTestListData(mScience,mScience,mScience);
+                mCallback.setTestListData(mScience,mSocial,mMaths);
 
             } catch (Exception e) {
+                Log.d(TAG, "onResponse: exception "+e.getLocalizedMessage());
                 mCallback.NoTestListData();
             }
         }

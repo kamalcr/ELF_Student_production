@@ -31,19 +31,25 @@ public class TestQuestionReportProvider  implements Response.Listener<JSONArray>
     public void onResponse(JSONArray response) {
 
 
-        Log.d(TAG, "onResponse: "+response.toString());
+
         JSONObject mObject ;
         int count = response.length();
         if (mAnswersList == null){
             mAnswersList = new ArrayList<>(count);
 
         }
-        Log.d(TAG, "onResponse: count "+count);
+
         try {
 
             for (int i =0 ;i<count; i++){
 
                 mObject = response.getJSONObject(i);
+
+
+
+
+
+
 
                 mAnswersList.add(new Answers(mObject.getString("Question")
                         ,mObject.getString("Answer"),mObject.getString("AnswerStatus")));

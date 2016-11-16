@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.R;
+import com.google.firebase.crash.FirebaseCrash;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,9 +71,17 @@ public class ChangeProfileActivity extends AppCompatActivity {
         setValuestoViews();
 
         setSupportActionBar(mToolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayShowHomeEnabled(true);
-        ab.setDisplayHomeAsUpEnabled(true);
+        mToolbar.setTitle("Profile");
+        try {
+            ActionBar ab = getSupportActionBar();
+
+            ab.setDisplayShowHomeEnabled(true);
+            ab.setDisplayHomeAsUpEnabled(true);
+
+        }
+        catch (Exception e){
+            FirebaseCrash.log("Excception in setting Toolbar");
+        }
 
         mNamebox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,12 +106,19 @@ public class ChangeProfileActivity extends AppCompatActivity {
     }
 
     private void setValuestoViews() {
-        mElfId.setText(mStore.getStudentId());
-        mNamebox.setText(mStore.getUserName());
-        mSchoolName.setText(mStore.getInstituionName());
-        mStandard.setText(mStore.getStandard());
-        mEmailBox.setText(mStore.getEmailId());
-        mPhoneNumber.setText(mStore.getPhoneNumber());
+
+        if (mStore != null){
+
+            mElfId.setText(mStore.getStudentId());
+            mNamebox.setText(mStore.getUserName());
+            mSchoolName.setText(mStore.getInstituionName());
+            mStandard.setText(String.format("%s Standard", mStore.getStandard()));
+            mEmailBox.setText(mStore.getEmailId());
+            mPhoneNumber.setText(mStore.getPhoneNumber());
+        }
+       else{
+            throw new NullPointerException("store cannot be null");
+        }
 
     }
 

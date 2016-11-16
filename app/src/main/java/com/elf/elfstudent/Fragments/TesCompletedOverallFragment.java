@@ -35,8 +35,8 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
 
 
     private static final String TAG = "TestCompFragment";
-    //// TODO: 10/11/16 add url
-    private static final String OVERIVEW_URL = "";
+
+    private static final String OVERIVEW_URL = "http://www.hijazboutique.com/elf_ws.svc/GetTestOverview";
     @BindView(R.id.test_comp_test_desc)
     HelviticaLight test_desc;
     @BindView(R.id.test_comp_test_sub)
@@ -92,6 +92,7 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
         }
 
         mStore = DataStore.getStorageInstance(mContext);
+        mRequestQueue = AppRequestQueue.getInstance(mContext.getApplicationContext());
         errorHandler = new ErrorHandler(this);
         testOverviewProvider  = new TestOverviewProvider(this);
 
@@ -129,9 +130,14 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
             Log.d(TAG, "getOverviewReportFor: ");
         }
 
+
+        Log.d(TAG, "aking Request");
         JsonArrayRequest mREJsonArrayRequest = new JsonArrayRequest(Request.Method.POST,OVERIVEW_URL,mObject,testOverviewProvider,errorHandler);
         if (mRequestQueue!=null){
             mRequestQueue.addToRequestQue(mREJsonArrayRequest);
+        }
+        else{
+            throw new NullPointerException("Request Queue is null");
         }
     }
 
@@ -194,7 +200,7 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
     @Override
     public void ShowOverview(String TestDesc, String SubjectName, String totalQues, String No_ofRight) {
 
-
+        Log.d(TAG, "ShowOverview: "+No_ofRight);
         test_desc.setText(TestDesc);
         subjectName.setText(SubjectName);
         correctoptions.setText(No_ofRight);
@@ -203,6 +209,8 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
 
     @Override
     public void noData() {
+
+        Log.d(TAG, "noData: ");
 
     }
 }

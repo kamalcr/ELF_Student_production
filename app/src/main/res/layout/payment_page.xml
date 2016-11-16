@@ -49,7 +49,7 @@
                 android:id="@+id/payment_pay_button" />
 
             <TextView
-                android:text="Pay through Paytm, Debitcard , NetBanking & more"
+                android:text="Pay through Paytm, Debitcard , NetBanking &amp; more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pay_text"
@@ -68,17 +68,17 @@
                 android:layout_alignStart="@+id/textView7" />
         </RelativeLayout>
 
-        <!--        <FrameLayout
-            android:layout_width="60dp"
+        <FrameLayout
+            android:layout_width="100dp"
             android:id="@+id/payment_drawer_frame"
 
             android:visibility="invisible"
             android:layout_height="match_parent">
 
             <include layout="@layout/drawer_new"
-                android:layout_width="0dp" />
-        </FrameLayout>-->
-
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+        </FrameLayout>
     </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>

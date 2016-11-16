@@ -62,6 +62,12 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         setUpCustomDrawer();
+        mDropIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DropButtonClicked();
+            }
+        });
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,9 +128,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         if (!isDrawerShowing){
             mdrawerLayout.setTranslationX(-ScreenUtil.getScreenWidth(this));
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                mdrawerLayout.animate().translationX(0).setInterpolator(new DecelerateInterpolator(1.5f)).setDuration(600).setListener(new Animator.AnimatorListener() {
+            mdrawerLayout.animate().translationX(0).setInterpolator(new DecelerateInterpolator(1.5f)).setDuration(600).setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
                         mdrawerLayout.setVisibility(View.VISIBLE);
@@ -144,19 +148,11 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onAnimationRepeat(Animator animator) {
 
                     }
-                }).setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        float value = valueAnimator.getAnimatedFraction();
-                        mRelativeLayout.setTranslationX(value * mdrawerLayout.getWidth());
-
-
-                    }
                 }).start();
-            }
+
         }
         else{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //Drawer is already open , close the drawer
                 mdrawerLayout.animate().setDuration(500)
                         .setInterpolator(new AccelerateDecelerateInterpolator())
                         .setListener(new Animator.AnimatorListener() {
@@ -180,25 +176,12 @@ public class PaymentActivity extends AppCompatActivity {
 
                             }
                         })
-                        .setUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                float va = valueAnimator.getAnimatedFraction();
-                                mRelativeLayout.setTranslationX(-va);
-                            }
-                        })
                         .translationX(-ScreenUtil.getScreenWidth(getApplicationContext())).start();
             }
-        }
-
-
-
         isDrawerShowing = !isDrawerShowing;
 
-
-
-
     }
+
 
     private void ShowMainActivity(){
         final Intent i = new Intent(this,HomeActivity.class);

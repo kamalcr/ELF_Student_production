@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
+    android:layout_width="@dimen/card_side_test_item"
+    android:layout_height="@dimen/card_side_test_item"
     style="@style/CardViewStyle"
     app:cardElevation="4dp"
     app:cardCornerRadius="2dp"
@@ -12,26 +12,26 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@drawable/button_ripple"
-        android:layout_height="137dp">
+        android:layout_height="match_parent">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_above="@+id/all_test_text"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/black_900" />
+            android:layout_marginRight="8dp"
+            android:background="@color/material_grey700" />
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/all_test_text"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/black_900"  />
+            android:layout_marginRight="8dp"
+            android:background="@color/material_grey700"  />
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:layout_width="wrap_content"
@@ -39,9 +39,10 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:id="@+id/all_test_text"
+            android:textColor="@color/material_black"
             android:text="Vector algebra"
             android:layout_gravity ="center"
-            style="@style/all_text_item_card_test_text"
+            android:textSize="@dimen/all_test_item_ts"
 
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />

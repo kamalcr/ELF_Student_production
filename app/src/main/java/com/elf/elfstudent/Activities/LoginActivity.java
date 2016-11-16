@@ -7,9 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -34,7 +37,9 @@ import butterknife.ButterKnife;
  * The Login Activity
  */
 
-public class LoginActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONArray> {
+public class LoginActivity extends AppCompatActivity implements
+        Response.ErrorListener,
+        Response.Listener<JSONArray> {
 
 
     private static final String TAG = "ELF";
@@ -57,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     private DataStore mStore = null;
 
     ProgressDialog mDialog   = null;
+    String userName = null;
 
 
     @Override
@@ -100,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         mDialog = new ProgressDialog(getApplicationContext());
         mDialog.setIndeterminate(true);
         mDialog.setMessage("Logging In. Please Wait");
-        String userName = memailBox.getText().toString();
+         userName = memailBox.getText().toString();
         String password = mPasswordBox.getText().toString();
 
 
@@ -160,6 +166,8 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                     insName = mObject.getString("InstitutionName");
                     String boardId = mObject.getString("BoardId");
 
+
+
                     if (studentId != null) {
                         //Save it file
                         mStore.setBoardId(boardId);
@@ -167,11 +175,12 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                         mStore.setInstitutionId(insId);
                         mStore.setUserName(StudentName);
                         mStore.setStudentStandard(classId);
+                        mStore.setInstituionName(insName);
                         //
                         //
                         // TODO: 10/11/16 get group ID , set if in store according to it
                         mStore.setStudentPrefrerredSubject(groupId);
-                        //                        mStore.setEmailId();
+                        mStore.setEmailId(userName);
 
                         //set First to false , so as to not show it again
                         mStore.setIsFirstTime(false);
@@ -188,12 +197,15 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
 
             } else {
-                //wrong show shake Animation
-                //// TODO: 10/11/16
+               //wrong Details
+                Animation anim  = AnimationUtils.loadAnimation(this,R.anim.shake);
+                memailBox.startAnimation(anim);
+                mPasswordBox.startAnimation(anim);
             }
         } catch (JSONException e) {
             e.printStackTrace();
             stopDialog();
+            Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_SHORT).show();
             FirebaseCrash.log("Error in parsing LOgin Info");
         }
 

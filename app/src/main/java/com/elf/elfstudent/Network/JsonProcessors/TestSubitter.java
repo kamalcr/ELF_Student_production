@@ -30,6 +30,7 @@ public class TestSubitter implements Response.Listener<JSONArray> {
 
             JSONObject object = response.getJSONObject(0);
             if (object.getString("StatusCode").equals("1000")){
+                Log.d(TAG, "onResponse: test success ");
                 mCallback.testSubmitted();
             }
             else{

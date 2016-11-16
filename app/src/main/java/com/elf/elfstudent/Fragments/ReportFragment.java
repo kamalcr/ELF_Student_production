@@ -114,7 +114,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     FrameLayout mLoadingLayout;
 
     @BindView(R.id.report_visisble_layout)
-    FrameLayout    mVisibleLayout;
+    RelativeLayout    mVisibleLayout;
 
 
 
@@ -203,6 +203,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     private void PrepareSubjectReportsFor(String studentId, String subjecId) {
         JSONObject mObject = new JSONObject();
         try {
+            Log.d(TAG, "PrepareSubjectReportsFor:");
 
             mObject.put("studentId", studentId);
             mObject.put("subjectId", subjecId);
@@ -336,9 +337,10 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
     @Override
     public void setLessonList(List<Lesson> mLessons, int overall) {
+        Log.d(TAG, "setLessonList: sring" + mLessons.toString());
         this.mLessonList = mLessons;
 
-
+        Log.d(TAG, "setLessonList: in main");
 
 
         if (mLoadingLayout.isShown()){
@@ -361,6 +363,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
         }
         catch (Exception e ){
+            Log.d(TAG, "setLessonList: exception");
             FirebaseCrash.log("Exception in setting Adapter Report Fragment");
         }
     }

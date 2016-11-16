@@ -23,12 +23,14 @@
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_marginBottom="20dp"
 
             android:background="@drawable/login_background_gradient"
             android:layout_height="match_parent">
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="100dp"
+                android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/chn_profile_image"
                 app:srcCompat="@drawable/ic_users"
@@ -55,7 +57,7 @@
                 android:layout_below="@+id/personal_info_text"
                 android:background="@color/material_pink900"/>
 
-            <TextView
+            <com.elf.elfstudent.CustomUI.QucikSand
                 android:text="Persona Info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -134,7 +136,7 @@
                 android:layout_marginTop="4dp"
                 android:id="@+id/chg_profile_school_value" />
 
-            <TextView
+            <com.elf.elfstudent.CustomUI.QucikSand
                 android:text="Contact Details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -157,7 +159,7 @@
                 android:layout_below="@id/chg_profile_contact"
                 android:background="@color/material_pink900"/>
 
-            <TextView
+            <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:text="Email"
                 style="@style/change_profile_top_text"
                 android:layout_width="wrap_content"
@@ -168,7 +170,7 @@
                 android:layout_marginTop="16dp"
                 android:id="@+id/textView12" />
 
-            <TextView
+            <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:text="nandhu11@gmail.com"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -179,7 +181,7 @@
                 android:layout_marginTop="4dp"
                 android:id="@+id/chg_profile_email_value" />
 
-            <TextView
+            <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:text="9688612122"
                 style="@style/change_profile_bottom_text"
                 android:layout_width="wrap_content"
@@ -203,13 +205,14 @@
                 android:layout_alignLeft="@+id/elf_id_view"
                 android:layout_alignStart="@+id/elf_id_view" />
 
-            <TextView
+            <com.elf.elfstudent.CustomUI.HelviticaLight
                 android:text="Phone Number"
                 android:layout_width="wrap_content"
                 style="@style/change_profile_top_text"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="20dp"
+
                 android:id="@+id/textView14"
                 android:layout_below="@+id/chg_profile_email_value"
                 android:layout_alignLeft="@+id/chg_profile_phone_value"

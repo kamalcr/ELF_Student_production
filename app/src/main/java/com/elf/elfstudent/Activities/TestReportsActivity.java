@@ -44,7 +44,9 @@ import butterknife.ButterKnife;
  */
 
 public class TestReportsActivity extends AppCompatActivity
-        implements ErrorHandler.ErrorHandlerCallbacks, TestReportProvider.TestListCallback, TestReportsAdapter.TestReportCallbacks {
+        implements ErrorHandler.ErrorHandlerCallbacks,
+        TestReportProvider.TestListCallback,
+        TestReportsAdapter.TestReportCallbacks {
 
 
     private static final String TAG = "TEST_REPORT";
@@ -106,6 +108,9 @@ public class TestReportsActivity extends AppCompatActivity
         if (studentId != null){
 
             getWriitetenTestFor(studentId);
+        }
+        else{
+            throw new NullPointerException("Student id null");
         }
 
         setUpCustomDrawer();

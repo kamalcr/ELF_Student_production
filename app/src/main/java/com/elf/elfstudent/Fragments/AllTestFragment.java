@@ -45,7 +45,13 @@ import butterknife.ButterKnife;
  * Created by nandhu on 18/10/16.
  * This Fragment gets called only for 10th Standard
  */
-public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTestViewClick, ErrorHandler.ErrorHandlerCallbacks, TestListProvider.TestProviderCallback, MathsAdapter.MathsAdapterCallback, ScienceAdapter.ScienceAdapterCallback, SocialAdapter.SocialAdapterCallback {
+public class AllTestFragment extends Fragment implements
+        TestLessonAdapter.OnTestViewClick,
+        ErrorHandler.ErrorHandlerCallbacks,
+        TestListProvider.TestProviderCallback,
+        MathsAdapter.MathsAdapterCallback,
+        ScienceAdapter.ScienceAdapterCallback,
+        SocialAdapter.SocialAdapterCallback {
 
 
     ///The Textview of subject Names
@@ -277,29 +283,42 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
 
     @Override
     public void NetworkError() {
-        if (!mViewRoot.isShown()) {
-            mViewRoot.setVisibility(View.VISIBLE);
-        }
+        try {
 
-        if (mDataLayout.isShown()){
-            mDataLayout.setVisibility(View.INVISIBLE);
+            if (!mViewRoot.isShown()) {
+                mViewRoot.setVisibility(View.VISIBLE);
+            }
+
+            if (mDataLayout.isShown()){
+                mDataLayout.setVisibility(View.INVISIBLE);
+            }
+            mViewRoot.removeAllViews();
+            View v = View.inflate(getContext(),R.layout.no_internet,mViewRoot);
         }
-    mViewRoot.removeAllViews();
-    View v = View.inflate(getContext(),R.layout.no_internet,mViewRoot);
+        catch (Exception e ){
+            FirebaseCrash.log("Exception in AllTestFragment");
+        }
     }
 
     @Override
     public void ServerError() {
-        if (!mViewRoot.isShown()){
-            mViewRoot.setVisibility(View.VISIBLE);
+
+        try {
+            if (!mViewRoot.isShown()){
+                mViewRoot.setVisibility(View.VISIBLE);
+            }
+            if (mDataLayout.isShown()){
+                mDataLayout.setVisibility(View.INVISIBLE);
+            }
+
+            mViewRoot.removeAllViews();
+            View v = View.inflate(getContext(),R.layout.no_data,mViewRoot);
         }
-        if (mDataLayout.isShown()){
-            mDataLayout.setVisibility(View.INVISIBLE);
+        catch (Exception e ){
+            FirebaseCrash.log("Server Error in AllTestFragment");
         }
 
-        mViewRoot.removeAllViews();
-        View v = View.inflate(getContext(),R.layout.no_data,mViewRoot);
-        FirebaseCrash.log("Server error in "+TAG);
+
     }
 
 
@@ -312,7 +331,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
   * */
     @Override
     public void setTestListData(List<AllTestModels> mScience, List<AllTestModels> mSocial, List<AllTestModels> maths) {
-        Log.d(TAG, "setTestListData: ");
+
        mScienceQuestion = mScience;
         mSocialQuestion = mSocial;
         mMathsQuestions = maths;
@@ -392,6 +411,9 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
             mSocialList.setAdapter(mSocialAdapter);
             refreshLayout();
         }
+        else{
+            Log.d(TAG, "setSocailAdapter: social list is null");
+        }
     }
 
 
@@ -419,13 +441,15 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         //
 
         if (testId  != null){
-            showTestWritingPage(testId);
+            showTestWritingPage(testId,"11");
         }
 
     }
 
-    private void showTestWritingPage(String testId) {
+    private void showTestWritingPage(String testId,String SubjectID) {
         final Intent i  = new Intent(getContext(),TestWriteActivity.class);
+        Log.d(TAG, "showTestWritingPage: for Test ID "+testId);
+        i.putExtra(BundleKey.SUBJECT_ID,SubjectID);
         i.putExtra(BundleKey.TEST_ID,testId);
         startActivity(i);
     }
@@ -447,7 +471,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         //
 
         if (testId  != null){
-            showTestWritingPage(testId);
+            showTestWritingPage(testId,"12");
         }
 
     }
@@ -458,7 +482,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         if (mSocialQuestion != null){
             try {
 
-                testId = mScienceQuestion.get(position).getmTestId();
+                testId = mSocialQuestion.get(position).getmTestId();
             }
             catch (Exception e ){
                 Log.d(TAG, "NO Subject iD");
@@ -467,7 +491,7 @@ public class AllTestFragment extends Fragment implements  TestLessonAdapter.OnTe
         //
 
         if (testId  != null){
-            showTestWritingPage(testId);
+            showTestWritingPage(testId,"13");
         }
     }
 }

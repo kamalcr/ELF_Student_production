@@ -37,74 +37,47 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:id="@+id/frame_root"
-                android:background="@color/black_viewpager"
-                android:layout_height="200dp">
+
+                android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="match_parent"
                     android:id="@+id/subject_view_image"
                     android:scaleType="centerCrop"
                     android:layout_height="match_parent" />
-
                 <RelativeLayout
                     android:layout_width="match_parent"
-
-
                     android:layout_height="match_parent">
-
                     <com.elf.elfstudent.CustomUI.HelviticaLight
-                        android:layout_width="59dp"
-                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/material_black"
                         android:text="Hi"
+                        android:layout_marginTop="@dimen/sub_view_percent_mtop"
+
+                        android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:textSize="30sp"
+                        android:textSize="@dimen/sub_view_percent_ts"
                         android:id="@+id/sub_view_percent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginLeft="28dp"
-                        android:layout_marginStart="28dp"
-                        android:layout_marginBottom="24dp" />
+                        />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/report_changable_root"
+                        android:layout_marginRight="@dimen/sub_view_frae_margin"
+                        android:layout_marginLeft="@dimen/sub_view_frae_margin"
+                        android:layout_below="@id/sub_view_percent"
+                        android:layout_marginTop="@dimen/sub_view_mbottom"
+                        android:layout_height="match_parent">
+                        <include layout="@layout/loading_list"
+                            />
 
-                    <TextView
-                        android:text="The overall percentage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView"
-                        android:layout_alignTop="@+id/sub_view_percent"
-                        android:layout_toRightOf="@+id/sub_view_percent"
-                        android:layout_toEndOf="@+id/sub_view_percent" />
 
-                    <TextView
-                        android:text="writing more increases your percentage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView27"
-                        android:layout_alignBottom="@+id/sub_view_percent"
-                        android:layout_toRightOf="@+id/sub_view_percent"
-                        android:layout_toEndOf="@+id/sub_view_percent" />
-
+                    </FrameLayout>
                 </RelativeLayout>
 
 
 
 
             </FrameLayout>
-
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_below="@+id/frame_root"
-                android:id="@+id/report_changable_root"
-                android:layout_height="match_parent">
-             <include layout="@layout/loading_list"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"/>
-
-            </FrameLayout>
-
-
-
         </RelativeLayout>
 
 

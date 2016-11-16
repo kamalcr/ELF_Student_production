@@ -5,42 +5,30 @@
 
     android:layout_width="match_parent"
 
-    android:background="@color/black_viewpager"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_height="wrap_content">
 
 
-    <com.elf.elfstudent.CustomUI.HelviticaLight
+    <com.elf.elfstudent.CustomUI.QucikSand
         android:layout_width="wrap_content"
         android:id="@+id/list_home_title"
-        android:textColor="@color/white"
+        android:textColor="@color/pink900"
+
         android:layout_marginTop="8dp"
 
-        android:text="Subject List"
+        android:text="@string/subject_wise_analysis"
         android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:layout_height="wrap_content" />
-
-    <com.elf.elfstudent.CustomUI.HelviticaLight
-        android:layout_width="wrap_content"
-        android:id="@+id/home_list_sub"
-        android:textSize="18sp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:text="Click on a Subject to see In-Depth Details"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:layout_marginTop="8dp"
-        android:layout_below="@id/list_home_title"
+        android:textSize="@dimen/home_sub_mtop"
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:background="@color/black_viewpager"
+
         android:id="@+id/home_list_rv"
-        android:layout_below="@id/home_list_sub"
+        android:layout_below="@+id/list_home_title"
         android:layout_marginBottom="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginTop="16dp"/>

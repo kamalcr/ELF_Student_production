@@ -30,4 +30,5 @@ public class RequestParameterKey {
     public static String DISTRICT_ID = "DistrictId";
     public static String FIRST_NAME= "FirstName";
     public static String SUBJECT_ID = "subjectId";
+    public static String GROUP_ID = "GroupId";
 }

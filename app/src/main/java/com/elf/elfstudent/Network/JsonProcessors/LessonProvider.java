@@ -41,7 +41,7 @@ public class LessonProvider implements Response.Listener<JSONArray> {
 
         Log.d("Lesson List", "onResponse: "+response.toString());
         mlist=new ArrayList<>(count);
-        if (!(count>1)){
+        if (!(count>0)){
             //count is not greater than 1 , show error
             FirebaseCrash.log("No Lesson List in Response ");
             mCallback.noLesson();
@@ -58,18 +58,20 @@ public class LessonProvider implements Response.Listener<JSONArray> {
                     mlist.add(new Lesson(mObject.getString("LessionName"),
                             mObject.getString("LessionId"),
                             mObject.getString("Percentage"),
-                            mObject.getString("QustionAsked"),
-                            mObject.getString("CorrectAnswer")));
+                            mObject.getString("QuestionsAsked"),
+                            mObject.getString("CorrectAnswers")));
 
                     percentageSum = (int) (percentageSum+Float.parseFloat(mObject.getString("Percentage")));
 
                 } catch (Exception e) {
+                    Log.d("Adapter", "onResponse: exception " +e.getLocalizedMessage() );
                    FirebaseCrash.log(" "+e.getLocalizedMessage());
                 }
             }
 
             if (mlist!=null){
                 int overall = percentageSum/count;
+
                 mCallback.setLessonList(mlist,overall);
             }
             else{

@@ -1,16 +1,19 @@
 package com.elf.elfstudent.Activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,8 +29,11 @@ import com.elf.elfstudent.Network.JsonProcessors.RegisterListener;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RequestParameterKey;
+import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.model.InstitutionModel;
 import com.elf.elfstudent.model.StandardModel;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -64,6 +70,9 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
     //standard Spinner can be 10th or 11th or 12th
     @BindView(R.id.ins_std_spinner) Spinner mSpinner;
 
+    @BindView(R.id.ins_imageview)
+    ImageView mBacImage;
+
 
 
     //The Toolabar
@@ -92,6 +101,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
     String ins_name  = null;
 
     boolean isButtonPressed = false;
+    private String groupId = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,6 +116,19 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
 //        }
         //get a Handle to Saved Values
+        Picasso.with(this).load(R.mipmap.ins_page)
+                .resize(ScreenUtil.getScreenWidth(this),ScreenUtil.getScreenHeight(this))
+                .into(mBacImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d(TAG, "onSuccess: ");
+                    }
+
+                    @Override
+                    public void onError() {
+                        Log.d(TAG, "onError: ");
+                    }
+                });
         mStore  = DataStore.getStorageInstance(getApplicationContext());
 
         //The Network Handler objects
@@ -148,8 +171,9 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Register button");
-                RegisterStudent();
+                //Find which group
+                pickGroupId();
+
             }
         });
 
@@ -165,6 +189,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
                 ins_name = ins.getInsName();
                 Log.d(TAG, "onItemSelected: "+ins_id);
                 mStore.setInstitutionId(ins_id);
+                mStore.setInstituionName(ins_name);
             }
 
             @Override
@@ -175,8 +200,49 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
     }
 
+    private void pickGroupId() {
+        if (classid == null){
+            Toast.makeText(this,"Select Grade",Toast.LENGTH_SHORT).show();
+
+        }
+        else{
+            //Class id has been selected
+            if (classid.equals("10")){
+                groupId = "0";
+                RegisterStudent();
+            }
+            else{
+                //Class Id 12 find , ask WHich group
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle("Select Preferred Group");
+                alertDialog.setMessage("");
+                alertDialog.setPositiveButton("COMPUTER", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+//                        // TODO: 15/11/16 find computer id
+                        groupId = "1";
+                    }
+                });
+                alertDialog.setNegativeButton("BIOLOGY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //No Has Been Clicked, Dismiss Dialog
+
+                        groupId = "2";
+                    }
+                });
+                alertDialog.show();
+
+            }
+        }
+    }
+
     private void RegisterStudent() {
         JSONObject mObject = new JSONObject();
+
+
+
 
         //Request Body Objects
         try{
@@ -197,8 +263,14 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
                 mObject.put(RequestParameterKey.STATE_ID,"1");
                 mObject.put(RequestParameterKey.PHONE,mStore.getPhoneNumber());
 
+//                todo addgroup iD
+                mObject.put(RequestParameterKey.GROUP_ID,groupId);
+
                 Log.d(TAG, "Registering Student "+mObject.toString());
                 //get Instituion Id
+            }
+            else{
+                throw new NullPointerException("Store is null");
             }
 //            mObject.put(RequestParameterKey.INSTITUION_ID,mStore.)
 
@@ -270,7 +342,7 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
     @Override
     public void NetworkError() {
-        Log.d(TAG, "NetworkError: ");
+      Toast.makeText(this,"Please connect to Internet",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -309,25 +381,20 @@ public class InstitutePage extends AppCompatActivity implements ErrorHandler.Err
 
 
         }
-        //The User Has been Registered show Choose subject page if he is 12th
-        //show Direct home Page
-        if (mStore.getStandard().equals("10")){
-            //The Student is 10th, show MainActivity Directecly
-            Log.d(TAG, "Registered: 10standatd mainActiivty");
+        else{
+            throw new NullPointerException("Store value cannot be null");
+        }
+
+
+        //Show Home Activity
             final  Intent i = new Intent(this,HomeActivity.class);
             startActivity(i);
-        }
-        else{
 
-            Log.d(TAG, "12th so choose");
-            final Intent  i  = new Intent(this,ChooseSubjectActivity.class);
-            startActivity(i);
-        }
     }
 
     @Override
     public void NotRegistered() {
-        Log.d(TAG, "NotRegistered: ");
+        Toast.makeText(this,"Not Registered Please try again",Toast.LENGTH_SHORT).show();
     }
 
 

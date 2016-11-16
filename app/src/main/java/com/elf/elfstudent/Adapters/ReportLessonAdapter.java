@@ -31,14 +31,14 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
     private List<Lesson> mList;
     LayoutInflater inflater = null;
     private LessonClickCallbacks mCallback;
-    private int Animated_item_count;
+    private int Animated_item_count = 0;
     int last_pos = -1;
 
     public ReportLessonAdapter(Context context,List<Lesson> mLessonList,LessonClickCallbacks mCallback) {
         this.mList  = mLessonList;
         this.mContext = context;
         this.mCallback = mCallback;
-    }
+        Animated_item_count = mList.size();    }
 
     @Override
     public LessonView onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,8 +52,9 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
     @Override
     public void onBindViewHolder(final LessonView holder, int position) {
 
-
+//        Log.d(TAG, "onBindViewHolder: ");
         runEnterAnimations(holder,position);
+        Log.d("Adapter", "onBindViewHolder: ");
         holder.mLessonName.setText(mList.get(position).getmLessonName());
         holder.mGrowth.setText(mList.get(position).getmGrowthPercentage());
         ViewCompat.setTransitionName(holder.mLessonName,String.valueOf(position)+"_lesson");
@@ -82,11 +83,11 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
             Log.d("Animation","inside if");
             last_pos=position;
             holder.itemView.setTranslationY(ScreenUtil.getScreenHeight(mContext));
-            holder.itemView.setScaleX(0.4f);
-            holder.itemView.setScaleY(0.4f);
-            holder.itemView.animate().translationY(0)
+            holder.itemView.setScaleX(0.2f);
+
+                    holder.itemView.animate().translationY(0)
                     .scaleX(1)
-                    .scaleY(1)
+
                     .setInterpolator(new DecelerateInterpolator(2f))
                     .setDuration(600)
                     .start();

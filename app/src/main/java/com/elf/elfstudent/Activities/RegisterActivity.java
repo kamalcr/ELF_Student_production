@@ -36,6 +36,7 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -48,18 +49,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "ELF";
     //password
-    @BindView(R.id.nregister_pass)
-    TextInputEditText mPassword;
+    @BindView(R.id.nregister_pass) TextInputEditText mPassword;
     // phone Number
-    @BindView(R.id.nregister_phone)
-    TextInputEditText mPhoneBox;
+    @BindView(R.id.nregister_phone) TextInputEditText mPhoneBox;
     //Name
-    @BindView(R.id.nregister_name)
-    TextInputEditText mNameBox;
+    @BindView(R.id.nregister_name) TextInputEditText mNameBox;
 
     // submit Button
-    @BindView(R.id.nregister_submit)
-    ImageButton mSubmitButton;
+    @BindView(R.id.nregister_submit) ImageButton mSubmitButton;
 
 
     DataStore mStore = null;
@@ -74,13 +71,15 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.profile_root)
     RelativeLayout mRootlayout;
 
-    @BindView(R.id.register_back_image) ImageView mBackImage;
+//    @BindDrawable(R.drawable.register_back_image)
+
+    @BindView(R.id.register_back_image_view) ImageView mBackImage;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_activity);
         ButterKnife.bind(this);
-        loadBitmap(R.drawable.register_back_image,mBackImage);
+        loadBitmap();;
         mStore = DataStore.getStorageInstance(getApplicationContext());
 
         if (getIntent() != null) {
@@ -106,17 +105,17 @@ public class RegisterActivity extends AppCompatActivity {
         catch (Exception e ){
             Log.d(TAG, "Exception "+e.getLocalizedMessage());
         }
-        //set Toolbar
-
-
+        //set ToolbarRe
     }
 
-    public void loadBitmap(int resId, ImageView imageView) {
-        Picasso.with(this).load(R.drawable.register_back_image)
+    public void loadBitmap() {
+        Picasso.with(this)
+                .load(R.drawable.register_back_image)
                 .resize(ScreenUtil.getScreenWidth(this),ScreenUtil.getScreenHeight(this))
-                .into(imageView, new Callback() {
+                .into(mBackImage, new Callback() {
             @Override
             public void onSuccess() {
+                Log.d(TAG, "onSuccess: ");
                 runEnterAnimations();
             }
 
@@ -139,7 +138,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void startScaleAnimation(View view, int i) {
-        view.animate().scaleX(1f).setDuration(400).setStartDelay(i*400).setInterpolator(new DecelerateInterpolator(3f)).start();
+        view.animate().scaleX(1f).setDuration(400)
+                .setStartDelay(i*400)
+                .setInterpolator(new DecelerateInterpolator(3f))
+                .start();
 
     }
 

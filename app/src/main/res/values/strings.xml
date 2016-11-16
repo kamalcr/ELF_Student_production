@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">ELF Student</string>
     <string name="forgot_title">Please Enter Your Crendentials to change Password</string>
-    <string name="email_text">REGISTER YOUR EMAIL </string>
+    <string name="email_text">ENTER YOUR EMAIL </string>
     <string name="oops">Oops!</string>
     <string name="nright">Something\'s Not Right</string>
     <string name="no_int_string">Please make sure you have an Active Internet Connection</string>
     <string name="instituion_amp_board"><![CDATA[INSTITUION & BOARD]]></string>
     <string name="feed">Please state the problems , bugs you encountered or You can tell us the features that would make ELF cool </string>
+    <string name="percentage">PERCENTAGE</string>
+    <string name="chapters">CHAPTERS</string>
+    <string name="social">SOCIAL</string>
+    <string name="subject_wise_analysis">Subject Wise Analysis</string>
 </resources>

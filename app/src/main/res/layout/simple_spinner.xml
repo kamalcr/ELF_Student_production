@@ -9,6 +9,6 @@
     android:text="Hello this is your school"
     android:gravity="center_vertical|center"
     android:paddingLeft="16dp"
-    android:background="@color/material_pink50"
+
     android:layout_height="60dp">
 </com.elf.elfstudent.CustomUI.HelviticaLight>

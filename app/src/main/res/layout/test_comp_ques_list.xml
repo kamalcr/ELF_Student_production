@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/black_viewpager"
+    android:background="@color/white"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
         android:text="Question List"
-        android:textColor="@color/white"
+        android:textColor="@color/black_viewpager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -19,13 +19,13 @@
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
         android:text="See your Answers"
-        android:textColor="@color/white_light"
+        android:textColor="@color/black_900"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView10"
         android:layout_alignLeft="@+id/textView10"
         android:layout_alignStart="@+id/textView10"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="12dp"
         android:id="@+id/textView11"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -35,7 +35,7 @@
         android:id="@+id/frame_root_qlist_frag"
         android:layout_height="match_parent">
 
-        <include layout="@layout/loading_list"/>
+        <include layout="@layout/loading_list_white"/>
 
     </FrameLayout>
 

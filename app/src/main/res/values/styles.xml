@@ -11,6 +11,14 @@
         <item name="windowNoTitle">true</item>
         
     </style>
+    <style name="custom_radio_button">
+        <item name="android:textColor">@color/radio_text_color_selector</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/text_size_option</item>
+        <item name="android:background">@drawable/radio_button_selector</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
 
     <style name="sub_view_list_text">
         <item name="android:textSize">22sp</item>

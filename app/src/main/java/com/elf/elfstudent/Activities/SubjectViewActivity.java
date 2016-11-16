@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,8 +28,10 @@ import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RVdecorator;
+import com.elf.elfstudent.Utils.SubjectIMAGE;
 import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.Lesson;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -96,7 +99,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
     List<Lesson> mLessonList = null;
     JsonArrayRequest mLessonListRequestor = null;
-
+    private String studentId = null;
 
 
     @Override
@@ -105,33 +108,45 @@ public class SubjectViewActivity extends AppCompatActivity implements
         setContentView(R.layout.subject_view_activity);
 
         ButterKnife.bind(this);
+
+        //First get the Intent
         if (getIntent() != null){
-//            String transName = getIntent().getStringExtra(BundleKey.ROOT_VIEW_TRANS_NAME);
-//            String subjectName = getIntent().getStringExtra(BundleKey.SUBJECT_NAME);
-            String percent = getIntent().getStringExtra(BundleKey.PERCENTAGE);
-//            String subject_trans_name = getIntent().getStringExtra(BundleKey.HOME_SUBJECT_TRANS_NAME);
+
+
+                //Get the Percentage & Subject iD
+                String percent = getIntent().getStringExtra(BundleKey.PERCENTAGE);
+                String subjectID = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
+
+            //set The Background image
+            Picasso.with(this).load(SubjectIMAGE.getBIgSubjectImage(subjectID)).into(mSubjectViewImage);
+
+
+            //Get The Student Id
+            studentId = getIntent().getStringExtra(BundleKey.ARG_STUDENT_ID);
+
+
+            //Get The Transitions Name
             String percent_trans_name  = getIntent().getStringExtra(BundleKey.HOME_PERCENT_TRANS_NAME);
-            String subjectID = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
-
             String img_transName = getIntent().getStringExtra(BundleKey.HOME_SUBJECT_IMAGE_TRANS_NAME);
-//            Log.d(TAG, "Trans Values are image"+img_transName+ " sub : "+subject_trans_name + " percnet "+percent_trans_name);
 
-            //setting values to Textview
-//            mSubjectName.setText(subjectName);
-            mPercentage.setText(percent);
-
-            mSubjectViewImage.setImageResource(SubjectImage.getSubjectImage(subjectID));
-
-            //setting Transition Name
-//            ViewCompat.setTransitionName(mSubjectName,subject_trans_name);
+            //set the Transition Names
             ViewCompat.setTransitionName(mPercentage,percent_trans_name);
-//            ViewCompat.setTransitionName(mRoot,transName);
             ViewCompat.setTransitionName(mSubjectViewImage,img_transName);
+
+            //Set the View values
+            if (percent != null){
+
+                mPercentage.setText(percent);
+            }
+
+
 
             mLessonProvider = new LessonProvider(this);
 
-            //getSubject ID
             mSubjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
+        }
+        else{
+            throw new NullPointerException("Intent Cannot be null");
         }
 
 
@@ -146,7 +161,12 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
 //        setLessonList(getLessonList());
 
-        getLessonListFromServer();
+        if(mSubjectId != null && studentId != null){
+            getLessonListFromServer();
+        }
+        else{
+            throw  new NullPointerException("Subject ID cannot be null");
+        }
     }
 
 
@@ -157,7 +177,8 @@ public class SubjectViewActivity extends AppCompatActivity implements
         //Networks Related Code
         try {
             JSONObject mObject = new JSONObject();
-            mObject.put("SubjectId",mSubjectId);
+            mObject.put("studentId", studentId);
+            mObject.put("subjectId", mSubjectId);
            mLessonListRequestor = new JsonArrayRequest(Request.Method.POST,
                     GET_LESSON_URL, mObject,mLessonProvider,errorHandler);
         }
@@ -269,6 +290,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
         mChangableRoot.removeAllViews();
         View listView = LayoutInflater.from(this).inflate(R.layout.home_recycler,mChangableRoot,true);
         mSubListView = (RecyclerView) listView.findViewById(R.id.home_list);
+        mSubListView.setLayoutManager(new LinearLayoutManager(this));
         mSubListView.addItemDecoration(new RVdecorator(ContextCompat.getDrawable(getApplicationContext(),R.drawable.divider)));
 
         if (mAdapter != null){

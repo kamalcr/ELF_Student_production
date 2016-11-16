@@ -71,6 +71,7 @@ public class SplashActivity extends AppCompatActivity {
                 else{
                     Log.d(TAG, "goint to Home Activity");
                     Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

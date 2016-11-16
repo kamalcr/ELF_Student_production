@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
@@ -137,7 +139,8 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
         else{
             //wrong Email Format
             Toast.makeText(this,"Enter Valid Email",Toast.LENGTH_SHORT).show();
-            // TODO: 20/10/16 show Shake Animation
+            Animation animation = AnimationUtils.loadAnimation(this,R.anim.shake);
+            mEmailBox.startAnimation(animation);
         }
     }
 
@@ -300,7 +303,8 @@ public class EmailActivityPage extends AppCompatActivity implements ErrorHandler
     public void emailAlreadyExists() {
         //// TODO: 20/10/16 email Already Existe show toast
         stopDialog();
-
+        Animation animation = AnimationUtils.loadAnimation(this,R.anim.shake);
+        mEmailBox.startAnimation(animation);
         Toast.makeText(getApplicationContext(),"Email Already Exists",Toast.LENGTH_SHORT).show();
     }
 

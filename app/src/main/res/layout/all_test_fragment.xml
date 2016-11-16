@@ -34,7 +34,8 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="16dp"
                 android:id="@+id/all_science_text"
-                android:text="SCIENCE"
+                android:text="@string/social"
+                android:textSize="@dimen/all_test_tz"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
 
@@ -43,20 +44,22 @@
                 android:layout_below="@+id/all_sci_list"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white_primary"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginLeft="16dp"
                 android:id="@+id/all_social_text"
-                android:text="SOCIAL"
+                android:text="SCIENCE"
+                android:textSize="@dimen/all_test_tz"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <com.elf.elfstudent.CustomUI.QucikSand
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/white_primary"
                 android:layout_below="@+id/all_social_list"
                 android:id="@+id/all_maths_tex"
+                android:textSize="@dimen/all_test_tz"
                 android:text="MATHS"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
@@ -65,7 +68,7 @@
 
                 android:layout_width="wrap_content"
                 android:paddingTop="16dp"
-                android:layout_marginTop="27dp"
+                android:layout_marginTop="@dimen/test_card_mtop"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/all_social_list"
                 android:layout_height="wrap_content"
@@ -80,7 +83,7 @@
 
                 android:layout_width="wrap_content"
                 android:paddingTop="16dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="@dimen/test_card_mtop"
                 android:layout_marginLeft="16dp"
                 android:id="@+id/all_sci_list"
                 android:layout_height="wrap_content"
@@ -97,7 +100,7 @@
 
                 android:layout_below="@id/all_maths_tex"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/test_card_mtop"
                 android:id="@+id/all_math_list"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"

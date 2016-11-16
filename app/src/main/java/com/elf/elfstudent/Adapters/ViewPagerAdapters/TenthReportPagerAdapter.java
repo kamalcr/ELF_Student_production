@@ -53,11 +53,11 @@ public class TenthReportPagerAdapter extends FragmentStatePagerAdapter {
             //overall percentage , List of Lessons etc
 
             //todo add subject iD heres
-            case 0: mSubjectId = "11";
+            case 0: mSubjectId = "12";
                 mSubjectName = "SCIENCE";
                 break;
             case 1 :
-                mSubjectId = "11";
+                mSubjectId = "13";
                 mSubjectName = "SOCIAL";
                 break;
             case 2:

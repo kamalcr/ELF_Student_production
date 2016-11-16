@@ -13,23 +13,23 @@ import com.elf.elfstudent.R;
  */
 
 public class SubjectImage {
-    public static int SCINEC_IMAGE = R.drawable.bio_new;
-    public static int SOCIAL = R.drawable.soc_svg;
-    public static int MATHS = R.drawable.maths;
-    public static int PHYSICS = R.drawable.phy_svg;
-    public static int CHEMISTRY = R.drawable.chem_svg;
-    public static int BIOLOGY = R.drawable.bio_new;
-    public static int COMPUTER = R.drawable.cs_svg;
+    public static  int  SCINEC_IMAGE = R.drawable.scee_small;
+    public static int SOCIAL = R.drawable.social_small;
+    public static int MATHS = R.drawable.mats_new;
+    public static int PHYSICS = R.drawable.science_new;
+    public static int CHEMISTRY = R.drawable.science_new;
+    public static int BIOLOGY = R.drawable.science_new;
+    public static int COMPUTER = R.drawable.science_new;
 
     // TODO: 8/11/16 add Subject Id
-    public static String  SCIENCE_ID = "12";
-    public static String  SOCIAL_ID = "13";
+    public static String  SCIENCE_ID = "13";
+    public static String  SOCIAL_ID = "12";
     public static String  MATHS_ID = "11";
     public static String  PHY_ID = "2";
-    public static String MATHS_12 = "2";
+    public static String MATHS_12 = "1";
     public static String  CHEM_ID = "3";
-    public static String  BIO_ID = "";
-    public static String  COMP_ID = "";
+    public static String  BIO_ID = "15";
+    public static String  COMP_ID = "14";
 
     public static int getSubjectImage( String subID) {
 
@@ -38,12 +38,12 @@ public class SubjectImage {
 
 
               //Tenth Science
-            case  "12" :
+            case  "13" :
                 return SCINEC_IMAGE;
 
 
             //Tenth Social
-            case  "13" :
+            case  "12" :
                 return SOCIAL;
             //tenth Maths
             case  "11" :
@@ -61,10 +61,10 @@ public class SubjectImage {
                 return CHEMISTRY;
 
             //Twelth Biology
-            case  "4":
+            case  "15":
                 return BIOLOGY;
             //twelth Computer
-            case  "5" :
+            case  "14" :
                 return COMPUTER;
 
 

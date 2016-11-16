@@ -72,9 +72,12 @@ public void onBindViewHolder(HomeHolder holder, int position) {
         Log.d(TAG, "geting image for SUbject id "+subID);
 
 
+        Picasso.with(this.mContext.getApplicationContext())
+                .load(SubjectImage.getSubjectImage(subID))
+                .fit()
+                .into(holder.mSubjectImage);
 
-
-        holder.mSubjectImage.setImageResource(R.drawable.sciencee);
+//        holder.mSubjectImage.setImageResource(R.drawable.science_new);
 //        ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");
         ViewCompat.setTransitionName(holder.mPercent, String.valueOf(position) + "_sub");
         ViewCompat.setTransitionName(holder.mRootView,String.valueOf(position) + "_root");
@@ -87,25 +90,30 @@ public void onBindViewHolder(HomeHolder holder, int position) {
 
         }
 
+/** This mehtod performs animations on Recvyler view adapter
+ *
+ * {@link com.elf.elfstudent.Activities.HomeActivity}
+ * */
+
 private void runEnterAnimations(HomeHolder holder, int position) {
-        Log.d("Animation",""+position);
+
 
         if (position >= Animated_item_count){
-        Log.d("Animation","postion one");
+            //All positions have been animated
         return;
         }
 
         if (position>last_pos){
+            //animate
+                last_pos=position;
+                holder.itemView.setTranslationY(ScreenUtil.getScreenHeight(mContext));
+                holder.itemView.animate().translationY(0)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .setDuration(1000)
+                .start();
+        }
 
-        Log.d("Animation","inside if");
-        last_pos=position;
-        holder.itemView.setTranslationY(ScreenUtil.getScreenHeight(mContext));
-        holder.itemView.animate().translationY(0)
-        .setInterpolator(new AccelerateDecelerateInterpolator())
-        .setDuration(1000)
-        .start();
-        }
-        }
+   }
 
 @Override
 public int getItemCount() {

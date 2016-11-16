@@ -50,27 +50,30 @@ public class BiologyReportPagerAdapter extends FragmentStatePagerAdapter {
 
         ReportFragment fragment = new ReportFragment();
 
-        switch (position){
+        switch (position) {
             //based on subjects , set Arguments to Fragemnt such as
             //overall percentage , List of Lessons etc
-            case 0: mSubjectId = "11";
+            case 0:
+                mSubjectId = "2";
                 mSubjectName = "PHYSICS";
                 break;
-            case 1 :
-                mSubjectId = "11";
+            case 1:
+                mSubjectId = "3";
                 mSubjectName = "CHEMISTRY";
                 break;
             case 2:
-                mSubjectId = "";
+                mSubjectId = "1";
                 mSubjectName = "MATHS";
                 break;
             case 3:
-                mSubjectId = "11";
+                mSubjectId = "15";
                 mSubjectId = "BIOLOGY";
 
-
-
         }
+
+
+
+
 
 
 

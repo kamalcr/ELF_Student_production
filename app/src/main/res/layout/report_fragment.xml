@@ -10,84 +10,131 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@+id/report_progress"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:layout_height="match_parent"
         >
        <include layout="@layout/report_loading"/>
 
     </FrameLayout>
     <!--The Main content view , it is visible once data is available-->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:background="@color/white_light"
-        android:visibility="invisible"
-        android:id="@+id/report_visisble_layout"
-        android:layout_height="match_parent">
+
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:visibility="visible"
             android:background="@color/white_light"
-
+            android:id="@+id/report_visisble_layout"
             android:layout_height="wrap_content"
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
+            <android.support.design.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <android.support.design.widget.AppBarLayout
+                    android:layout_width="match_parent"
+
+                    android:id="@+id/top_app_bar"
+                    android:layout_height="@dimen/pie_holder_height">
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_margin="8dp"
+
+                        app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                        app:cardElevation="8dp"
+
+
+                        app:cardBackgroundColor="@color/white"
+                        android:id="@+id/report_frag_card"
+                        android:layout_height="@dimen/pie_holder_height">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+
+                            android:layout_height="match_parent">
+
+                            <com.elf.elfstudent.CustomUI.HelviticaMedium
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Performance"
+                                android:id="@+id/completed_text"
+                                android:layout_marginTop="@dimen/perf_text_mtop"
+                                android:textColor="@color/material_black"
+                                android:textSize="22sp"
+                                android:layout_centerHorizontal="true" />
+                            <com.github.mikephil.charting.charts.PieChart
+                                android:layout_width="match_parent"
+                                android:layout_marginLeft="32dp"
+
+                                android:layout_marginRight="32dp"
+                                android:layout_marginTop="8dp"
+                                android:id="@+id/report_chart"
+                                android:layout_marginBottom="8dp"
+                                android:layout_below="@+id/completed_text"
+                                android:layout_height="match_parent">
+
+                            </com.github.mikephil.charting.charts.PieChart>
+
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+                </android.support.design.widget.AppBarLayout>
+
 
             <!--The Cardview whihc holds pie chart-->
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_margin="8dp"
-                app:cardBackgroundColor="@color/white"
-                android:id="@+id/report_frag_card"
-                android:layout_height="250dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                    <com.elf.elfstudent.CustomUI.HelviticaMedium
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Completion"
-                        android:id="@+id/completed_text"
-                        android:layout_marginTop="4dp"
-                        android:textColor="@color/material_black"
-                        android:textSize="22sp"
-                        android:layout_centerHorizontal="true" />
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:layout_width="match_parent"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginRight="32dp"
-                        android:layout_marginTop="8dp"
-                        android:id="@+id/report_chart"
-                        android:layout_below="@+id/completed_text"
-                        android:layout_height="match_parent">
-
-                    </com.github.mikephil.charting.charts.PieChart>
-
-
-                </RelativeLayout>
-
-            </android.support.v7.widget.CardView>
 
             <!--The Recycler view-->
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_below="@id/report_frag_card"
-                android:layout_marginTop="16dp"
-                android:layout_height="wrap_content">
-                <android.support.v7.widget.RecyclerView
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_marginTop="18dp"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:id="@+id/report_frag_list"
-                    android:layout_marginTop="8dp"
-
-
                     android:layout_height="match_parent">
+                     <com.elf.elfstudent.CustomUI.QucikSand
+                         android:layout_width="wrap_content"
+                         android:textSize="@dimen/chapt_text_size"
+                         android:id="@+id/report_chap_text"
+                         android:layout_marginTop="12dp"
+                         android:textColor="@color/pink900"
+                         android:layout_marginLeft="@dimen/chap_margin_lft"
+                         android:text="@string/chapters"
+                         android:layout_height="wrap_content" />
+                    <com.elf.elfstudent.CustomUI.QucikSand
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/chapt_text_size"
 
-                </android.support.v7.widget.RecyclerView>
+                        android:text="@string/percentage"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/report_chap_text"
+                        android:layout_alignBottom="@+id/report_chap_text"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/chap_margin_lft"
+                        android:textColor="@color/pink900"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/chap_margin_lft" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:id="@+id/report_frag_list"
+                        android:layout_marginTop="8dp"
+                        android:layout_below="@id/report_chap_text"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </RelativeLayout>
+
+
+
+
             </android.support.v7.widget.CardView>
 
+            </android.support.design.widget.CoordinatorLayout>
 
         </RelativeLayout>
-    </ScrollView>
+
 
 
 </FrameLayout>

@@ -393,7 +393,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
                     .into(mProfilePicture);
             mSchoolname.setText(mStore.getInstituionName());
 
-            mStandardName.setText(String.format("%s Standard", mStore.getStandard()));
+            mStandardName.setText(String.format("%s Grade", mStore.getStandard()));
             mStudentName.setText(mStore.getUserName());
             studnetId  = mStore.getStudentId();
         }
@@ -503,7 +503,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         protected void onPause () {
             super.onPause();
 
-          unbindDrawables(mProfilePicture);
+//          unbindDrawables(mProfilePicture);
 
 
         }
@@ -586,7 +586,8 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
                 //Putting Transition Name Values
 
-//                i.putExtra(BundleKey.HOME_SUBJECT_TRANS_NAME,subTransName);
+//                i.putExtra(BundleKey.HOME_SUBJECT_TRANS_NAME,subTransName);           i.p
+                i.putExtra(BundleKey.ARG_STUDENT_ID,studnetId);
                 i.putExtra(BundleKey.HOME_PERCENT_TRANS_NAME,percentTransName);
 
                 i.putExtra(BundleKey.HOME_SUBJECT_IMAGE_TRANS_NAME,img_trans_name);
@@ -667,15 +668,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.no_internet,mRoot,true);
 
 
-        Button b = (Button)view.findViewById(R.id.no_internet_button);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-//                // TODO: 10/11/16 show settings page
-                Log.d(TAG, "onClick:NO Internet Button CLicked");
-            }
-        });
 
 
 
@@ -716,6 +709,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         //Remove the Present View in Frame Layout ,
 
         if (!adapterSet){
+            //if adapter is not set .. then
 
             mRoot.removeAllViews();
             View v  = LayoutInflater.from(this).inflate(R.layout.home_recyler_view,mRoot,true);
@@ -734,6 +728,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         else{
             // adapter already set
             //dont do anything
+            Log.d(TAG, "adapter already  set");
         }
     }
 

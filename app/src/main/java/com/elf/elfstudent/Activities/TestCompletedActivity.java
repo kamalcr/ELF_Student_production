@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 public class TestCompletedActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks {
 
 
-    private static final String TEST_DETAIL_URL ="http://www.hijazboutique.com/elf_ws.svc/GetDetailedTestReport";
+
     String testId = null;
     String subjectId = null;
     String testDesc = null;
@@ -76,9 +76,9 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
 
         //get The Test Variables from intent
         if (getIntent() != null){
-            testDesc = getIntent().getStringExtra(BundleKey.TEST_ID);
-            subjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
-            testId = getIntent().getStringExtra(BundleKey.TEST_DESC);
+//            testDesc = getIntent().getStringExtra(BundleKey.TEST_ID);
+//            subjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
+            testId = getIntent().getStringExtra(BundleKey.TEST_ID);
         }
         else{
             throw new NullPointerException("Intent  Cannot Be null");

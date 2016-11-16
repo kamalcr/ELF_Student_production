@@ -17,7 +17,7 @@
 
          <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-             android:background="@color/black_viewpager"
+             android:background="@color/material_grey100"
              android:id="@+id/single_subject_content_root"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_height="match_parent">
@@ -26,44 +26,46 @@
                  android:layout_width="match_parent"
                     android:id="@+id/report_leson_card"
                 android:layout_margin="16dp"
-                 app:cardBackgroundColor="@color/black_viewpager"
+            app:cardBackgroundColor="@color/white"
+                 app:cardElevation="8dp"
+                 app:cardUseCompatPadding="true"
                  app:cardCornerRadius="4dp"
-                 android:layout_height="120dp">
+                 android:minHeight="120dp"
+                 android:layout_height="wrap_content">
                  <RelativeLayout
-
                      android:layout_width="match_parent"
                      android:layout_height="match_parent">
-                     <com.elf.elfstudent.CustomUI.HelviticaLight
-                         android:text="Percentage"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:textSize="22sp"
-                         android:textColor="@color/orang_dribble"
-                         android:id="@+id/percent_single"
-                         android:layout_alignParentTop="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_alignParentEnd="true"
-                         android:layout_marginRight="18dp"
-                         android:layout_marginEnd="18dp"
-                         android:layout_marginTop="40dp" />
+
+
+
+                 <com.elf.elfstudent.CustomUI.HelviticaLight
+                     android:layout_width="wrap_content"
+                     android:id="@+id/lesson_name_single"
+                     android:textSize="@dimen/topic_title_ts"
+                     android:layout_centerHorizontal="true"
+                     android:paddingRight="24dp"
+                     android:layout_marginTop="@dimen/topic_title_mtop"
+                     android:paddingEnd="24dp"
+                     android:textColor="@color/material_black"
+                     android:paddingLeft="24dp"
+                     android:layout_marginBottom="12dp"
+                     app:paddingStart="24dp"
+                     android:layout_below="@+id/percent_single"
+                     android:text="This is s a topic Name it can e a very long, usually it is very logn so make sure it is really big and lenthy and cekc it against"
+                     android:layout_height="wrap_content" />
 
                      <com.elf.elfstudent.CustomUI.HelviticaLight
-                         android:text="Lesson Name"
                          android:layout_width="wrap_content"
+                         android:id="@+id/percent_single"
+                         android:text="Percentage"
+                         android:layout_marginTop="@dimen/topic_percent_mtop"
+                         android:textColor="@color/pink900"
+                         android:textSize="35sp"
                          android:layout_height="wrap_content"
-                         android:textSize="22sp"
-                         android:textColor="@color/orang_dribble"
-                         android:id="@+id/lesson_name_single"
-                         android:layout_marginLeft="16dp"
-                         android:paddingRight="16dp"
-                         android:layout_marginStart="16dp"
-                         android:layout_alignBaseline="@+id/percent_single"
-                         android:layout_alignBottom="@+id/percent_single"
-                         android:layout_alignParentLeft="true"
-                         android:layout_alignParentStart="true"
-                         android:layout_toLeftOf="@+id/percent_single"
-                         android:layout_toStartOf="@+id/percent_single" />
+                         android:layout_alignParentTop="true"
+                         android:layout_centerHorizontal="true" />
                  </RelativeLayout>
+
              </android.support.v7.widget.CardView>
 
 
@@ -72,7 +74,7 @@
                  android:layout_below="@+id/single_text"
                  android:id="@+id/topic_list_root"
                  android:layout_height="match_parent">
-                 <include layout="@layout/loading_list"/>
+                 <include layout="@layout/loading_list_white"/>
 
 
 
@@ -81,8 +83,8 @@
              <com.elf.elfstudent.CustomUI.HelviticaLight
                  android:layout_width="wrap_content"
                  android:text="Topic Wise Report"
-                 android:textSize="22sp"
-                 android:textColor="@color/white"
+                 android:textSize="@dimen/topic_text_size"
+                 android:textColor="@color/pink900"
                  android:layout_marginTop="8dp"
                  android:layout_marginBottom="8dp"
                  android:id="@+id/single_text"
