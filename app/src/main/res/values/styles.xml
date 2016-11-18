@@ -11,6 +11,11 @@
         <item name="windowNoTitle">true</item>
         
     </style>
+
+    <style name="CardViewStyle" parent="CardView.Light">
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
     <style name="custom_radio_button">
         <item name="android:textColor">@color/radio_text_color_selector</item>
         <item name="android:button">@null</item>

@@ -20,9 +20,11 @@ import com.elf.elfstudent.Utils.BundleKey;
  */
 public class TestCompletedPagerAdapter extends FragmentStatePagerAdapter{
     private String TestId = null;
-    public TestCompletedPagerAdapter(FragmentManager fm, String testId) {
+    private String subId = null;
+    public TestCompletedPagerAdapter(FragmentManager fm, String testId, String subjectId) {
         super(fm);
         this.TestId = testId;
+        this.subId = subjectId;
     }
 
     @Override
@@ -41,6 +43,7 @@ public class TestCompletedPagerAdapter extends FragmentStatePagerAdapter{
 
         //Add Test Id to Fragment
         b.putString(BundleKey.TEST_ID,this.TestId);
+        b.putString(BundleKey.SUBJECT_ID,this.subId);
       switch (position){
           case 0:
 

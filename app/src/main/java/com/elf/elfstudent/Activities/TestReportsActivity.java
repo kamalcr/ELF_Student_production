@@ -1,9 +1,7 @@
 package com.elf.elfstudent.Activities;
 
 import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -283,7 +281,7 @@ public class TestReportsActivity extends AppCompatActivity
     private void getWriitetenTestFor(String studentId) {
         JSONObject mObject  = new JSONObject();
         try{
-            mObject.put(RequestParameterKey.STUDENT_ID,studentId);
+            mObject.put("StudentId",studentId);
 
         }
         catch (Exception e ){
@@ -291,6 +289,7 @@ public class TestReportsActivity extends AppCompatActivity
         }
         mRequest  = new JsonArrayRequest(Request.Method.POST,GET_TEST_REPORT_URL,mObject,mListDataProvider,errorHandler);
         if (mRequestQueue != null){
+            Log.d(TAG, "getWriitetenTestFor: adding to request queue");
             mRequestQueue.addToRequestQue(mRequest);
         }
     }
@@ -405,7 +404,7 @@ public class TestReportsActivity extends AppCompatActivity
     show The Test Results in Details
      */
     @Override
-    public void ShowTestReportFor(int position, TestReportsAdapter.TestReportHolder holder) {
+    public void ShowTestReportFor(int position, TestReportsAdapter.TestReportHolder holder,String subId) {
 
       if (isDrawerShowing){
           closeDrawer();
@@ -420,6 +419,9 @@ public class TestReportsActivity extends AppCompatActivity
                  //show Detailed test Report for that Test Id bu that student
                  Intent i = new Intent(this,TestCompletedActivity.class);
                  i.putExtra(BundleKey.TEST_ID,testId);
+                 i.putExtra(BundleKey.SUBJECT_ID,subId);
+                 i.putExtra(BundleKey.FROM_TEST_PAGE,false);
+
                  startActivity(i);
 
              }
@@ -428,4 +430,13 @@ public class TestReportsActivity extends AppCompatActivity
              }
          }
     }
+
+    @Override
+    public void reWriteTest(String testid, String subjectId) {
+        final Intent i = new Intent(this,TestWriteActivity.class);
+        i.putExtra(BundleKey.TEST_ID,testid);
+        i.putExtra(BundleKey.SUBJECT_ID,subjectId);
+        startActivity(i);
+    }
+
 }

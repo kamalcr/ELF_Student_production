@@ -23,7 +23,7 @@ public class ForgotPasswordHandler implements Response.Listener<JSONArray>{
 
     @Override
     public void onResponse(JSONArray response) {
-
+        Log.d("Forogot", "onResponse: "+response.toString());
         JSONObject mObjec  =  null;
         try {
             mObjec = response.getJSONObject(0);

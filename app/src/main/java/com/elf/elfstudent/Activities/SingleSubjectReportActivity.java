@@ -122,7 +122,8 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
             percentage = getIntent().getStringExtra(BundleKey.PERCENTAGE);
 
 
-
+            Log.d(TAG, "onCreate: lessonid "+lessonId);
+            Log.d(TAG, "onCreate: subject iD"+subjectId);
         }
 
 
@@ -268,9 +269,14 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
     @Override
     public void NetworkError() {
         //Request has been sent two times / show Time out Error
-        mChangableRoot.removeAllViews();
-        View v = View.inflate(this,R.layout.no_internet,mChangableRoot);
+        try{
 
+            mChangableRoot.removeAllViews();
+            View v = View.inflate(this,R.layout.no_internet,mChangableRoot);
+        }
+        catch (Exception e ){
+            FirebaseCrash.log("Exception ");
+        }
 
 
     }
@@ -278,8 +284,14 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
     @Override
     public void ServerError() {
         //Request has been sent two times / show Time out Error
-        mChangableRoot.removeAllViews();
-        View v = View.inflate(this,R.layout.no_data,mChangableRoot);
+        try{
+
+            mChangableRoot.removeAllViews();
+            View v = View.inflate(this,R.layout.no_data,mChangableRoot);
+        }
+        catch (Exception e ){
+            FirebaseCrash.log("Exception Occured");
+        }
 
     }
 
@@ -316,7 +328,13 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
     public void noTopics() {
 
         FirebaseCrash.log("No Topics Received");
-        mChangableRoot.removeAllViews();
-        View v = View.inflate(this,R.layout.no_data,mChangableRoot);
+        try{
+
+            mChangableRoot.removeAllViews();
+            View v = View.inflate(this,R.layout.no_data,mChangableRoot);
+        }
+        catch (Exception e) {
+            FirebaseCrash.log("Exception Occured");
+        }
     }
 }

@@ -1,42 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/blue400"
+    android:layout_margin="4dp"
+
+
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/test_report_item_test_desc"
+            android:id="@+id/view_div"
+            android:layout_marginTop="@dimen/view_div_mtop"
+            android:background="@color/material_blue900"
+            android:layout_alignLeft="@+id/test_item_overall"
+            android:layout_alignStart="@+id/test_item_overall" />
+
+        <Button
+            android:text="Re Write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rewrite_button"
+            android:textColor="@color/pink900"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_alignBaseline="@+id/test_item_overall"
+            android:layout_alignBottom="@+id/test_item_overall"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp" />
+
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:layout_width="wrap_content"
-            android:textSize="20sp"
+            android:textSize="@dimen/test_reports_item_ts"
             android:text="Test No"
+            android:paddingRight="20dp"
+            android:textColor="@color/white"
+
             android:id="@+id/test_report_item_test_desc"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="16dp"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="12dp"
+
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/test_item_overall"
+            android:layout_alignStart="@+id/test_item_overall"
+            android:layout_alignRight="@+id/rewrite_button"
+            android:layout_alignEnd="@+id/rewrite_button" />
 
         <com.elf.elfstudent.CustomUI.HelviticaMedium
             android:text="78"
+            android:paddingLeft="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:layout_marginEnd="12dp"
-            android:textSize="30sp"
+            android:layout_marginTop="@dimen/percent_mtop"
+            android:textSize="@dimen/test_reports_percent_ts"
+            android:textColor="@color/black_900"
             android:id="@+id/test_item_overall"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-        <com.elf.elfstudent.CustomUI.HelviticaLight
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="16dp"
-            android:textSize="18sp"
-            android:id="@+id/test_report_item_sub_name"
-            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/testreport_text_mleft"
+            android:layout_marginStart="@dimen/testreport_text_mleft"
+            android:layout_below="@+id/view_div"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="Points Scored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mar_text"
+            android:layout_marginBottom="@dimen/marks_text_mb"
+            tools:text="Marks Scored"
+            android:layout_below="@+id/test_item_overall"
+            android:layout_alignLeft="@+id/test_item_overall"
+            android:layout_alignStart="@+id/test_item_overall" />
 
     </RelativeLayout>
 

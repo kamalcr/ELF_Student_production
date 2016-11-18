@@ -155,6 +155,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         }
 
 
+
         //get Test Details From Intent From Intent
         if (getIntent() != null){
 
@@ -468,11 +469,16 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     public void testSubmitted() {
         stopSubmitDialog();
         final Intent i = new Intent(this,TestCompletedActivity.class);
-        if (mTestId!= null){
-
+        if (mTestId!= null && mSubjectId != null){
+            i.putExtra(BundleKey.SUBJECT_ID,mSubjectId);
             i.putExtra(BundleKey.TEST_ID,mTestId);
+            i.putExtra(BundleKey.FROM_TEST_PAGE,true);
+            startActivity(i);
         }
-        startActivity(i);
+        else{
+
+            FirebaseCrash.log("Test ID or Subject is null");
+        }
     }
 
     private void stopSubmitDialog() {
@@ -488,9 +494,6 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     public void testNotSubmitted() {
         stopSubmitDialog();
         Toast.makeText(getApplicationContext(),"Test Not Submitted,Please Try again",Toast.LENGTH_LONG).show();
-        finish();
-        Intent i = new Intent(this,BrowseTestActivity.class);
-        startActivity(i);
 
 
     }
@@ -499,6 +502,6 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     public void ErrorOccurred() {
         Log.d(TAG, "ErrorOccurred: in test submit ");
         stopSubmitDialog();
-        Toast.makeText(this,"Some Error Occured while Submitting Test",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Try Again,Test Not Submitted",Toast.LENGTH_LONG).show();
     }
 }

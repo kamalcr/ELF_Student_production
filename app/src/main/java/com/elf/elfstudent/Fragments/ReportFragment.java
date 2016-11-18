@@ -319,6 +319,9 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
         i.putExtra(BundleKey.LESSON_ID,mLessonList.get(position).getLessonId());
         i.putExtra(BundleKey.LESSON_NAME,mLessonList.get(position).getmLessonName());
         i.putExtra(BundleKey.PERCENTAGE,mLessonList.get(position).getmGrowthPercentage());
+
+        Log.d(TAG, "ShowLessonReportFor: subject iD"+subjecId);
+        Log.d(TAG, "ShowLessonReportFor: lesson id "+mLessonList.get(position).getLessonId());
 //        i.putExtra(BundleKey.LESSON_NAME_TRANS,LessonTransName);
 //        i.putExtra(BundleKey.PERCENT_TRANS,percentTransName);
         //MAking pairs for many Share elements
@@ -355,12 +358,14 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
             //got the list from server , dispay it, after pie animations
             setPieChartValue(overall);
-            decorator = new RVdecorator(ContextCompat.getDrawable(mContext,R.drawable.divider));
-            mAdapter = new ReportLessonAdapter(getContext(),mLessons,this);
-            mList.setLayoutManager(new LinearLayoutManager(mContext));
-            mList.addItemDecoration(decorator);
-            mList.setAdapter(mAdapter);
 
+
+                decorator = new RVdecorator(ContextCompat.getDrawable(mContext, R.drawable.divider));
+
+                mAdapter = new ReportLessonAdapter(getContext(), mLessons, this);
+                mList.setLayoutManager(new LinearLayoutManager(mContext));
+                mList.addItemDecoration(decorator);
+                mList.setAdapter(mAdapter);
         }
         catch (Exception e ){
             Log.d(TAG, "setLessonList: exception");
@@ -411,11 +416,18 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
     }
 
     @Override
-    public void noLesson() {
+    public void noLesson()
+    {
 
         FirebaseCrash.log("No Report in Report Fragment , no lessons");
-        mLoadingLayout.removeAllViews();
-        View v = View.inflate(mContext,R.layout.no_data,mLoadingLayout);
+        try {
+
+            mLoadingLayout.removeAllViews();
+            View v = View.inflate(mContext,R.layout.no_data,mLoadingLayout);
+        }
+        catch (Exception e){
+            FirebaseCrash.log("Exception Ocured");
+        }
     }
 
     @Override

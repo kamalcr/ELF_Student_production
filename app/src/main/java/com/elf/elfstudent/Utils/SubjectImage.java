@@ -22,8 +22,8 @@ public class SubjectImage {
     public static int COMPUTER = R.drawable.science_new;
 
     // TODO: 8/11/16 add Subject Id
-    public static String  SCIENCE_ID = "13";
-    public static String  SOCIAL_ID = "12";
+    public static String  SCIENCE_ID = "12";
+    public static String  SOCIAL_ID = "13";
     public static String  MATHS_ID = "11";
     public static String  PHY_ID = "2";
     public static String MATHS_12 = "1";
@@ -39,12 +39,12 @@ public class SubjectImage {
 
               //Tenth Science
             case  "13" :
-                return SCINEC_IMAGE;
+                return SOCIAL;
 
 
             //Tenth Social
             case  "12" :
-                return SOCIAL;
+                return SCINEC_IMAGE;
             //tenth Maths
             case  "11" :
                 return MATHS;

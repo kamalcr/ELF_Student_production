@@ -2,7 +2,12 @@ package com.elf.elfstudent.Activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +15,21 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.R;
 import com.google.firebase.crash.FirebaseCrash;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.R.attr.bitmap;
 
 /**
  * Created by nandhu on 18/10/16.
@@ -61,6 +72,9 @@ public class ChangeProfileActivity extends AppCompatActivity {
 
     DataStore mStore = null;
 
+    @BindView(R.id.chn_profile_image)
+    ImageView mProfilePicture;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,6 +97,25 @@ public class ChangeProfileActivity extends AppCompatActivity {
             FirebaseCrash.log("Excception in setting Toolbar");
         }
 
+
+        String picturpath = mStore.getpicturePath();
+        Log.d(TAG, "setViewValues: picture path "+picturpath);
+        if (picturpath.equals("null")){
+            //NO Picture path , set Dfault Image
+            Log.d(TAG, "setViewValues: default picture");
+            Picasso.with(this).load(R.drawable.ic_users).into(mProfilePicture);
+        }
+        else{
+            //Some pIcture path is available
+            Log.d(TAG, "setViewValues: somepicture");
+            Uri pic = Uri.parse(mStore.getpicturePath());
+            Picasso.with(this).load(pic)
+                    .resize(100,100)
+                    .centerCrop()
+
+                    .into(mProfilePicture);
+
+        }
         mNamebox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +136,48 @@ public class ChangeProfileActivity extends AppCompatActivity {
                 PhoneNUmberChange();
             }
         });
+        mProfilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickImage();
+            }
+
+
+        });
+    }
+
+    private void pickImage() {
+        Intent i = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(i, 101);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            Log.d(TAG, "onActivityResult: Picture path "+picturePath);
+
+            if (mStore != null){
+                mStore.setProPicturePath(selectedImage.toString());
+            }
+            else{
+                Toast.makeText(this,"Picture not Saved",Toast.LENGTH_LONG).show();
+            }
+            cursor.close();
+            Picasso.with(this).load(selectedImage).into(mProfilePicture);
+        }
     }
 
     private void setValuestoViews() {

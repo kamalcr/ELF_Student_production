@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Fragments;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -19,6 +24,9 @@ import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.TestOverviewProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.ScreenUtil;
+import com.elf.elfstudent.Utils.SubjectIMAGE;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -37,28 +45,25 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
     private static final String TAG = "TestCompFragment";
 
     private static final String OVERIVEW_URL = "http://www.hijazboutique.com/elf_ws.svc/GetTestOverview";
-    @BindView(R.id.test_comp_test_desc)
-    HelviticaLight test_desc;
-    @BindView(R.id.test_comp_test_sub)
-    HelviticaLight subjectName;
-    @BindView(R.id.right_no)
-    HelviticaLight correctoptions;
-    @BindView(R.id.textView19)
-    HelviticaLight wrongoptions;
 
-    DataStore mStore  =  null;
+
+    DataStore mStore = null;
+    @BindView(R.id.change_test_overall_root)
+    FrameLayout changeableRoot;
+    @BindView(R.id.test_overall_img)
+    ImageView testImg;
     private Context mContext = null;
-    AppRequestQueue  mRequestQueue = null;
+    AppRequestQueue mRequestQueue = null;
     ErrorHandler errorHandler = null;
     TestOverviewProvider testOverviewProvider = null;
     private String studentId = null;
     private String testID = null;
+    private String subjectId = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
 
     @Override
@@ -86,33 +91,38 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
         try {
 
             mStore = DataStore.getStorageInstance(mContext);
-        }
-        catch (Exception e ){
-            throw  new NullPointerException("Context cannot be NUll");
+        } catch (Exception e) {
+            throw new NullPointerException("Context cannot be NUll");
         }
 
         mStore = DataStore.getStorageInstance(mContext);
         mRequestQueue = AppRequestQueue.getInstance(mContext.getApplicationContext());
         errorHandler = new ErrorHandler(this);
-        testOverviewProvider  = new TestOverviewProvider(this);
+        testOverviewProvider = new TestOverviewProvider(this);
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             testID = getArguments().getString(BundleKey.TEST_ID);
+            subjectId = getArguments().getString(BundleKey.SUBJECT_ID);
         }
 
 
-        studentId  = mStore.getStudentId();
+        if (subjectId != null) {
+            if (mContext!= null){
+                Picasso.with(mContext.getApplicationContext())
+                        .load(SubjectIMAGE.getBIgSubjectImage(subjectId))
+                        .fit()
+                        .into(testImg);
+            }
+            }
+
+
+        studentId = mStore.getStudentId();
 
         //Make Requeat with student ID and Test ID
 
-        if (studentId != null && testID != null){
-            getOverviewReportFor(studentId,testID);
+        if (studentId != null && testID != null) {
+            getOverviewReportFor(studentId, testID);
         }
-
-
-
-
-
 
 
         return v;
@@ -123,20 +133,18 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
         JSONObject mObject = null;
         try {
             mObject = new JSONObject();
-            mObject.put("StudentId",s);
-            mObject.put("TestId",testID);
-        }
-        catch(Exception e ){
+            mObject.put("StudentId", s);
+            mObject.put("TestId", testID);
+        } catch (Exception e) {
             Log.d(TAG, "getOverviewReportFor: ");
         }
 
 
         Log.d(TAG, "aking Request");
-        JsonArrayRequest mREJsonArrayRequest = new JsonArrayRequest(Request.Method.POST,OVERIVEW_URL,mObject,testOverviewProvider,errorHandler);
-        if (mRequestQueue!=null){
+        JsonArrayRequest mREJsonArrayRequest = new JsonArrayRequest(Request.Method.POST, OVERIVEW_URL, mObject, testOverviewProvider, errorHandler);
+        if (mRequestQueue != null) {
             mRequestQueue.addToRequestQue(mREJsonArrayRequest);
-        }
-        else{
+        } else {
             throw new NullPointerException("Request Queue is null");
         }
     }
@@ -180,7 +188,7 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
     }
 
 
-//    // TODO: 10/11/16 show stocl Layouts
+    //    // TODO: 10/11/16 show stocl Layouts
     @Override
     public void TimeoutError() {
 
@@ -199,12 +207,69 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
 
     @Override
     public void ShowOverview(String TestDesc, String SubjectName, String totalQues, String No_ofRight) {
+        try {
 
-        Log.d(TAG, "ShowOverview: "+No_ofRight);
-        test_desc.setText(TestDesc);
-        subjectName.setText(SubjectName);
-        correctoptions.setText(No_ofRight);
-        wrongoptions.setText(totalQues);
+            changeableRoot.removeAllViews();
+            View v = View.inflate(mContext.getApplicationContext(), R.layout.test_overall, changeableRoot);
+            HelviticaLight SubjectDesc = (HelviticaLight) v.findViewById(R.id.test_comp_test_desc);
+            HelviticaLight subId = (HelviticaLight) v.findViewById(R.id.test_comp_test_sub);
+            HelviticaLight correctAnswers = (HelviticaLight) v.findViewById(R.id.right_no);
+            HelviticaLight totalAnswer = (HelviticaLight) v.findViewById(R.id.textView19);
+
+            RunAnimations(SubjectDesc, correctAnswers, totalAnswer);
+
+            SubjectDesc.setText(TestDesc);
+            subId.setText(SubjectName);
+            correctAnswers.setText(No_ofRight);
+            totalAnswer.setText(totalQues);
+        } catch (Exception e) {
+            Log.d(TAG, "ShowOverview: Exception in Test");
+        }
+
+
+    }
+
+    private void RunAnimations(final HelviticaLight subjectDesc, final HelviticaLight correctAnswers, final HelviticaLight totalAnswer) {
+
+        //set Y values
+        subjectDesc.setTranslationY(-ScreenUtil.getScreenHeight(mContext.getApplicationContext()));
+        totalAnswer.setTranslationX(-ScreenUtil.getScreenWidth(mContext.getApplicationContext()));
+        correctAnswers.setTranslationX(ScreenUtil.getScreenWidth(mContext.getApplicationContext()));
+
+        subjectDesc.animate().translationY(0).setDuration(600).setInterpolator(new DecelerateInterpolator(2f))
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        //Display total Answer animations
+
+                        try {
+
+                            correctAnswers.setVisibility(View.VISIBLE);
+                            totalAnswer.setVisibility(View.VISIBLE);
+                            correctAnswers.animate().translationX(0).setDuration(400).setInterpolator(new OvershootInterpolator(1.f)).start();
+                            totalAnswer.animate().translationX(0).setDuration(400).setInterpolator(new OvershootInterpolator(1.f)).start();
+                        } catch (Exception e) {
+                            Log.d(TAG, "Exception");
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        subjectDesc.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                }).start();
+
+
     }
 
     @Override

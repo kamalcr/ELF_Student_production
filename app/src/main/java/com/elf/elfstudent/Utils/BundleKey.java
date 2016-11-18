@@ -60,4 +60,5 @@ public class BundleKey {
     public static String F_MATHS = "Writing ";
 
     public static String TIMEOUT = "TIMEOUT_ERROR";
+    public static String FROM_TEST_PAGE = "FromTEst";
 }

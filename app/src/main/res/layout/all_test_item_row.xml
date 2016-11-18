@@ -3,47 +3,55 @@
     android:layout_width="@dimen/card_side_test_item"
     android:layout_height="@dimen/card_side_test_item"
     style="@style/CardViewStyle"
-    app:cardElevation="4dp"
+    app:cardElevation="8dp"
     app:cardCornerRadius="2dp"
     android:id="@+id/browse_test_item_card_root"
-
+    app:cardBackgroundColor="@color/material_grey100"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@drawable/button_ripple"
+        android:background="?selectableItemBackground"
         android:layout_height="match_parent">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_above="@+id/all_test_text"
+            android:id="@+id/view_div_top"
+            android:layout_marginTop="@dimen/view_div_bb"
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="8dp"
             android:layout_marginRight="8dp"
-            android:background="@color/material_grey700" />
+            android:background="@color/md_grey500" />
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/all_test_text"
-            android:layout_marginLeft="8dp"
+            android:id="@+id/view_div_bottom"
             android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="@dimen/view_div_bb"
             android:layout_marginRight="8dp"
-            android:background="@color/material_grey700"  />
+
+            android:layout_alignParentBottom="true"
+            android:background="@color/md_grey500"  />
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+            android:layout_above="@+id/view_div_bottom"
+            android:layout_below="@+id/view_div_top"
             android:layout_marginRight="8dp"
             android:id="@+id/all_test_text"
             android:textColor="@color/material_black"
-            android:text="Vector algebra"
+            android:text="okay"
+            android:gravity="center"
             android:layout_gravity ="center"
             android:textSize="@dimen/all_test_item_ts"
-
+            android:ems="5"
+            android:maxLines="5"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 

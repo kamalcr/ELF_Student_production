@@ -29,7 +29,7 @@ public class TestReportProvider implements Response.Listener<JSONArray> {
     @Override
     public void onResponse(JSONArray response) {
 
-        Log.d("TAG", "onResponse: from Test Rprts "+response.toString());
+        Log.d("TAG", "onResponse: from Test Reports  "+response.toString());
         int count = response.length();
 
         if (!(count>0)){
@@ -48,6 +48,7 @@ public class TestReportProvider implements Response.Listener<JSONArray> {
 
                 //// TODO: 2/11/16 get Strings
                 mWrittenTest.add(new TestReportModel(mObjet.getString("TestId"),
+                        mObjet.getString("Description"),
                         mObjet.getString("SubjectId"),
                         mObjet.getString("MarksScored")));
 

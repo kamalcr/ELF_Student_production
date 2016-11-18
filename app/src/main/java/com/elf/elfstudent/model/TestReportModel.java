@@ -19,12 +19,30 @@ public class TestReportModel {
     public String subjectId;
     public String subjectName;
     public String overAll;
+    public String description;
 
 
 
-    public TestReportModel(String testId, String subjectId,String overall) {
+    public TestReportModel(String testId, String description, String subjectId, String marksScored) {
         this.testId = testId;
-        this.overAll = overall;
+        this.overAll = marksScored;
+        this.subjectId = subjectId;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(String subjectId) {
         this.subjectId = subjectId;
     }
 

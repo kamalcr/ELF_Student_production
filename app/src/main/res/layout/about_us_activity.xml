@@ -8,25 +8,13 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/about_is"
+        android:layout_height="@dimen/about_is"
         app:srcCompat="@drawable/ic_elf_logo_36"
         android:id="@+id/imageView7"
-        android:layout_below="@+id/about_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="9dp" />
 
-    <com.elf.elfstudent.CustomUI.HelviticaLight
-        android:text="Learning ReInvented"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:textSize="24sp"
-        android:textColor="@color/black_viewpager"
-        android:layout_below="@+id/imageView7"
-        android:layout_alignRight="@+id/imageView7"
-        android:layout_alignEnd="@+id/imageView7"
-        android:layout_marginTop="17dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
         android:text="ELF reinvents tradition learning methods . our system provides a personalised learning platform for students by combining various algorithams adn adapting the system accoring to each individual "
@@ -35,10 +23,21 @@
         android:textColor="@color/black_900"
         android:id="@+id/textView20"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="22sp"
-        android:layout_marginTop="40dp"
-        android:layout_alignTop="@+id/textView2"
+        android:textSize="@dimen/about_sub_text"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="@dimen/about_mtop"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp" />
+
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="Made For Children"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+
+        android:textSize="@dimen/about_ts"
+        android:textColor="@color/black_viewpager"
+        android:layout_below="@+id/imageView7"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.elf.elfstudent.Activities;
 import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -386,16 +387,35 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     private void setViewValues() {
 
 
+        Log.d(TAG, "setViewValues: ");
+
         if(mStore != null){
 
-            Picasso.with(this).load(R.mipmap.pro_pic)
-                    .resize(100,100)
-                    .into(mProfilePicture);
+
+
             mSchoolname.setText(mStore.getInstituionName());
 
             mStandardName.setText(String.format("%s Grade", mStore.getStandard()));
             mStudentName.setText(mStore.getUserName());
             studnetId  = mStore.getStudentId();
+            String picturpath = mStore.getpicturePath();
+            Log.d(TAG, "setViewValues: picture path "+picturpath);
+            if (picturpath.equals("null")){
+                //NO Picture path , set Dfault Image
+                Log.d(TAG, "setViewValues: default picture");
+                Picasso.with(this).load(R.drawable.ic_users).into(mProfilePicture);
+            }
+            else{
+                //Some pIcture path is available
+                Log.d(TAG, "setViewValues: somepicture");
+                Uri pic = Uri.parse(mStore.getpicturePath());
+                Picasso.with(this).load(pic)
+                        .resize(100,100)
+                        .centerCrop()
+
+                        .into(mProfilePicture);
+
+            }
         }
     }
 

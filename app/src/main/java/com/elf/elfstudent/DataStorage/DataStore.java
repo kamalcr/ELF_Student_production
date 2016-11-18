@@ -29,6 +29,7 @@ public class DataStore {
     private static final String COMPUTER = "COMPUTER";
     private static final String BIOLOGY = "BIOLOGY";
     private static final String SUBJECT_SELECTED = "SUBJECT_SELECTED";
+    private static final String PICTURE_PATH = "PIC_PATH";
 
 
     private static DataStore mStore = null;
@@ -181,8 +182,7 @@ public class DataStore {
     public void setStudentPrefrerredSubject(String  i){
         //Zero for Computer
         if (i.equals("0")){
-           //do nothing , student is tenth
-
+           //do nothing , student i editor.putString()
         }
 
         //one for bio
@@ -201,6 +201,15 @@ public class DataStore {
 
     public String getStudentGroup(){
         return mSharedPrefrences.getString(SUBJECT_SELECTED,null);
+    }
+
+    public void setProPicturePath(String picturePath) {
+        editor.putString(PICTURE_PATH,picturePath);
+        editor.apply();
+    }
+
+    public String getpicturePath() {
+        return mSharedPrefrences.getString(PICTURE_PATH,"null");
     }
 }
 

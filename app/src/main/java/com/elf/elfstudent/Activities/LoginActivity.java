@@ -71,11 +71,14 @@ public class LoginActivity extends AppCompatActivity implements
         setContentView(R.layout.login_page);
         ButterKnife.bind(this);
 
+        mDialog = new ProgressDialog(this);
+        mDialog.setIndeterminate(true);
+        mDialog.setMessage("Logging In. Please Wait");
 
 
 
         //intitlalize Req Que
-        mRequestQueue = AppRequestQueue.getInstance(getApplicationContext());
+        mRequestQueue = AppRequestQueue.getInstance(this.getApplicationContext());
 
         mStore = DataStore.getStorageInstance(getApplicationContext());
 
@@ -103,11 +106,11 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void loginButtonClicked() {
-        mDialog = new ProgressDialog(getApplicationContext());
-        mDialog.setIndeterminate(true);
-        mDialog.setMessage("Logging In. Please Wait");
+
+        mDialog.show();
          userName = memailBox.getText().toString();
         String password = mPasswordBox.getText().toString();
+        Log.d(TAG, "loginButtonClicked: "+userName + "Password "+password);
 
 
         JSONObject mObject = new JSONObject();
@@ -127,6 +130,7 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onErrorResponse(VolleyError error) {
 
+        Log.d(TAG, "onErrorResponse: ");
         stopDialog();
     }
 
@@ -141,6 +145,8 @@ public class LoginActivity extends AppCompatActivity implements
     public void onResponse(JSONArray response) {
         //parse the Response
 
+
+        Log.d(TAG, "onResponse: "+response.toString());
         JSONObject mObject = null;
 
         String studentId = null;
@@ -170,15 +176,14 @@ public class LoginActivity extends AppCompatActivity implements
 
                     if (studentId != null) {
                         //Save it file
+                        mStore.setStudentId(studentId);
                         mStore.setBoardId(boardId);
                         mStore.setStudentId(studentId);
                         mStore.setInstitutionId(insId);
                         mStore.setUserName(StudentName);
                         mStore.setStudentStandard(classId);
                         mStore.setInstituionName(insName);
-                        //
-                        //
-                        // TODO: 10/11/16 get group ID , set if in store according to it
+
                         mStore.setStudentPrefrerredSubject(groupId);
                         mStore.setEmailId(userName);
 
@@ -194,17 +199,27 @@ public class LoginActivity extends AppCompatActivity implements
                         startActivity(i);
                     }
                 }
+                else {
+                    //wrong Details
+                    stopDialog();
+                    Animation anim = AnimationUtils.loadAnimation(this, R.anim.shake);
+                    memailBox.setText("");
+                    mPasswordBox.setText("");
 
+                    memailBox.startAnimation(anim);
+                    mPasswordBox.startAnimation(anim);
+                    Toast.makeText(this,"Incorrect Details",Toast.LENGTH_SHORT).show();
 
-            } else {
-               //wrong Details
-                Animation anim  = AnimationUtils.loadAnimation(this,R.anim.shake);
-                memailBox.startAnimation(anim);
-                mPasswordBox.startAnimation(anim);
+                }
             }
+            else{
+                throw new NullPointerException("Object Cannot e null");
+            }
+
         } catch (JSONException e) {
-            e.printStackTrace();
+
             stopDialog();
+
             Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_SHORT).show();
             FirebaseCrash.log("Error in parsing LOgin Info");
         }

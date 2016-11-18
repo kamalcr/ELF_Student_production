@@ -50,13 +50,10 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
     @BindView(R.id.test_completed_tab)
     TabLayout mTab;
 
-    JsonArrayRequest getDeteailedRequest = null;
-    ErrorHandler errorHandler = null;
+
 
     TestCompletedPagerAdapter mAdapter  = null;
-
-    DataStore mStore = null;
-
+    private boolean fromtest =false;
 
 
     @Override
@@ -79,6 +76,8 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
 //            testDesc = getIntent().getStringExtra(BundleKey.TEST_ID);
 //            subjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
             testId = getIntent().getStringExtra(BundleKey.TEST_ID);
+            subjectId  = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
+            fromtest =getIntent().getBooleanExtra(BundleKey.FROM_TEST_PAGE,true);
         }
         else{
             throw new NullPointerException("Intent  Cannot Be null");
@@ -88,9 +87,9 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
 
 
 
-        if (testId!= null){
+        if (testId!= null && subjectId != null){
 
-            setAdapterToPager(testId);
+            setAdapterToPager(testId,subjectId);
         }
         else{
             throw  new NullPointerException("Test ID cannot be Null");
@@ -100,9 +99,9 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
 
     }
 
-    private void setAdapterToPager(String testId) {
+    private void setAdapterToPager(String testId, String subjectId) {
 
-        mAdapter = new TestCompletedPagerAdapter(getSupportFragmentManager(),testId);
+        mAdapter = new TestCompletedPagerAdapter(getSupportFragmentManager(),testId,subjectId);
         mPager.setAdapter(mAdapter);
         mTab.setupWithViewPager(mPager);
     }
@@ -132,8 +131,16 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
     @Override
     public void onBackPressed() {
 
-        final Intent i  = new Intent(this,BrowseTestActivity.class);
-        startActivity(i);
+
+        if (fromtest){
+            //From Test Page, this iacitivty is shown from Test ActivityPage , show Browse Test Activity
+            final Intent i  = new Intent(this,BrowseTestActivity.class);
+            startActivity(i);
+        }
+        else{
+            final   Intent i  = new Intent(this,TestReportsActivity.class);
+            startActivity(i);
+        }
 
     }
 

@@ -48,7 +48,8 @@ import butterknife.ButterKnife;
  * The Instituite and Standard Choosing Page
  */
 
-public class InstitutePage extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, InstituteRespHandler.InstituteHandler, RegisterListener.RegistrationCallback {
+public class InstitutePage extends AppCompatActivity implements
+        ErrorHandler.ErrorHandlerCallbacks, InstituteRespHandler.InstituteHandler, RegisterListener.RegistrationCallback {
 
 
     private static final String TAG = "ELF";

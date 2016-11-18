@@ -17,7 +17,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:weightSum="5"
-    android:background="@color/material_black"
+
     android:layout_gravity="center_vertical"
 
 
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/home_icon"
                 style="@style/drawer_image_view"
-                app:srcCompat = "@drawable/report_nav_icon"
+                app:srcCompat = "@drawable/home_drawer"
                 android:layout_height="match_parent"
 
                />
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/report_icon"
                 android:scaleType="center"
-                app:srcCompat="@drawable/report_nav_icon"
+                app:srcCompat = "@drawable/report_drawer"
                 android:layout_height="match_parent"
                 style="@style/drawer_image_view"
                />
@@ -107,18 +107,12 @@
                 android:layout_width="match_parent"
                 android:id="@+id/write_test_icon"
                 android:layout_marginTop="6dp"
-                app:srcCompat="@drawable/iic_test"
+                app:srcCompat="@drawable/take_test_drawer"
                 android:layout_height="match_parent"
                 style="@style/drawer_image_view"
                 android:layout_above="@+id/drawer_test_icon" />
 
-            <com.elf.elfstudent.CustomUI.HelviticaLight
-                android:layout_width="wrap_content"
-                android:text="Test"
-                android:id="@+id/drawer_test_icon"
-                android:layout_marginLeft="20dp"
-                android:layout_height="wrap_content"
-               style="@style/drawer_text_view"/>
+
         </FrameLayout>
     </android.support.v7.widget.CardView>
 
@@ -143,20 +137,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:id="@+id/wrtin_test_menu"
-                app:srcCompat="@drawable/iic_notification"
+
                 android:layout_height="match_parent"
                 android:layout_marginTop="6dp"
                 style="@style/drawer_image_view"
                 />
 
 
-            <com.elf.elfstudent.CustomUI.QucikSand
-                android:layout_width="match_parent"
-                android:text="Test Reports"
-                android:layout_marginBottom="@dimen/drawer_textt_tr_bm"
-                android:id="@+id/test_reports_drawer_text"
-                android:layout_height="wrap_content"
-                style="@style/drawer_text_view"/>
+
         </FrameLayout>
         </android.support.v7.widget.CardView>
 
@@ -179,19 +167,13 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:id="@+id/payments_icon"
-                app:srcCompat="@drawable/iic_pay_ih"
+
                 android:layout_height="match_parent"
                 android:layout_above="@+id/drawer_payments_text"
                 android:layout_marginTop="6dp"
                 style="@style/drawer_image_view" />
 
-            <com.elf.elfstudent.CustomUI.HelviticaLight
-                android:layout_width="wrap_content"
-                android:text="Payment"
-                android:id="@+id/drawer_payments_text"
 
-                android:layout_height="wrap_content"
-              style="@style/drawer_text_view"/>
 
         </FrameLayout>
         </android.support.v7.widget.CardView>

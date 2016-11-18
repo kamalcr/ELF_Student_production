@@ -31,10 +31,12 @@ import com.elf.elfstudent.Utils.RVdecorator;
 import com.elf.elfstudent.Utils.SubjectIMAGE;
 import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.Lesson;
+import com.google.firebase.crash.FirebaseCrash;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.sql.Time;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,7 +53,7 @@ import butterknife.ButterKnife;
 
 public class SubjectViewActivity extends AppCompatActivity implements
         ErrorHandler.ErrorHandlerCallbacks,
-         LessonProvider.SubjectLoaderCallback {
+        LessonProvider.SubjectLoaderCallback {
 
 
     private static final String TAG = "SUBJECT_VIEW";
@@ -97,7 +99,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
     ErrorHandler errorHandler ;
     LessonProvider mLessonProvider = null;
 
-    List<Lesson> mLessonList = null;
+
     JsonArrayRequest mLessonListRequestor = null;
     private String studentId = null;
 
@@ -187,12 +189,23 @@ public class SubjectViewActivity extends AppCompatActivity implements
         }
 
         //Add to Request Que
-        mRequestQueue.addToRequestQue(mLessonListRequestor);
+
+        if(mLessonListRequestor != null){
+
+            mRequestQueue.addToRequestQue(mLessonListRequestor);
+        }
+        else{
+            //no Request Obejct
+            TimeoutError();
+        }
 
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mLessonListRequestor = null;
+        errorHandler = null;
+        mLessonProvider = null;
     }
 
     @Override
@@ -270,13 +283,31 @@ public class SubjectViewActivity extends AppCompatActivity implements
     @Override
     public void NetworkError() {
 
-        mChangableRoot.removeAllViews();
-        View v = LayoutInflater.from(this).inflate(R.layout.no_internet,mChangableRoot,true);
+
+        try{
+
+            mChangableRoot.removeAllViews();
+            View v = LayoutInflater.from(this).inflate(R.layout.no_internet,mChangableRoot,true);
+        }
+        catch (Exception e ){
+            // Do nothing
+        }
 
     }
 
     @Override
     public void ServerError() {
+
+        FirebaseCrash.log("Server Error");
+        try{
+            mChangableRoot.removeAllViews();
+            View v = LayoutInflater.from(this).inflate(R.layout.no_data,mChangableRoot,true);
+        }
+        catch (Exception e){
+
+
+        }
+
 
     }
 
@@ -285,16 +316,23 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
     @Override
     public void setLessonList(List<Lesson> mLessons, int overall) {
-        mLessonList = mLessons;
-        mAdapter = new LessonListAdapter(getApplicationContext(),mLessons);
-        mChangableRoot.removeAllViews();
-        View listView = LayoutInflater.from(this).inflate(R.layout.home_recycler,mChangableRoot,true);
-        mSubListView = (RecyclerView) listView.findViewById(R.id.home_list);
-        mSubListView.setLayoutManager(new LinearLayoutManager(this));
-        mSubListView.addItemDecoration(new RVdecorator(ContextCompat.getDrawable(getApplicationContext(),R.drawable.divider)));
 
-        if (mAdapter != null){
-            mSubListView.setAdapter(mAdapter);
+        mAdapter = new LessonListAdapter(getApplicationContext(),mLessons);
+
+        try{
+
+            mChangableRoot.removeAllViews();
+            View listView = LayoutInflater.from(this).inflate(R.layout.transparent_recycler,mChangableRoot,true);
+            mSubListView = (RecyclerView) listView.findViewById(R.id.subview_list);
+            mSubListView.setLayoutManager(new LinearLayoutManager(this));
+            mSubListView.addItemDecoration(new RVdecorator(ContextCompat.getDrawable(getApplicationContext(),R.drawable.divider)));
+
+            if (mAdapter != null){
+                mSubListView.setAdapter(mAdapter);
+            }
+        }
+        catch (Exception e ){
+            Log.d(TAG, "setLessonList: Exception");
         }
 
 
@@ -303,7 +341,14 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
     @Override
     public void noLesson() {
-        mChangableRoot.removeAllViews();
-        View v  = LayoutInflater.from(this).inflate(R.layout.no_data,mChangableRoot,true);
+
+        try{
+
+            mChangableRoot.removeAllViews();
+            View v  = LayoutInflater.from(this).inflate(R.layout.no_data,mChangableRoot,true);
+        }
+        catch (Exception e ){
+            Log.d(TAG, "Exception");
+        }
     }
 }

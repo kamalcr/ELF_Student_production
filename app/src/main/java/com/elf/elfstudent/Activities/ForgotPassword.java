@@ -9,17 +9,19 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.ForgotPasswordHandler;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RequestParameterKey;
+import com.elf.elfstudent.Utils.StringValidator;
 
 import org.json.JSONObject;
 
@@ -37,10 +39,10 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
     @BindView(R.id.check_button)
     Button mForgotButton;
 
-    @BindView(R.id.forgot_phone_ted)
-    TextInputLayout mPhoneBox;
+    @BindView(R.id.forgot_email_ted)
+    TextInputLayout mEmailBox;
 
-    @BindView(R.id.fp_email_ted) TextInputLayout mEmailBox;
+    @BindView(R.id.fp_phone_ted) TextInputLayout mPhoneBox;
 
 
 
@@ -84,23 +86,48 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
         }
        email  = mEmailBox.getEditText().getText().toString();
         phoneNumber = mPhoneBox.getEditText().getText().toString();
-
-        JSONObject mObj = new JSONObject();
-        try{
+        if (StringValidator.checkeEMail(email)) {
+            //Right Email, check for Phone number
+            if (StringValidator.checkPhoneNumber(phoneNumber)){
+                //Correct Format , send Request
+                JSONObject mObj = new JSONObject();
+                try{
 //
-            mObj.put(RequestParameterKey.EMAIL_ID,email);
-            mObj.put(RequestParameterKey.PHONE,phoneNumber);
+                    mObj.put(RequestParameterKey.EMAIL_ID,email);
+                    mObj.put(RequestParameterKey.PHONE,phoneNumber);
+
+                }
+                catch (Exception e ){
+                    Log.d(TAG, "forogotButtonClicked: ");
+                }
+
+                JsonArrayRequest mRequest  = new JsonArrayRequest(Request.Method.POST,CHECK_URL,mObj,mForgotHander,errorHandler);
+                if (mRequestQueue != null){
+
+                    mRequestQueue.addToRequestQue(mRequest);
+                }
+            }
+            else{
+                //Wrong PHone Number
+                stopDialog();
+                Log.d(TAG, "forogotButtonClicked: worng phone");
+                Animation an  = AnimationUtils.loadAnimation(this,R.anim.shake);
+
+                mPhoneBox.startAnimation(an);
+
+
+            }
 
         }
-        catch (Exception e ){
-            Log.d(TAG, "forogotButtonClicked: ");
+        else{
+            //wrong Email Format
+            stopDialog();
+            Log.d(TAG, "forogotButtonClicked: wrong email");
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.shake);
+            mEmailBox.startAnimation(animation);
         }
 
-        JsonArrayRequest mRequest  = new JsonArrayRequest(Request.Method.POST,CHECK_URL,mObj,mForgotHander,errorHandler);
-        if (mRequestQueue != null){
 
-            mRequestQueue.addToRequestQue(mRequest);
-        }
 
 
     }
@@ -178,7 +205,11 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
     @Override
     public void WrongDetailsEntered() {
         stopDialog();
-//// TODO: 10/11/16 show shake animation
+        Animation an = AnimationUtils.loadAnimation(this,R.anim.shake);
+        mEmailBox.getEditText().setText("");
+        mPhoneBox.getEditText().setText("");
+        mEmailBox.startAnimation(an);
+        mPhoneBox.startAnimation(an);
 
     }
 }

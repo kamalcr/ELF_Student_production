@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@+id/report_progress"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_height="match_parent"
         >
        <include layout="@layout/report_loading"/>
@@ -20,7 +20,7 @@
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:background="@color/white_light"
             android:id="@+id/report_visisble_layout"
             android:layout_height="wrap_content"
@@ -37,6 +37,7 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_margin="8dp"
+                        app:cardUseCompatPadding="true"
 
                         app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
                         app:cardElevation="8dp"
@@ -83,14 +84,12 @@
 
 
             <!--The Recycler view-->
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:layout_marginTop="18dp"
-                android:layout_height="match_parent">
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
+                    android:layout_marginTop="18dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:layout_height="match_parent">
                      <com.elf.elfstudent.CustomUI.QucikSand
                          android:layout_width="wrap_content"
@@ -119,6 +118,7 @@
                         android:layout_width="match_parent"
                         android:id="@+id/report_frag_list"
                         android:layout_marginTop="8dp"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
                         android:layout_below="@id/report_chap_text"
                         android:layout_height="match_parent">
 
@@ -129,7 +129,7 @@
 
 
 
-            </android.support.v7.widget.CardView>
+
 
             </android.support.design.widget.CoordinatorLayout>
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:alpha="0.1"
 
     xmlns:android="http://schemas.android.com/apk/res/android">
         <com.elf.elfstudent.CustomUI.HelviticaLight
@@ -16,7 +15,7 @@
             android:paddingStart="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:textSize="22sp"
+            android:textSize="@dimen/lesson_item_text_size"
             android:layout_alignParentStart="true"
             android:layout_toLeftOf="@+id/lesson_growth"
             android:layout_toStartOf="@+id/lesson_growth" />
@@ -28,7 +27,7 @@
 
             android:id="@+id/lesson_growth"
             android:layout_height="50dp"
-            android:textSize="22sp"
+            android:textSize="@dimen/lesson_item_text_size"
             android:gravity="center_vertical"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
