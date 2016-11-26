@@ -35,6 +35,9 @@ import butterknife.ButterKnife;
 public class ChangePasswordActivity  extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, ChangePasswordHandler.Callbacks {
 
     private static final String TAG = "ELF";
+
+    // todo Change Passwod UEl here
+
     private static final String FORGOT_URL = "";
     @BindView(R.id.enter_password)
     TextInputEditText mPasswordBox;
@@ -102,6 +105,10 @@ public class ChangePasswordActivity  extends AppCompatActivity implements ErrorH
         }
 
         JsonObjectRequest mRequest = new JsonObjectRequest(Request.Method.POST,FORGOT_URL,mObject,passwordHandler,errorHandler);
+        if (mRequestQueue   != null) {
+          mRequestQueue.addToRequestQue(mRequest);
+
+        }
     }
 
     @Override

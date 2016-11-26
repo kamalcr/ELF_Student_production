@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
+    android:minHeight="60dp"
 
     xmlns:android="http://schemas.android.com/apk/res/android">
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:layout_width="wrap_content"
             android:text="Lesson Name"
-
+            android:minHeight="60dp"
             android:textColor="@color/material_black"
             android:id="@+id/lesson_name_item"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical|start"
             android:paddingStart="16dp"
@@ -26,13 +27,13 @@
             android:textColor="@color/black_900"
 
             android:id="@+id/lesson_growth"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:textSize="@dimen/lesson_item_text_size"
-            android:gravity="center_vertical"
+            android:gravity="center"
+            android:layout_alignBottom="@+id/lesson_name_item"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentTop="true" />
 
     </RelativeLayout>
 

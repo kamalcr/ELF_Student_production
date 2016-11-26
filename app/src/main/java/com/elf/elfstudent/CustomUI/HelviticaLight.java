@@ -29,7 +29,7 @@ public class HelviticaLight   extends TextView {
     }
 
     private void applyCustomFont(Context context) {
-        Typeface customFont = FontCache.getTypeface("fonts/ios_light.ttf", context);
+        Typeface customFont = FontCache.getTypeface("fonts/nexa_light.otf", context);
         setTypeface(customFont);
     }
 }

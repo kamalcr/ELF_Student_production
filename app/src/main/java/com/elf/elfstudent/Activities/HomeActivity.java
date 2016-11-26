@@ -193,7 +193,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         setContentView(R.layout.home_activity);
         ButterKnife.bind(this);
         
-        pop("oncreate");
+
 
 
 
@@ -224,12 +224,11 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         ActionBar ab  = getSupportActionBar();
         try {
             ab.setDisplayShowHomeEnabled(true); // show or hide the default home button
-
             ab.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
             ab.setDisplayShowTitleEnabled(false);
         }
         catch (Exception e ){
-            Log.d(TAG, "onCreate:  exception in toolbar");
+        		FirebaseCrash.log("Exception Occured in settingActionbar");
         }
 
 
@@ -239,25 +238,32 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
         //navigation ICon
 
+
+        	if (mDropIcon != null) {
+        		
         mDropIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DropButtonClicked();
             }
-        });
+          });
+        }
 
         if (mStore != null){
             studnetId = mStore.getStudentId();
         }
         else{
-            FirebaseCrash.log("Store null in Home");
+            throw new NullPointerException("Student Id Cannot Be null");
         }
         //sending DahsoArd Request
         if (studnetId != null){
 
             prepareDashBoardFor(studnetId);
         }
+        else{
 
+        	//Student id null
+        	}
          setUpCustomDrawer();
 
 
@@ -320,10 +326,11 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
         if (!isDrawerShowing){
             mdrawerLayout.setTranslationX(-ScreenUtil.getScreenWidth(this));
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                mdrawerLayout.animate().translationX(0).setInterpolator(new DecelerateInterpolator(1.5f)).setDuration(600)
-                        .setListener(new Animator.AnimatorListener() {
+            mdrawerLayout.animate()
+            .translationX(0)
+            .setInterpolator(new DecelerateInterpolator(1.5f))
+            .setDuration(600)
+            .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
                         mdrawerLayout.setVisibility(View.VISIBLE);
@@ -345,12 +352,13 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
                     }
                 }).start();
             }
-        }
+
         else{
 
-                mdrawerLayout.animate().setDuration(500)
-                        .setInterpolator(new AccelerateDecelerateInterpolator())
-                        .setListener(new Animator.AnimatorListener() {
+                mdrawerLayout.animate()
+                .setDuration(500)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .setListener(new Animator.AnimatorListener() {
                             @Override
                             public void onAnimationStart(Animator animator) {
 
@@ -374,8 +382,9 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
         }
 
-        Log.d(TAG, "DropButtonClicked: ");
 
+
+        	//Invalidate Boolean
         isDrawerShowing = !isDrawerShowing;
 
 
@@ -407,12 +416,10 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             }
             else{
                 //Some pIcture path is available
-                Log.d(TAG, "setViewValues: somepicture");
                 Uri pic = Uri.parse(mStore.getpicturePath());
                 Picasso.with(this).load(pic)
                         .resize(100,100)
                         .centerCrop()
-
                         .into(mProfilePicture);
 
             }
@@ -449,12 +456,9 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         @Override
         protected void onDestroy (){
             super.onDestroy();
-            Log.d(TAG, "onDestroy: ");
             mStore = null;
             mDataProvider = null;
             errorHandler = null;
-
-
         }
 
         @Override
@@ -485,6 +489,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
                final  Intent i = new Intent(this,ChangeProfileActivity.class);
                startActivity(i);
 
+
                break;
            case R.id.about_menu :
                final  Intent ii  = new Intent(this,AboutUsActivity.class);
@@ -513,9 +518,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
         @Override
         public void onBackPressed () {
-            Log.d(TAG, "onBackPressed: ");
-            finish();
-
+            
             
         }
 
@@ -535,7 +538,9 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
      * see the post  <a href = "http://stackoverflow.com/questions/14620848/getting-out-of-memory-error-while-starting-a-activity-in-android-app"></a>
      *
      *  for futher clairificaitons
+     * Currently not used anywhere
      * */
+
 
 
 
@@ -574,6 +579,10 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         }
 
 
+
+// Called from Adapter , this is called on CLicking  a subject , in Recyceler view
+        //   
+
         @Override
         public void InfoButtonClicked(int position, View itemView){
 
@@ -584,11 +593,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
                     DropButtonClicked();
                 }
-                Log.d(TAG, "InfoButtonClicked: ");
-                //get the view and transition Name of views
-//                HelviticaLight subjectName = (HelviticaLight) itemView.findViewById(R.id.subject_title);
-//                String subTransName = ViewCompat.getTransitionName(subjectName);
-                CardView viewRoot = (CardView) itemView;
+               
                 HelviticaLight percentText = (HelviticaLight) itemView.findViewById(R.id.percent);
                 String percentTransName = ViewCompat.getTransitionName(percentText);
 
@@ -598,14 +603,9 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
                 //Intent for Next Activity
                 Intent i = new Intent(this,SubjectViewActivity.class);
-//                i.putExtra(BundleKey.SUBJECT_NAME,subjectName.getText());
                 i.putExtra(BundleKey.PERCENTAGE,percentText.getText());
                 i.putExtra(BundleKey.SUBJECT_ID,mSubjectList.get(position).getmSubjectId());
-//            i.putExtra(BundleKey.ROOT_VIEW_TRANS_NAME,root_transName);
-
-
                 //Putting Transition Name Values
-
 //                i.putExtra(BundleKey.HOME_SUBJECT_TRANS_NAME,subTransName);           i.p
                 i.putExtra(BundleKey.ARG_STUDENT_ID,studnetId);
                 i.putExtra(BundleKey.HOME_PERCENT_TRANS_NAME,percentTransName);
@@ -664,6 +664,8 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         }
         else{
 
+        	try{
+
             mRoot.removeAllViews();
             View v = View.inflate(this,R.layout.try_again_layout,mRoot);
             ButterKnife.bind(v);
@@ -676,6 +678,11 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
                     }
                 }
             });
+        	}
+        	catch (Exception e) {
+        		FirebaseCrash.log("Exception in Setting Values");
+        		
+        	}
         }
 
 
@@ -684,8 +691,14 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     @Override
     public void NetworkError() {
         Log.d(TAG, "NetworkError: ");
-        mRoot.removeAllViews();
-        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.no_internet,mRoot,true);
+        try{
+
+            mRoot.removeAllViews();
+            View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.no_internet,mRoot,true);
+        }
+        catch (Exception e){
+            FirebaseCrash.log("Excepiont in changing views");
+        }
 
 
 
@@ -698,8 +711,14 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     public void ServerError() {
         FirebaseCrash.log("Error in server");
 
-        mRoot.removeAllViews();
-        View v = View.inflate(this,R.layout.send_feedback,mRoot);
+        try{
+
+            mRoot.removeAllViews();
+            View v = View.inflate(this,R.layout.send_feedback,mRoot);
+        }
+        catch (Exception e){
+            FirebaseCrash.log("Exception chnaging views");
+        }
     }
 
 
@@ -731,15 +750,16 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         if (!adapterSet){
             //if adapter is not set .. then
 
+            try{
+
             mRoot.removeAllViews();
             View v  = LayoutInflater.from(this).inflate(R.layout.home_recyler_view,mRoot,true);
 
             mList = (RecyclerView) v.findViewById(R.id.home_list_rv);
-            try {
-                adapterSet = true;
-                mList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                mList.setAdapter(mSubjectAdapter);
-                mList.setHasFixedSize(true);
+            adapterSet = true;
+            mList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            mList.setAdapter(mSubjectAdapter);
+            mList.setHasFixedSize(true);
             }
             catch (Exception e ){
                 FirebaseCrash.log("Exception in setting Home Adapter");
@@ -783,7 +803,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
                 View v = View.inflate(this,R.layout.no_data,mRoot);
             }
             catch (Exception e ){
-                Toast.makeText(this,"NO data Received , please try again later",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"No data Received , please try again later",Toast.LENGTH_SHORT).show();
             }
         }
     }

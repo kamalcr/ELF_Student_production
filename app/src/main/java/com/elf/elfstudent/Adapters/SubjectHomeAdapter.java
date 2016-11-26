@@ -72,10 +72,7 @@ public void onBindViewHolder(HomeHolder holder, int position) {
         Log.d(TAG, "geting image for SUbject id "+subID);
 
 
-        Picasso.with(this.mContext.getApplicationContext())
-                .load(SubjectImage.getSubjectImage(subID))
-                .fit()
-                .into(holder.mSubjectImage);
+       holder.mSubjectImage.setImageDrawable(ContextCompat.getDrawable(mContext,SubjectImage.getSubjectImage(subID)));
 
 //        holder.mSubjectImage.setImageResource(R.drawable.science_new);
 //        ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");

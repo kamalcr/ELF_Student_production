@@ -63,8 +63,7 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
         ButterKnife.bind(this);
 
 
-
-
+        //saved State exists , get the Test iD
 
 
 
@@ -80,7 +79,16 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
             fromtest =getIntent().getBooleanExtra(BundleKey.FROM_TEST_PAGE,true);
         }
         else{
-            throw new NullPointerException("Intent  Cannot Be null");
+
+            //Check whether  activitu was relaunched from save instance state
+            if(savedInstanceState != null){
+                testId = savedInstanceState.getString(BundleKey.TEST_ID);
+                subjectId = savedInstanceState.getString(BundleKey.SUBJECT_ID);
+                fromtest = savedInstanceState.getBoolean(BundleKey.FROM_TEST_PAGE);
+            }
+            else{
+                throw new NullPointerException("Test Id is null");
+            }
         }
 
 
@@ -92,7 +100,7 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
             setAdapterToPager(testId,subjectId);
         }
         else{
-            throw  new NullPointerException("Test ID cannot be Null");
+            throw  new NullPointerException("Test ID or subject is null cannot be Null, NO Adapter is set");
         }
 
 
@@ -116,6 +124,9 @@ public class TestCompletedActivity extends AppCompatActivity implements ErrorHan
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putString(BundleKey.TEST_ID,testId);
+        outState.putString(BundleKey.SUBJECT_ID,subjectId);
+        outState.putBoolean(BundleKey.FROM_TEST_PAGE,fromtest);
     }
 
     @Override
