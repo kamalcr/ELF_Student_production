@@ -103,7 +103,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
         if (picturpath.equals("null")){
             //NO Picture path , set Dfault Image
             Log.d(TAG, "setViewValues: default picture");
-            Picasso.with(this).load(R.drawable.ic_users).into(mProfilePicture);
+            Picasso.with(this).load(R.drawable.ic_account_circle_white_36dp).into(mProfilePicture);
         }
         else{
             //Some pIcture path is available

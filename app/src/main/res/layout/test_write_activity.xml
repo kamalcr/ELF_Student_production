@@ -3,7 +3,6 @@
 
 <android.support.design.widget.CoordinatorLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -31,20 +30,18 @@
         android:id="@+id/nts_center"
         android:layout_width="match_parent"
         android:background="@color/black_viewpager"
-
         android:layout_height="42dp"
         android:layout_gravity="center"
-
         app:nts_active_color="#fff"
         app:nts_color="#3cdedd"
         app:nts_corners_radius="3.5dp"
         app:nts_factor="0.8"
         app:nts_gravity="bottom"
         app:nts_inactive_color="#81ffffff"
-
         app:nts_type="point"
-
         app:nts_weight="7dp"/>
+
+        <!--THe Main Content View , TestView pager -->
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:background="@drawable/login_background_gradient"

@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Adapters.TopicListAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.CustomUI.HelviticaMedium;
+import com.elf.elfstudent.CustomUI.QucikSand;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -85,7 +86,8 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
 
     @BindView(R.id.lesson_name_single)
     HelviticaLight mLessonName;
-    @BindView(R.id.percent_single) HelviticaLight mPercentName;
+    @BindView(R.id.percent_single)
+    QucikSand mPercentName;
 
 
     @BindView(R.id.topic_list_root)

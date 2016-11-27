@@ -5,7 +5,7 @@
 <RelativeLayout android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_collapseMode="parallax"
-    android:background="@color/material_blue400"
+    android:background="@drawable/top_gradient"
     android:layout_below="@+id/elf_toolbar"
     android:id="@+id/home_profile_container"
 
@@ -73,6 +73,7 @@
         android:layout_marginTop="8dp"
         android:layout_width="@dimen/height_border"
         android:scaleType="centerCrop"
+
         app:civ_border_overlay="true"
         app:civ_fill_color="@color/black_dribble"
         android:layout_marginBottom="10dp"
@@ -110,7 +111,7 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:background="@color/material_green400"
+
             android:layout_height="match_parent">
            <RelativeLayout
                android:layout_width="match_parent"
@@ -126,7 +127,7 @@
                    android:text="Overall"
                    android:textSize="@dimen/rank_text_size"
                    android:id="@+id/overall_text"
-                   android:textColor="@color/material_green900"
+                   android:textColor="@color/material_black"
                    android:layout_marginTop="4dp"
                    android:layout_centerHorizontal="true"
                    android:layout_below="@id/home_state_image"
@@ -151,7 +152,7 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:background="@color/material_purple400"
+
             android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -169,7 +170,7 @@
                     android:id="@+id/dis_text"
                     android:layout_marginTop="4dp"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/material_purple900"
+                    android:textColor="@color/material_black"
                     android:layout_below="@id/home_overall_image"
                     android:layout_height="wrap_content" />
 
@@ -193,7 +194,7 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:background="@color/material_red400"
+
             android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -211,7 +212,7 @@
                     android:layout_marginTop="4dp"
                     android:textSize="@dimen/rank_text_size"
                     android:id="@+id/state_text"
-                    android:textColor="@color/material_red900"
+                    android:textColor="@color/material_black"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@id/home_district_image"
                     android:layout_height="wrap_content" />

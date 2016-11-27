@@ -55,7 +55,7 @@
 
                      android:layout_height="wrap_content" />
 
-                     <com.elf.elfstudent.CustomUI.HelviticaLight
+                     <com.elf.elfstudent.CustomUI.QucikSand
                          android:layout_width="wrap_content"
                          android:id="@+id/percent_single"
                          android:text="Percentage"
@@ -82,7 +82,7 @@
 
              </FrameLayout>
 
-             <com.elf.elfstudent.CustomUI.HelviticaLight
+             <TextView
                  android:layout_width="wrap_content"
                  android:text="Topic Wise Report"
                  android:textSize="@dimen/topic_text_size"
@@ -90,7 +90,9 @@
                  android:id="@+id/single_text"
                  android:layout_height="wrap_content"
                  android:layout_below="@+id/report_leson_card"
-                 android:layout_centerHorizontal="true" />
+                 android:layout_alignParentLeft="true"
+                 android:layout_alignParentStart="true"
+                 android:layout_marginLeft="16dp" />
 
 
          </RelativeLayout>

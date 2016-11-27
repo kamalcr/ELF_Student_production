@@ -82,7 +82,7 @@
     <style name="drawer_card" parent="CardView.Light">
         <item name="cardPreventCornerOverlap">false</item>
         <item name="cardUseCompatPadding">true</item>
-        <item name="cardBackgroundColor">@color/material_black</item>
+
         <item name="android:layout_margin">4dp</item>
         <item name="cardCornerRadius">4dp</item>
     </style>

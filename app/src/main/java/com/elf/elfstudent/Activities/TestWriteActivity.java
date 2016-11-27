@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Activities;
 
+import android.animation.Animator;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,9 +20,11 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -321,8 +324,13 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
             public void onFinish() {
                 counter.setTitle("done!");
+                finishTest();
             }
         }.start();
+        if (m != null){
+            m.setTextColor(ContextCompat.getColor(getApplication().getApplicationContext(),R.color.white));
+
+        }
 
         return  true;
     }
@@ -349,7 +357,6 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
             throw new NullPointerException("Request Queue cannot be Null");
         }
     }
-
 
     //set Adapter data and Tab
     private void setAdapter(String[] mTitles, List<Question> mQuestionList) {
@@ -482,9 +489,36 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
             mChangableRoot.removeAllViews();
             View v = View.inflate(this, R.layout.test_submitted_view, mChangableRoot);
-            HelviticaLight mSubmitText = (HelviticaLight) v.findViewById(R.id.tes_sub_text);
-            ImageView tickImage = (ImageView) v.findViewById(R.id.tick_image);
-            ((Animatable) tickImage.getDrawable()).start();
+            final TextView mSubmitText = (TextView) v.findViewById(R.id.test_submit_text);
+            final ImageView tickImage = (ImageView) v.findViewById(R.id.tick_image);
+            tickImage.setScaleX(0);
+            tickImage.setScaleY(0);
+            tickImage.animate().scaleY(1).scaleY(1)
+                    .setInterpolator(new AccelerateDecelerateInterpolator())
+                    .setDuration(500)
+                    .setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                            tickImage.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            mSubmitText.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+
+                        }
+                    }).start();
+
+
         } catch (Exception e) {
             FirebaseCrash.log("Exception in cnhanging Leayout");
         }
@@ -497,7 +531,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
             startActivity(i);
         } else {
 
-            FirebaseCrash.log("Test ID or Subject is null");
+            throw  new NullPointerException("Activity is not started Due to either TestId or Subject is Null");
         }
     }
 

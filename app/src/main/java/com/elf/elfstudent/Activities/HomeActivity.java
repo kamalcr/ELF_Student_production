@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
@@ -412,7 +413,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             if (picturpath.equals("null")){
                 //NO Picture path , set Dfault Image
                 Log.d(TAG, "setViewValues: default picture");
-                Picasso.with(this).load(R.drawable.ic_users).into(mProfilePicture);
+             Picasso.with(this).load(R.drawable.ic_account_circle_white_36dp).into(mProfilePicture);
             }
             else{
                 //Some pIcture path is available
@@ -471,6 +472,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         protected void onStart () {
             super.onStart();
             mAnalytics = FirebaseAnalytics.getInstance(this);
+
         }
 
 

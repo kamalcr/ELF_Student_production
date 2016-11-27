@@ -3,6 +3,7 @@ package com.elf.elfstudent.Utils;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.elf.elfstudent.R;
 
@@ -13,13 +14,13 @@ import com.elf.elfstudent.R;
  */
 
 public class SubjectImage {
-    public static  int  SCINEC_IMAGE = R.drawable.scee_small;
+    public static  int  SCINEC_IMAGE = R.drawable.science_small;
     public static int SOCIAL = R.drawable.social_small;
-    public static int MATHS = R.drawable.mats_new;
-    public static int PHYSICS = R.drawable.science_new;
-    public static int CHEMISTRY = R.drawable.science_new;
-    public static int BIOLOGY = R.drawable.science_new;
-    public static int COMPUTER = R.drawable.science_new;
+    public static int MATHS = R.drawable.maths_small;
+    public static int PHYSICS = R.drawable.science_small;
+    public static int CHEMISTRY = R.drawable.chem_small;
+    public static int BIOLOGY = R.drawable.science_small;
+    public static int COMPUTER = R.drawable.cs_small;
 
     // TODO: 8/11/16 add Subject Id
     public static String  SCIENCE_ID = "12";
@@ -34,6 +35,7 @@ public class SubjectImage {
     public static int getSubjectImage( String subID) {
 
 
+        Log.d("Image Id", "getSubjectImage: "+subID);
         switch (subID){
 
 
@@ -44,6 +46,7 @@ public class SubjectImage {
 
             //Tenth Social
             case  "12" :
+
                 return SCINEC_IMAGE;
             //tenth Maths
             case  "11" :
