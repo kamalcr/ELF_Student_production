@@ -9,9 +9,9 @@ import com.elf.elfstudent.R;
 
 public class SubjectIMAGE {
 //    // TODO: 17/11/16 add big subject images
-    public static  int  SCINEC_IMAGE = R.drawable.science_small;
-    public static int SOCIAL = R.drawable.social_small;
-    public static int MATHS = R.drawable.maths_small;
+    public static  int  SCINEC_IMAGE = R.drawable.bio_bigg;
+    public static int SOCIAL = R.drawable.bio_bigg;
+    public static int MATHS = R.drawable.bio_bigg;
     public static int PHYSICS = R.drawable.science_small;
     public static int CHEMISTRY = R.drawable.chem_small;
     public static int BIOLOGY = R.drawable.science_small;

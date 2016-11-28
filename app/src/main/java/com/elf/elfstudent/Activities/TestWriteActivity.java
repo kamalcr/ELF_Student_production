@@ -4,21 +4,16 @@ import android.animation.Animator;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
@@ -30,7 +25,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Adapters.QuestionPagerAdapter;
-import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -39,7 +33,6 @@ import com.elf.elfstudent.Network.JsonProcessors.TestSubitter;
 import com.elf.elfstudent.Network.TestSubmitEH;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
-import com.elf.elfstudent.Utils.TimerMenu;
 import com.elf.elfstudent.model.Question;
 import com.elf.elfstudent.model.TestSubmit;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
@@ -89,6 +82,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     Button testWriteFinish;
     @BindView(R.id.elf_toolbar_test)
     Toolbar toolbarTest;
+    @BindView(R.id.timer_text)
+    TextView timerText;
 
 
     //The Adapter which Shows Question One by one
@@ -304,35 +299,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.test_write,menu);
 
-        final MenuItem counter = menu.findItem(R.id.countdown);
-      final  HelviticaLight m = (HelviticaLight) MenuItemCompat.getActionView(counter);
-
-        new CountDownTimer(timer, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                long millis = millisUntilFinished;
-                String  hms =  (TimeUnit.MILLISECONDS.toHours(millis))+":"+(TimeUnit.MILLISECONDS.toMinutes(millis) -TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))+":"+ (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-
-
-
-                counter.setTitle(hms);
-                timer = millis;
-
-            }
-
-            public void onFinish() {
-                counter.setTitle("done!");
-                finishTest();
-            }
-        }.start();
-        if (m != null){
-            m.setTextColor(ContextCompat.getColor(getApplication().getApplicationContext(),R.color.white));
-
-        }
-
-        return  true;
+        return true;
     }
 
 
@@ -372,6 +340,26 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
         mTab.setTitles(mTitles);
         mTab.setTabIndex(0);
         mTab.setViewPager(mPager);
+        new CountDownTimer(timer, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                long millis = millisUntilFinished;
+                String hms = (TimeUnit.MILLISECONDS.toHours(millis)) + ":" + (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))) + ":" + (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+
+
+                timerText.setText(hms);
+                timer = millis;
+
+            }
+
+            public void onFinish() {
+                timerText.setText("done!");
+                finishTest();
+            }
+        }.start();
+
+
+
         //Hide the Progress Bar
 
 
@@ -531,7 +519,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
             startActivity(i);
         } else {
 
-            throw  new NullPointerException("Activity is not started Due to either TestId or Subject is Null");
+            throw new NullPointerException("Activity is not started Due to either TestId or Subject is Null");
         }
     }
 

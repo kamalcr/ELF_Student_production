@@ -14,8 +14,21 @@
        android:layout_height="match_parent">
        <ImageView
            android:layout_width="wrap_content"
+           android:id="@+id/test_img"
+           android:layout_centerHorizontal="true"
            app:srcCompat="@drawable/ic_elf_logo_36"
            android:layout_centerInParent="true"
+           android:layout_height="wrap_content" />
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_alignParentTop="true"
+           android:layout_alignBottom="@id/test_img"
+           android:layout_alignParentRight="true"
+           android:text="00:00"
+           android:id="@+id/timer_text"
+          android:layout_marginRight="4dp"
+           android:gravity="center"
+           android:textColor="@color/white"
            android:layout_height="wrap_content" />
    </RelativeLayout>
 

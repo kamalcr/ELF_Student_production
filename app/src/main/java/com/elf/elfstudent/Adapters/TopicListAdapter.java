@@ -78,7 +78,7 @@ public class  TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Top
     public void onBindViewHolder(TopicViewer holder, int position) {
         runEnterAnimations(holder,position);
         holder.TopicName.setText(topicList.get(position).getTopicName());
-        holder.mPoints.setText(topicList.get(position).getPoints());
+        holder.mPoints.setText(String.valueOf((int)Float.parseFloat(topicList.get(position).getPoints())));
 
 
     }

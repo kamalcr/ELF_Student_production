@@ -28,6 +28,7 @@ import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RVdecorator;
+import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.Utils.SubjectIMAGE;
 import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.Lesson;
@@ -120,7 +121,8 @@ public class SubjectViewActivity extends AppCompatActivity implements
                 String subjectID = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
 
             //set The Background image
-            Picasso.with(this).load(SubjectIMAGE.getBIgSubjectImage(subjectID)).into(mSubjectViewImage);
+            Picasso.with(this).load(SubjectIMAGE.getBIgSubjectImage(subjectID))
+                    .into(mSubjectViewImage);
 
 
             //Get The Student Id
@@ -151,7 +153,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
             throw new NullPointerException("Intent Cannot be null");
         }
 
-
+        mToolbar.setTitle("Subject Overview");
         setSupportActionBar(mToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);

@@ -56,7 +56,8 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
         runEnterAnimations(holder,position);
         Log.d("Adapter", "onBindViewHolder: ");
         holder.mLessonName.setText(mList.get(position).getmLessonName());
-        holder.mGrowth.setText(mList.get(position).getmGrowthPercentage());
+
+        holder.mGrowth.setText(String.valueOf((int)Float.parseFloat(mList.get(position).getmGrowthPercentage())));
         ViewCompat.setTransitionName(holder.mLessonName,String.valueOf(position)+"_lesson");
         ViewCompat.setTransitionName(holder.mGrowth,String.valueOf(position)+"_growth");
         ViewCompat.setTransitionName(holder.itemView,String.valueOf(position)+"_item");

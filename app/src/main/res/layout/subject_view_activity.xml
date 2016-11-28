@@ -53,12 +53,12 @@
                         android:text="Hi"
                         android:layout_marginTop="@dimen/sub_view_percent_mtop"
 
-                        android:layout_centerHorizontal="true"
+                        android:layout_centerHorizontal="false"
                         android:gravity="center"
                         android:textSize="@dimen/sub_view_percent_ts"
                         android:id="@+id/sub_view_percent"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginLeft="32dp" />
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:id="@+id/report_changable_root"

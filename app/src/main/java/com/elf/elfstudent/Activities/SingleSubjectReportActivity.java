@@ -134,8 +134,9 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
         }
 
 
-
+        mToolbar.setTitle("Topics");
         setSupportActionBar(mToolbar);
+
 
         
         ActionBar ab  = getSupportActionBar();
@@ -143,6 +144,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
             ab.setDisplayShowHomeEnabled(true);
             ab.setDisplayShowCustomEnabled(true);
             ab.setDisplayHomeAsUpEnabled(true);
+
         }
         catch (Exception e ){
             Log.d(TAG, "Exception in Toolbar");

@@ -8,9 +8,12 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include
-            android:id="@+id/sing_report_toolbar"
-            layout="@layout/toolbar_test"/>
+       <android.support.v7.widget.Toolbar
+           android:layout_width="match_parent"
+           android:id="@+id/sing_report_toolbar"
+           android:layout_height="wrap_content">
+
+       </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
     <!--THe Main Content  -->

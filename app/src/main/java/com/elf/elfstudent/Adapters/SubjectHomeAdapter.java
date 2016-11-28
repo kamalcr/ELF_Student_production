@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.ScreenUtil;
+import com.elf.elfstudent.Utils.SubjectIMAGE;
 import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.SubjectModel;
 import com.squareup.picasso.Callback;
@@ -64,7 +65,9 @@ public void onBindViewHolder(HomeHolder holder, int position) {
     try {
 
         Log.d(TAG, "onBindViewHolder: "+position);
-        holder.mPercent.setText(mSubjectList.get(position).getmPercentage());
+        int submark = (int) Float.parseFloat(mSubjectList.get(position).getmPercentage());
+
+        holder.mPercent.setText(String.valueOf(submark));
 //        holder.mTitle.setText(mSubjectList.get(position).getmSubjectName());
 
         //setting Subject Image Based on Subject Id
@@ -73,7 +76,7 @@ public void onBindViewHolder(HomeHolder holder, int position) {
 
 
        Picasso.with(mContext.getApplicationContext())
-        .load(SubjectImage.getSubjectImage(subID))
+                .load(SubjectImage.getSubjectImage(subID))
                .into(holder.mSubjectImage);
 //        ViewCompat.setTransitionName(holder.mTitle, String.valueOf(position) + "_desc");
         ViewCompat.setTransitionName(holder.mPercent, String.valueOf(position) + "_sub");
@@ -81,6 +84,7 @@ public void onBindViewHolder(HomeHolder holder, int position) {
         ViewCompat.setTransitionName(holder.mSubjectImage,String.valueOf(position) + "_img");
     }
     catch (Exception e ){
+        Log.d(TAG, "onBindViewHolder: Exception is "+e.getLocalizedMessage());
 
     }
 
