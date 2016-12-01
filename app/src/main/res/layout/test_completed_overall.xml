@@ -9,8 +9,13 @@
     <ImageView
         android:layout_width="match_parent"
         android:id="@+id/test_overall_img"
-        android:background="@color/material_blue100"
+
         android:layout_height="match_parent" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_900"
+        android:alpha="0.4"/>
 
 
     <FrameLayout

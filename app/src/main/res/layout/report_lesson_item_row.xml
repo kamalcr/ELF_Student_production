@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<RelativeLayout android:layout_width="match_parent"
+<android.support.v7.widget.CardView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-   android:background="?selectableItemBackground"
-    android:layout_height="wrap_content"
+    android:padding="4dp"
 
-
+    android:layout_margin="2dp"
+    app:cardUseCompatPadding="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-        <com.elf.elfstudent.CustomUI.HelviticaLight
+<RelativeLayout android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?selectableItemBackground"
+    android:layout_height="wrap_content"
+
+    android:layout_marginBottom="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+        <com.elf.elfstudent.CustomUI.UbuntuRegular
             android:text="Lesson Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,37 +30,31 @@
             android:gravity="start|left|center_vertical"
             android:paddingStart="16dp"
             android:paddingRight="6dp"
+            android:minHeight="80dp"
             android:paddingEnd="6dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:id="@+id/report_frag_lesson_name"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/report_frag_lesson_growth"
+            android:layout_alignParentStart="true" />
+
+           <com.db.chart.view.LineChartView
+                    xmlns:chart="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/chart1"
+                    android:layout_below="@id/report_frag_lesson_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/black_viewpager"
+                   />
 
 
-            android:layout_toLeftOf="@+id/report_frag_lesson_growth" />
 
-        <com.elf.elfstudent.CustomUI.HelviticaLight
-            android:text="75"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:layout_alignBottom="@+id/report_frag_lesson_name"
-            android:id="@+id/report_frag_lesson_growth"
-            android:textColor="@color/pink900"
-            android:minWidth="@dimen/lesson_item_per_mw"
-            android:gravity="center"
 
-            android:textSize="@dimen/lesson_item_text_size"
-            android:layout_marginTop="6dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-          />
+
+
 
 </RelativeLayout>
-
+</android.support.v7.widget.CardView>
 
 
 

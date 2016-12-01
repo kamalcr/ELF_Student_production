@@ -29,6 +29,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Adapters.SubjectHomeAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
+import com.elf.elfstudent.CustomUI.UbuntuRegular;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -88,13 +90,13 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
     //student Name
     @BindView(R.id.home_student_name)
-    HelviticaLight mStudentName;
+    UbuntuRegular mStudentName;
 
     //School Name
-    @BindView(R.id.home_school_name) HelviticaLight mSchoolname;
+    @BindView(R.id.home_school_name) UbuntuRegular mSchoolname;
 
     //standard Name
-    @BindView(R.id.home_section_name) HelviticaLight mStandardName;
+    @BindView(R.id.home_section_name) UbuntuRegular mStandardName;
 
     //Profile picture
     @BindView(R.id.home_profile_imageview)
@@ -103,15 +105,15 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     //state Rank Value
 
     @BindView(R.id.home_state_value)
-    HelviticaLight mStateRank;
+    UbuntuRegular mStateRank;
 
     //Overall rank
 
-    @BindView(R.id.home_overall_rank_value) HelviticaLight mOverallValue;
+    @BindView(R.id.home_overall_rank_value) UbuntuRegular mOverallValue;
 
     //District
 
-    @BindView(R.id.home_dist_rank_value) HelviticaLight mDistrictRankValue;
+    @BindView(R.id.home_dist_rank_value) UbuntuRegular mDistrictRankValue;
 
 
 
@@ -411,12 +413,11 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             String picturpath = mStore.getpicturePath();
             Log.d(TAG, "setViewValues: picture path "+picturpath);
             if (picturpath.equals("null")){
-                //NO Picture path , set Dfault Image
-                Log.d(TAG, "setViewValues: default picture");
-             Picasso.with(this).load(R.drawable.ic_account_circle_white_36dp).into(mProfilePicture);
+             //No Picture , set Default Values
+
             }
             else{
-                //Some pIcture path is available
+                //Some Picture  path is available
                 Uri pic = Uri.parse(mStore.getpicturePath());
                 Picasso.with(this).load(pic)
                         .resize(100,100)

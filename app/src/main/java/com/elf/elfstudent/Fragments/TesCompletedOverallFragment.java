@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Activities.TestCompletedActivity;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
+import com.elf.elfstudent.CustomUI.QucikSand;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -105,15 +106,14 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
             subjectId = getArguments().getString(BundleKey.SUBJECT_ID);
         }
 
-
-        if (subjectId != null) {
-            if (mContext!= null){
-                Picasso.with(mContext.getApplicationContext())
+        Log.d(TAG, "onCreateView: subject iD "+subjectId);
+        Picasso.with(mContext).setLoggingEnabled(true);
+        Picasso.with(mContext)
                         .load(SubjectIMAGE.getBIgSubjectImage(subjectId))
-                        .fit()
+
                         .into(testImg);
-            }
-            }
+
+
 
 
         studentId = mStore.getStudentId();
@@ -148,6 +148,11 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
             throw new NullPointerException("Request Queue is null");
         }
     }
+
+
+
+
+
 
     @Override
     public void onDetach() {
@@ -211,7 +216,7 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
 
             changeableRoot.removeAllViews();
             View v = View.inflate(mContext.getApplicationContext(), R.layout.test_overall, changeableRoot);
-            HelviticaLight SubjectDesc = (HelviticaLight) v.findViewById(R.id.test_comp_test_desc);
+            QucikSand SubjectDesc = (QucikSand) v.findViewById(R.id.test_comp_test_desc);
             HelviticaLight subId = (HelviticaLight) v.findViewById(R.id.test_comp_test_sub);
             HelviticaLight correctAnswers = (HelviticaLight) v.findViewById(R.id.right_no);
             HelviticaLight totalAnswer = (HelviticaLight) v.findViewById(R.id.textView19);
@@ -223,13 +228,13 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
             correctAnswers.setText(No_ofRight);
             totalAnswer.setText(totalQues);
         } catch (Exception e) {
-            Log.d(TAG, "ShowOverview: Exception in Test");
+            Log.d(TAG, "ShowOverview: Exception in Test" +e.getLocalizedMessage());
         }
 
 
     }
 
-    private void RunAnimations(final HelviticaLight subjectDesc, final HelviticaLight correctAnswers, final HelviticaLight totalAnswer) {
+    private void RunAnimations(final QucikSand subjectDesc, final HelviticaLight correctAnswers, final HelviticaLight totalAnswer) {
 
         //set Y values
         subjectDesc.setTranslationY(-ScreenUtil.getScreenHeight(mContext.getApplicationContext()));

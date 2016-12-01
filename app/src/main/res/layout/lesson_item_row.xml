@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="60dp"
+    android:minHeight="120dp"
+    android:background="@color/white_light"
 
     xmlns:android="http://schemas.android.com/apk/res/android">
         <com.elf.elfstudent.CustomUI.HelviticaLight
@@ -30,10 +31,62 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/lesson_item_text_size"
             android:gravity="center"
-            android:layout_alignBottom="@+id/lesson_name_item"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/report_correct_ans" />
 
-    </RelativeLayout>
+    <TextView
+        android:text="Questions Asked :"
+        android:layout_width="wrap_content"
+        android:textColor="@color/black_900"
+        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lesson_name_item"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textView" />
+
+    <TextView
+        android:text="Answered Correct : "
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_900"
+        android:textSize="14sp"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:id="@+id/textView5" />
+
+    <TextView
+        android:text="55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/material_black"
+        android:textSize="14sp"
+
+        android:layout_alignTop="@+id/textView"
+        android:layout_toRightOf="@+id/textView5"
+        android:layout_toEndOf="@+id/textView5"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:id="@+id/report_total_ques" />
+
+    <TextView
+        android:text="36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:textColor="@color/material_black"
+        android:layout_below="@+id/report_total_ques"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp"
+        android:layout_alignLeft="@+id/report_total_ques"
+        android:layout_alignStart="@+id/report_total_ques"
+        android:id="@+id/report_correct_ans" />
+
+</RelativeLayout>
 

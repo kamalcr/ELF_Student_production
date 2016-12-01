@@ -5,7 +5,7 @@
     app:cardElevation="8dp"
     app:cardUseCompatPadding="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/blue400"
+    app:cardBackgroundColor="@color/material_grey300"
     android:layout_margin="4dp"
 
 
@@ -45,7 +45,7 @@
             android:textSize="@dimen/test_reports_item_ts"
             android:text="Test No"
             android:paddingRight="20dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black_900"
 
             android:id="@+id/test_report_item_test_desc"
             android:layout_marginTop="12dp"
@@ -73,10 +73,11 @@
             android:layout_alignParentStart="true" />
 
         <TextView
-            android:text="Points Scored"
+            android:text="Right Answers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/mar_text"
+            android:textColor="@color/black_900"
             android:layout_marginBottom="@dimen/marks_text_mb"
             tools:text="Marks Scored"
             android:layout_below="@+id/test_item_overall"

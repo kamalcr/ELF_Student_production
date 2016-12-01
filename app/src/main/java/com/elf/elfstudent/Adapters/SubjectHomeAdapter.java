@@ -66,8 +66,9 @@ public void onBindViewHolder(HomeHolder holder, int position) {
 
         Log.d(TAG, "onBindViewHolder: "+position);
         int submark = (int) Float.parseFloat(mSubjectList.get(position).getmPercentage());
+        String percent = String.valueOf(submark)+"%";
 
-        holder.mPercent.setText(String.valueOf(submark));
+        holder.mPercent.setText(String.valueOf(percent));
 //        holder.mTitle.setText(mSubjectList.get(position).getmSubjectName());
 
         //setting Subject Image Based on Subject Id

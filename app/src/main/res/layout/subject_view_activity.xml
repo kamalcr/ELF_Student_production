@@ -49,10 +49,9 @@
                     android:layout_height="match_parent">
                     <com.elf.elfstudent.CustomUI.HelviticaLight
                         android:layout_width="wrap_content"
-                        android:textColor="@color/material_black"
+                        android:textColor="@color/white"
                         android:text="Hi"
                         android:layout_marginTop="@dimen/sub_view_percent_mtop"
-
                         android:layout_centerHorizontal="false"
                         android:gravity="center"
                         android:textSize="@dimen/sub_view_percent_ts"

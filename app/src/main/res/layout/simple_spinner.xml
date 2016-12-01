@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/class_name_spinner"
-
-    android:textColor="@color/black_900"
+    android:background="@color/black_900"
+    android:textColor="@color/white"
     android:textSize="20sp"
 
     android:text="Hello this is your school"

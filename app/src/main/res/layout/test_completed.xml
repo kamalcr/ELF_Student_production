@@ -29,6 +29,7 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:visibility="invisible"
+            android:id="@+id/test_comp_drawer"
             android:layout_height="wrap_content">
             <include layout="@layout/drawer_new"/>
 

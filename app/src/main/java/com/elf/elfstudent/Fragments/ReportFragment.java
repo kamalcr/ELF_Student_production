@@ -364,7 +364,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
                 mAdapter = new ReportLessonAdapter(getContext(), mLessons, this);
                 mList.setLayoutManager(new LinearLayoutManager(mContext));
-                mList.addItemDecoration(decorator);
+//                mList.addItemDecoration(decorator);
                 mList.setAdapter(mAdapter);
         }
         catch (Exception e ){

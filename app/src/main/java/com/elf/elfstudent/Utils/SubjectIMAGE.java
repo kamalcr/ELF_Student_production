@@ -9,17 +9,17 @@ import com.elf.elfstudent.R;
 
 public class SubjectIMAGE {
 //    // TODO: 17/11/16 add big subject images
-    public static  int  SCINEC_IMAGE = R.drawable.bio_bigg;
-    public static int SOCIAL = R.drawable.bio_bigg;
-    public static int MATHS = R.drawable.bio_bigg;
-    public static int PHYSICS = R.drawable.science_small;
-    public static int CHEMISTRY = R.drawable.chem_small;
-    public static int BIOLOGY = R.drawable.science_small;
-    public static int COMPUTER = R.drawable.cs_small;
+    public static  int  SCINEC_IMAGE = R.drawable.science_big;
+    public static int SOCIAL = R.drawable.social_big;
+    public static int MATHS = R.drawable.maths_big;
+    public static int PHYSICS = R.drawable.phy_big;
+    public static int CHEMISTRY = R.drawable.chem_big;
+    public static int BIOLOGY = R.drawable.bio_bigg;
+    public static int COMPUTER = R.drawable.cs_big;
 
     // TODO: 8/11/16 add Subject Id
-    public static String  SCIENCE_ID = "13";
-    public static String  SOCIAL_ID = "12";
+    public static String  SCIENCE_ID = "12";
+    public static String  SOCIAL_ID = "13";
     public static String  MATHS_ID = "11";
     public static String  PHY_ID = "2";
     public static String MATHS_12 = "1";
@@ -35,12 +35,12 @@ public class SubjectIMAGE {
 
             //Tenth Science
             case  "13" :
-                return SCINEC_IMAGE;
+                return SOCIAL;
 
 
             //Tenth Social
             case  "12" :
-                return SOCIAL;
+                return SCINEC_IMAGE;
             //tenth Maths
             case  "11" :
                 return MATHS;

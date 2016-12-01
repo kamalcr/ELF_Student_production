@@ -76,8 +76,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:id="@+id/report_icon"
-                android:scaleType="center"
-                app:srcCompat = "@drawable/report_final"
+                app:srcCompat = "@drawable/report"
                 android:layout_height="match_parent"
                 style="@style/drawer_image_view"
                />

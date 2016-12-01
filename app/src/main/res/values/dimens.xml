@@ -28,7 +28,7 @@
     <dimen name="topic_title_ts">24sp</dimen>
     <dimen name="topic_percent_mtop">8dp</dimen>
     <dimen name="topic_title_mtop">12dp</dimen>
-    <dimen name="lesson_item_text_size">18sp</dimen>
+    <dimen name="lesson_item_text_size">20sp</dimen>
     <dimen name="lesson_item_per_mw">60dp</dimen>
     <dimen name="chap_margin_lft">24dp</dimen>
     <dimen name="all_test_tz">24sp</dimen>
@@ -74,4 +74,5 @@
     <dimen name="reg_letter_spacing">8dp</dimen>
     <dimen name="button_mtop">30dp</dimen>
     <dimen name="ins_mtop">150dp</dimen>
+    <dimen name="love_mtop">12dp</dimen>
 </resources>

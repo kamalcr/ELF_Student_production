@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:id="@+id/loading_list_root"
-    android:background="@color/black_900"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.elf.elfstudent.CustomUI.HelviticaLight
+    <com.elf.elfstudent.CustomUI.UbuntuRegular
         android:layout_width="wrap_content"
-        android:text="Getting Data"
+        android:text="Loading..!!"
         android:textSize="24sp"
         android:id="@+id/getting_data_text"
         android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black_900"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp" />
     <com.wang.avi.AVLoadingIndicatorView
         android:layout_width="wrap_content"
-        app:indicatorColor="@color/white"
+        app:indicatorColor="@color/material_pink400"
         android:layout_marginTop="4dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/getting_data_text"
