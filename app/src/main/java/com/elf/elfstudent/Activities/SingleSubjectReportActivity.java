@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,12 +24,14 @@ import com.elf.elfstudent.Adapters.TopicListAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.CustomUI.HelviticaMedium;
 import com.elf.elfstudent.CustomUI.QucikSand;
+import com.elf.elfstudent.CustomUI.UbuntuRegular;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.TopicProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.RVdecorator;
 import com.elf.elfstudent.Utils.RequestParameterKey;
 import com.elf.elfstudent.model.Topic;
 import com.google.firebase.crash.FirebaseCrash;
@@ -85,7 +88,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
     Toolbar mToolbar;
 
     @BindView(R.id.lesson_name_single)
-    HelviticaLight mLessonName;
+    UbuntuRegular mLessonName;
     @BindView(R.id.percent_single)
     QucikSand mPercentName;
 
@@ -117,24 +120,24 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
         if (getIntent()!= null){
             lessonId  = getIntent().getStringExtra(BundleKey.LESSON_ID);
             subjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
-            layouttrns = getIntent().getStringExtra(BundleKey.ITEMVIEW);
-//            lessonnametrans = getIntent().getStringExtra(BundleKey.LESSON_NAME_TRANS);
-//            percenttransName = getIntent().getStringExtra(BundleKey.PERCENT_TRANS);
+
+//
+//
+            String lesson_trans_name = getIntent().getStringExtra(BundleKey.LESSON_NAME_TRANS);
+            if (lesson_trans_name != null){
+                ViewCompat.setTransitionName(mLessonName,lesson_trans_name);
+            }
+
             lessonName  = getIntent().getStringExtra(BundleKey.LESSON_NAME);
-            percentage = getIntent().getStringExtra(BundleKey.PERCENTAGE);
-
-
-            Log.d(TAG, "onCreate: lessonid "+lessonId);
-            Log.d(TAG, "onCreate: subject iD"+subjectId);
+            mLessonName.setText(lessonName);
+//            percentage = getIntent().getStringExtra(BundleKey.PERCENTAGE);
         }
 
 
-        if (layouttrns !=null){
-            ViewCompat.setTransitionName(mlayout,layouttrns);
-        }
 
 
-        mToolbar.setTitle("Topics");
+
+        mToolbar.setTitle("Topics Overview");
         setSupportActionBar(mToolbar);
 
 
@@ -150,7 +153,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
             Log.d(TAG, "Exception in Toolbar");
         }
         mLessonName.setText(lessonName);
-        mPercentName.setText(percentage);
+//        mPercentName.setText(percentage);
 
 //        if (lessonnametrans != null && percenttransName != null){
 //            ViewCompat.setTransitionName(mLessonName,lessonnametrans);
@@ -315,6 +318,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
                 if (mTopicListView != null && mAdapter != null){
                     adapterSet  = true;
                     mTopicListView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    mTopicListView.addItemDecoration(new RVdecorator(ContextCompat.getDrawable(getApplicationContext(),R.drawable.divider)));
                     mTopicListView.setAdapter(mAdapter);
                 }
                 else{

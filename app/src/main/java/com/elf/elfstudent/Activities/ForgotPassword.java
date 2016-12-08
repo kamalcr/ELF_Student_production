@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -30,6 +32,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 20/10/16.
+ *
  */
 
 public class ForgotPassword extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, ForgotPasswordHandler.ForgotPasswordCallbacks {
@@ -210,6 +213,8 @@ public class ForgotPassword extends AppCompatActivity implements ErrorHandler.Er
         mPhoneBox.getEditText().setText("");
         mEmailBox.startAnimation(an);
         mPhoneBox.startAnimation(an);
+        Toast.makeText(this,"Password and Phone Number Do not match",Toast.LENGTH_SHORT).show();
+
 
     }
 }

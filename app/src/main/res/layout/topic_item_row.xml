@@ -6,14 +6,12 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="1dp"
     app:cardPreventCornerOverlap="true"
-    android:layout_margin="2dp"
-
-
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
 
         android:layout_height="match_parent">
+
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:text="Topic Name"
@@ -21,7 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textColor="@color/material_black"
+            android:textColor="@color/blue400"
+            android:background="@mipmap/teaser"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:padding="16dp"

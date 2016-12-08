@@ -330,6 +330,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
             mSubListView.setLayoutManager(new LinearLayoutManager(this));
             mSubListView.addItemDecoration(new RVdecorator(ContextCompat.getDrawable(getApplicationContext(),R.drawable.divider)));
 
+
             if (mAdapter != null){
                 mSubListView.setAdapter(mAdapter);
             }

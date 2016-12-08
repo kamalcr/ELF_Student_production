@@ -47,6 +47,7 @@ public class RegisterListener implements Response.Listener<JSONArray> {
                 }
             }
             else {
+                mCallback.NotRegistered();
             }
         }
         catch (Exception e ){

@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,15 +15,9 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Activities.TestWriteActivity;
-import com.elf.elfstudent.Adapters.TestLessonAdapter;
-import com.elf.elfstudent.Adapters.TestRecyclerAdapeters.MathsAdapter;
-import com.elf.elfstudent.Adapters.TestRecyclerAdapeters.ScienceAdapter;
-import com.elf.elfstudent.Adapters.TestRecyclerAdapeters.SocialAdapter;
-import com.elf.elfstudent.CustomUI.HelviticaMedium;
-import com.elf.elfstudent.CustomUI.QucikSand;
+import com.elf.elfstudent.Adapters.AllTestAdapter;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
@@ -30,9 +25,11 @@ import com.elf.elfstudent.Network.JsonProcessors.TestListProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.model.AllTestModels;
+import com.elf.elfstudent.model.TestPageParentModel;
 import com.google.firebase.crash.FirebaseCrash;
 
-import org.json.JSONArray;
+import junit.framework.Test;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -46,27 +43,8 @@ import butterknife.ButterKnife;
  * This Fragment gets called only for 10th Standard
  */
 public class AllTestFragment extends Fragment implements
-        TestLessonAdapter.OnTestViewClick,
         ErrorHandler.ErrorHandlerCallbacks,
-        TestListProvider.TestProviderCallback,
-        MathsAdapter.MathsAdapterCallback,
-        ScienceAdapter.ScienceAdapterCallback,
-        SocialAdapter.SocialAdapterCallback {
-
-
-    ///The Textview of subject Names
-    @BindView(R.id.all_science_text)
-    QucikSand mScienceText;
-    @BindView(R.id.all_social_text)
-    QucikSand mSocialText;
-    @BindView(R.id.all_maths_tex)
-    QucikSand mMathsText;
-
-    //The list
-    @BindView(R.id.all_math_list)
-    RecyclerView mMathsList;
-    @BindView(R.id.all_social_list)
-    RecyclerView mSocialList;
+        TestListProvider.TestProviderCallback , AllTestAdapter.onTestClicked{
 
 
     //The Changable Frame Root , invisible by default
@@ -75,11 +53,11 @@ public class AllTestFragment extends Fragment implements
 
     @BindView(R.id.top_view_layout)
     RelativeLayout mDataLayout;
+    @BindView(R.id.test_page_recycler_view)
+    RecyclerView mTestListView;
+
     private View mView;
 
-
-    @BindView(R.id.all_sci_list)
-    RecyclerView mScienceList;
 
     //    the Request Queue for this body
     private AppRequestQueue mRequestQue;
@@ -93,9 +71,6 @@ public class AllTestFragment extends Fragment implements
     List<AllTestModels> mMathsQuestions = null;
 
 
-
-
-
     //Error handler
     ErrorHandler errorHandler;
 
@@ -103,23 +78,29 @@ public class AllTestFragment extends Fragment implements
     TestListProvider mTestListProvider = null;
 
 
-
-
-
     DataStore mStore = null;
     private String mStdId;
     private int count = 0;
+    private Context mContext;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext  =context;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mContext = null;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-
-
     }
-
 
 
     private void prepareTests(String mStdId) {
@@ -132,7 +113,7 @@ public class AllTestFragment extends Fragment implements
 
 
         } catch (Exception e) {
-            FirebaseCrash.log("Exception in Making Json Object "+TAG);
+            FirebaseCrash.log("Exception in Making Json Object " + TAG);
 
         }
 
@@ -144,9 +125,6 @@ public class AllTestFragment extends Fragment implements
 
         mRequestQue.addToRequestQue(mReq);
     }
-
-
-
 
 
     @Override
@@ -177,29 +155,20 @@ public class AllTestFragment extends Fragment implements
         mStdId = mStore.getStudentId();
 
         errorHandler = new ErrorHandler(this);
-        mTestListProvider  = new TestListProvider(this);
+        mTestListProvider = new TestListProvider(this);
 
 
-        if (mStdId != null){
+        if (mStdId != null) {
             prepareTests(mStdId);
-        }
-        else{
+        } else {
             FirebaseCrash.log("Test ID null in All Test 10");
             throw new NullPointerException("Student ID cannot be nUll");
         }
-
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        LinearLayoutManager mManager2  = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        LinearLayoutManager mManager3  = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        mScienceList.setLayoutManager(mLinearLayoutManager);
-        mSocialList.setLayoutManager(mManager2);
-        mMathsList.setLayoutManager(mManager3);
 
 
 //        mScienceList.setAdapter(mAdapter);
 //        mSocialList.setAdapter(mAdapter);
 //        mMathsList.setAdapter(mAdapter);
-
 
 
         return mView;
@@ -243,41 +212,29 @@ public class AllTestFragment extends Fragment implements
 
 
     @Override
-    public void onTestCardClick(TestLessonAdapter.LessonTextHolder holder, int position) {
-        Log.d(TAG, "onTestCardClick: ");
-
-        final Intent i = new Intent(getActivity(), TestWriteActivity.class);
-//        i.putExtra(BundleKey.TEST_ID,t)
-
-
-
-    }
-
-    @Override
     public void TimeoutError() {
-        if (!(count>2)){
+        if (!(count > 2)) {
             //make Request again
-            if (mRequestQue != null){
-                if (mReq != null){
+            if (mRequestQue != null) {
+                if (mReq != null) {
                     mRequestQue.addToRequestQue(mReq);
                     count++;
-                }else{
-                    FirebaseCrash.log("Request object is null, TimeoutError "+TAG);
+                } else {
+                    FirebaseCrash.log("Request object is null, TimeoutError " + TAG);
                 }
             }
-        }
-        else{
+        } else {
 
             //max retry Acheived
 
-            if (!mViewRoot.isShown()){
-             mViewRoot.setVisibility(View.VISIBLE);
+            if (!mViewRoot.isShown()) {
+                mViewRoot.setVisibility(View.VISIBLE);
             }
-            if (mDataLayout.isShown()){
+            if (mDataLayout.isShown()) {
                 mDataLayout.setVisibility(View.INVISIBLE);
             }
             mViewRoot.removeAllViews();
-            View v = View.inflate(getContext(),R.layout.try_again_layout,mViewRoot);
+            View v = View.inflate(getContext(), R.layout.try_again_layout, mViewRoot);
         }
     }
 
@@ -289,13 +246,12 @@ public class AllTestFragment extends Fragment implements
                 mViewRoot.setVisibility(View.VISIBLE);
             }
 
-            if (mDataLayout.isShown()){
+            if (mDataLayout.isShown()) {
                 mDataLayout.setVisibility(View.INVISIBLE);
             }
             mViewRoot.removeAllViews();
-            View v = View.inflate(getContext(),R.layout.no_internet,mViewRoot);
-        }
-        catch (Exception e ){
+            View v = View.inflate(getContext(), R.layout.no_internet, mViewRoot);
+        } catch (Exception e) {
             FirebaseCrash.log("Exception in AllTestFragment");
         }
     }
@@ -304,17 +260,16 @@ public class AllTestFragment extends Fragment implements
     public void ServerError() {
 
         try {
-            if (!mViewRoot.isShown()){
+            if (!mViewRoot.isShown()) {
                 mViewRoot.setVisibility(View.VISIBLE);
             }
-            if (mDataLayout.isShown()){
+            if (mDataLayout.isShown()) {
                 mDataLayout.setVisibility(View.INVISIBLE);
             }
 
             mViewRoot.removeAllViews();
-            View v = View.inflate(getContext(),R.layout.no_data,mViewRoot);
-        }
-        catch (Exception e ){
+            View v = View.inflate(getContext(), R.layout.no_data, mViewRoot);
+        } catch (Exception e) {
             FirebaseCrash.log("Server Error in AllTestFragment");
         }
 
@@ -322,32 +277,100 @@ public class AllTestFragment extends Fragment implements
     }
 
 
-  /*
-  * This Method is provides data from JsonProcessor
-  *
-  * save the data in the current activity so that We can get Test ID easily
-  *
-  *
-  * */
+    /*
+    * This Method is provides data from JsonProcessor
+    *
+    * save the data in the current activity so that We can get Test ID easily
+    *
+    *
+    * */
     @Override
-    public void setTestListData(List<AllTestModels> mScience, List<AllTestModels> mSocial, List<AllTestModels> maths) {
+    public void setTestListData(List<AllTestModels> mTests) {
 
-       mScienceQuestion = mScience;
-        mSocialQuestion = mSocial;
-        mMathsQuestions = maths;
+        mScienceQuestion = mTests;
 
 
-        if (!mDataLayout.isShown()){
+        if (!mDataLayout.isShown()) {
             //IF Data layout is not shown , show data layout
             mDataLayout.setVisibility(View.VISIBLE);
-            if(mViewRoot.isShown()){
+            if (mViewRoot.isShown()) {
                 //
                 mViewRoot.setVisibility(View.INVISIBLE);
             }
         }
-        setSocailAdapter(mSocial);
-        setScicneAdapter(mScience);
-        setMathsAdapter(maths);
+
+
+        //we have all Test for this student {@param mTests }
+
+        if(mStore.getStandard().equals("10")){
+            //Student is 10th Prepare Adapter Accodringly
+            TestPageParentModel Science_q = new TestPageParentModel("12", getTestsbySubjectId("12",mTests));
+            TestPageParentModel social_q  = new TestPageParentModel("13",getTestsbySubjectId("13",mTests));
+            TestPageParentModel maths_q = new TestPageParentModel("14",getTestsbySubjectId("14",mTests));
+            List<TestPageParentModel> mListData = new ArrayList<>();
+            mListData.add(Science_q);
+            mListData.add(social_q);
+            mListData.add(maths_q);
+            try {
+
+                AllTestAdapter mAdapter = new AllTestAdapter(getContext(),mListData,this);
+                mTestListView.setAdapter(mAdapter);
+                mTestListView.setLayoutManager(new LinearLayoutManager(getContext()));
+            }
+            catch (Exception e){
+                Log.d(TAG, "setTestListData: Exception "+e.getLocalizedMessage());
+            }
+        }
+        else{
+            //Student is 12 , find which Group
+            TestPageParentModel phy_q = new TestPageParentModel("1",mTests);
+            TestPageParentModel chem_q = new TestPageParentModel("2",mTests);
+            TestPageParentModel maths_q = new TestPageParentModel("3",mTests);
+            TestPageParentModel optional = null;
+
+            if (mStore != null){
+                if (mStore.getStudentGroup().equals("COMPUTER")){
+                    //Studnet is Computer science
+
+                    optional   = new TestPageParentModel("4",mTests);
+                }
+                else{
+                    //student is Bio
+                    optional = new TestPageParentModel("5",mTests);
+                }
+            }
+            List<TestPageParentModel> mListData = new ArrayList<>();
+            mListData.add(phy_q);
+            mListData.add(chem_q);
+            mListData.add(maths_q);
+            mListData.add(optional);
+            try {
+
+                AllTestAdapter mAdapter = new AllTestAdapter(getContext(),mListData,this);
+                mTestListView.setAdapter(mAdapter);
+                mTestListView.setLayoutManager(new LinearLayoutManager(getContext()));
+            }
+            catch (Exception e){
+                Log.d(TAG, "setTestListData: Exception "+e.getLocalizedMessage());
+            }
+        }
+    }
+
+    private List<AllTestModels> getTestsbySubjectId(String s, List<AllTestModels> mTests) {
+
+        List<AllTestModels> returnList = new ArrayList<>();
+
+        if (mTests.size() == 0){
+            return null;
+        }
+
+        for (int i =0 ;i < mTests.size() ; i++){
+            if (mTests.get(i).getmTestId().equals(s)){
+                //same subject Id, add it to list
+                returnList.add(mTests.get(i));
+            }
+        }
+        return returnList;
     }
 
     @Override
@@ -357,141 +380,31 @@ public class AllTestFragment extends Fragment implements
         //NO data Received From Webservice
 
         //hide Content LAyyout
-        if (mDataLayout.isShown()){
+        if (mDataLayout.isShown()) {
             mDataLayout.setVisibility(View.INVISIBLE);
         }
 
         //Show no data  layout
-        if (!mViewRoot.isShown()){
+        if (!mViewRoot.isShown()) {
             mViewRoot.setVisibility(View.VISIBLE);
         }
 
-        View v = View.inflate(getContext(),R.layout.no_data,mViewRoot);
+        View v = View.inflate(getContext(), R.layout.no_data, mViewRoot);
 
     }
 
-    private void setMathsAdapter(List<AllTestModels> maths) {
-        MathsAdapter mMathsAdapter = new MathsAdapter(this, maths, getContext());
-        if (mMathsList != null){
 
-            mMathsList.setAdapter(mMathsAdapter);
-            refreshLayout();
-        }
-        else{
-            Log.d(TAG, "MAths Null");
-        }
+//    Write Test Button hAs been Clicked , show Test Write PAge for this Test ID
 
-    }
-
-    private void setScicneAdapter(List<AllTestModels> mScience) {
-        ScienceAdapter mScienceAdapter = new ScienceAdapter(this, mScience, getContext());
-        if (mScienceList != null) {
-
-            mScienceList.setAdapter(mScienceAdapter);
-            refreshLayout();
-        }
-    }
-
-
-    private void refreshLayout() {
-
-        try {
-            getView().requestLayout();
-        }
-        catch (Exception e ){
-            Log.d(TAG, "refreshLayout: exception in Refreshing layout");
-        }
-    }
-
-
-    private void setSocailAdapter(List<AllTestModels> mSocial) {
-        SocialAdapter mSocialAdapter = new SocialAdapter(this, mSocial, getContext());
-        if (mSocialList != null) {
-
-            mSocialList.setAdapter(mSocialAdapter);
-            refreshLayout();
-        }
-        else{
-            Log.d(TAG, "setSocailAdapter: social list is null");
-        }
-    }
-
-
-
-    /*Callbacks form Adapter Some Test Has Been Clicked
-    * The main thing here is to get Test Id
-    * */
-
-
-    //Maths Test has been Clicked
     @Override
-    public void mathsTestClicked(MathsAdapter.TestHolder holder, int position) {
+    public void showTestWriteaPageFor(String TestId,String subId) {
 
-        Log.d(TAG, "mathsTestClicked: ");
-        String testId = null;
-        if (mMathsQuestions != null){
-            try {
 
-                testId = mMathsQuestions.get(position).getmTestId();
-            }
-            catch (Exception e ){
-                Log.d(TAG, "NO Subject iD");
-            }
-        }
-        //
-
-        if (testId  != null){
-            showTestWritingPage(testId,"11");
-        }
-
-    }
-
-    private void showTestWritingPage(String testId,String SubjectID) {
-        final Intent i  = new Intent(getContext(),TestWriteActivity.class);
-        Log.d(TAG, "showTestWritingPage: for Test ID "+testId);
-        i.putExtra(BundleKey.SUBJECT_ID,SubjectID);
-        i.putExtra(BundleKey.TEST_ID,testId);
+        final Intent i = new Intent(mContext, TestWriteActivity.class);
+        i.putExtra(BundleKey.TEST_ID,TestId);
+        i.putExtra(BundleKey.SUBJECT_ID,subId);
         startActivity(i);
-    }
 
-
-    //Scienc Subject has Been CLicked
-    @Override
-    public void scienceTestClicked(ScienceAdapter.TestHolder holder, int position) {
-        String testId = null;
-        if (mScienceQuestion != null){
-            try {
-
-                testId = mScienceQuestion.get(position).getmTestId();
-            }
-            catch (Exception e ){
-                Log.d(TAG, "NO Subject iD");
-            }
-        }
         //
-
-        if (testId  != null){
-            showTestWritingPage(testId,"12");
-        }
-
-    }
-
-    @Override
-    public void SocialTestClicked(SocialAdapter.TestHolder holder, int position) {
-        String testId = null;
-        if (mSocialQuestion != null){
-            try {
-
-                testId = mSocialQuestion.get(position).getmTestId();
-            }
-            catch (Exception e ){
-                Log.d(TAG, "NO Subject iD");
-            }
-        }
-        //
-
-        if (testId  != null){
-            showTestWritingPage(testId,"13");
-        }
     }
 }

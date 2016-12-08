@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements
 
         mDialog = new ProgressDialog(this);
         mDialog.setIndeterminate(true);
+        mDialog.setCanceledOnTouchOutside(false);
         mDialog.setMessage("Logging In. Please Wait");
 
 
@@ -98,6 +99,7 @@ public class LoginActivity extends AppCompatActivity implements
             }
         });
 
+
     }
 
     private void forgotPAssword() {
@@ -110,9 +112,6 @@ public class LoginActivity extends AppCompatActivity implements
         mDialog.show();
          userName = memailBox.getText().toString();
         String password = mPasswordBox.getText().toString();
-        Log.d(TAG, "loginButtonClicked: "+userName + "Password "+password);
-
-
         JSONObject mObject = new JSONObject();
         try {
 
@@ -130,8 +129,9 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onErrorResponse(VolleyError error) {
 
-        Log.d(TAG, "onErrorResponse: ");
+
         stopDialog();
+        Toast.makeText(this,"Please turn on Data Services",Toast.LENGTH_LONG).show();
     }
 
 
@@ -219,6 +219,7 @@ public class LoginActivity extends AppCompatActivity implements
         } catch (JSONException e) {
 
             stopDialog();
+            Log.d(TAG, "onResponse: exception "+e.getLocalizedMessage());
 
             Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_SHORT).show();
             FirebaseCrash.log("Error in parsing LOgin Info");

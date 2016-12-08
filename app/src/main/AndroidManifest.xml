@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
 
+
+        <activity android:name=".Activities.PasswordActivity"/>
         <activity android:name=".Activities.BoardPage"
             android:exported="true"/>
         <activity android:name=".Activities.HomeActivity"

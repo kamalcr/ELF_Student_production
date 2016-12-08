@@ -24,11 +24,11 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_below="@+id/written_text_titlle_sub"
+
                 android:id="@+id/frame_root_treports"
                 android:layout_height="match_parent">
 
-                <include layout="@layout/loading_list"/>
+                <include layout="@layout/loading_list_white"/>
 
             </FrameLayout>
 

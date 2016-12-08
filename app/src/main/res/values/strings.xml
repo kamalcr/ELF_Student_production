@@ -11,4 +11,5 @@
     <string name="chapters">CHAPTERS</string>
     <string name="social">SOCIAL</string>
     <string name="subject_wise_analysis">Subject Wise Analysis</string>
+    <string name="loading">loading</string>
 </resources>

@@ -63,7 +63,7 @@
     <dimen name="login_mtop">40dp</dimen>
     <dimen name="login_left">32dp</dimen>
     <dimen name="forgot_ts">20sp</dimen>
-    <dimen name="forgot_mtop">20dp</dimen>
+    <dimen name="forgot_mtop">30dp</dimen>
     <dimen name="p_ts">20sp</dimen>
     <dimen name="about_ts">24sp</dimen>
     <dimen name="about_is">150dp</dimen>
@@ -75,4 +75,5 @@
     <dimen name="button_mtop">30dp</dimen>
     <dimen name="ins_mtop">150dp</dimen>
     <dimen name="love_mtop">12dp</dimen>
+    <dimen name="tp_ml">16dp</dimen>
 </resources>

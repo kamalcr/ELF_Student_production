@@ -19,9 +19,7 @@ import java.util.List;
 public class TestListProvider implements
         Response.Listener<JSONArray> {
     private static final String TAG = "AllTestFrag";
-    private List<AllTestModels> mSocial = new ArrayList<>();
-    private List<AllTestModels> mScience = new ArrayList<>();
-    private List<AllTestModels> mMaths = new ArrayList<>();
+   private List<AllTestModels> mTests = null;
 
     private TestProviderCallback mCallback = null;
 
@@ -55,33 +53,19 @@ public class TestListProvider implements
                     subId = mobject.getString("SubjectId");
                     Log.d(TAG,"Subject iD "+subId);
 
-//                // TODO: 26/10/16 find subject iD
-                    if (subId.equals("13")){
+//
 
-                        mScience.add(new AllTestModels(mobject.getString("TestId"),
+                        mTests.add(new AllTestModels(mobject.getString("TestId"),
                                 mobject.getString("Description")
                                 , mobject.getString("SubjectName"),
                                 mobject.getString("SubjectId")));
 
-                    }
-                    else if(subId.equals("12")){
-                        mSocial.add(new AllTestModels(mobject.getString("TestId"),
-                                mobject.getString("Description")
-                                , mobject.getString("SubjectName"),
-                                mobject.getString("SubjectId")));
-                    }
-                    else if(subId.equals("11")){
 
-                        mMaths.add(new AllTestModels(mobject.getString("TestId"),
-                                mobject.getString("Description")
-                                , mobject.getString("SubjectName"),
-                                mobject.getString("SubjectId")));
-                    }
 
 
 
                 }
-                mCallback.setTestListData(mScience,mSocial,mMaths);
+                mCallback.setTestListData(mTests);
 
             } catch (Exception e) {
                 Log.d(TAG, "onResponse: exception "+e.getLocalizedMessage());
@@ -92,7 +76,7 @@ public class TestListProvider implements
 
     public interface  TestProviderCallback{
 
-       void setTestListData(List<AllTestModels> mScience,List<AllTestModels> mSocial,List<AllTestModels> maths);
+       void setTestListData(List<AllTestModels> mTests);
         void NoTestListData();
 
 

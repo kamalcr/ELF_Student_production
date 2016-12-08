@@ -9,7 +9,7 @@
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
         android:layout_width="wrap_content"
-        android:text="Getting Data"
+        android:text="Loading..!!"
         android:textSize="24sp"
         android:id="@+id/getting_data_text"
         android:layout_height="wrap_content"

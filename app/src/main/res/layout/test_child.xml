@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+
+    android:background="@drawable/rect_round_corners"
+    android:layout_marginRight="@dimen/tp_ml"
+    android:layout_marginLeft="@dimen/tp_ml"
+    android:layout_height="80dp">
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:layout_width="match_parent"
+        android:id="@+id/test_desc"
+        android:text="this is Test Desciption "
+        android:gravity="left|center_vertical"
+        android:paddingLeft="8dp"
+        android:textSize="18sp"
+        android:paddingRight="4dp"
+        android:textColor="@color/material_black"
+
+        android:layout_toLeftOf="@+id/write_test_button"
+        android:layout_margin="12dp"
+        android:layout_height="match_parent" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/write_test_button"
+        android:text="write Test"
+
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true" />
+
+
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.elf.elfstudent.Activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -100,9 +101,10 @@ public class InstitutePage extends AppCompatActivity implements
 
 
     String ins_name  = null;
-
+    ProgressDialog mDialog = null;
     boolean isButtonPressed = false;
     private String groupId = null;
+    private ProgressDialog mRegisterDialog = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,6 +119,13 @@ public class InstitutePage extends AppCompatActivity implements
 
 //        }
         //get a Handle to Saved Values
+
+
+        mDialog = new ProgressDialog(this);
+        mDialog.setIndeterminate(true);
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setMessage("Getting School List..");
+        mDialog.show();
         Picasso.with(this).load(R.mipmap.ins_page)
                 .resize(ScreenUtil.getScreenWidth(this),ScreenUtil.getScreenHeight(this))
                 .into(mBacImage, new Callback() {
@@ -210,19 +219,23 @@ public class InstitutePage extends AppCompatActivity implements
             //Class id has been selected
             if (classid.equals("10")){
                 groupId = "0";
-                RegisterStudent();
+                RegisterStudent(groupId);
             }
             else{
                 //Class Id 12 find , ask WHich group
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-                alertDialog.setTitle("Select Preferred Group");
-                alertDialog.setMessage("");
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.setContentView(R.layout.group_picker);
+
+
                 alertDialog.setPositiveButton("COMPUTER", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
 //                        // TODO: 15/11/16 find computer id
                         groupId = "1";
+                        RegisterStudent(groupId);
                     }
                 });
                 alertDialog.setNegativeButton("BIOLOGY", new DialogInterface.OnClickListener() {
@@ -231,6 +244,7 @@ public class InstitutePage extends AppCompatActivity implements
                         //No Has Been Clicked, Dismiss Dialog
 
                         groupId = "2";
+                        RegisterStudent(groupId);
                     }
                 });
                 alertDialog.show();
@@ -239,8 +253,16 @@ public class InstitutePage extends AppCompatActivity implements
         }
     }
 
-    private void RegisterStudent() {
+    private void RegisterStudent(String groupId) {
         JSONObject mObject = new JSONObject();
+        mRegisterDialog = new ProgressDialog(this);
+        mRegisterDialog.setMessage("Registering. Please wait..");
+        mRegisterDialog.setCanceledOnTouchOutside(false);
+        mRegisterDialog.setIndeterminate(true);
+        mRegisterDialog.show();
+
+
+
 
 
 
@@ -257,7 +279,7 @@ public class InstitutePage extends AppCompatActivity implements
                 mObject.put(RequestParameterKey.PASSWORD,mStore.getPassWord());
                 mObject.put(RequestParameterKey.INSTITUION_ID,ins_id);
                 mObject.put(RequestParameterKey.board_id,"1");
-                mObject.put(RequestParameterKey.CLASS_ID,"1");
+                mObject.put(RequestParameterKey.CLASS_ID,classid);
                 //// TODO: 4/11/16 class id and Board id
                 mObject.put(RequestParameterKey.CITY_ID,"1");
                 mObject.put(RequestParameterKey.DISTRICT_ID,"1");
@@ -265,7 +287,7 @@ public class InstitutePage extends AppCompatActivity implements
                 mObject.put(RequestParameterKey.PHONE,mStore.getPhoneNumber());
 
 //                todo addgroup iD
-                mObject.put(RequestParameterKey.GROUP_ID,groupId);
+                mObject.put(RequestParameterKey.GROUP_ID, groupId);
 
                 Log.d(TAG, "Registering Student "+mObject.toString());
                 //get Instituion Id
@@ -362,6 +384,7 @@ public class InstitutePage extends AppCompatActivity implements
     @Override
     public void setInstitutionList(List<InstitutionModel> list) {
         Log.d(TAG, "setInstitutionList: ");
+        stopDialog();
         this.institutionList = list;
         mSchoolAdapter = new SchoolListAdapter(this,R.layout.institution_item_row_new,list);
         mInsTextView.setAdapter(mSchoolAdapter);
@@ -371,9 +394,20 @@ public class InstitutePage extends AppCompatActivity implements
 
     }
 
+    private void stopDialog() {
+        if (mDialog != null && mDialog.isShowing()){
+
+            mDialog.dismiss();
+        }
+    }
+
 
     @Override
     public void Registered(String studentId) {
+
+        if(mRegisterDialog != null && mRegisterDialog.isShowing()){
+            mRegisterDialog.dismiss();
+        }
         if (mStore != null){
             Log.d(TAG, "Registered: student Id "+studentId);
             //set studentId
@@ -395,6 +429,9 @@ public class InstitutePage extends AppCompatActivity implements
 
     @Override
     public void NotRegistered() {
+        if(mRegisterDialog != null && mRegisterDialog.isShowing()){
+            mRegisterDialog.dismiss();
+        }
         Toast.makeText(this,"Not Registered Please try again",Toast.LENGTH_SHORT).show();
     }
 

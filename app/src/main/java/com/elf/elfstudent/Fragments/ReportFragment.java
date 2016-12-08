@@ -311,25 +311,24 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
 //        String LessonTransName = ViewCompat.getTransitionName(itemView.mLessonName);
 //        String percentTransName = ViewCompat.getTransitionName(itemView.mGrowth);
-        String laytrnas  =ViewCompat.getTransitionName(itemView.itemView);
+
         i.putExtra(BundleKey.SUBJECT_ID,subjecId);
-
-        i.putExtra(BundleKey.ITEMVIEW,laytrnas);
-
         i.putExtra(BundleKey.LESSON_ID,mLessonList.get(position).getLessonId());
         i.putExtra(BundleKey.LESSON_NAME,mLessonList.get(position).getmLessonName());
         i.putExtra(BundleKey.PERCENTAGE,mLessonList.get(position).getmGrowthPercentage());
+        String lesson_name_trans_name = ViewCompat.getTransitionName(itemView.mLessonName);
+        i.putExtra(BundleKey.LESSON_NAME_TRANS,lesson_name_trans_name);
 
-        Log.d(TAG, "ShowLessonReportFor: subject iD"+subjecId);
-        Log.d(TAG, "ShowLessonReportFor: lesson id "+mLessonList.get(position).getLessonId());
+
+
 //        i.putExtra(BundleKey.LESSON_NAME_TRANS,LessonTransName);
 //        i.putExtra(BundleKey.PERCENT_TRANS,percentTransName);
         //MAking pairs for many Share elements
 
-        Pair<View, String> p2 = Pair.create((View) itemView.itemView, laytrnas);
 
 
-        ActivityOptionsCompat options = makeSceneTransitionAnimation(getActivity(), p2);
+
+        ActivityOptionsCompat options = makeSceneTransitionAnimation(getActivity(),itemView.mLessonName,lesson_name_trans_name);
         if (ScreenUtil.isAndroid5()){
 
             startActivity(i, options.toBundle());
