@@ -15,6 +15,10 @@ import static android.os.Build.VERSION_CODES.GINGERBREAD;
 
 public class LeakApp extends Application {
 
+
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();
