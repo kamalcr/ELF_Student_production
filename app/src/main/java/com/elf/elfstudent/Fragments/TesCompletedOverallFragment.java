@@ -26,7 +26,7 @@ import com.elf.elfstudent.Network.JsonProcessors.TestOverviewProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
-import com.elf.elfstudent.Utils.SubjectIMAGE;
+import com.elf.elfstudent.Utils.SubjectBigImage;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -109,7 +109,7 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
         Log.d(TAG, "onCreateView: subject iD "+subjectId);
         Picasso.with(mContext).setLoggingEnabled(true);
         Picasso.with(mContext)
-                        .load(SubjectIMAGE.getBIgSubjectImage(subjectId))
+                        .load(SubjectBigImage.getBIgSubjectImage(subjectId))
 
                         .into(testImg);
 

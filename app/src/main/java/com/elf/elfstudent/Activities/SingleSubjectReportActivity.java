@@ -120,10 +120,14 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
         if (getIntent()!= null){
             lessonId  = getIntent().getStringExtra(BundleKey.LESSON_ID);
             subjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
+            percentage = getIntent().getStringExtra(BundleKey.PERCENTAGE);
             Log.d(TAG, "onCreate: Lesson and Subject ID "+lessonId + " ..."+ subjectId);
 //
 //
             String lesson_trans_name = getIntent().getStringExtra(BundleKey.LESSON_NAME_TRANS);
+
+            mPercentName.setText(percentage);
+
             if (lesson_trans_name != null){
                 ViewCompat.setTransitionName(mLessonName,lesson_trans_name);
             }

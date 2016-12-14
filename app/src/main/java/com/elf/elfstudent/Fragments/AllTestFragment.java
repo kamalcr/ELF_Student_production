@@ -353,6 +353,8 @@ public class AllTestFragment extends Fragment implements
                 AllTestAdapter mAdapter = new AllTestAdapter(getContext(), mListData, this);
                 mTestListView.setAdapter(mAdapter);
                 mTestListView.setLayoutManager(new LinearLayoutManager(getContext()));
+                mTestListView.addItemDecoration(new RVdecorator(ContextCompat.getDrawable(mContext,R.drawable.divider)));
+
             }
             catch (Exception e){
                 Log.d(TAG, "setTestListData: Exception "+e.getLocalizedMessage());
