@@ -17,6 +17,7 @@
             app:cardElevation="4dp"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary">
+
             <ImageView
                 android:id="@+id/tool_bar_drop"
                 android:elevation="4dp"
