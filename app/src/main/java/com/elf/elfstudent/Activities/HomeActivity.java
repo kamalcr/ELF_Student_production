@@ -806,6 +806,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     public void NoDataReceivedFromWebservice() {
         FirebaseCrash.log("getting Response but showing no data in Home student dashboard API");
 
+
         if (mRoot != null){
             try {
 
