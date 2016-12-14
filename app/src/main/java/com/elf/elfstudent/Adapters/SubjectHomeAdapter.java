@@ -1,7 +1,6 @@
 package com.elf.elfstudent.Adapters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,20 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.ScreenUtil;
-import com.elf.elfstudent.Utils.SubjectIMAGE;
 import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.SubjectModel;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

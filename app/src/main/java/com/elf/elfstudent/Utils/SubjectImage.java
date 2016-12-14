@@ -17,9 +17,9 @@ public class SubjectImage {
     public static  int  SCINEC_IMAGE = R.drawable.science_small;
     public static int SOCIAL = R.drawable.social_small;
     public static int MATHS = R.drawable.maths_small;
-    public static int PHYSICS = R.drawable.science_small;
+    public static int PHYSICS = R.drawable.phy_small;
     public static int CHEMISTRY = R.drawable.chem_small;
-    public static int BIOLOGY = R.drawable.science_small;
+    public static int BIOLOGY = R.drawable.bio_small;
     public static int COMPUTER = R.drawable.cs_small;
 
     // TODO: 8/11/16 add Subject Id

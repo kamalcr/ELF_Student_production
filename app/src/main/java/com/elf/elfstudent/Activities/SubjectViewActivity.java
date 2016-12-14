@@ -3,7 +3,6 @@ package com.elf.elfstudent.Activities;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,21 +25,15 @@ import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.AverageProvider;
-import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
-import com.elf.elfstudent.Utils.RVdecorator;
-import com.elf.elfstudent.Utils.ScreenUtil;
-import com.elf.elfstudent.Utils.SubjectIMAGE;
-import com.elf.elfstudent.Utils.SubjectImage;
-import com.elf.elfstudent.model.Lesson;
+import com.elf.elfstudent.Utils.SubjectBigImage;
 import com.elf.elfstudent.model.Topic;
 import com.google.firebase.crash.FirebaseCrash;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
-import java.sql.Time;
 import java.util.List;
 
 import butterknife.BindView;
@@ -124,7 +117,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
                 String subjectID = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
 
             //set The Background image
-            Picasso.with(this).load(SubjectIMAGE.getBIgSubjectImage(subjectID))
+            Picasso.with(this).load(SubjectBigImage.getBIgSubjectImage(subjectID))
                     .into(mSubjectViewImage);
 
 
