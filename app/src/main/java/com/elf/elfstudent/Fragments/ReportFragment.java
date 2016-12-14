@@ -408,7 +408,9 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
             data.setValueTextSize(11f);
             data.setValueTextColor(Color.WHITE);
              mChart.setData(data);
-            mChart.animateY(400, Easing.EasingOption.EaseOutSine);
+             mChart.setDescription(null);
+
+            mChart.animateY(1000, Easing.EasingOption.EaseOutSine);
 
 //            data.setValueTypeface(mTfLight);
 

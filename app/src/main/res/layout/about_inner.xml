@@ -12,46 +12,35 @@
             app:srcCompat  = "@drawable/ic_elf_logo_36"
             android:id="@+id/elf_image"
             android:layout_height="150dp" />
-        <com.elf.elfstudent.CustomUI.UbuntuRegular
-            android:layout_width="match_parent"
-            android:layout_below="@+id/elf_image"
-            android:text="Learning Made Fun"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:gravity="center"
-            android:layout_marginTop="32dp"
-            android:textSize="32sp"
-
-
-            android:layout_height="wrap_content"
-            android:id="@+id/ubuntuRegular" />
 
         <TextView
             android:text="ELF Provides a Platform , where Students can Learn through  Data"
             android:textSize="22sp"
-            android:layout_marginRight="32dp"
-            android:layout_marginEnd="32dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ubuntuRegular"
+            android:id="@+id/textView9"
+            android:layout_marginTop="82dp"
+            android:layout_below="@+id/rating_text"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="32dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="28dp"
-            android:id="@+id/textView9" />
+            android:layout_marginEnd="32dp"
+            android:gravity="center_horizontal" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_below="@+id/textView9"
-            android:layout_marginTop="24dp"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-            android:text="How Would You Rate ELF ?"
+            android:text="Empowering Learning for Future"
             android:gravity="center"
             android:textSize="24sp"
 
 
             android:id="@+id/rating_text"
-            android:layout_height="80dp" />
+            android:layout_height="80dp"
+            android:layout_below="@+id/elf_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="41dp" />
 
 
     </RelativeLayout>

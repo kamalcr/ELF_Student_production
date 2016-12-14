@@ -44,6 +44,7 @@
             android:layout_marginTop="120dp"
             android:id="@+id/feed_edit"
             android:textSize="24sp"
+            android:minHeight="100dp"
             android:textColor="@color/white_light"
             android:layout_below="@+id/textView13"
             android:layout_alignLeft="@+id/textView13"

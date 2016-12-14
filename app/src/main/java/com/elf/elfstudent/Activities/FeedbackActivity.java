@@ -16,9 +16,11 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.R;
+import com.elf.elfstudent.Utils.WebServices;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +36,7 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
 
 
     private static final String TAG = "Feedack";
-    private static final String FEED_URL = "";
+
     @BindView(R.id.feed_edit)
     EditText mFeedback;
 
@@ -50,6 +52,8 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
     @BindView(R.id.feed_toolbar)
     Toolbar feedToolbar;
 
+    private DataStore mStore = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,7 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
         errorHandler = new ErrorHandler(this);
 
         setSupportActionBar(feedToolbar);
+        feedToolbar.setTitle("Send Feedback");
         ActionBar ab = getSupportActionBar();
         if (ab != null){
             ab.setTitle("send Feedback");
@@ -67,6 +72,8 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
+
+        mStore = DataStore.getStorageInstance(this);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,13 +90,15 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
     private void submitFeedback(String text) {
         mRequestObject = new JSONObject();
         try {
-            mRequestObject.put("Type", "Student");
+
+            mRequestObject.put("UserId",mStore.getStudentId());
+            mRequestObject.put("UserType", "Student");
             mRequestObject.put("Feedback", text);
         } catch (Exception e) {
             Log.d(TAG, "submitFeedback: ");
         }
 
-        mRequest = new JsonArrayRequest(Request.Method.POST, FEED_URL, mRequestObject, new Response.Listener<JSONArray>() {
+        mRequest = new JsonArrayRequest(Request.Method.POST, WebServices.FEED_URL, mRequestObject, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 

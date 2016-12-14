@@ -2,27 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:text="Pay through Coupons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="39dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="64dp"
-        android:id="@+id/textView2" />
-
-    <TextView
-        android:text="ELF coupons are Available throughout TamilNadu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:id="@+id/textView27" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,6 +10,7 @@
         android:background="@drawable/rect_round_corners"
         android:ems="10"
         android:gravity="center"
+
         android:minHeight="60dp"
         android:id="@+id/editText"
         android:layout_alignParentBottom="true"
@@ -45,4 +25,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="47dp"
         android:id="@+id/button2" />
+
+    <com.elf.elfstudent.CustomUI.QucikSand
+        android:text="Pay through Coupons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="82dp" />
 </RelativeLayout>

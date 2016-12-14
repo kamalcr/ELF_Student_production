@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/report_tab"
                 app:tabBackground="@color/white"
-                app:tabMode="fixed"
+                app:tabMode="scrollable"
                 app:tabGravity="fill"
                 app:tabTextColor="@color/material_black"
                 app:tabSelectedTextColor="@color/pink900"

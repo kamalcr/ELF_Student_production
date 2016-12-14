@@ -11,5 +11,6 @@ public class WebServices {
     public static final String EMAIL_CHECK = "http://elfanalysis.net/elf_ws.svc/CheckStudentEmail";
     public static final String LOGIN_URL = "http://elfanalysis.net/elf_ws.svc/CheckStudentLogin";
     public static final String DASH_URL ="http://elfanalysis.net/elf_ws.svc/GetStudentDashboard";
+    public static final String FEED_URL  = "http://elfanalysis.net/elf_ws.svc/SaveUserFeedback";
 
 }

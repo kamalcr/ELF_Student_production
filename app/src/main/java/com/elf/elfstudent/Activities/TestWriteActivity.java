@@ -198,8 +198,8 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
     private void finishButtonClicked() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Finish Test?");
-        alertDialog.setMessage("Are you sure  you want to finish the test");
+        alertDialog.setTitle("Finish Test ?");
+        alertDialog.setMessage("Are you sure  you want to finish the test?");
         alertDialog.setPositiveButton("COMPLETE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

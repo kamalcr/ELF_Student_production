@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -44,25 +47,40 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements
         Response.ErrorListener,
-        Response.Listener<JSONArray>, GoogleApiClient.OnConnectionFailedListener {
+        Response.Listener<JSONArray>{
 
 
     private static final String TAG = "ELF";
     private static final String LOGIN_URL = "http://elfanalysis.net/elf_ws.svc/CheckStudentLogin";
-    @BindView(R.id.textView23)
-    HelviticaMedium textView23;
-    @BindView(R.id.g_login)
-    SignInButton gLogin;
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(JSONArray response) {
+
+    }
+    /*
+    @BindView(R.id.login_button)
+    Button mLoginButton;
+
+    @BindView(R.id.login_email_box)
+    EditText memailBox;
+    @BindView(R.id.login_password_box)
+    EditText mPasswordBox;
+
+
+    @BindView(R.id.textView31)
+    TextView mForgotPassword;
 
 
     private AppRequestQueue mRequestQueue;
     private DataStore mStore = null;
 
-    ProgressDialog mDialog = null;
+    ProgressDialog mDialog   = null;
     String userName = null;
-    private GoogleApiClient mGoogleApiClient;
-    private static final int RC_SIGN_IN = 1001;
-    private JsonArrayRequest mLoginRequest;
 
 
     @Override
@@ -73,105 +91,70 @@ public class LoginActivity extends AppCompatActivity implements
 
         mDialog = new ProgressDialog(this);
         mDialog.setIndeterminate(true);
-        mDialog.setCanceledOnTouchOutside(false);
         mDialog.setMessage("Logging In. Please Wait");
+
 
 
         //intitlalize Req Que
         mRequestQueue = AppRequestQueue.getInstance(this.getApplicationContext());
 
         mStore = DataStore.getStorageInstance(getApplicationContext());
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        // [END configure_signin]
 
-        // [START build_client]
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
 
-        gLogin.setOnClickListener(new View.OnClickListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loginButtonClicked();
             }
         });
 
+        mForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                forgotPAssword();
+            }
+        });
 
     }
 
     private void forgotPAssword() {
-        final Intent i = new Intent(this, ForgotPassword.class);
+        final Intent i   = new Intent(this,ForgotPassword.class);
         startActivity(i);
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
-
-    }
-
-    private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
-        if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            JSONObject object = new JSONObject();
-            if (acct == null){
-                Log.d(TAG, "handleSignInResult: account null");
-            }
-            try {
-                object.put("username",acct.getEmail());
-                object.put("password",acct.getId());
-                Log.d(TAG, "handleSignInResult: mobject "+object.toString());
-            }
-
-            catch (Exception e ){
-                Log.d(TAG, "handleSignInResult: Excepion in Sigin in");
-            }
-
-            mLoginRequest = new JsonArrayRequest(Request.Method.POST,LOGIN_URL,object,this,this);
-
-            if (mRequestQueue != null){
-                mRequestQueue.addToRequestQue(mLoginRequest);
-            }
-
-
-
-
-        } else {
-            // Signed out, show unauthenticated UI.
-            Log.d(TAG, "handleSignInResult: not Signed iD");
-            Log.d(TAG, "handleSignInResult: "+result.getStatus());
-        }
     }
 
     private void loginButtonClicked() {
 
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        mDialog.show();
+        userName = memailBox.getText().toString();
+        String password = mPasswordBox.getText().toString();
+        Log.d(TAG, "loginButtonClicked: "+userName + "Password "+password);
+
+
+        JSONObject mObject = new JSONObject();
+        try {
+
+//            // TODO: 10/11/16 User name and Password keyword
+            mObject.put("username", userName);
+            mObject.put("password", password);
+        } catch (Exception e) {
+            Log.d(TAG, "loginButtonClicked: ");
+        }
+
+        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST, LOGIN_URL, mObject, this, this);
+        mRequestQueue.addToRequestQue(mRequest);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
 
-
+        Log.d(TAG, "onErrorResponse: ");
         stopDialog();
-        Toast.makeText(this, "Please turn on Data Services", Toast.LENGTH_LONG).show();
     }
 
 
-    private void stopDialog() {
-        if (mDialog.isShowing()) {
+    private void stopDialog(){
+        if (mDialog.isShowing()){
             mDialog.dismiss();
         }
     }
@@ -181,7 +164,7 @@ public class LoginActivity extends AppCompatActivity implements
         //parse the Response
 
 
-        Log.d(TAG, "onResponse: " + response.toString());
+        Log.d(TAG, "onResponse: "+response.toString());
         JSONObject mObject = null;
 
         String studentId = null;
@@ -208,11 +191,11 @@ public class LoginActivity extends AppCompatActivity implements
                     String boardId = mObject.getString("BoardId");
 
 
+
                     if (studentId != null) {
                         //Save it file
                         mStore.setStudentId(studentId);
                         mStore.setBoardId(boardId);
-                        mStore.setStudentId(studentId);
                         mStore.setInstitutionId(insId);
                         mStore.setUserName(StudentName);
                         mStore.setStudentStandard(classId);
@@ -232,31 +215,32 @@ public class LoginActivity extends AppCompatActivity implements
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                     }
-                } else {
+                }
+                else {
                     //wrong Details
                     stopDialog();
                     Animation anim = AnimationUtils.loadAnimation(this, R.anim.shake);
+                    memailBox.setText("");
+                    mPasswordBox.setText("");
 
-                    Toast.makeText(this, "Incorrect Details", Toast.LENGTH_SHORT).show();
+                    memailBox.startAnimation(anim);
+                    mPasswordBox.startAnimation(anim);
+                    Toast.makeText(this,"Incorrect Details",Toast.LENGTH_SHORT).show();
 
                 }
-            } else {
+            }
+            else{
                 throw new NullPointerException("Object Cannot e null");
             }
 
         } catch (JSONException e) {
 
             stopDialog();
-            Log.d(TAG, "onResponse: exception " + e.getLocalizedMessage());
 
-            Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_SHORT).show();
             FirebaseCrash.log("Error in parsing LOgin Info");
         }
 
     }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this,"Cannot connect to Google Services",Toast.LENGTH_LONG).show();
-    }
+    */
 }

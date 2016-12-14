@@ -98,7 +98,11 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
 //        setUpChart(holder.mChart,position);
 //        setUPWilliamChart(holder.mChart,mList.get(position).getMarkList());
         holder.mLessonName.setText(mList.get(position).getmLessonName());
-        holder.mGrowth.setText(mList.get(position).getmGrowthPercentage());
+
+        Float pecentage = Float.parseFloat(mList.get(position).getmGrowthPercentage());
+        String ercent = ""+pecentage;
+
+        holder.mGrowth.setText(ercent);
         holder.totalQ.setText(mList.get(position).getQuestionAsked());
         holder.answer_correct.setText(mList.get(position).getCorrectanswer());
 

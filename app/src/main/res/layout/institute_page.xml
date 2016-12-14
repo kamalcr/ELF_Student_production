@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:id="@+id/ins_autocomplete"
         android:spinnerMode="dialog"
+        android:background="@color/white_light"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="12dp"
         android:layout_marginRight="20dp"

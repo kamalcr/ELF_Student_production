@@ -26,9 +26,7 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
     String mSubjectName  = "";
     String mSubjectId = "";
 //    List<T> LessoList  =
-    String[] tenthtitles = {"SCIENCE","SOCIAL","MATHS"};
-    String[] computerTitles  = {"PHYSICS","CHEMISTRY","MATHS","COMPUTER"};
-    String[] bioTitles = {"PHYSICS","CHEMISTRY","MATHS","BIOLOGY"};
+
 
 
     public ReportPagerAdapter(FragmentManager fm, int i) {

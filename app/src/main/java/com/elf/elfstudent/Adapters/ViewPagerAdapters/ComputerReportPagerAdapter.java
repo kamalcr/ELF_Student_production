@@ -31,7 +31,7 @@ public class ComputerReportPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0 :
-                return "PHYSCICS";
+                return "PHYSICS";
             case 1:
                 return "CHEMISTRY";
             case 2:
