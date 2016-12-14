@@ -6,7 +6,12 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include layout="@layout/toolbar_new"/>
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:id="@+id/settings_toolbar"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
     <RelativeLayout
@@ -17,6 +22,16 @@
         android:layout_height="match_parent">
 
 
+        <TextView
+            android:text="@string/open_source_licences"
+            android:layout_width="match_parent"
+            android:minHeight="60dp"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="12dp"
+            android:textSize="24sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:id="@+id/textView28"/>
     </RelativeLayout>
 
 

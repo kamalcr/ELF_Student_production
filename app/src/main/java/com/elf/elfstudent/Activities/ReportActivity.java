@@ -68,7 +68,7 @@ import butterknife.ButterKnife;
 public class ReportActivity extends AppCompatActivity{
 
 
-    private static final String TAG = "ELF";
+    private static final String TAG = "ReportActivity";
 
 
     @BindView(R.id.report_tab)
@@ -283,17 +283,20 @@ public class ReportActivity extends AppCompatActivity{
                 } else {
                     //he is 12 , get the group
                     String group = mStore.getStudentGroup();
-                    Log.d(TAG, "student group " + group);
-                    if (group.equals("COMPUTER")) {
-                        //COmputer Group
-                        Log.d(TAG, "Computer Group ");
-                        compAdapter = new ComputerReportPagerAdapter(getSupportFragmentManager());
-                        mPager.setAdapter(compAdapter);
-                    } else if (group.equals("BIOLOGY")) {
-                        Log.d(TAG, "Biology group");
-                        bioAdapter = new BiologyReportPagerAdapter(getSupportFragmentManager());
-                        mPager.setAdapter(bioAdapter);
+                    if (group != null){
 
+                        Log.d(TAG, "student group " + group);
+                        if (group.equals("COMPUTER")) {
+                            //COmputer Group
+                            Log.d(TAG, "Computer Group ");
+                            compAdapter = new ComputerReportPagerAdapter(getSupportFragmentManager());
+                            mPager.setAdapter(compAdapter);
+                        } else if (group.equals("BIOLOGY")) {
+                            Log.d(TAG, "Biology group");
+                            bioAdapter = new BiologyReportPagerAdapter(getSupportFragmentManager());
+                            mPager.setAdapter(bioAdapter);
+
+                        }
                     }
                 }
             }

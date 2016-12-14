@@ -59,8 +59,8 @@ import butterknife.ButterKnife;
 
 public class TestWriteActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, QuestionProvider.QuestionCallback, TestSubitter.SubmittedTestCallback, TestSubmitEH.ErrorCallbacks {
     private static final String TAG = "TestWritePage";
-    private static final String TEST_SUBMIT = "http://www.hijazboutique.com/elf_ws.svc/SubmitTest";
-    private static final String GET_QUESTIONS_URL = "http://www.hijazboutique.com/elf_ws.svc/GetTestQuestions";
+    private static final String TEST_SUBMIT = "http://elfanalysis.net/elf_ws.svc/SubmitTest";
+    private static final String GET_QUESTIONS_URL = "http://elfanalysis.net/elf_ws.svc/GetTestQuestions";
 
 
     //The Views
@@ -156,6 +156,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
 
             mTestId = getIntent().getStringExtra(BundleKey.TEST_ID);
             mSubjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
+            Log.d(TAG, "onCreate: TestId "+mTestId);
 
         } else {
             throw new NullPointerException("TestID cannot be Null");

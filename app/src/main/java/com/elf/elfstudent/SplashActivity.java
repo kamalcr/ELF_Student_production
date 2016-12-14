@@ -5,9 +5,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,7 +15,6 @@ import android.widget.ImageView;
 
 import com.elf.elfstudent.Activities.EmailActivityPage;
 import com.elf.elfstudent.Activities.HomeActivity;
-import com.elf.elfstudent.Activities.RegisterActivity;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Utils.ScreenUtil;
 

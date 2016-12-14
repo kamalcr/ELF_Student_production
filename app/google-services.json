@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "230578974010-p41ugqine18bbjcpcpufui73knl2d4p2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elf.elfstudent",
+            "certificate_hash": "A61F116E0E5A32526D453A4BCCE982B5AD58820B"
+          }
+        },
+        {
           "client_id": "230578974010-chachjid607pq1aqk7vfhlv8p56f5752.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

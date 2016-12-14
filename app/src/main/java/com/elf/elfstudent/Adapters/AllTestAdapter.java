@@ -59,7 +59,7 @@ public class AllTestAdapter extends ExpandableRecyclerAdapter<TestSubjectHolder,
     @Override
     public TestSubjectHolder onCreateParentViewHolder(ViewGroup parentViewGroup) {
 //        View parent_view = mInflator.inflate(R.layout.test_parent, parentViewGroup, false);
-        Log.d(TAG, "onCreateParentViewHolder: ");
+
 //        return new TestSubjectHolder(parent_view);
         View v  = LayoutInflater.from(mContext.getApplicationContext()).inflate(R.layout.test_parent,parentViewGroup,false);
         return new TestSubjectHolder(v);
@@ -68,22 +68,33 @@ public class AllTestAdapter extends ExpandableRecyclerAdapter<TestSubjectHolder,
     @Override
     public TestChildHolder onCreateChildViewHolder(ViewGroup childViewGroup) {
       View child_view = LayoutInflater.from(mContext.getApplicationContext()).inflate(R.layout.test_child, childViewGroup, false);
-        Log.d(TAG, "onCreateChildViewHolder: ");
+
         return new TestChildHolder(child_view);
     }
 
     @Override
     public void onBindParentViewHolder(TestSubjectHolder parentViewHolder, int position, ParentListItem parentListItem) {
         ImageView img = (ImageView) parentViewHolder.itemView.findViewById(R.id.test_parent_image);
-        Log.d(TAG, "onBindParentViewHolder: ");
-        Picasso.with(mContext).load(SubjectImage.getSubjectImage(mList.get(position).getSubjectId()))
-                .into(img);
+        Log.d(TAG, "onBindParentViewHolder: "+position);
+        try {
+
+            Picasso.with(mContext.getApplicationContext())
+                    .load(SubjectImage.getSubjectImage(mList.get(position).getSubjectId()))
+                    .resize(300,60)
+                    .centerCrop()
+                    .into(img);
+        }
+        catch (Exception e ){
+            Log.d(TAG, "onBindParentViewHolder: exception "+e.getLocalizedMessage());
+        }
 
     }
 
+
+
     @Override
     public void onBindChildViewHolder(TestChildHolder childViewHolder, int position, Object childListItem) {
-        Log.d(TAG, "onBindChildViewHolder: ");
+        Log.d(TAG, "onBindChildViewHolder: "+position);
         AllTestModels testList = (AllTestModels) childListItem;
 
         childViewHolder.bind(testList,mCallback);

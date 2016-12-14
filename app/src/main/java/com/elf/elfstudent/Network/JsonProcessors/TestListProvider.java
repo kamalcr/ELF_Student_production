@@ -46,6 +46,7 @@ public class TestListProvider implements
 
             JSONObject mobject = null;
             try {
+                mTests = new ArrayList<>();
                 for (int i = 0; i < count; i++) {
                     mobject = response.getJSONObject(i);
 

@@ -3,7 +3,9 @@ package com.elf.elfstudent.Activities;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +16,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.R;
@@ -27,7 +28,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 31/10/16.
- *
  */
 
 public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks {
@@ -43,10 +43,13 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
     String text = null;
 
     JSONObject mRequestObject = null;
-    ErrorHandler errorHandler  = null;
+    ErrorHandler errorHandler = null;
     AppRequestQueue mRequestQueue = null;
 
-    JsonArrayRequest mRequest   = null;
+    JsonArrayRequest mRequest = null;
+    @BindView(R.id.feed_toolbar)
+    Toolbar feedToolbar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +59,19 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
         mRequestQueue = AppRequestQueue.getInstance(this);
         errorHandler = new ErrorHandler(this);
 
+        setSupportActionBar(feedToolbar);
+        ActionBar ab = getSupportActionBar();
+        if (ab != null){
+            ab.setTitle("send Feedback");
+            ab.setDisplayShowHomeEnabled(true);
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 text = mFeedback.getText().toString();
-                if(!TextUtils.isEmpty(text)){
+                if (!TextUtils.isEmpty(text)) {
                     submitFeedback(text);
                 }
             }
@@ -71,11 +82,10 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
 
     private void submitFeedback(String text) {
         mRequestObject = new JSONObject();
-        try{
-            mRequestObject.put("Type","Student");
-            mRequestObject.put("Feedback",text);
-        }
-        catch (Exception e ){
+        try {
+            mRequestObject.put("Type", "Student");
+            mRequestObject.put("Feedback", text);
+        } catch (Exception e) {
             Log.d(TAG, "submitFeedback: ");
         }
 
@@ -86,20 +96,18 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
                 try {
 
                     JSONObject mOb = response.getJSONObject(0);
-                    if (mOb.getString("Statuscode").equals("Success")){
-                        Toast.makeText(getApplicationContext(),"Feedback sent, Thanks for Sharing you valuable opinion",Toast.LENGTH_LONG).show();
-                    }
-                    else{
+                    if (mOb.getString("Statuscode").equals("Success")) {
+                        Toast.makeText(getApplicationContext(), "Feedback sent, Thanks for Sharing you valuable opinion", Toast.LENGTH_LONG).show();
+                    } else {
 
                     }
-                }
-                catch (Exception  e ){
+                } catch (Exception e) {
                     Log.d(TAG, "onResponse: ");
                 }
             }
-        },errorHandler);
+        }, errorHandler);
 
-        if (mRequestQueue != null){
+        if (mRequestQueue != null) {
             mRequestQueue.addToRequestQue(mRequest);
         }
 
@@ -133,18 +141,18 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
 
     @Override
     public void TimeoutError() {
-        Toast.makeText(getApplicationContext(),"Please make sure you have Internet",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Please make sure you have Internet", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void NetworkError() {
 
-        Toast.makeText(getApplicationContext(),"Network Error ,Please try again",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Network Error ,Please try again", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void ServerError() {
-        Toast.makeText(getApplicationContext(),"Server Error, please try again after some time",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Server Error, please try again after some time", Toast.LENGTH_SHORT).show();
 
     }
 }

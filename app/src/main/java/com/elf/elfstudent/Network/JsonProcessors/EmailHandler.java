@@ -3,6 +3,7 @@ package com.elf.elfstudent.Network.JsonProcessors;
 import android.util.Log;
 
 import com.android.volley.Response;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,8 +22,7 @@ public class EmailHandler implements Response.Listener<JSONArray> {
     @Override
     public void onResponse(JSONArray response) {
         try {
-
-            Log.d("EMAIL", "Email Response: "+response.toString());
+            Log.d("TAG", "onResponse: "+response.toString());
             JSONObject object = response.getJSONObject(0);
             if (object.getString("StatusCode").equals("1000")){
 //                 new Email only Can Regsiter wit this email
@@ -37,8 +37,9 @@ public class EmailHandler implements Response.Listener<JSONArray> {
 
         }
         catch (Exception e ){
-            Log.d("EMAIL HADLER", "onResponse: Error");
+            FirebaseCrash.log("Exception in Parsing");
         }
+
 
     }
 

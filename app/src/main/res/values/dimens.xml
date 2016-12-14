@@ -9,10 +9,10 @@
     <dimen name="try_again_text_margin_top">32dp</dimen>
     <dimen name="try_again_text_size">24sp</dimen>
     <dimen name="drawer_text_bottom_margin">30dp</dimen>
-    <dimen name="drawer_textt_tr_bm">16dp</dimen>
+    <dimen name="drawer_text_tr_bm">16dp</dimen>
     <dimen name="register_margin_top">140dp</dimen>
     <dimen name="ins_page_tm">54dp</dimen>
-    <dimen name="standar_margin_top">40dp</dimen>
+    <dimen name="standard_margin_top">40dp</dimen>
     <dimen name="pro_name_text_size">22sp</dimen>
     <dimen name="name_margin_left_pih">16dp</dimen>
     <dimen name="section_name_left_margin">16sp</dimen>

@@ -83,12 +83,12 @@ public class ChangeProfileActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mStore = DataStore.getStorageInstance(getApplicationContext());
         setValuestoViews();
-
-        setSupportActionBar(mToolbar);
         mToolbar.setTitle("Profile");
+        setSupportActionBar(mToolbar);
+
         try {
             ActionBar ab = getSupportActionBar();
-
+            ab.setTitle("Profile");
             ab.setDisplayShowHomeEnabled(true);
             ab.setDisplayHomeAsUpEnabled(true);
 

@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -54,8 +55,8 @@ public class InstitutePage extends AppCompatActivity implements
 
 
     private static final String TAG = "ELF";
-    private static final String GET_INSTITUTE_URL = "http://www.hijazboutique.com/elf_ws.svc/GetInstitutionList";
-    private static final String REGISTER_URL = "http://www.hijazboutique.com/elf_ws.svc/StudentRegistration";
+    private static final String GET_INSTITUTE_URL = "http://elfanalysis.net/elf_ws.svc/GetInstitutionList";
+    private static final String REGISTER_URL = "http://elfanalysis.net/elf_ws.svc/StudentRegistration";
     String boardId  = null;
     String stateId = null;
 
@@ -126,19 +127,7 @@ public class InstitutePage extends AppCompatActivity implements
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setMessage("Getting School List..");
         mDialog.show();
-        Picasso.with(this).load(R.mipmap.ins_page)
-                .resize(ScreenUtil.getScreenWidth(this),ScreenUtil.getScreenHeight(this))
-                .into(mBacImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        Log.d(TAG, "onSuccess: ");
-                    }
 
-                    @Override
-                    public void onError() {
-                        Log.d(TAG, "onError: ");
-                    }
-                });
         mStore  = DataStore.getStorageInstance(getApplicationContext());
 
         //The Network Handler objects
@@ -225,8 +214,8 @@ public class InstitutePage extends AppCompatActivity implements
                 //Class Id 12 find , ask WHich group
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
-                AlertDialog dialog = alertDialog.create();
-                dialog.setContentView(R.layout.group_picker);
+                LayoutInflater inflater = this.getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.group_picker, null);
 
 
                 alertDialog.setPositiveButton("COMPUTER", new DialogInterface.OnClickListener() {
@@ -273,20 +262,29 @@ public class InstitutePage extends AppCompatActivity implements
 
             if (mStore!=null){
 
-                mObject.put(RequestParameterKey.FIRST_NAME,mStore.getUserName());
+
+
+
+                mObject.put("FirstName",mStore.getUserName());
                 mObject.put(RequestParameterKey.LOGIN_LAS_NAME,"null");
                 mObject.put(RequestParameterKey.EMAIL_ID,mStore.getEmailId());
                 mObject.put(RequestParameterKey.PASSWORD,mStore.getPassWord());
+                mObject.put(RequestParameterKey.PHONE,mStore.getPhoneNumber());
                 mObject.put(RequestParameterKey.INSTITUION_ID,ins_id);
                 mObject.put(RequestParameterKey.board_id,"1");
-                mObject.put(RequestParameterKey.CLASS_ID,classid);
-                //// TODO: 4/11/16 class id and Board id
+                if (classid.equals("10")){
+
+                    mObject.put(RequestParameterKey.CLASS_ID,"1");
+                }
+                else{
+                    mObject.put(RequestParameterKey.CLASS_ID,"2");
+                }
                 mObject.put(RequestParameterKey.CITY_ID,"1");
                 mObject.put(RequestParameterKey.DISTRICT_ID,"1");
                 mObject.put(RequestParameterKey.STATE_ID,"1");
-                mObject.put(RequestParameterKey.PHONE,mStore.getPhoneNumber());
 
-//                todo addgroup iD
+
+//
                 mObject.put(RequestParameterKey.GROUP_ID, groupId);
 
                 Log.d(TAG, "Registering Student "+mObject.toString());
@@ -412,6 +410,7 @@ public class InstitutePage extends AppCompatActivity implements
             Log.d(TAG, "Registered: student Id "+studentId);
             //set studentId
             mStore.setStudentId(studentId);
+            mStore.setStudentPrefrerredSubject(groupId);
             mStore.setIsFirstTime(false);
 
 

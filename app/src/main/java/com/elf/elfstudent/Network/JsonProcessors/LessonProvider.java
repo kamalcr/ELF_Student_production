@@ -14,6 +14,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.valueOf;
+
 /**
  * Created by nandhu on 22/10/16.
  *
@@ -26,6 +28,7 @@ import java.util.List;
  */
 public class LessonProvider implements Response.Listener<JSONArray> {
 
+    private static final String TAG = "Lesson Provider";
     private List<Lesson> mlist = null;
     private SubjectLoaderCallback mCallback = null;
 
@@ -39,7 +42,7 @@ public class LessonProvider implements Response.Listener<JSONArray> {
         int count = response.length();
         int percentageSum = 0;
 
-        Log.d("Lesson List", "onResponse: "+response.toString());
+        Log.d("Report Fragment ", "onResponse: "+response.toString());
         mlist=new ArrayList<>(count);
         if (!(count>0)){
             //count is not greater than 1 , show error
@@ -54,12 +57,25 @@ public class LessonProvider implements Response.Listener<JSONArray> {
 //                    getting individual objects by index
                 try {
                     mObject=(JSONObject) response.getJSONObject(i);
+                    JSONArray testWrittens = mObject.getJSONArray("TestWritten");
+                    int arraysize = testWrittens.length();
+                    String[] marks  = new String[arraysize];
+                    Log.d("Lessson Provider ", "Arrys size: "+arraysize);
+                    for (int j = 0;i<arraysize;i++){
+                        Log.d(TAG, "onResponse: Inside j loop");
+                        JSONObject ind= testWrittens.getJSONObject(i);
+                        String percent = ind.getString("Marks");
+                        marks[j] = percent;
+                        Log.d(TAG, "marks[i] "+marks[j]);
+                    }
 
                     mlist.add(new Lesson(mObject.getString("LessionName"),
                             mObject.getString("LessionId"),
                             mObject.getString("Percentage"),
                             mObject.getString("QuestionsAsked"),
-                            mObject.getString("CorrectAnswers")));
+                            mObject.getString("CorrectAnswers"),arraysize,marks));
+
+
 
                     percentageSum = (int) (percentageSum+Float.parseFloat(mObject.getString("Percentage")));
 

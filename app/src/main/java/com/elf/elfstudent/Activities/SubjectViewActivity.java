@@ -21,9 +21,11 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.elfstudent.Adapters.LessonListAdapter;
+import com.elf.elfstudent.Adapters.TopicListAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
+import com.elf.elfstudent.Network.JsonProcessors.AverageProvider;
 import com.elf.elfstudent.Network.JsonProcessors.LessonProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
@@ -32,6 +34,7 @@ import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.Utils.SubjectIMAGE;
 import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.Lesson;
+import com.elf.elfstudent.model.Topic;
 import com.google.firebase.crash.FirebaseCrash;
 import com.squareup.picasso.Picasso;
 
@@ -54,11 +57,11 @@ import butterknife.ButterKnife;
 
 public class SubjectViewActivity extends AppCompatActivity implements
         ErrorHandler.ErrorHandlerCallbacks,
-        LessonProvider.SubjectLoaderCallback {
+       AverageProvider.avgCallback {
 
 
     private static final String TAG = "SUBJECT_VIEW";
-    private static final String GET_LESSON_URL = "http://www.hijazboutique.com/elf_ws.svc/GetLessionWiseReport";
+    private static final String GET_LESSON_URL = "http://elfanalysis.net/elf_ws.svc/GetTopicWisePerformance";
 
     //The VIews of this Activity
 
@@ -98,7 +101,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
     LessonListAdapter mAdapter = null;
 
     ErrorHandler errorHandler ;
-    LessonProvider mLessonProvider = null;
+    AverageProvider mLessonProvider = null;
 
 
     JsonArrayRequest mLessonListRequestor = null;
@@ -146,7 +149,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
 
 
-            mLessonProvider = new LessonProvider(this);
+            mLessonProvider = new AverageProvider(this);
 
             mSubjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
         }
@@ -315,44 +318,53 @@ public class SubjectViewActivity extends AppCompatActivity implements
     }
 
 
-    /*Got Lesson List from Provider*/
+
+
+
+//    we have three models here for 3 recycler views ,
+    // set adapter to 3 recyler views
+    //
+
 
     @Override
-    public void setLessonList(List<Lesson> mLessons, int overall) {
+    public void avgProvider(List<Topic> average, List<Topic> good, List<Topic> bad) {
 
-        mAdapter = new LessonListAdapter(getApplicationContext(),mLessons);
 
         try{
 
             mChangableRoot.removeAllViews();
-            View listView = LayoutInflater.from(this).inflate(R.layout.transparent_recycler,mChangableRoot,true);
-            mSubListView = (RecyclerView) listView.findViewById(R.id.subview_list);
-            mSubListView.setLayoutManager(new LinearLayoutManager(this));
-            mSubListView.addItemDecoration(new RVdecorator(ContextCompat.getDrawable(getApplicationContext(),R.drawable.divider)));
+            View recommendation = LayoutInflater.from(this).inflate(R.layout.recommendation,mChangableRoot,true);
+
+            //Find Recycler views
+            RecyclerView mGoodlistview = (RecyclerView) recommendation.findViewById(R.id.good_list);
+            RecyclerView mAvgList = (RecyclerView) recommendation.findViewById(R.id.average_list);
+            RecyclerView mBadList = (RecyclerView) recommendation.findViewById(R.id.bad_list);
+            //setting Layout Managers
+            mGoodlistview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            mAvgList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            mBadList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            //set Adapter
+            mGoodlistview.setAdapter(new TopicListAdapter(getApplicationContext(),good));
+            mBadList.setAdapter(new TopicListAdapter(getApplicationContext(),bad));
+            mAvgList.setAdapter(new TopicListAdapter(getApplicationContext(),average));
 
 
-            if (mAdapter != null){
-                mSubListView.setAdapter(mAdapter);
-            }
+
         }
         catch (Exception e ){
-            Log.d(TAG, "setLessonList: Exception");
+           mChangableRoot.removeAllViews();
+            View no_data  = View.inflate(this,R.layout.no_data,mChangableRoot);
         }
-
-
     }
 
-
     @Override
-    public void noLesson() {
-
-        try{
-
+    public void noProvider() {
+        try {
             mChangableRoot.removeAllViews();
-            View v  = LayoutInflater.from(this).inflate(R.layout.no_data,mChangableRoot,true);
+            View noList = View.inflate(this,R.layout.no_data,mChangableRoot);
         }
         catch (Exception e ){
-            Log.d(TAG, "Exception");
+            Log.d(TAG, "noProvider: exception");
         }
     }
 }

@@ -18,55 +18,60 @@ public class SubjectIMAGE {
     public static int COMPUTER = R.drawable.cs_big;
 
     // TODO: 8/11/16 add Subject Id
-    public static String  SCIENCE_ID = "12";
-    public static String  SOCIAL_ID = "13";
-    public static String  MATHS_ID = "11";
-    public static String  PHY_ID = "2";
-    public static String MATHS_12 = "1";
-    public static String  CHEM_ID = "3";
-    public static String  BIO_ID = "15";
-    public static String  COMP_ID = "14";
+    public static String  SCIENCE_ID = "2";
+    public static String  SOCIAL_ID = "3";
+    public static String  MATHS_ID = "1";
+    public static String  PHY_ID = "5";
+    public static String MATHS_12 = "4";
+    public static String  CHEM_ID = "6";
+    public static String  BIO_ID = "8";
+    public static String  COMP_ID = "7";
 
     public static int getBIgSubjectImage( String subID) {
 
 
         switch (subID){
 
-
-            //Tenth Science
-            case  "13" :
+            //Tenth Social
+            case  "3" :
                 return SOCIAL;
 
 
-            //Tenth Social
-            case  "12" :
+            //Tenth  Science
+            case  "2" :
+
                 return SCINEC_IMAGE;
             //tenth Maths
-            case  "11" :
-                return MATHS;
-
-            //Twelth Maths
             case  "1" :
                 return MATHS;
 
+            //Twelth Maths
+            case  "4" :
+                return MATHS;
+
             //Twelth Physics
-            case  "2" :
+            case  "5" :
                 return PHYSICS;
             //Twelth chemistry
-            case  "3" :
+            case  "6" :
                 return CHEMISTRY;
 
             //Twelth Biology
-            case  "15":
+            case  "8":
                 return BIOLOGY;
             //twelth Computer
-            case  "14" :
+            case  "7" :
                 return COMPUTER;
-
+            default:
+                return 0;
 
         }
 
-        return 0;
+
+
+
+
+
 
 
 

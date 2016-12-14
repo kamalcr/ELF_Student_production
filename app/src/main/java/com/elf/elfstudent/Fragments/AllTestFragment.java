@@ -1,10 +1,13 @@
 package com.elf.elfstudent.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,6 +27,8 @@ import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.TestListProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.RVdecorator;
+import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.AllTestModels;
 import com.elf.elfstudent.model.TestPageParentModel;
 import com.google.firebase.crash.FirebaseCrash;
@@ -44,7 +49,8 @@ import butterknife.ButterKnife;
  */
 public class AllTestFragment extends Fragment implements
         ErrorHandler.ErrorHandlerCallbacks,
-        TestListProvider.TestProviderCallback , AllTestAdapter.onTestClicked{
+        TestListProvider.TestProviderCallback ,
+        AllTestAdapter.onTestClicked {
 
 
     //The Changable Frame Root , invisible by default
@@ -119,7 +125,7 @@ public class AllTestFragment extends Fragment implements
 
         // make request with that body
 
-        String URL = "http://www.hijazboutique.com/elf_ws.svc/GetPendingTests";
+        String URL = "http://elfanalysis.net/elf_ws.svc/GetPendingTests";
         mReq = new JsonArrayRequest(Request.Method.POST, URL, object,
                 mTestListProvider, errorHandler);
 
@@ -304,18 +310,18 @@ public class AllTestFragment extends Fragment implements
 
         if(mStore.getStandard().equals("10")){
             //Student is 10th Prepare Adapter Accodringly
-            TestPageParentModel Science_q = new TestPageParentModel("12", getTestsbySubjectId("12",mTests));
-            TestPageParentModel social_q  = new TestPageParentModel("13",getTestsbySubjectId("13",mTests));
-            TestPageParentModel maths_q = new TestPageParentModel("14",getTestsbySubjectId("14",mTests));
+            TestPageParentModel Science_q = new TestPageParentModel(SubjectImage.SCIENCE_ID, getTestsbySubjectId(SubjectImage.SCIENCE_ID,mTests));
+            TestPageParentModel social_q  = new TestPageParentModel(SubjectImage.SOCIAL_ID,getTestsbySubjectId(SubjectImage.SOCIAL_ID,mTests));
+            TestPageParentModel maths_q = new TestPageParentModel(SubjectImage.MATHS_ID,getTestsbySubjectId(SubjectImage.MATHS_ID,mTests));
             List<TestPageParentModel> mListData = new ArrayList<>();
+            mListData.add(maths_q);
             mListData.add(Science_q);
             mListData.add(social_q);
-            mListData.add(maths_q);
             try {
-
                 AllTestAdapter mAdapter = new AllTestAdapter(getContext(),mListData,this);
                 mTestListView.setAdapter(mAdapter);
                 mTestListView.setLayoutManager(new LinearLayoutManager(getContext()));
+                mTestListView.addItemDecoration(new RVdecorator(ContextCompat.getDrawable(mContext,R.drawable.divider)));
             }
             catch (Exception e){
                 Log.d(TAG, "setTestListData: Exception "+e.getLocalizedMessage());
@@ -323,20 +329,18 @@ public class AllTestFragment extends Fragment implements
         }
         else{
             //Student is 12 , find which Group
-            TestPageParentModel phy_q = new TestPageParentModel("1",mTests);
-            TestPageParentModel chem_q = new TestPageParentModel("2",mTests);
-            TestPageParentModel maths_q = new TestPageParentModel("3",mTests);
+            TestPageParentModel phy_q = new TestPageParentModel(SubjectImage.PHY_ID,getTestsbySubjectId(SubjectImage.PHY_ID,mTests));
+            TestPageParentModel chem_q = new TestPageParentModel(SubjectImage.CHEM_ID,getTestsbySubjectId(SubjectImage.CHEM_ID,mTests));
+            TestPageParentModel maths_q = new TestPageParentModel(SubjectImage.MATHS_12,getTestsbySubjectId(SubjectImage.MATHS_12,mTests));
             TestPageParentModel optional = null;
-
             if (mStore != null){
                 if (mStore.getStudentGroup().equals("COMPUTER")){
-                    //Studnet is Computer science
-
-                    optional   = new TestPageParentModel("4",mTests);
+                    //Student is Computer science
+                    optional   = new TestPageParentModel(SubjectImage.COMP_ID,getTestsbySubjectId(SubjectImage.COMP_ID,mTests));
                 }
                 else{
                     //student is Bio
-                    optional = new TestPageParentModel("5",mTests);
+                    optional = new TestPageParentModel(SubjectImage.BIO_ID,getTestsbySubjectId(SubjectImage.BIO_ID,mTests));
                 }
             }
             List<TestPageParentModel> mListData = new ArrayList<>();
@@ -346,7 +350,7 @@ public class AllTestFragment extends Fragment implements
             mListData.add(optional);
             try {
 
-                AllTestAdapter mAdapter = new AllTestAdapter(getContext(),mListData,this);
+                AllTestAdapter mAdapter = new AllTestAdapter(getContext(), mListData, this);
                 mTestListView.setAdapter(mAdapter);
                 mTestListView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
@@ -355,56 +359,45 @@ public class AllTestFragment extends Fragment implements
             }
         }
     }
-
     private List<AllTestModels> getTestsbySubjectId(String s, List<AllTestModels> mTests) {
-
         List<AllTestModels> returnList = new ArrayList<>();
-
         if (mTests.size() == 0){
             return null;
         }
-
         for (int i =0 ;i < mTests.size() ; i++){
-            if (mTests.get(i).getmTestId().equals(s)){
-                //same subject Id, add it to list
+            if (mTests.get(i).getmSubjectId().equals(s)){
+//                same subject Id, add it to list
                 returnList.add(mTests.get(i));
             }
         }
         return returnList;
     }
-
     @Override
     public void NoTestListData() {
-
-
         //NO data Received From Webservice
-
         //hide Content LAyyout
         if (mDataLayout.isShown()) {
             mDataLayout.setVisibility(View.INVISIBLE);
         }
-
         //Show no data  layout
         if (!mViewRoot.isShown()) {
             mViewRoot.setVisibility(View.VISIBLE);
         }
-
         View v = View.inflate(getContext(), R.layout.no_data, mViewRoot);
-
     }
-
-
 //    Write Test Button hAs been Clicked , show Test Write PAge for this Test ID
-
     @Override
-    public void showTestWriteaPageFor(String TestId,String subId) {
-
-
+    public void showTestWriteaPageFor(final String TestId, final String subId) {
+        Log.d(TAG, "showTestWriteaPageFor: ");
+            SHowTestwrite(TestId,subId);
+    }
+    private void SHowTestwrite(String testId, String subId) {
         final Intent i = new Intent(mContext, TestWriteActivity.class);
-        i.putExtra(BundleKey.TEST_ID,TestId);
+        i.putExtra(BundleKey.TEST_ID,testId);
         i.putExtra(BundleKey.SUBJECT_ID,subId);
-        startActivity(i);
 
-        //
+        startActivity(i);
     }
 }
+
+

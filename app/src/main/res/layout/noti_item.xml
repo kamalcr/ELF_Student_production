@@ -11,7 +11,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="100dp"
-            app:srcCompat = "@mipmap/pro_pic"
+
             android:id="@+id/noti_propic"
             android:layout_alignParentLeft="true"
             android:layout_height="match_parent" />

@@ -1,58 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black_viewpager"
+    android:background="@color/white"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_warning"
-        android:layout_marginTop="40dp"
-        android:id="@+id/imageView"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp"
+        android:id="@+id/imageView6" />
 
-    <TextView
-        android:text="Oops!"
-        android:textColor="@color/white"
+    <com.elf.elfstudent.CustomUI.HelviticaLight
+        android:text="Oops! "
         android:textSize="22sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
         android:id="@+id/textView18"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_alignParentLeft="true" />
+        android:layout_below="@+id/imageView6"
+        android:layout_centerHorizontal="true" />
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
-        android:text="We are working on what happened"
+        android:text="Some Error Occurred"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView18"
-        android:paddingRight="16dp"
-        android:paddingEnd="16dp"
-        android:textColor="@color/white_light"
-        android:layout_alignStart="@+id/textView18"
         android:id="@+id/textView24"
-        android:layout_toStartOf="@+id/imageView"
-        android:layout_alignLeft="@+id/textView18"
-        android:layout_toLeftOf="@+id/imageView" />
-
-    <com.elf.elfstudent.CustomUI.HelviticaLight
-        android:text="Give us a couple of minutes to Rectify it"
-        android:textColor="@color/white_light"
-        android:layout_width="wrap_content"
-        android:textSize="20sp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView25"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/textView18"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 </RelativeLayout>

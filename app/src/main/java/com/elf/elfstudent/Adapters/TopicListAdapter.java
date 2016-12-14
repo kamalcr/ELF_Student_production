@@ -50,10 +50,10 @@ public class  TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Top
     }
 
     private void runEnterAnimations(TopicViewer holder, int position) {
-        Log.d("Animation",""+position);
+
 
         if (position >= Animated_item_count){
-            Log.d("Animation","postion one");
+
             return;
         }
 
@@ -61,7 +61,7 @@ public class  TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Top
 
         if (position>last_pos){
 
-            Log.d("Animation","inside if");
+
             last_pos=position;
             holder.itemView.setTranslationY(ScreenUtil.getScreenHeight(Context));
             holder.itemView.setScaleX(0.2f);

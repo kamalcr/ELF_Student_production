@@ -49,7 +49,7 @@ public class TestReportsActivity extends AppCompatActivity
 
     private static final String TAG = "TEST_REPORT";
 
-    private static final String GET_TEST_REPORT_URL = "http://www.hijazboutique.com/elf_ws.svc/GetWritenTestDetails";
+    private static final String GET_TEST_REPORT_URL = "http://elfanalysis.net/elf_ws.svc/GetWritenTestDetails";
 
     RecyclerView mList = null;
 

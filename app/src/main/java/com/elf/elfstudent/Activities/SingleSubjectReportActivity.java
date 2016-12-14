@@ -59,7 +59,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
 
 
     private static final String TAG = "TOPIC LISTS";
-    private static final String GET_TOPIC_FOR_LESSON = "http://www.hijazboutique.com/elf_ws.svc/GetTopicwiseReport";
+    private static final String GET_TOPIC_FOR_LESSON = "http://elfanalysis.net/elf_ws.svc/GetTopicwiseReport";
     AppRequestQueue mRequestQueue = null;
     DataStore mStore = null;
 
@@ -120,7 +120,7 @@ public class SingleSubjectReportActivity  extends AppCompatActivity implements
         if (getIntent()!= null){
             lessonId  = getIntent().getStringExtra(BundleKey.LESSON_ID);
             subjectId = getIntent().getStringExtra(BundleKey.SUBJECT_ID);
-
+            Log.d(TAG, "onCreate: Lesson and Subject ID "+lessonId + " ..."+ subjectId);
 //
 //
             String lesson_trans_name = getIntent().getStringExtra(BundleKey.LESSON_NAME_TRANS);

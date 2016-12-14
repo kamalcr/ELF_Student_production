@@ -9,7 +9,7 @@
     <color name="green_dark">#33691E</color>
     <color name="violet_light">#51469A</color>
     <color name="violet_backdrop_white">#D1C4E9</color>
-    <color name="puprle">#BA77FE</color>
+    <color name="purple">#BA77FE</color>
     <color name="home_back_dark_violet">#473F5B</color>
     <color name="white_light">@color/material_grey100</color>
     <color name="report_black">#1A1B26</color>

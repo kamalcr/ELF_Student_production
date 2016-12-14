@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.elf.elfstudent.Fragments.ReportFragment;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.SubjectImage;
 
 /**
  * Created by nandhu on 26/10/16.
@@ -54,19 +55,19 @@ public class ComputerReportPagerAdapter extends FragmentStatePagerAdapter {
             //overall percentage , List of Lessons etc
 
 //            todo add correct subject id
-            case 0: mSubjectId = "2";
+            case 0: mSubjectId = SubjectImage.PHY_ID;
                 mSubjectName = "PHYSCICS";
                 break;
             case 1 :
-                mSubjectId = "3";
+                mSubjectId = SubjectImage.CHEM_ID;
                 mSubjectName = "CHEMISTRY";
                 break;
             case 2:
-                mSubjectId = "1";
+                mSubjectId =SubjectImage.MATHS_12;
                 mSubjectName = "MATHS";
                 break;
             case 3:
-                mSubjectId = "14";
+                mSubjectId = SubjectImage.COMP_ID;
                 mSubjectName = "COMPUTER";
                 break;
 

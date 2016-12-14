@@ -5,9 +5,16 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.trello.victor'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'StudentKey'
+            keyPassword 'elfisredblood'
+            storeFile file('/home/nandhu/Documents/Student/studentkey.jks')
+            storePassword 'elfisredblood'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
-
     defaultConfig {
         applicationId "com.elf.elfstudent"
         minSdkVersion 15
@@ -18,36 +25,29 @@ android {
         vectorDrawables.useSupportLibrary = true
 
     }
-
-
-
     sourceSets {
         main {
             svg.srcDir 'src/main/svg'
         }
     }
-
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
+            signingConfig signingConfigs.config
         }
-
-
-
+        debug {
+            signingConfig signingConfigs.config
+        }
     }
     victor {
         // Any assets defined in relative terms needs a base DPI specified
         svgDpi = 72
 
-
-
         // Set this to "true" if you want to generate Android vectors instead of PNGs
         generateVectorDrawables = false
     }
-
 }
 
 dependencies {
@@ -55,7 +55,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     testCompile 'junit:junit:4.12'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
@@ -69,26 +68,21 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
-//    compile 'com.google.android.gms:play-services:9.8.0'
+    //    compile 'com.google.android.gms:play-services:9.8.0'
     compile 'com.diogobernardino:williamchart:2.3.0'
     compile 'com.tonicartos:superslim:0.4.13'
     compile 'com.bignerdranch.android:expandablerecyclerview:2.1.1'
-
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
     compile 'com.jakewharton:butterknife:8.2.1'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.0'
     compile 'me.relex:circleindicator:1.2.1@aar'
-
-//    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
+    //    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
     compile project(':volley')
-
     compile 'com.github.mcginty:material-colors:1.1.0'
     compile 'com.google.firebase:firebase-crash:9.8.0'
     compile 'com.google.firebase:firebase-core:9.8.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-
-
 }
 
 

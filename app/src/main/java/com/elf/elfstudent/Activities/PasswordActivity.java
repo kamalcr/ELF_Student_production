@@ -22,6 +22,7 @@ import butterknife.OnClick;
 
 /**
  * Created by nandhu on 4/12/16.
+ *
  */
 public class PasswordActivity extends AppCompatActivity {
 
@@ -51,6 +52,12 @@ public class PasswordActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i  = new Intent(this,EmailActivityPage.class);
+        startActivity(i);
     }
 
     @Override

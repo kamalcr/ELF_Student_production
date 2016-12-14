@@ -68,7 +68,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
 
     private static final String TAG = "REPORT_FRAG";
-    private static final String REPORT_URL = "http://www.hijazboutique.com/elf_ws.svc/GetLessionWiseReport";
+    private static final String REPORT_URL = "http://elfanalysis.net/elf_ws.svc/GetLessionWiseReport";
 
 
 
@@ -141,6 +141,7 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
         if (getArguments() != null) {
             subjecId = getArguments().getString(BundleKey.SUBJECT_ID);
+            Log.d(TAG, "onCreateView: subject iD For this Fragment " + subjecId);
             subjectName = getArguments().getString(BundleKey.SUBJECT_NAME);
 
         }
@@ -313,7 +314,9 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 //        String percentTransName = ViewCompat.getTransitionName(itemView.mGrowth);
 
         i.putExtra(BundleKey.SUBJECT_ID,subjecId);
+        Log.d(TAG, "ShowLessonReportFor: Subject Id goint to show "+subjecId);
         i.putExtra(BundleKey.LESSON_ID,mLessonList.get(position).getLessonId());
+        Log.d(TAG, "ShowLessonReportFor: lesson ID going to show "+mLessonList.get(position).getLessonId());
         i.putExtra(BundleKey.LESSON_NAME,mLessonList.get(position).getmLessonName());
         i.putExtra(BundleKey.PERCENTAGE,mLessonList.get(position).getmGrowthPercentage());
         String lesson_name_trans_name = ViewCompat.getTransitionName(itemView.mLessonName);
@@ -339,11 +342,8 @@ public class ReportFragment extends Fragment implements LessonClickCallbacks, Le
 
     @Override
     public void setLessonList(List<Lesson> mLessons, int overall) {
-        Log.d(TAG, "setLessonList: sring" + mLessons.toString());
+
         this.mLessonList = mLessons;
-
-        Log.d(TAG, "setLessonList: in main");
-
 
         if (mLoadingLayout.isShown()){
 

@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             app:srcCompat  = "@drawable/ic_elf_logo_36"
             android:id="@+id/elf_image"
-            android:layout_height="200dp" />
+            android:layout_height="150dp" />
         <com.elf.elfstudent.CustomUI.UbuntuRegular
             android:layout_width="match_parent"
             android:layout_below="@+id/elf_image"
@@ -43,9 +43,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_below="@+id/textView9"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="24dp"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-            android:text="How Would You Rate ELF?"
+            android:text="How Would You Rate ELF ?"
             android:gravity="center"
             android:textSize="24sp"
 

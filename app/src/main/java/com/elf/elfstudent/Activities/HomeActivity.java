@@ -46,6 +46,7 @@ import com.elf.elfstudent.Network.JsonProcessors.HomePageDataProvider;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
+import com.elf.elfstudent.Utils.WebServices;
 import com.elf.elfstudent.model.SubjectModel;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
@@ -69,7 +70,7 @@ import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAn
 public class HomeActivity extends AppCompatActivity  implements ErrorHandler.ErrorHandlerCallbacks,
         HomePageDataProvider.HomeDataProvider,SubjectHomeAdapter.onCardClick{
 
-    private static final String HOME_URL ="http://www.hijazboutique.com/elf_ws.svc/GetStudentDashboard";
+
     private static final String TAG = "ELF";
 
 
@@ -121,6 +122,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
 
 
     RecyclerView mList=null;
+    private SubjectHomeAdapter.onCardClick mCallback = null;
 
 
 //    @BindView(R.id.try_again_text)
@@ -413,7 +415,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             String picturpath = mStore.getpicturePath();
             Log.d(TAG, "setViewValues: picture path "+picturpath);
             if (picturpath.equals("null")){
-             //No Picture , set Default Values
+              mProfilePicture.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_account_circle_white_36dp));
 
             }
             else{
@@ -438,7 +440,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
         }
 
 
-       mHomeRequest = new JsonArrayRequest(Request.Method.POST, HOME_URL, mReqObjects, mDataProvider, errorHandler);
+       mHomeRequest = new JsonArrayRequest(Request.Method.POST, WebServices.DASH_URL, mReqObjects, mDataProvider, errorHandler);
         if (mRequestQueue !=null){
 
             mRequestQueue.addToRequestQue(mHomeRequest);
@@ -461,6 +463,7 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             mStore = null;
             mDataProvider = null;
             errorHandler = null;
+            mCallback = null;
         }
 
         @Override
@@ -784,8 +787,11 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     * */
 
     private SubjectHomeAdapter getNewOrModifiedAdapter(List<SubjectModel> mSubjectList) {
+        mCallback = this;
         if (mSubjectAdapter == null){
-            mSubjectAdapter = new SubjectHomeAdapter(getApplicationContext(),mSubjectList,this);
+
+            mSubjectAdapter = new SubjectHomeAdapter(getApplicationContext(),mSubjectList,mCallback);
+
             return mSubjectAdapter;
         }else{
             //Adapter Already Exists

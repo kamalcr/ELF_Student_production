@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.elf.elfstudent.Fragments.ReportFragment;
 import com.elf.elfstudent.Utils.BundleKey;
+import com.elf.elfstudent.Utils.SubjectImage;
 
 /**
  *
@@ -54,19 +55,19 @@ public class BiologyReportPagerAdapter extends FragmentStatePagerAdapter {
             //based on subjects , set Arguments to Fragemnt such as
             //overall percentage , List of Lessons etc
             case 0:
-                mSubjectId = "2";
+                mSubjectId = SubjectImage.PHY_ID;
                 mSubjectName = "PHYSICS";
                 break;
             case 1:
-                mSubjectId = "3";
+                mSubjectId =SubjectImage.CHEM_ID;
                 mSubjectName = "CHEMISTRY";
                 break;
             case 2:
-                mSubjectId = "1";
+                mSubjectId = SubjectImage.MATHS_12;
                 mSubjectName = "MATHS";
                 break;
             case 3:
-                mSubjectId = "15";
+                mSubjectId = SubjectImage.BIO_ID;
                 mSubjectId = "BIOLOGY";
 
         }

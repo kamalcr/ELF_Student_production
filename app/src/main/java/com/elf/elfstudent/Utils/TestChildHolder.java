@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
@@ -34,14 +35,17 @@ public class TestChildHolder extends ChildViewHolder {
         //The Textview in this holder
    public TextView mText;
     public Button writeText;
+    public RelativeLayout mLayout ;
      public TestChildHolder(View itemView) {
         super(itemView);
+         mLayout = (RelativeLayout) itemView.findViewById(R.id.test_child_layout);
          mText = (TextView) itemView.findViewById(R.id.test_desc);
          writeText = (Button) itemView.findViewById(R.id.write_test_button);
     }
 
     public  void bind(final AllTestModels testList, final AllTestAdapter.onTestClicked mCallback) {
         mText.setText(testList.getmTestDetail());
+
         writeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

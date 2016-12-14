@@ -29,9 +29,11 @@ import com.db.chart.tooltip.Tooltip;
 import com.db.chart.view.LineChartView;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.CustomUI.MyMarkerView;
+import com.elf.elfstudent.CustomUI.QucikSand;
 import com.elf.elfstudent.CustomUI.UbuntuRegular;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.Utils.ScreenUtil;
+import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.Lesson;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -47,6 +49,10 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Utils;
 
+import junit.framework.Test;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +66,7 @@ import butterknife.ButterKnife;
 public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdapter.LessonView>{
 
 
+    private static final String TAG = "Adapter";
     private Context mContext;
     private List<Lesson> mList;
     LayoutInflater inflater = null;
@@ -89,8 +96,11 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
         runEnterAnimations(holder,position);
         Log.d("Adapter", "onBindViewHolder: ");
 //        setUpChart(holder.mChart,position);
-        setUPWilliamChart(holder.mChart);
+//        setUPWilliamChart(holder.mChart,mList.get(position).getMarkList());
         holder.mLessonName.setText(mList.get(position).getmLessonName());
+        holder.mGrowth.setText(mList.get(position).getmGrowthPercentage());
+        holder.totalQ.setText(mList.get(position).getQuestionAsked());
+        holder.answer_correct.setText(mList.get(position).getCorrectanswer());
 
 
         ViewCompat.setTransitionName(holder.mLessonName,String.valueOf(position)+"_lesson");
@@ -104,58 +114,102 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
         });
     }
 
-    private void setUPWilliamChart(final LineChartView mChart) {
+    private void setUPWilliamChart(final LineChartView mChart, final ArrayList<String> markList) {
 
-        final String[] mLabels = {"Test1", "Test2", "Test3", "Test4", "Test5"};
-
-        final float[][] mValues = {  {3.3f, 6.6f, 4.5f, 8.2f, 7.2f},
-                {33f, 66f, 45f, 82f, 72f}};
-         final Tooltip mTip;
-        mTip = new Tooltip(mContext, R.layout.linechart_three_tooltip, R.id.value);
+        Log.d(TAG, "setUPWilliamChart: "+markList.size());
 
 
+        //First Get the No of Tests
+        int TestCount = markList.size();
 
-        mTip.setVerticalAlignment(Tooltip.Alignment.BOTTOM_TOP);
-        mTip.setDimensions((int) Tools.fromDpToPx(58), (int) Tools.fromDpToPx(25));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        String[] mLabels = null;
+        float[] marksinTest = null;
+        //Add Labels as using String.value of
 
-            mTip.setEnterAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 1),
-                    PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f),
-                    PropertyValuesHolder.ofFloat(View.SCALE_X, 1f)).setDuration(200);
+        if (TestCount == 0) {
+            //Do nothing , Add single Entry
+            mLabels = new String[1];
+            mLabels[0] = "";
 
-            mTip.setExitAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 0),
-                    PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f),
-                    PropertyValuesHolder.ofFloat(View.SCALE_X, 0f)).setDuration(200);
-
-            mTip.setPivotX(Tools.fromDpToPx(65) / 2);
-            mTip.setPivotY(Tools.fromDpToPx(25));
+            marksinTest = new float[1];
+            marksinTest[0] = (float) 0.0;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                mChart.setBackground(ContextCompat.getDrawable(mContext,R.drawable.ic_graph));
+            }
         }
 
-        mChart.setTooltips(mTip);
+        else {
+            //Various Marks Exist
+
+            mLabels = new String[TestCount + 1];
+
+            mLabels[0] = "";
+
+
+            for (int i = 0; i < mLabels.length - 1; i++) {
+                mLabels[i + 1] = "Test " + String.valueOf(i + 1);
+            }
+
+
+                marksinTest = new float[TestCount + 1];
+                marksinTest[0] = (float) 0.0;
+                Log.d(TAG, "setUPWilliamChart: initislising marksList of size" + marksinTest.length);
+
+                for (int i = 0; i < marksinTest.length - 1; i++) {
+                    Log.d(TAG, "setUPWilliamChart: iterations in for " + markList.get(i));
+//                marksinTest[i+1] = Float.parseFloat(markList.get(i));
+                }
+            }
+
+
+        final Tooltip mTip;
+            mTip = new Tooltip(mContext, R.layout.linechart_three_tooltip, R.id.value);
+
+
+            mTip.setVerticalAlignment(Tooltip.Alignment.BOTTOM_TOP);
+            mTip.setDimensions((int) Tools.fromDpToPx(58), (int) Tools.fromDpToPx(25));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+
+                mTip.setEnterAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 1),
+                        PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f),
+                        PropertyValuesHolder.ofFloat(View.SCALE_X, 1f)).setDuration(200);
+
+                mTip.setExitAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 0),
+                        PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f),
+                        PropertyValuesHolder.ofFloat(View.SCALE_X, 0f)).setDuration(200);
+
+                mTip.setPivotX(Tools.fromDpToPx(65) / 2);
+                mTip.setPivotY(Tools.fromDpToPx(25));
+            }
+
+            mChart.setTooltips(mTip);
 
 
 
-        // Data
-        LineSet dataset = new LineSet(mLabels, mValues[0]);
 
-        dataset.setColor(Color.parseColor("#758cbb"))
-                .setFill(ContextCompat.getColor(mContext,R.color.black_dribble))
-                .setDotsColor(ContextCompat.getColor(mContext,R.color.colorAccent))
-                .setThickness(4)
-                .setDashed(new float[] {10f, 10f})
-                .beginAt(0);
-        mChart.addData(dataset);
+            // Data
+            LineSet dataset = new LineSet(mLabels, marksinTest);
+
+            dataset.setColor(Color.parseColor("#758cbb"))
+                    .setFill(ContextCompat.getColor(mContext, R.color.black_dribble))
+                    .setDotsColor(ContextCompat.getColor(mContext, R.color.colorAccent))
+                    .setThickness(4)
+                    .setDashed(new float[]{10f, 10f})
+                    .beginAt(0);
+            mChart.addData(dataset);
 
 
+            // Chart
+            mChart.setBorderSpacing(Tools.fromDpToPx(15))
+                    .setAxisBorderValues(0, 20)
+                    .setYLabels(AxisRenderer.LabelPosition.NONE)
+                    .setLabelsColor(ContextCompat.getColor(mContext, R.color.colorAccent))
+                    .setXAxis(false)
+                    .setYAxis(false);
 
-        // Chart
-        mChart.setBorderSpacing(Tools.fromDpToPx(15))
-                .setAxisBorderValues(0, 20)
-                .setYLabels(AxisRenderer.LabelPosition.NONE)
-                .setLabelsColor(ContextCompat.getColor(mContext,R.color.colorAccent))
-                .setXAxis(false)
-                .setYAxis(false);
+
 
 
 
@@ -163,10 +217,11 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
 
         try {
 
+            final float[] finalMarksinTest = marksinTest;
             Animation anim = new Animation().setEasing(new BounceEase()).setEndAction(new Runnable() {
                 @Override
                 public void run() {
-                    mTip.prepare(mChart.getEntriesArea(0).get(4), mValues[0][4]);
+                    mTip.prepare(mChart.getEntriesArea(0).get(0), finalMarksinTest[0]);
                     mChart.showTooltip(mTip, true);
                 }
 
@@ -179,7 +234,9 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
         }
 
 
-    }
+
+        }
+
 
 
 
@@ -219,8 +276,13 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
        UbuntuRegular mLessonName;
 
 
-       @BindView(R.id.chart1)
-       LineChartView mChart;
+        @BindView(R.id.report_frag_growth)
+        QucikSand mGrowth;
+
+        @BindView(R.id.report_item_total_ques)  TextView totalQ;
+
+      @BindView(R.id.report_item_ans_correct)
+        TextView answer_correct;
 
         public LessonView(View itemView, final LessonClickCallbacks mCallback) {
             super(itemView);

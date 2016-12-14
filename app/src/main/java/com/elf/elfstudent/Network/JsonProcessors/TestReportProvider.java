@@ -62,7 +62,7 @@ public class TestReportProvider implements Response.Listener<JSONArray> {
 
             }
             catch (Exception e){
-
+                  mCallback.noWrittenTest();
             }
         }
 

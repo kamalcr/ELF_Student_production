@@ -26,11 +26,11 @@
             android:exported="true"/>
         <activity android:name=".Activities.HomeActivity"
             android:exported="true"/>
-        <activity android:name=".Activities.RegisterActivity"
-            android:exported="true"/>
 
         <activity android:name=".Activities.TestWriteActivity"
             android:exported="true"/>
+
+        <activity android:name=".Activities.RegisterActivity"/>
         <activity android:name=".Activities.LoginActivity"
             android:exported="true"/>
         <activity android:name=".Activities.BrowseTestActivity"
@@ -48,7 +48,6 @@
             android:exported="true"/>
         <activity android:name=".Activities.EmailActivityPage"  android:exported="true"/>
         <activity android:name=".Activities.ForgotPassword"/>
-        <activity android:name=".Activities.ChooseSubjectActivity"/>
 
         <activity android:name=".Activities.ChangeProfileActivity"/>
 

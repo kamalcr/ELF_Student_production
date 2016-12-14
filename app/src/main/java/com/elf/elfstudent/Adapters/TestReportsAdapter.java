@@ -2,6 +2,7 @@ package com.elf.elfstudent.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.CustomUI.HelviticaMedium;
 import com.elf.elfstudent.R;
+import com.elf.elfstudent.Utils.SubjectImage;
 import com.elf.elfstudent.model.TestReportModel;
 
 import junit.framework.Test;
@@ -61,6 +63,9 @@ public class TestReportsAdapter  extends RecyclerView.Adapter<TestReportsAdapter
             }
         });
 
+
+        Log.d("Adpter", "onBindViewHolder: ");
+        holder.mSubjectName.setText(SubjectImage.getSubjectName(mTestList.get(position).getSubjectId()));
         holder.rewriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +88,8 @@ public class TestReportsAdapter  extends RecyclerView.Adapter<TestReportsAdapter
         @BindView(R.id.test_item_overall)
         HelviticaMedium marksObtained;
         @BindView(R.id.test_report_item_test_desc) HelviticaLight mTestName;
+
+        @BindView(R.id.test_report_item_sub_name) HelviticaLight mSubjectName;
 
         public TestReportHolder(View itemView, TestReportCallbacks mCallback) {
             super(itemView);

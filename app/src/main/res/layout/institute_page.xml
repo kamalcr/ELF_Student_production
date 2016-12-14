@@ -8,30 +8,19 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@color/black_900"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:id="@+id/ins_imageview"
-        android:layout_height="match_parent" />
+        android:layout_marginTop="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:srcCompat = "@drawable/ic_school"
+        android:layout_height="100dp" />
 
-
-    <com.elf.elfstudent.CustomUI.QucikSand
-        android:text="SCHOOL NAME"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ins_school_text"
-        android:textColor="@color/white"
-
-
-        android:layout_marginStart="30dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginTop="@dimen/ins_mtop"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:layout_marginLeft="30dp" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -40,23 +29,12 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="12dp"
         android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:layout_below="@+id/ins_school_text"
-        android:layout_alignLeft="@+id/ins_school_text"
-        android:layout_alignStart="@+id/ins_school_text"
-       />
-
-    <com.elf.elfstudent.CustomUI.QucikSand
-        android:text="STANDARD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/standar_margin_top"
-        android:textColor="@color/white"
-        android:id="@+id/ins_std_text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:layout_below="@+id/ins_autocomplete"
-        android:layout_alignLeft="@+id/ins_autocomplete"
-        android:layout_alignStart="@+id/ins_autocomplete" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -64,11 +42,11 @@
         android:layout_below="@+id/ins_std_text"
         android:layout_marginTop="28dp"
         android:id="@+id/ins_std_spinner"
-        android:layout_alignLeft="@+id/ins_std_text"
-        android:layout_alignStart="@+id/ins_std_text"
         android:spinnerMode="dialog"
         android:layout_alignRight="@+id/ins_autocomplete"
-        android:layout_alignEnd="@+id/ins_autocomplete">
+        android:layout_alignEnd="@+id/ins_autocomplete"
+        android:layout_alignLeft="@+id/ins_autocomplete"
+        android:layout_alignStart="@+id/ins_autocomplete">
 
     </Spinner>
 
@@ -82,8 +60,32 @@
         android:layout_height="wrap_content"
        android:layout_below="@id/ins_std_spinner"
 
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:background="@color/material_pinkA200"
+        android:layout_centerHorizontal="true" />
+
+    <com.elf.elfstudent.CustomUI.QucikSand
+        android:text="STANDARD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:textColor="@color/black_900"
+        android:id="@+id/ins_std_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_below="@+id/ins_autocomplete"
+       android:layout_centerHorizontal="true" />
+
+    <com.elf.elfstudent.CustomUI.QucikSand
+        android:text="SCHOOL NAME"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ins_school_text"
+        android:textColor="@color/black_900"
+
+
+        android:layout_marginTop="27dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_below="@+id/ins_imageview"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
 

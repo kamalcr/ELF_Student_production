@@ -45,7 +45,7 @@ public class TesCompletedOverallFragment extends Fragment implements ErrorHandle
 
     private static final String TAG = "TestCompFragment";
 
-    private static final String OVERIVEW_URL = "http://www.hijazboutique.com/elf_ws.svc/GetTestOverview";
+    private static final String OVERIVEW_URL = "http://elfanalysis.net/elf_ws.svc/GetTestOverview";
 
 
     DataStore mStore = null;

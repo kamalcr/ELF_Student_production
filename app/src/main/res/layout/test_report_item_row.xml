@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/test_report_item_test_desc"
+            android:layout_below="@+id/test_report_item_sub_name"
             android:id="@+id/view_div"
             android:layout_marginTop="@dimen/view_div_mtop"
             android:background="@color/material_blue900"
@@ -83,6 +83,18 @@
             android:layout_below="@+id/test_item_overall"
             android:layout_alignLeft="@+id/test_item_overall"
             android:layout_alignStart="@+id/test_item_overall" />
+
+        <com.elf.elfstudent.CustomUI.HelviticaLight
+            android:layout_width="wrap_content"
+            android:text="Maths"
+            android:textColor="@color/black_900"
+            android:padding="2dp"
+            android:layout_marginTop="4dp"
+            android:id="@+id/test_report_item_sub_name"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test_report_item_test_desc"
+            android:layout_alignLeft="@+id/test_report_item_test_desc"
+            android:layout_alignStart="@+id/test_report_item_test_desc" />
 
     </RelativeLayout>
 
