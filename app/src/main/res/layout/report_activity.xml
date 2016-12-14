@@ -30,7 +30,7 @@
                 android:id="@+id/report_tab"
                 app:tabBackground="@color/white"
                 app:tabMode="scrollable"
-                app:tabGravity="fill"
+                app:tabGravity="center"
                 app:tabTextColor="@color/material_black"
                 app:tabSelectedTextColor="@color/pink900"
                 app:tabIndicatorColor="#F20654"

@@ -42,7 +42,7 @@ public class tenthTestPagerAdapter extends FragmentPagerAdapter {
             Bundle b = new Bundle();
 
             //SHow 12 AllTest page with Subject iD and name
-            fragment = new AllTestFragment12();
+            fragment = new AllTestFragment();
             if (i1 == 1){
                 //student is Computer
                 Log.d(TAG, "tenthTestPagerAdapter: student is computer");

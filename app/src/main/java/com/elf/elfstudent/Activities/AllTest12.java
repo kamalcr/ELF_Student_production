@@ -36,6 +36,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.android.volley.Request.*;
+
 /**
  * Created by nandhu on 25/10/16.
  * The Fragment Displayed in{@link BrowseTestActivity}
@@ -161,7 +163,7 @@ public class AllTest12 extends Fragment implements
         // make request with that body
 
         String URL = "http://www.hijazboutique.com/elf_ws.svc/GetPendingTests";
-        mReq = new JsonArrayRequest(Request.Method.POST, URL, object,
+        mReq = new JsonArrayRequest(Method.POST, URL, object,
                 testListProvider, errorHandler);
 
         mRequestQueue.addToRequestQue(mReq);

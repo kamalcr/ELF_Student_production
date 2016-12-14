@@ -99,7 +99,8 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
 //        setUPWilliamChart(holder.mChart,mList.get(position).getMarkList());
         holder.mLessonName.setText(mList.get(position).getmLessonName());
 
-        Float pecentage = Float.parseFloat(mList.get(position).getmGrowthPercentage());
+        int pecentage = (int) Float.parseFloat(mList.get(position).getmGrowthPercentage());
+
         String ercent = ""+pecentage;
 
         holder.mGrowth.setText(ercent);
@@ -130,7 +131,6 @@ public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdap
         String[] mLabels = null;
         float[] marksinTest = null;
         //Add Labels as using String.value of
-
         if (TestCount == 0) {
             //Do nothing , Add single Entry
             mLabels = new String[1];

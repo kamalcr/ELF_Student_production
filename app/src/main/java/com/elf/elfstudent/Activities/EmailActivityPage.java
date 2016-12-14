@@ -310,9 +310,8 @@ public void ShowPersonalInfoPage() {
        @Override public void emailAlreadyExists() {
         //// TODO: 20/10/16 email Already Existe show toast
         stopDialog();
-        Animation animation = AnimationUtils.loadAnimation(this,R.anim.shake);
-        mEmailBox.startAnimation(animation);
-        Toast.makeText(getApplicationContext(),"Email Already Exists",Toast.LENGTH_SHORT).show();
+         final  Intent i = new Intent(this,LoginActivity.class);
+               startActivity(i);
         }
 
 
