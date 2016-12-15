@@ -536,7 +536,7 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     @Override
     public void testNotSubmitted() {
         stopSubmitDialog();
-        Toast.makeText(getApplicationContext(), "Test Not Submitted,Please Try again", Toast.LENGTH_LONG).show();
+
 
 
     }
@@ -545,6 +545,34 @@ public class TestWriteActivity extends AppCompatActivity implements ErrorHandler
     public void ErrorOccurred() {
         Log.d(TAG, "ErrorOccurred: in test submit ");
         stopSubmitDialog();
-        Toast.makeText(this, "Try Again,Test Not Submitted", Toast.LENGTH_LONG).show();
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Test Not Submitted!");
+        alertDialog.setMessage("It seems there is a glitch in submitting test.");
+        alertDialog.setPositiveButton("RETRY SUBMIT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                retrySubmitRequest();
+            }
+
+
+        });
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //No Has Been Clicked, Dismiss Dialog
+                 final Intent intent = new Intent(getApplicationContext(),BrowseTestActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
+        alertDialog.show();
+
+    }
+
+    private void retrySubmitRequest() {
+        if (submitTestRequest != null && mRequestQueue != null){
+            mRequestQueue.addToRequestQue(submitTestRequest);
+        }
     }
 }

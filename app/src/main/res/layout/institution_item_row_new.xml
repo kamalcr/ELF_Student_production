@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ins_name_new"
     android:textSize="22sp"
-    android:gravity="center_vertical"
+    android:gravity="center"
     android:text= "Hello this is your scool"
     android:paddingLeft="16dp"
 
-    android:background="@color/white"
-    android:textColor="@color/pink900"
+    android:background="@drawable/email_editetext_back"
+    android:textColor="@color/black_900"
     android:layout_width="match_parent" android:layout_height="60dp">
 
 </com.elf.elfstudent.CustomUI.HelviticaLight>

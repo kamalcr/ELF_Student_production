@@ -76,4 +76,5 @@
     <dimen name="ins_mtop">150dp</dimen>
     <dimen name="love_mtop">12dp</dimen>
     <dimen name="tp_ml">16dp</dimen>
+    <dimen name="ins_text_mtop">64dp</dimen>
 </resources>

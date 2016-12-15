@@ -58,7 +58,7 @@
                 android:background="@color/material_pink900"/>
 
             <com.elf.elfstudent.CustomUI.QucikSand
-                android:text="Persona Info"
+                android:text="Personal Info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/personal_info_text"

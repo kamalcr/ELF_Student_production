@@ -32,6 +32,7 @@ import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.Network.ErrorHandler;
 import com.elf.elfstudent.Network.JsonProcessors.EmailHandler;
 import com.elf.elfstudent.R;
+import com.elf.elfstudent.Utils.BundleKey;
 import com.elf.elfstudent.Utils.RequestParameterKey;
 import com.elf.elfstudent.Utils.ScreenUtil;
 import com.elf.elfstudent.Utils.StringValidator;
@@ -92,6 +93,7 @@ HelviticaLight mSignIn;
         int count =0;
 
 
+
 @Override
 protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,6 +132,11 @@ public void onClick(View view) {
 
 private void showLoginPage() {
 final  Intent i = new Intent(this,LoginActivity.class);
+        if (email != null){
+
+                i.putExtra(BundleKey.ARG_EMAIL_ID_TAG,email);
+        }
+
         startActivity(i);
         }
 
@@ -141,11 +148,19 @@ private void CheckEmail() {
         }
         else{
         //wrong Email Format
-        Toast.makeText(this,"Enter Valid Email",Toast.LENGTH_SHORT).show();
-        Animation animation = AnimationUtils.loadAnimation(this,R.anim.shake);
-        mEmailBox.startAnimation(animation);
+                try {
+
+                        Toast.makeText(this,"Enter Valid Email",Toast.LENGTH_SHORT).show();
+                        Animation animation = AnimationUtils.loadAnimation(this,R.anim.shake);
+                        mEmailBox.startAnimation(animation);
+                        mEmailBox.setText("");
+
+                }
+                catch (Exception e ){
+                        FirebaseCrash.log("Exception ");
+                }
         }
-        }
+}
 
 private void checkifEmailExists(String email) {
         mDialog = new ProgressDialog(this);

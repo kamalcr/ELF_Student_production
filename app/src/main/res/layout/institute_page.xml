@@ -8,7 +8,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@color/white"
+    android:background="@color/black_viewpager"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -62,29 +62,32 @@
        android:layout_below="@id/ins_std_spinner"
 
         android:layout_marginTop="24dp"
-        android:background="@color/material_pinkA200"
-        android:layout_centerHorizontal="true" />
+        android:background="@drawable/pink_login_rounded"
+        android:layout_alignLeft="@+id/ins_std_spinner"
+        android:layout_alignStart="@+id/ins_std_spinner"
+        android:layout_alignRight="@+id/ins_std_spinner"
+        android:layout_alignEnd="@+id/ins_std_spinner" />
 
-    <com.elf.elfstudent.CustomUI.QucikSand
+    <com.elf.elfstudent.CustomUI.HelviticaMedium
         android:text="STANDARD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="54dp"
-        android:textColor="@color/black_900"
+        android:textColor="@color/pink900"
         android:id="@+id/ins_std_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:layout_below="@+id/ins_autocomplete"
        android:layout_centerHorizontal="true" />
 
-    <com.elf.elfstudent.CustomUI.QucikSand
+    <com.elf.elfstudent.CustomUI.HelviticaMedium
         android:text="SCHOOL NAME"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ins_school_text"
-        android:textColor="@color/black_900"
+        android:textColor="@color/pink900"
 
 
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="@dimen/ins_text_mtop"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:layout_below="@+id/ins_imageview"
         android:layout_centerHorizontal="true" />

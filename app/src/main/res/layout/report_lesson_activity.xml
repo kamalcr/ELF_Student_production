@@ -41,34 +41,35 @@
                 android:layout_height="match_parent">
 
 
-
-            <com.elf.elfstudent.CustomUI.UbuntuRegular
-                android:layout_width="wrap_content"
-                android:id="@+id/lesson_name_single"
-                android:textSize="@dimen/topic_title_ts"
-                android:paddingRight="12dp"
-                android:layout_marginTop="@dimen/topic_title_mtop"
-                android:paddingEnd="24dp"
-                android:textColor="@color/black_900"
-                android:paddingLeft="12dp"
-                android:layout_marginBottom="12dp"
-                app:paddingStart="24dp"
-                android:text="Helloe ELff"
-
-
-                android:layout_height="wrap_content" />
                 <com.elf.elfstudent.CustomUI.QucikSand
                     android:layout_width="wrap_content"
                     android:id="@+id/percent_single"
                     android:text="55"
-                    android:paddingLeft="24dp"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="@color/black_viewpager"
-                    android:layout_below="@id/lesson_name_single"
-                    android:textSize="35sp"
-                    android:layout_height="wrap_content"
 
-                  />
+                    android:layout_marginBottom="8dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black_viewpager"
+                    android:layout_below="@+id/lesson_name_single"
+                    android:textSize="35sp"
+                    android:layout_height="wrap_content"/>
+
+                <com.elf.elfstudent.CustomUI.UbuntuRegular
+                    android:layout_width="wrap_content"
+                    android:id="@+id/lesson_name_single"
+                    android:textSize="@dimen/topic_title_ts"
+                    android:paddingRight="12dp"
+                    android:layout_marginTop="14dp"
+                    android:paddingEnd="24dp"
+                    android:textColor="@color/black_900"
+                    android:paddingLeft="12dp"
+                    app:paddingStart="24dp"
+                    android:text="Helloe ELff"
+
+
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
 
             </RelativeLayout>
 
@@ -91,7 +92,7 @@
             android:layout_width="wrap_content"
             android:text="Topic Wise Report"
             android:textSize="@dimen/topic_text_size"
-            android:textColor="@color/material_blue100"
+            android:textColor="@color/pink900"
             android:id="@+id/single_text"
             android:layout_height="wrap_content"
             android:layout_below="@+id/report_leson_card"

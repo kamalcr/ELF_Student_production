@@ -178,8 +178,8 @@ public class SubjectViewActivity extends AppCompatActivity implements
         //Networks Related Code
         try {
             JSONObject mObject = new JSONObject();
-            mObject.put("studentId", studentId);
-            mObject.put("subjectId", mSubjectId);
+            mObject.put("StudentId", studentId);
+            mObject.put("SubjectId", mSubjectId);
            mLessonListRequestor = new JsonArrayRequest(Request.Method.POST,
                     GET_LESSON_URL, mObject,mLessonProvider,errorHandler);
         }

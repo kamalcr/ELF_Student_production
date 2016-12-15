@@ -17,8 +17,8 @@
 
         <ImageView
 
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
 
             app:srcCompat = "@drawable/ic_next"
             android:visibility="invisible"
@@ -37,12 +37,14 @@
             android:textColorHint="@color/black_900"
             android:layout_marginRight="32dp"
             android:layout_marginLeft="32dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             android:background="@drawable/email_editetext_back"
             android:gravity="center"
             android:id="@+id/email_text"
             android:layout_above="@+id/email_next_button"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="100dp" />
+            android:layout_marginBottom="175dp" />
 
         <com.elf.elfstudent.CustomUI.HelviticaLight
             android:text="Already have an Account ?"

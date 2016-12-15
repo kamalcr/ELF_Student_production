@@ -195,7 +195,7 @@ public class ReportActivity extends AppCompatActivity{
         mPaymentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
+                final Intent i = new Intent(getApplicationContext(), CouponActivity.class);
                 startActivity(i);
                 finish();
             }

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.elf.elfstudent.Adapters.TestRecyclerAdapeters.MathsAdapter;
 import com.elf.elfstudent.CustomUI.HelviticaLight;
 import com.elf.elfstudent.R;
 import com.elf.elfstudent.model.AllTestModels;

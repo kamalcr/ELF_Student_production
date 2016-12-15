@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -216,27 +217,31 @@ public class InstitutePage extends AppCompatActivity implements
 
                 LayoutInflater inflater = this.getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.group_picker, null);
-
-
-                alertDialog.setPositiveButton("COMPUTER", new DialogInterface.OnClickListener() {
+                alertDialog.setView(dialogView);
+                ImageButton mCsButton  = (ImageButton) dialogView.findViewById(R.id.cs_image);
+                ImageButton bioButton = (ImageButton) dialogView.findViewById(R.id.bio_button);
+                mCsButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-//                        // TODO: 15/11/16 find computer id
+                    public void onClick(View v) {
+                        // TODO: 15/11/16 find computer id
                         groupId = "1";
                         RegisterStudent(groupId);
                     }
                 });
-                alertDialog.setNegativeButton("BIOLOGY", new DialogInterface.OnClickListener() {
+
+                bioButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //No Has Been Clicked, Dismiss Dialog
+                    public void onClick(View v) {
 
                         groupId = "2";
                         RegisterStudent(groupId);
                     }
                 });
+
+
+                alertDialog.setCancelable(false);
                 alertDialog.show();
+
 
             }
         }

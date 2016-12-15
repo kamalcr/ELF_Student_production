@@ -33,7 +33,7 @@
         android:layout_height="42dp"
         android:layout_gravity="center"
         app:nts_active_color="#fff"
-        app:nts_color="#3cdedd"
+        app:nts_color="@color/pink900"
         app:nts_corners_radius="3.5dp"
         app:nts_factor="0.8"
         app:nts_gravity="bottom"
@@ -44,7 +44,7 @@
         <!--THe Main Content View , TestView pager -->
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:background="@drawable/login_background_gradient"
+        android:background="@color/white"
         android:id="@+id/test_write_viewpager"
         android:layout_height="match_parent"
         >
@@ -52,15 +52,24 @@
     </android.support.v4.view.ViewPager>
    </LinearLayout>
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content">
         <Button
             android:layout_width="match_parent"
-           android:layout_gravity="bottom"
-            android:background="#3cdedd"
+            android:background="@color/material_pink300"
+
             android:text="Finish Test"
 
             android:textColor="@color/material_black"
             android:layout_height="50dp"
             android:id="@+id/test_write_finish" />
+
+
+    </android.support.v7.widget.CardView>
 
 
 </FrameLayout>

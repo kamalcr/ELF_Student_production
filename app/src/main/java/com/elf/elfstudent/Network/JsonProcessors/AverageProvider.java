@@ -46,36 +46,52 @@ public class AverageProvider implements Response.Listener<JSONArray> {
                     mCallback.noProvider();
             } else {
 
+            if (mObject.getJSONArray("Average") != null){
 
                 average = mObject.getJSONArray("Average");
                 averageList = new ArrayList<>(average.length());
-
                 for (int i = 0; i < average.length(); i++) {
                     JSONObject obj = average.getJSONObject(i);
                     averageList.add(new Topic(obj.getString("Topic"), obj.getString("Percentage")));
                 }
+            }
+                else{
+                averageList = new ArrayList<>(1);
+            }
 
 
-                good = mObject.getJSONArray("Good");
-                goodList = new ArrayList<>(good.length());
-                for (int i = 0; i < average.length(); i++) {
-                    JSONObject obj = good.getJSONObject(i);
-                    goodList.add(new Topic(obj.getString("Topic"), obj.getString("Percentage")));
+                if (mObject.getJSONArray("Good") != null  ){
+
+                    good = mObject.getJSONArray("Good");
+                    goodList = new ArrayList<>(good.length());
+                    for (int i = 0; i < good.length(); i++) {
+                        JSONObject obj = good.getJSONObject(i);
+                        goodList.add(new Topic(obj.getString("Topic"), obj.getString("Percentage")));
+                    }
+                }
+                else{
+                    if (mObject.getJSONArray("Good").equals(null) || mObject.getJSONObject("Good").equals(null)  )
+                    goodList =null;
                 }
 
 
-                bad = mObject.getJSONArray("Bad");
-                badList = new ArrayList<>(bad.length());
+                if (mObject.getJSONArray("Bad") != null){
 
-                for (int i = 0; i < average.length(); i++) {
-                    JSONObject obj = bad.getJSONObject(i);
-                    badList.add(new Topic(obj.getString("Topic"), obj.getString("Percentage")));
+                    bad = mObject.getJSONArray("Bad");
+                    badList = new ArrayList<>(bad.length());
+
+                    for (int i = 0; i < bad.length(); i++) {
+                        JSONObject obj = bad.getJSONObject(i);
+                        badList.add(new Topic(obj.getString("Topic"), obj.getString("Percentage")));
+                    }
                 }
+
 
                 mCallback.avgProvider(averageList, goodList, badList);
             }
         }catch (JSONException e) {
             Log.d("Average", "onResponse: "+e.getLocalizedMessage());
+            mCallback.noProvider();
         }
     }
 

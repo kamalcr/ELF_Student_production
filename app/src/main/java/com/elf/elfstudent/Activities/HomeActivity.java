@@ -415,8 +415,11 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
             String picturpath = mStore.getpicturePath();
             Log.d(TAG, "setViewValues: picture path "+picturpath);
             if (picturpath.equals("null")){
-              mProfilePicture.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_account_circle_white_36dp));
 
+                Log.d(TAG, "setViewValues: null");
+              //mProfilePicture.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_account_circle_white_36dp));
+               mProfilePicture.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_account_circle_white_36dp));
+               ;
             }
             else{
                 //Some Picture  path is available

@@ -1,36 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:fillViewport="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@drawable/login_background_gradient"
     android:layout_height="match_parent">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="Password"
+
+        android:ems="10"
+        android:layout_below="@+id/textView21"
+        android:layout_alignLeft="@+id/textView21"
+        android:layout_alignStart="@+id/textView21"
+        android:layout_marginTop="17dp"
+        android:id="@+id/login_password_box"
+        android:layout_alignRight="@+id/login_email_box"
+        android:layout_alignEnd="@+id/login_email_box" />
+
+    <com.elf.elfstudent.CustomUI.QucikSand
+        android:text="PASSWORD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:textColor="@color/pink900"
+        android:id="@+id/textView21"
+        android:layout_below="@+id/login_email_box"
+        android:layout_alignLeft="@+id/login_email_box"
+        android:layout_alignStart="@+id/login_email_box"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="Type your email"
+        android:textColorHighlight="@color/pink900"
+        android:ems="10"
+
+        android:id="@+id/login_email_box"
+
+        android:layout_below="@+id/textView15"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="24dp" />
+
+    <Button
+        android:text="Login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_button"
+
+        android:textColor="@color/white"
+        android:background="@drawable/pink_login_rounded"
+        android:layout_below="@+id/login_password_box"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
+
+    <com.elf.elfstudent.CustomUI.QucikSand
+        android:text="EMAIL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="182dp"
+        android:textColor="@color/pink900"
+        android:id="@+id/textView15"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/login_button"
+        android:layout_alignStart="@+id/login_button"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+
     <com.elf.elfstudent.CustomUI.HelviticaMedium
-        android:text="Login with Google"
+        android:text="Login"
         android:textColor="@color/pink900"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView23"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/login_mtop"
+        android:layout_marginTop="31dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textSize="@dimen/login_ts" />
+        android:textSize="24sp" />
 
-    <com.google.android.gms.common.SignInButton
-        android:layout_width="match_parent"
-        android:id="@+id/g_login"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_height="60dp">
+    <TextView
+        android:text="Need Help Loggin in ?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-    </com.google.android.gms.common.SignInButton>
-
-
+        android:layout_marginTop="28dp"
+        android:id="@+id/textView25"
+        android:layout_below="@+id/login_button"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
-</ScrollView>

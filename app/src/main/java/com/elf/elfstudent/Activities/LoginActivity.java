@@ -24,6 +24,7 @@ import com.elf.elfstudent.CustomUI.HelviticaMedium;
 import com.elf.elfstudent.DataStorage.DataStore;
 import com.elf.elfstudent.Network.AppRequestQueue;
 import com.elf.elfstudent.R;
+import com.elf.elfstudent.Utils.BundleKey;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -53,16 +54,8 @@ public class LoginActivity extends AppCompatActivity implements
     private static final String TAG = "ELF";
     private static final String LOGIN_URL = "http://elfanalysis.net/elf_ws.svc/CheckStudentLogin";
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
 
-    }
 
-    @Override
-    public void onResponse(JSONArray response) {
-
-    }
-    /*
     @BindView(R.id.login_button)
     Button mLoginButton;
 
@@ -72,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements
     EditText mPasswordBox;
 
 
-    @BindView(R.id.textView31)
+    @BindView(R.id.textView25)
     TextView mForgotPassword;
 
 
@@ -83,17 +76,30 @@ public class LoginActivity extends AppCompatActivity implements
     String userName = null;
 
 
+    String email = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
         ButterKnife.bind(this);
+        Log.d(TAG, "onCreate: ");
 
         mDialog = new ProgressDialog(this);
         mDialog.setIndeterminate(true);
         mDialog.setMessage("Logging In. Please Wait");
 
 
+        if (getIntent() !=  null){
+            email  = getIntent().getStringExtra(BundleKey.ARG_EMAIL_ID_TAG);
+            Log.d(TAG, "onCreate: intent");
+        }
+
+
+        if (memailBox !=null){
+            Log.d(TAG, "onCreate: ");
+            memailBox.setText(email);
+            Toast.makeText(this,"Please Login with your Current Password",Toast.LENGTH_SHORT).show();
+        }
 
         //intitlalize Req Que
         mRequestQueue = AppRequestQueue.getInstance(this.getApplicationContext());
@@ -148,7 +154,8 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onErrorResponse(VolleyError error) {
 
-        Log.d(TAG, "onErrorResponse: ");
+         Toast.makeText(this,"Please Make Sure you have Data Connection",Toast.LENGTH_SHORT);
+
         stopDialog();
     }
 
@@ -182,6 +189,7 @@ public class LoginActivity extends AppCompatActivity implements
                 String result = mObject.getString("StatusCode");
                 if (result.equals("1000")) {
                     //validation went through , get Student details
+                    Log.d(TAG, "onResponse: validation went through");
                     studentId = mObject.getString("StudentId");
                     StudentName = mObject.getString("StudentName");
                     classId = mObject.getString("classId");
@@ -235,6 +243,8 @@ public class LoginActivity extends AppCompatActivity implements
 
         } catch (JSONException e) {
 
+
+            Log.d(TAG, "onResponse: exception "+e.getLocalizedMessage());
             stopDialog();
 
             Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_SHORT).show();
@@ -242,5 +252,5 @@ public class LoginActivity extends AppCompatActivity implements
         }
 
     }
-    */
+
 }
