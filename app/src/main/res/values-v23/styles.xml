@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="cv_elevation"></style>
+
+    <style name="register_page1_edit_text"></style>
+
+    <style name="autocomplete">
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
+    </style>
+    <style name="CustomTheme"  parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/white_primary</item>
+        <item name="colorPrimaryDark">@color/black_viewpager</item>
+        <item name="colorAccent">@color/pink900</item>
+
+
+    </style>
+
+    <style name="custom_radio_button">
+        <item name="android:textColor">@color/radio_text_color_selector</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/text_size_option</item>
+        <item name="android:background">@drawable/radio_button_selector</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+    <style name="all_text_item_card_test_text">
+        <item name="android:textSize">@dimen/all_test_item_ts</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/black_900</item>
+    </style>
+    <style name="CardViewStyle" parent="android:Widget.TextView">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <style name="test_view_topic_text">
+        <item name="android:textSize">18sp</item><item name="android:textColor">@color/black_900</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="sub_view_list_text">
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black_900</item>
+    </style>
+
+    <style name="change_profile_top_text"></style>
+
+    <style name="change_profile_bottom_text"></style>
+
+
+    <style name="drawer_text_view">
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_marginBottom">@dimen/drawer_text_bottom_margin</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginLeft">16dp</item>
+    </style>
+
+
+    <style name="register_page_text_layout"></style>
+
+    <style name="drawer_image_view">
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+    </style>
+
+</resources>

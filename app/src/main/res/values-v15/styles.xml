@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="cv_elevation">
+
+    </style>
+
+    <style name="register_page1_edit_text">
+
+    </style>
+
+    <style name="autocomplete">
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
+    </style>
+    <style name="CustomTheme"  parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/white_primary</item>
+        <item name="colorPrimaryDark">@color/black_viewpager</item>
+        <item name="colorAccent">@color/pink900</item>
+
+
+    </style>
+
+    <style name="custom_radio_button">
+        <item name="android:textColor">@color/radio_text_color_selector</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/text_size_option</item>
+        <item name="android:background">@drawable/radio_button_selector</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+    <style name="all_text_item_card_test_text">
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textColor">@color/black_900</item>
+    </style>
+
+    <style name="test_view_topic_text"></style>
+
+    <style name="sub_view_list_text">
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black_900</item>
+    </style>
+
+    <style name="change_profile_top_text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black_dribble</item>
+    </style>
+
+    <style name="change_profile_bottom_text">
+        <item name="android:textColor">@color/material_black</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="register_page_text_layout"></style>
+
+    <style name="drawer_image_view"></style>
+
+    <style name="cupImageview">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+</resources>
