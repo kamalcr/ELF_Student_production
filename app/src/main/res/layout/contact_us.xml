@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/contact_us"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Contact Us"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+    </android.support.v7.widget.Toolbar>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="30dp"
+        android:src="@mipmap/elfhomeicon"/>
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Email Id :"
+      android:textSize="20dp"
+      android:textColor="#000000"
+      android:gravity="center"
+      android:id="@+id/email_id"
+      android:layout_marginTop="40dp" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="support@elfanalysis.com"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:textColor="#ff4d79"
+        android:id="@+id/emailid_name"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone :"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:id="@+id/contact_id"
+        android:layout_marginTop="40dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0422-4348851"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:textColor="#ff4d79"
+        android:id="@+id/contact_no"
+        android:layout_marginTop="40dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="www.elfanalysis.com"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:id="@+id/hyperlink"
+        android:autoLink="web"
+        android:textSize="20dp"
+        />
+
+</LinearLayout>
