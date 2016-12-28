@@ -65,16 +65,13 @@ public class LessonListAdapter  extends RecyclerView.Adapter<LessonListAdapter.L
 
     }
     private void runEnterAnimations(LessonHolder holder, int position) {
-        Log.d("Animation",""+position);
 
         if (position >= Animated_item_count){
-            Log.d("Animation","postion one");
             return;
         }
 
         if (position>last_pos){
 
-            Log.d("Animation","inside if");
             last_pos=position;
             holder.itemView.setScaleY(0.2f);
             holder.itemView.setScaleX(0.2f);

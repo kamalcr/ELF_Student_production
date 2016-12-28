@@ -64,7 +64,6 @@ public class TestReportsAdapter  extends RecyclerView.Adapter<TestReportsAdapter
         });
 
 
-        Log.d("Adpter", "onBindViewHolder: ");
         holder.mSubjectName.setText(SubjectImage.getSubjectName(mTestList.get(position).getSubjectId()));
         holder.rewriteButton.setOnClickListener(new View.OnClickListener() {
             @Override

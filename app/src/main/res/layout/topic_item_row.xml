@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/topic_item_ts"
             android:gravity="center"
-            android:textColor="@color/pink900"
+            android:textColor="@color/md_orange900"
             android:layout_alignTop="@+id/topic_name_item"
             android:layout_marginRight="16dp"
             android:id="@+id/points_topic_item"

@@ -504,14 +504,19 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
                final  Intent ii  = new Intent(this,AboutUsActivity.class);
                startActivity(ii);
                break;
-           case R.id.settings_menu :
-               final Intent iii = new Intent(this,SettingActivity.class);
-               startActivity(iii);
-               break;
+
            case R.id.feedback_menu:
                final  Intent iiii = new Intent(this,FeedbackActivity.class);
                startActivity(iiii);
                break;
+
+           case R.id.contact_us:
+               final  Intent iiiii = new Intent(this,Contact_us.class);
+               startActivity(iiiii);
+               break;
+
+
+
        }
         return true;
     }

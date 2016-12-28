@@ -32,4 +32,12 @@ public class RequestParameterKey {
     public static String SUBJECT_ID = "subjectId";
     public static String GROUP_ID = "GroupId";
     public static String COUPON = "COPUON";
+    public static String COUPON_TYPE = "Student";
+
+
+    //Feedback
+    public static String Feedback_USERID = "UserId";
+    public static String Feedback_FEEDBACK = "Feedback";
+    public static String Feedback_USERTYPE = "UserType";
+
 }

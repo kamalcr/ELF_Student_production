@@ -50,7 +50,7 @@ public class BrowseTestActivity extends AppCompatActivity {
     private static final String TAG = "BROWSE";
 
 
-    //The singeleton class which provides student details
+    //The singeleton class which provides student  details
    
 
 

@@ -25,8 +25,10 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
     String overall;
     String mSubjectName  = "";
     String mSubjectId = "";
-//    List<T> LessoList  =
-
+    //    List<T> LessoList  =
+    String[] tenthtitles = {"MATHS","SCIENCE","SOCIAL"};
+    String[] computerTitles  = {"PHYSICS","CHEMISTRY","MATHS","COMPUTER"};
+    String[] bioTitles = {"PHYSICS","CHEMISTRY","MATHS","BIOLOGY"};
 
 
     public ReportPagerAdapter(FragmentManager fm, int i) {
@@ -42,9 +44,6 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
                 return "SCIENCE";
             case 2:
                 return "SOCIAL";
-
-
-
         }
         return null;
     }
@@ -55,37 +54,25 @@ public class ReportPagerAdapter  extends FragmentStatePagerAdapter{
         ReportFragment fragment = new ReportFragment();
 
         switch (position){
-          //based on subjects , set Arguments to Fragemnt such as
+            //based on subjects , set Arguments to Fragemnt such as
             //overall percentage , List of Lessons etc
-            case 0: mSubjectId = "1";
+            case 0: mSubjectId = "0";
+                mSubjectName = "MATHS";
+                break;
+            case 1: mSubjectId = "1";
                 mSubjectName = "SCIENCE";
                 break;
-            case 1 :
-
+            case 2: mSubjectId = "2";
+                mSubjectName = "SOCIAL";
+                break;
 
 
         }
-
-
-
-
-
         Bundle b  = new Bundle();
         b.putString(BundleKey.REPORT_OVERALL,overall);
         fragment.setArguments(b);
 
         return fragment;
-
-
-
-
-
-
-
-
-
-
-
     }
 
     @Override

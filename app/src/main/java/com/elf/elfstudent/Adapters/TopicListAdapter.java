@@ -57,9 +57,7 @@ public class  TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Top
             return;
         }
 
-
-
-        if (position>last_pos){
+         if (position>last_pos){
 
 
             last_pos=position;

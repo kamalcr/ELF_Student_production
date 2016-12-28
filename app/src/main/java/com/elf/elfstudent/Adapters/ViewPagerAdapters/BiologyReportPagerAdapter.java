@@ -68,17 +68,9 @@ public class BiologyReportPagerAdapter extends FragmentStatePagerAdapter {
                 break;
             case 3:
                 mSubjectId = SubjectImage.BIO_ID;
-                mSubjectId = "BIOLOGY";
+                mSubjectName = "BIOLOGY";
 
         }
-
-
-
-
-
-
-
-
 
         Bundle b  = new Bundle();
         b.putString(BundleKey.SUBJECT_ID,mSubjectId);
@@ -86,16 +78,6 @@ public class BiologyReportPagerAdapter extends FragmentStatePagerAdapter {
         fragment.setArguments(b);
 
         return fragment;
-
-
-
-
-
-
-
-
-
-
 
     }
 

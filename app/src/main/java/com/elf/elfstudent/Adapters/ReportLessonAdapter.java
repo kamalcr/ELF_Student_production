@@ -66,7 +66,7 @@ import butterknife.ButterKnife;
 public class  ReportLessonAdapter  extends RecyclerView.Adapter<ReportLessonAdapter.LessonView>{
 
 
-     private static final String TAG = "Adapter";
+    private static final String TAG = "Adapter";
     private Context mContext;
     private List<Lesson> mList;
     LayoutInflater inflater = null;

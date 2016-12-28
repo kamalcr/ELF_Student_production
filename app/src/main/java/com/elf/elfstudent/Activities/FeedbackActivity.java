@@ -1,5 +1,6 @@
 package com.elf.elfstudent.Activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -69,7 +70,7 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
         feedToolbar.setTitle("Send Feedback");
         ActionBar ab = getSupportActionBar();
         if (ab != null){
-            ab.setTitle("send Feedback");
+            ab.setTitle("Send Feedback");
             ab.setDisplayShowHomeEnabled(true);
             ab.setDisplayHomeAsUpEnabled(true);
         }
@@ -125,14 +126,19 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
                     JSONObject mOb = response.getJSONObject(0);
                     if (mOb.getString("Statuscode").equals("Success")) {
                         Toast.makeText(getApplicationContext(), "Feedback sent, Thanks for Sharing you valuable opinion", Toast.LENGTH_LONG).show();
+
                     } else {
 
                     }
                 } catch (Exception e) {
                     Log.d(TAG, "onResponse: ");
                 }
+
             }
         }, errorHandler);
+
+        final Intent in1  = new Intent(this,HomeActivity.class);
+        startActivity(in1);
 
         if (mRequestQueue != null) {
             mRequestQueue.addToRequestQue(mRequest);

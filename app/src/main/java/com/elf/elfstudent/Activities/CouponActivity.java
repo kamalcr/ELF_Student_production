@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -39,7 +40,7 @@ import butterknife.ButterKnife;
 
 public class CouponActivity extends AppCompatActivity  implements Response.Listener<JSONArray>,Response.ErrorListener{
     //// TODO: 5/12/16 addd Url
-    private static final String COUPON_URL =   "";
+    private static final String COUPON_URL = "http://www.elfanalysis.net/elf_ws.svc/SaveUserFeedback";
     @BindView(R.id.textView2)
     TextView text;
 
@@ -56,7 +57,6 @@ public class CouponActivity extends AppCompatActivity  implements Response.Liste
         setContentView(R.layout.coupon_activity);
         ButterKnife.bind(this);
         mRequestQueue = AppRequestQueue.getInstance(this.getApplicationContext());
-
         couponButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,30 +65,40 @@ public class CouponActivity extends AppCompatActivity  implements Response.Liste
         });
 
     }
-
     private void coupOnButtonCLicked() {
         String coupon_text = coupBox.getEditableText().toString();
+            Log.d("value",coupon_text);
 
+        if (!TextUtils.isEmpty(coupon_text)) {
 
-
-
-        sendCoupondCode(coupon_text);
+            sendCoupondCode(coupon_text);
+        }
     }
 
     private void sendCoupondCode(String coupon_text) {
         DataStore mStore  = DataStore.getStorageInstance(this.getApplicationContext());
         JSONObject mObject   =  new JSONObject();
         try {
-            mObject.put(RequestParameterKey.COUPON,coupon_text);
-            mObject.put(RequestParameterKey.STUDENT_ID,mStore.getStudentId());
+            mObject.put(RequestParameterKey.Feedback_FEEDBACK,coupon_text);
+            mObject.put(RequestParameterKey.Feedback_USERID,mStore.getStudentId());
+            mObject.put(RequestParameterKey.Feedback_USERTYPE,"Student");
+
         }
         catch (Exception e ){
-            Log.d("Coupon COde", "sendCoupondCode: ");
+            Log.d("Coupon Code", "sendCoupondCode: ");
 
         }
-        mCouponRequest = new JsonArrayRequest(Request.Method.POST, COUPON_URL, mObject,this,this);
+        try {
 
+            mCouponRequest = new JsonArrayRequest(Request.Method.POST, COUPON_URL, mObject, this, this);
+
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this,"coupon error",Toast.LENGTH_SHORT).show();
+        }
         if (mRequestQueue != null){
+
             mRequestQueue.addToRequestQue(mCouponRequest);
         }
 
@@ -131,6 +141,7 @@ public class CouponActivity extends AppCompatActivity  implements Response.Liste
         try{
 
             if (response != null){
+
                 JSONObject mObject =  response.getJSONObject(0);
                 if (mObject.getString("StatusCode").equals("1000")){
 
@@ -141,16 +152,14 @@ public class CouponActivity extends AppCompatActivity  implements Response.Liste
         }
         catch (Exception e){
             Log.d("Exception ", "onResponse: "+e.getLocalizedMessage());
-            Toast.makeText(this,"Error Occured Please Try Again ",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Success ",Toast.LENGTH_LONG).show();
+            final Intent in1  = new Intent(this,HomeActivity.class);
+            startActivity(in1);
+
 
         }
 
     }
-
-
-
-
-
 
 
     @Override

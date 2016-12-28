@@ -19,12 +19,11 @@ android {
         applicationId "com.elf.elfstudent"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 1
+        versionCode 5
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
-
+        signingConfig signingConfigs.config
     }
     sourceSets {
         main {
@@ -48,6 +47,8 @@ android {
 
         // Set this to "true" if you want to generate Android vectors instead of PNGs
         generateVectorDrawables = false
+    }
+    productFlavors {
     }
 }
 

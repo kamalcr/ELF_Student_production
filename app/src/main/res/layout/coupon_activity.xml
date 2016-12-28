@@ -1,38 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Apply Coupon Here"
-        android:background="@drawable/rect_round_corners"
-        android:ems="10"
-        android:gravity="center"
-
-        android:minHeight="60dp"
-        android:id="@+id/editText"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="125dp" />
-
-    <Button
-        android:text="Subscribe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="47dp"
-        android:id="@+id/button2" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.elf.elfstudent.CustomUI.QucikSand
-        android:text="Pay through Coupons"
-        android:layout_width="wrap_content"
+        android:text="Pay Here"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textSize="22sp"
+        android:textColor="#ff0000"
         android:id="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="82dp" />
-</RelativeLayout>
+
+
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Enter Your 8 Digit code"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rect_round_corners"
+        android:ems="8"
+        android:gravity="center"
+        android:minHeight="60dp"
+        android:id="@+id/editText" />
+
+    <Button
+        android:text="Subscribe"
+        android:textColor="#ffffff"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/coupon_button"
+        android:layout_gravity="center"
+        android:layout_marginTop="90dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/button2" />
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rect_round_corners"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="7">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textColor="#000000"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:layout_weight="1.5"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="th"
+                android:textColor="#000000"
+                android:layout_weight="0.5"
+                android:layout_gravity="left"
+                android:paddingBottom="12dp"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=" - 499"
+                android:textColor="#ff0000"
+                android:textSize="20sp"
+                android:layout_weight="1.5"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textColor="#000000"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:layout_weight="1.5"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="th"
+                android:textColor="#000000"
+                android:layout_weight="0.5"
+                android:layout_gravity="left"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=" - 999"
+                android:textColor="#ff0000"
+                android:layout_marginRight="30dp"
+                android:textSize="20sp"
+                android:layout_weight="1.5"/>
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="For Subscription call us at"
+            android:textColor="@color/black_900"
+            android:textSize="19sp"
+            android:gravity="center"
+            android:id="@+id/textView27" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="0422 - 4348851"
+            android:textColor="@color/black_900"
+            android:textSize="19sp"
+            android:gravity="center"
+            />
+
+</LinearLayout>
+</LinearLayout>

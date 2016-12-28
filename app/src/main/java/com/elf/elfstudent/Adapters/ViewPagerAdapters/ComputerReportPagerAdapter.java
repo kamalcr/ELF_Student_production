@@ -56,7 +56,7 @@ public class ComputerReportPagerAdapter extends FragmentStatePagerAdapter {
 
 //            todo add correct subject id
             case 0: mSubjectId = SubjectImage.PHY_ID;
-                mSubjectName = "PHYSCICS";
+                mSubjectName = "PHYSICS";
                 break;
             case 1 :
                 mSubjectId = SubjectImage.CHEM_ID;
@@ -75,11 +75,7 @@ public class ComputerReportPagerAdapter extends FragmentStatePagerAdapter {
 
         }
 
-
-
-
-
-        Bundle b  = new Bundle();
+         Bundle b  = new Bundle();
         b.putString(BundleKey.SUBJECT_ID,mSubjectId);
         b.putString(BundleKey.SUBJECT_NAME,mSubjectName);
         fragment.setArguments(b);

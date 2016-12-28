@@ -15,7 +15,7 @@
         android:id="@+id/imageView6" />
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
-        android:text="Oops! "
+        android:text="You Have to Write Minimum 3Test  "
         android:textSize="22sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,9 +25,10 @@
         android:layout_centerHorizontal="true" />
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
-        android:text="Some Error Occurred"
+        android:text="To get the Data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="22sp"
         android:id="@+id/textView24"
         android:layout_below="@+id/textView18"
         android:layout_centerHorizontal="true"

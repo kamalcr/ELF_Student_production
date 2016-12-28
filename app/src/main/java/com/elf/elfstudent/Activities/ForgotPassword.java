@@ -38,7 +38,7 @@ import butterknife.ButterKnife;
 public class ForgotPassword extends AppCompatActivity implements ErrorHandler.ErrorHandlerCallbacks, ForgotPasswordHandler.ForgotPasswordCallbacks {
 
     private static final String TAG = "ELF";
-    private static final String CHECK_URL = "http://www.hijazboutique.com/elf_ws.svc/CheckUserDetails";
+    private static final String CHECK_URL = "http://www.elfanalysis.net/elf_ws.svc/CheckUserDetails";
     @BindView(R.id.check_button)
     Button mForgotButton;
 

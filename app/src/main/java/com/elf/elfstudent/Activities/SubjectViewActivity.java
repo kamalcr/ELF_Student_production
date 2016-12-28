@@ -135,9 +135,7 @@ public class SubjectViewActivity extends AppCompatActivity implements
 
             //Set the View values
             if (percent != null){
-
-
-                mPercentage.setText(percent);
+               mPercentage.setText(percent);
             }
 
 

@@ -292,6 +292,7 @@ public class ReportActivity extends AppCompatActivity{
                             compAdapter = new ComputerReportPagerAdapter(getSupportFragmentManager());
                             mPager.setAdapter(compAdapter);
                         } else if (group.equals("BIOLOGY")) {
+
                             Log.d(TAG, "Biology group");
                             bioAdapter = new BiologyReportPagerAdapter(getSupportFragmentManager());
                             mPager.setAdapter(bioAdapter);

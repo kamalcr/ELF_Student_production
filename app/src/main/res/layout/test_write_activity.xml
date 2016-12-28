@@ -15,53 +15,54 @@
 
 
 
-<FrameLayout android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:id="@+id/test_write_root"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <FrameLayout android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/test_write_root"
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-    <com.gigamole.navigationtabstrip.NavigationTabStrip
-        android:id="@+id/nts_center"
-        android:layout_width="match_parent"
-        android:background="@color/black_viewpager"
-        android:layout_height="42dp"
-        android:layout_gravity="center"
-        app:nts_active_color="#fff"
-        app:nts_color="@color/pink900"
-        app:nts_corners_radius="3.5dp"
-        app:nts_factor="0.8"
-        app:nts_gravity="bottom"
-        app:nts_inactive_color="#81ffffff"
-        app:nts_type="point"
-        app:nts_weight="7dp"/>
+            <com.gigamole.navigationtabstrip.NavigationTabStrip
+                android:id="@+id/nts_center"
+                android:layout_width="match_parent"
+                android:background="@color/black_viewpager"
+                android:layout_height="42dp"
+                android:layout_gravity="center"
+                app:nts_active_color="#fff"
+                app:nts_color="#3cdedd"
+                app:nts_corners_radius="3.5dp"
+                app:nts_factor="0.8"
+                app:nts_gravity="bottom"
+                app:nts_inactive_color="#81ffffff"
+                app:nts_type="point"
+                app:nts_weight="7dp"/>
 
-        <!--THe Main Content View , TestView pager -->
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:id="@+id/test_write_viewpager"
-        android:layout_height="match_parent"
-        >
 
-    </android.support.v4.view.ViewPager>
-   </LinearLayout>
+            <!--THe Main Content View , TestView pager -->
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:background="@drawable/login_background_gradient"
+                android:id="@+id/test_write_viewpager"
+                android:layout_height="match_parent"
+                >
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        android:layout_gravity="bottom"
-        android:layout_height="wrap_content">
+                </ScrollView>
+
+            </android.support.v4.view.ViewPager>
+        </LinearLayout>
+
+
         <Button
             android:layout_width="match_parent"
-            android:background="@color/material_pink300"
-
+            android:layout_gravity="bottom"
+            android:background="#3cdedd"
             android:text="Finish Test"
 
             android:textColor="@color/material_black"
@@ -69,9 +70,6 @@
             android:id="@+id/test_write_finish" />
 
 
-    </android.support.v7.widget.CardView>
-
-
-</FrameLayout>
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

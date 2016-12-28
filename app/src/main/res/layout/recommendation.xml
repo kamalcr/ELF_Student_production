@@ -21,6 +21,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/white_light"
                     android:id="@+id/textView29"
                     android:layout_width="100dp" />
 
@@ -40,17 +42,6 @@
                 android:layout_weight="1"
                 android:layout_height="0dp">
 
-                <TextView
-                    android:text="Average Performing Topics"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginStart="20dp"
-                    android:id="@+id/text30"
-                    android:layout_width="100dp" />
-
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -62,7 +53,21 @@
                     android:layout_toEndOf="@+id/text30"
                     android:id="@+id/average_list" />
 
+                <TextView
+                    android:text="Average Performing Topics"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:textColor="@color/white_light"
+                    android:textSize="18dp"
+                    android:layout_marginStart="18dp"
+                    android:id="@+id/text30"
+                    android:layout_width="100dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
@@ -75,6 +80,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginLeft="20dp"
+                    android:textColor="@color/white_light"
+                    android:textSize="18dp"
                     android:layout_marginStart="20dp"
                     android:id="@+id/t311"
                     android:layout_width="100dp" />

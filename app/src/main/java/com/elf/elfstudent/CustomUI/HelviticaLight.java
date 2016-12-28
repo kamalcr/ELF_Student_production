@@ -12,7 +12,7 @@ import com.elf.elfstudent.Utils.FontCache;
  *
  */
 
-public class HelviticaLight   extends TextView {
+public class HelviticaLight extends TextView {
     public HelviticaLight(Context context) {
         super(context);
         applyCustomFont(context);

@@ -25,9 +25,9 @@ public class SubjectImage {
     public static String  SCIENCE_ID = "2";
     public static String  SOCIAL_ID = "3";
     public static String  MATHS_ID = "1";
-    public static String  PHY_ID = "5";
+    public static String  PHY_ID = "6";
     public static String MATHS_12 = "4";
-    public static String  CHEM_ID = "6";
+    public static String  CHEM_ID = "5";
     public static String  BIO_ID = "8";
     public static String  COMP_ID = "7";
 
@@ -56,10 +56,10 @@ public class SubjectImage {
                 return MATHS;
 
             //Twelth Physics
-            case  "5" :
+            case  "6" :
                 return PHYSICS;
             //Twelth chemistry
-            case  "6" :
+            case  "5" :
                 return CHEMISTRY;
 
             //Twelth Biology
@@ -87,7 +87,7 @@ public class SubjectImage {
 
             //Tenth Science
             case  "3" :
-                return "Science";
+                return "Social";
 
 
             //Tenth Social
@@ -103,10 +103,10 @@ public class SubjectImage {
                 return "Maths";
 
             //Twelth Physics
-            case  "5" :
+            case  "6" :
                 return "Physics";
             //Twelth chemistry
-            case  "6" :
+            case  "5" :
                 return "Chemistry";
 
             //Twelth Biology
@@ -118,7 +118,7 @@ public class SubjectImage {
 
 
         }
-        return "nill";
+        return "null";
 
     }
 }

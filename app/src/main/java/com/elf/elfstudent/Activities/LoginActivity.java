@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements
 
 
     private static final String TAG = "ELF";
-    private static final String LOGIN_URL = "http://elfanalysis.net/elf_ws.svc/CheckStudentLogin";
+    private static final String LOGIN_URL = "http://www.elfanalysis.net/elf_ws.svc/CheckStudentLogin";
 
 
 
@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements
 
 
     String email = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,9 +134,10 @@ public class LoginActivity extends AppCompatActivity implements
 
         mDialog.show();
         userName = memailBox.getText().toString();
-        String password = mPasswordBox.getText().toString();
-        Log.d(TAG, "loginButtonClicked: "+userName + "Password "+password);
 
+        String password = mPasswordBox.getText().toString();
+
+        Log.d(TAG, "loginButtonClicked: "+userName + "Password "+password);
 
         JSONObject mObject = new JSONObject();
         try {
@@ -183,6 +185,7 @@ public class LoginActivity extends AppCompatActivity implements
 
 
         try {
+
             mObject = response.getJSONObject(0);
             if (mObject != null) {
 
@@ -191,10 +194,10 @@ public class LoginActivity extends AppCompatActivity implements
                     //validation went through , get Student details
                     Log.d(TAG, "onResponse: validation went through");
                     studentId = mObject.getString("StudentId");
-                    StudentName = mObject.getString("StudentName");
-                    classId = mObject.getString("classId");
+                    StudentName = mObject.getString("FirstName");
+                    classId = mObject.getString("ClassId");
                     groupId = mObject.getString("GroupId");
-                    insId = mObject.getString("institutionId");
+                    insId = mObject.getString("InstitutionId");
                     insName = mObject.getString("InstitutionName");
                     String boardId = mObject.getString("BoardId");
 

@@ -13,7 +13,6 @@
     <RelativeLayout android:layout_width="match_parent"
         android:background="?selectableItemBackground"
         android:layout_height="match_parent"
-
         android:layout_marginBottom="8dp">
 
 
@@ -42,6 +41,7 @@
             android:text="55"
             android:layout_width="wrap_content"
             android:textSize="@dimen/lesson_item_text_size"
+            android:layout_marginRight="37dp"
             android:layout_height="wrap_content"
 
              android:padding="16dp"
@@ -56,7 +56,7 @@
             android:layout_alignParentTop="true" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
             android:id="@+id/view"
             android:layout_below="@id/report_frag_lesson_name"
             android:background="@drawable/rect_round_corners_bck"/>
@@ -66,7 +66,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_below="@id/view"
-            android:background="@color/material_blue100"
+            android:background="#fee7e7"
             android:layout_height="wrap_content">
             <com.elf.elfstudent.CustomUI.UbuntuRegular
                 android:text="Correct Answers"
