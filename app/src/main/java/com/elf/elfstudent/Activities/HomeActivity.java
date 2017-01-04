@@ -121,6 +121,12 @@ public class HomeActivity extends AppCompatActivity  implements ErrorHandler.Err
     //The Subject List
 
 
+
+
+
+
+
+
     RecyclerView mList=null;
     private SubjectHomeAdapter.onCardClick mCallback = null;
 
