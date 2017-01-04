@@ -60,6 +60,10 @@
     <dimen name="test_reports_percent_ts">45sp</dimen>
     <dimen name="test_report_item_spacing">24dp</dimen>
     <dimen name="bottom_margin">16sp</dimen>
+    <dimen name="p_ts">25sp</dimen>
+    <dimen name="p_bt">90dp</dimen>
+    <dimen name="about_inner_bt">29sp</dimen>
+    <dimen name="about_inner_margin">42dp</dimen>
     <dimen name="view_div_mtop">6dp</dimen>
     <dimen name="testreport_text_mleft">16dp</dimen>
     <dimen name="percent_mtop">8dp</dimen>
@@ -78,12 +82,43 @@
     <dimen name="about_sub_text">28sp</dimen>
     <dimen name="about_mtop">40dp</dimen>
     <dimen name="reg_box_mtop">12dp</dimen>
-    <dimen name="reg_letter_spacing">80dp</dimen>
-    <dimen name="button_mtop">80dp</dimen>
+    <dimen name="reg_letter_spacing">40dp</dimen>
+    <dimen name="coupon_top">120dp</dimen>
+    <dimen name="coupon_sucess_img">35dp</dimen>
+    <dimen name="coupon_sucess_textview">90dp</dimen>
+    <dimen name="button_mtop">90dp</dimen>
     <dimen name="ins_mtop">150dp</dimen>
     <dimen name="love_mtop">12dp</dimen>
     <dimen name="tp_ml">16dp</dimen>
-    <dimen name="ins_text_mtop">64dp</dimen>
+    <dimen name="ins_text_mtop">94dp</dimen>
+    <dimen name="img_hegiht">140dp</dimen>
+    <dimen name="tx_martop">12dp</dimen>
+    <dimen name="coupon_sucess_edittop">42dp</dimen>
+    <dimen name="coupon_sucess_bt_blw">200dp</dimen>
+    <dimen name="coupon_sucess_applied">120dp</dimen>
+    <dimen name="copon_sucess_98">30dp</dimen>
+    <dimen name="ins_spine1_top">90dp</dimen>
+    <dimen name="ins_text2_top">80dp</dimen>
+    <dimen name="ins_spinr2_top">58dp</dimen>
+    <dimen name="ins_bt_top">54dp</dimen>
+    <dimen name="ins_img_top">24dp</dimen>
+    <dimen name="login_tx15_top">212dp</dimen>
+    <dimen name="login_embox_top">22dp</dimen>
+    <dimen name="login_txt21_top">74dp</dimen>
+    <dimen name="login_bt_top">110dp</dimen>
+    <dimen name="nodata_img_top">67dp</dimen>
+    <dimen name="nodata_txt15_size">26sp</dimen>
+    <dimen name="nointrnt_img_hight">100dp</dimen>
+    <dimen name="nointernet_txt26">20dp</dimen>
+    <dimen name="pass_chng_enterpass_top">48dp</dimen>
+    <dimen name="pass_chang_bt_top">200dp</dimen>
+    <dimen name="payment_paytxt_size">21dp</dimen>
+    <dimen name="student_event_txt_size">28sp</dimen>
+    <dimen name="test_child_textsize">25sp</dimen>
+    <dimen name="test_report_itemrow_txtsize">23sp</dimen>
+    <dimen name="noti_item_textsize">23sp</dimen>
+    <dimen name="noti_item_imgwidth">150dp</dimen>
+    <dimen name="noti_item_bt_textsize">16sp</dimen>
 
 
 </resources>

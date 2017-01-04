@@ -10,7 +10,7 @@
 
     <ImageView
         android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/nointrnt_img_hight"
         app:srcCompat="@drawable/ic_cloud_off_white_24px"
         android:id="@+id/imageView3"
         android:layout_marginTop="24dp"
@@ -28,7 +28,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="@dimen/nointernet_txt26" />
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
         android:text="NO INTERNET"
@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
         android:layout_marginTop="20dp"
+        android:textSize="@dimen/nointernet_txt26"
         android:layout_below="@+id/imageView3"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

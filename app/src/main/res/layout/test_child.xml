@@ -11,13 +11,16 @@
         android:text="this is Test Desciption "
         android:gravity="left|center_vertical"
         android:paddingLeft="8dp"
-        android:textSize="18sp"
+        android:textSize="@dimen/test_child_textsize"
         android:paddingRight="4dp"
         android:textColor="@color/material_black"
 
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
         android:layout_toLeftOf="@+id/write_test_button"
-        android:layout_margin="12dp"
-        android:layout_height="match_parent" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <Button
         android:layout_width="wrap_content"
         android:layout_margin="6dp"

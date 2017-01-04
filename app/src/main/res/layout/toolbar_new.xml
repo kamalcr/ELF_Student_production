@@ -22,7 +22,7 @@
                 android:elevation="1dp"
                 android:layout_width="wrap_content"
                android:src="@mipmap/elfhomeicon"
-                android:background="@drawable/edit_text_border"
+                android:background="#ffffff"
                 android:layout_height="?attr/actionBarSize"
                                 android:adjustViewBounds="true" />
 

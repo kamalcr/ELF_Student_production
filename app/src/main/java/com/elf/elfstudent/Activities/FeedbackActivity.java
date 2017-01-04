@@ -48,6 +48,7 @@ public class FeedbackActivity extends AppCompatActivity implements ErrorHandler.
     String text = null;
 
     JSONObject mRequestObject = null;
+
     ErrorHandler errorHandler = null;
     AppRequestQueue mRequestQueue = null;
 

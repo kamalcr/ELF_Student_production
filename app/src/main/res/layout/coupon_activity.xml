@@ -4,7 +4,7 @@
     android:orientation="vertical">
 
     <com.elf.elfstudent.CustomUI.QucikSand
-        android:text="Pay Here"
+        android:text="Subscribe Here"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -13,7 +13,7 @@
         android:id="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="82dp" />
+        android:layout_marginTop="@dimen/coupon_edittxt_top" />
 
 
     <EditText
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:hint="Enter Your 8 Digit code"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/coupon_top"
         android:layout_gravity="center"
         android:background="@drawable/rect_round_corners"
         android:ems="8"
@@ -34,10 +34,9 @@
         android:textColor="#ffffff"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@drawable/coupon_button"
         android:layout_gravity="center"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="@dimen/coupon_top"
         android:layout_centerHorizontal="true"
         android:id="@+id/button2" />
 
@@ -45,7 +44,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/coupon_top"
         android:background="@drawable/rect_round_corners"
         android:orientation="vertical">
 

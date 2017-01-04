@@ -32,6 +32,20 @@
 
         />
 
+    <item android:id="@+id/setting"
+        android:title="Setting"
+        app:showAsAction ="never"
+
+        />
+
+    <item android:id="@+id/log_out"
+        android:title="Log out"
+        app:showAsAction ="never"
+
+        />
+
+
+
 
 
 

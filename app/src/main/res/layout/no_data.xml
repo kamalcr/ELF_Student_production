@@ -11,12 +11,12 @@
         app:srcCompat="@drawable/ic_warning"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="67dp"
+        android:layout_marginTop="@dimen/nodata_img_top"
         android:id="@+id/imageView6" />
 
     <com.elf.elfstudent.CustomUI.HelviticaLight
         android:text="You Have to Write Minimum 3Test  "
-        android:textSize="22sp"
+        android:textSize="@dimen/nodata_txt15_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
@@ -28,7 +28,7 @@
         android:text="To get the Data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
+        android:textSize="@dimen/nodata_txt15_size"
         android:id="@+id/textView24"
         android:layout_below="@+id/textView18"
         android:layout_centerHorizontal="true"

@@ -53,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pay_text"
+                android:textSize="@dimen/payment_paytxt_size"
                 android:layout_alignLeft="@+id/payment_pay_button"
                 android:layout_alignStart="@+id/payment_pay_button"
                 android:id="@+id/textView7" />
@@ -62,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/pay_text"
+                android:textSize="@dimen/payment_paytxt_size"
                 android:layout_marginTop="50dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignLeft="@+id/textView7"

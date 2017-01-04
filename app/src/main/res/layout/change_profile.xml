@@ -189,7 +189,8 @@
                 android:layout_below="@+id/textView14"
                 android:layout_alignLeft="@+id/chg_profile_email_value"
                 android:layout_alignStart="@+id/chg_profile_email_value"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="5dp"
                 android:id="@+id/chg_profile_phone_value" />
 
             <com.elf.elfstudent.CustomUI.HelviticaLight

@@ -9,7 +9,7 @@ android {
         config {
             keyAlias 'StudentKey'
             keyPassword 'elfisredblood'
-            storeFile file('C:/Users/Kri/AndroidStudioProjects/ELF_Student_production/app/studentkey.jks')
+            storeFile file('C:/Users/system3/AndroidStudioProjects/ELF_Student_production/app/studentkey.jks')
             storePassword 'elfisredblood'
         }
     }
